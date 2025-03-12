@@ -9,6 +9,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject confirmPanel;
+    [SerializeField] private GameObject settingsPanel;
     
     public Canvas _canvas;
     
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    
+    //확인 패널 여는 함수
     public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
     {
         if (_canvas != null)
@@ -36,4 +39,22 @@ public class GameManager : MonoBehaviour
                 .Show(message, onConfirmButtonClick);
         }
     }
+    
+    //세팅 패널 여는 함수
+    public void OpenSettingsPanel()
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(settingsPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<PanelController>().Show();
+        }
+    }
+    
+    //스크롤 패널 여는 함수
+    
+    
+    //결과 패널 여는 함수
+    
+    
+    
 }
