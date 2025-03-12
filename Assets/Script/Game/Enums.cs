@@ -4,7 +4,7 @@ public class Enums
     
     public enum PlayerTpe{None, PlayerA, PlayerB}
     
-    public enum StoneType{None, White, Black}
+    public enum StoneType{ None, Black, White }
     
-    public enum StoneState{ None, Selected, Blocked, Positioned}
+    public enum StoneState{ None, Selected, Blocked, LastPositioned }
 }

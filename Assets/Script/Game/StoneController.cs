@@ -1,18 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StoneController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Stone[] stone;
+
+    private void Start()
     {
-        
+        InitStones();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitStones()
     {
-        
+        for (int i = 0; i < stone.Length; i++)
+        {
+            stone[i].InitStone(i, (index) =>
+            {
+                stone[index].SetStone(Enums.StoneType.White);
+            });
+        }
     }
 }
