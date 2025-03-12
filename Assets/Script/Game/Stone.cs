@@ -19,13 +19,8 @@ public class Stone : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-    // private void Start()
-    // {
-    //     SetStone(Enums.StoneType.Black);
-    //     SetState(Enums.StoneState.Selected);
-    // }
     
+    //Stone 초기화 함수
     public void InitStone(int stoneIndex, OnStoneClicked onStoneClicked)
     {
         _index = stoneIndex;
@@ -34,6 +29,7 @@ public class Stone : MonoBehaviour
         _onStoneClicked = onStoneClicked;
     }
     
+    //Stone 이미지 설정 함수(0: 없음, 1:흑, 2: 백)
     public void SetStone(Enums.StoneType stoneType)
     {
         switch (stoneType)
@@ -50,6 +46,7 @@ public class Stone : MonoBehaviour
         }
     }
 
+    //Stone 상태 이미지 설정 함수 (0: 없음, 1: 선택된, 2: 금수, 3: 마지막 배치된)
     public void SetState(Enums.StoneState stoneState)
     {
         switch (stoneState)
