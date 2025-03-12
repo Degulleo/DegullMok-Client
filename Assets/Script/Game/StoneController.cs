@@ -5,29 +5,36 @@ using UnityEngine;
 
 public class StoneController : MonoBehaviour
 {
-    [SerializeField] private Stone[] stone;
-    private delegate void OnStoneClicked(int row, int col);
-    private OnStoneClicked _onStoneClickedDelegate;
-
-    private void Start()
-    {
-        InitStones();
-    }
+    [SerializeField] private Stone[] stones;
+    public delegate void OnStoneClicked(int row, int col);
+    public OnStoneClicked OnStoneClickedDelegate;
+    //네이밍 필요
+    public const int BoardValue = 15;
 
     //Stone 객체들 초기화 함수 호출
-    private void InitStones()
+    public void InitStones()
     {
-        for (int i = 0; i < stone.Length; i++)
+        for (int i = 0; i < stones.Length; i++)
         {
-            stone[i].InitStone(i, (index) =>
+            stones[i].InitStone(i, (index) =>
             {
-                var rowIndex = index / 15;
-                var colIndex = index % 15;
-                _onStoneClickedDelegate?.Invoke(rowIndex, colIndex);
-                
-                //임시 확인 코드
-                stone[index].SetStone(Enums.StoneType.White);
+                var rowIndex = index / BoardValue;
+                var colIndex = index % BoardValue;
+                OnStoneClickedDelegate?.Invoke(rowIndex, colIndex);
             });
         }
+    }
+
+    public void SetStoneType(Enums.StoneType stoneType, int row, int col)
+    {
+        
+        var index = BoardValue * row + col;
+        stones[index].SetStone(stoneType);
+    }
+    
+    public void SetStoneState(Enums.StoneState state,int row, int col)
+    {
+        var index = BoardValue * row + col;
+        stones[index].SetState(state);
     }
 }
