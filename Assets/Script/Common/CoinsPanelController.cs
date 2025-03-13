@@ -60,17 +60,13 @@ public class CoinsPanelController : MonoBehaviour
             {
                 var currentHeartCount = _coinsCountText.text;
                 _coinsCountText.text = (int.Parse(currentHeartCount) + 100).ToString();
-                // --------------------------------------------------------------------
-                // 임시
-                _coinsCount += 100;
+                // 코인 텍스트 100씩 증가
             }
             else
             {
                 var currentHeartCount = _coinsCountText.text;
                 _coinsCountText.text = (int.Parse(currentHeartCount) - 100).ToString();
-                // --------------------------------------------------------------------
-                // 임시
-                _coinsCount -= 100;
+                // 코인 텍스트 100씩 감소
             }
             
             // Coins Panel의 Width를 글자 수에 따라 변경
@@ -87,11 +83,17 @@ public class CoinsPanelController : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// 코인 추가 함수
+    /// </summary>
+    /// <param name="coinsCount"> 추가할 코인 수량</param>
+    /// <param name="action">애니메이션 종료 후 동작 EX) 코인 수량 변경</param>
     public void AddCoins(int coinsCount, Action action)
     {
         Sequence sequence = DOTween.Sequence();
 
-        for (int i = 0; i < coinsCount; i+=100)
+        // i += a  반복 횟수 조절, 100개 단위로 상승 차감 시 100으로 설정
+        for (int i = 0; i < coinsCount; i+=1)
         {
             sequence.AppendCallback(() =>
             {
@@ -118,10 +120,14 @@ public class CoinsPanelController : MonoBehaviour
         GetComponent<RectTransform>().DOPunchPosition(new Vector3(20f, 0, 0), 1f, 7);
     }
 
+    /// <summary>
+    /// 코인 제거 함수
+    /// </summary>
+    /// <param name="action"></param>
     public void RemoveCoins(Action action)
     {
         // --------------------------------------------------------------------
-        // 임시
+        // TODO : 임시 게임 매니저 혹은 별도 관리자가 관리해야함.
         if (_coinsCount < 100)
         {
             EmptyCoins();
