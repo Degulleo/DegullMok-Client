@@ -59,28 +59,49 @@ public class ReplayManager : Singleton<ReplayManager>
         recordingReplayData.moves.Add(new Move(stoneColor, row, col));
     }
 
+
     /// <summary>
     /// 게임 종료 후 호출하여 리플레이 데이터를 저장합니다.
-    ///<param name="winnerPlayerType">게임에서 승리한 플레이어를 플레이어 타입으로 알려주세요</param>
     /// </summary>
-    public void SaveReplayData(PlayerType winnerPlayerType)
+    public void SaveReplayData(string winnerPlayerType)
     {
-        string winnerPlayer = winnerPlayerType==PlayerType.PlayerA ? "PlayerA" : "PlayerB";
-        
-        string time = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
+        string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
         recordingReplayData.gameDate = time;
-        recordingReplayData.winnerPlayerType = winnerPlayer;
+        recordingReplayData.winnerPlayerType = winnerPlayerType;
         
         string json = JsonUtility.ToJson(recordingReplayData, true); 
         
         
-        //TODO: 최신 10개로 유지하도록 수정
-        string path = Path.Combine(Application.persistentDataPath, "game_record.json");
+        string path = Path.Combine(Application.persistentDataPath, $"{time}.json");
         File.WriteAllText(path, json);
-
+        
+        //최신 데이터 10개만 유지되도록 저장
+        RecordCountChecker();
         Debug.Log("기보 저장 완료: " + path);
     }
+
     
+    private List<ReplayRecord> LoadReplayDatas()
+    {
+        List<ReplayRecord> records = new List<ReplayRecord>();
+        string path = Application.persistentDataPath;
+        var files = Directory.GetFiles(path, "*.json");
+        foreach (var file in files)
+        {
+            records.Add(JsonUtility.FromJson<ReplayRecord>(File.ReadAllText(file)));
+        }
+        return records;
+    }
+    
+    private void RecordCountChecker()
+    {
+        string path = Application.persistentDataPath;
+        var files = Directory.GetFiles(path, "*.json");
+        if (files.Length <= 10)
+            return;
+        File.Delete(files[0]);
+        RecordCountChecker();
+    }
     
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
