@@ -16,10 +16,9 @@ public class CoinsPanelController : MonoBehaviour
     [SerializeField] private AudioClip coinsEmptyAudioClip;
     
     private Color _coinsColor;
-    
     private AudioSource _audioSource;
-    
     private int _coinsCount;
+    private RectTransform _coinsRect;
     
     // 1. 코인 추가 연출
     // 2. 코인 감소 연출
@@ -29,6 +28,7 @@ public class CoinsPanelController : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _coinsColor = coinsRemoveImageObject.GetComponent<Image>().color;
+        _coinsRect = GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -36,7 +36,7 @@ public class CoinsPanelController : MonoBehaviour
         coinsRemoveImageObject.SetActive(false);
 
         // TODO : 코인 수량 초기화
-        InitCoinsCount(0);
+        InitCoinsCount(500);
     }
 
     /// <summary>
@@ -47,6 +47,15 @@ public class CoinsPanelController : MonoBehaviour
     {
         _coinsCount = coinsCount;
         coinsCountText.text = _coinsCount.ToString();
+
+        ResizingCoinsRect();
+    }
+
+    private void ResizingCoinsRect()
+    {
+        // Coins Panel의 Width를 글자 수에 따라 변경
+        var textLength = coinsCountText.text.Length;
+        _coinsRect.sizeDelta = new Vector2(100 + textLength * 30f, 100f);
     }
 
     private void ChangeTextAnimation(bool isAdd, Action action)
@@ -71,8 +80,7 @@ public class CoinsPanelController : MonoBehaviour
             }
             
             // Coins Panel의 Width를 글자 수에 따라 변경
-            var textLength = coinsCountText.text.Length;
-            GetComponent<RectTransform>().sizeDelta = new Vector2(100 + textLength * 30f, 100f);
+            ResizingCoinsRect();
             
             // 새로운 코인 수 추가 애니메이션
             coinsCountText.rectTransform.DOAnchorPosY(yPos, 0);
@@ -149,7 +157,7 @@ public class CoinsPanelController : MonoBehaviour
             .OnComplete( ()=>ChangeTextAnimation(false, ()=>
             {
                 // TODO: 코인 수량 감소
-                // GameManager.Instance.heartCount--;
+                // GameManager.Instance.CoinsCount--;
                 action?.Invoke();
             }));   // 텍스트 떨어지는 연출
     }
