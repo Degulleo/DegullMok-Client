@@ -37,6 +37,9 @@ public class CoinsPanelController : MonoBehaviour
 
         // TODO : 코인 수량 초기화
         InitCoinsCount(0);
+        
+        // TODO: 임시 코드, 해당 플레이어의 코인을 서버에서 가져오면 삭제 가능. 맨 처음에 InitCoinsCount를 500으로 하면 텍스트 정렬 이슈 있음
+        AddCoins(5, () => { });
     }
 
     /// <summary>

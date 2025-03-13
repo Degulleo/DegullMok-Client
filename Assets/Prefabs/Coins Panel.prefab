@@ -51,11 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea2199565579f74994703cd3b57324b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coinsRemoveImageObject: {fileID: 4198953742281733827}
-  _coinsCountText: {fileID: 2892066450466788586}
-  _coinsRemoveAudioClip: {fileID: 8300000, guid: 585a9de0fb7ee4163af5c559ba5b2364, type: 3}
-  _coinsAddAudioClip: {fileID: 8300000, guid: 1ec44182fa76a4b3eb1459c0a6d9a8ab, type: 3}
-  _coinsEmptyAudioClip: {fileID: 8300000, guid: 908a78cb991984977bea42916bed8684, type: 3}
+  coinsRemoveImageObject: {fileID: 0}
+  coinsCountText: {fileID: 0}
+  coinsRemoveAudioClip: {fileID: 0}
+  coinsAddAudioClip: {fileID: 0}
+  coinsEmptyAudioClip: {fileID: 0}
 --- !u!82 &5499754916380040505
 AudioSource:
   m_ObjectHideFlags: 0
@@ -295,15 +295,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
+  m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

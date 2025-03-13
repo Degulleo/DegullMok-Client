@@ -124,10 +124,15 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
 
-    public IEnumerator GetScore(Action<ScoreResult> success, Action failure)
+    public void GetInfo(Action<UserInfoResult> success, Action failure)
+    {
+        StartCoroutine(GetInfoCoroutine(success, failure));
+    }
+
+    public IEnumerator GetInfoCoroutine(Action<UserInfoResult> success, Action failure)
     {
         using (UnityWebRequest www =
-               new UnityWebRequest(Constants.ServerURL + "/users/score", UnityWebRequest.kHttpVerbGET))
+               new UnityWebRequest(Constants.ServerURL + "/users/get-info", UnityWebRequest.kHttpVerbGET))
         {
             www.downloadHandler = new DownloadHandlerBuffer();
             
@@ -152,11 +157,11 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 var result = www.downloadHandler.text;
-                var userScore = JsonUtility.FromJson<ScoreResult>(result);
+                var userInfo = JsonUtility.FromJson<UserInfoResult>(result);
+                UserManager.Instance.SetUserInfo(userInfo);
+                Debug.Log(userInfo.nickname);
                 
-                Debug.Log(userScore.score);
-                
-                success?.Invoke(userScore);
+                success?.Invoke(userInfo);
             }
         }
     }
