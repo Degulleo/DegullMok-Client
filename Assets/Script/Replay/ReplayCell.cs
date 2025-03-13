@@ -15,6 +15,8 @@ public class ReplayCell : MonoBehaviour
     private string _myPlayerType;
     private string _opponentNickname;
     
+    
+    //유저가 이겼을 경우 '승'(파랑)이미지 졌을 경우'패'(빨강)이미지
     public void SetWinImage(bool isWin)
     {
         if (isWin == true)
@@ -28,7 +30,7 @@ public class ReplayCell : MonoBehaviour
             winImage.gameObject.SetActive(false);
         }
     }
-
+    
     public void SetMyPlayerType(string myPlayerType)
     {
         _myPlayerType = myPlayerType;
@@ -50,6 +52,8 @@ public class ReplayCell : MonoBehaviour
         _storedReplayRecord = record;
     }
 
+    
+    //TODO: storedReplayRecord를 가지고 게임 씬으로 전환
     public void OnClickReplayButton()
     {
         Debug.Log($"Replay Start with {_opponentNickname}\nDate: {_storedReplayRecord.gameDate}\n" +

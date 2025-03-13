@@ -50,7 +50,9 @@ public class ReplayManager : Singleton<ReplayManager>
         _recordingReplayData.playerB = playerBNickname;
     }
     
-    
+    ///<summary>
+    /// 게임 씬에서 착수를 할 때마다 호출해서 기록
+    /// </summary>
     public void RecordStonePlaced(StoneType stoneType,int row, int col)
     {
         string stoneColor = stoneType == StoneType.Black ? "Black" : "White";
@@ -61,11 +63,12 @@ public class ReplayManager : Singleton<ReplayManager>
     /// <summary>
     /// 게임 종료 후 호출하여 리플레이 데이터를 저장합니다.
     /// </summary>
-    public void SaveReplayData(string winnerPlayerType)
+    public void SaveReplayData(PlayerType winnerPlayerType)
     {
         string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
         _recordingReplayData.gameDate = time;
-        _recordingReplayData.winnerPlayerType = winnerPlayerType;
+        string winner = winnerPlayerType == PlayerType.PlayerA ? "PlayerA" : "PlayerB";
+        
         
         string json = JsonUtility.ToJson(_recordingReplayData, true); 
         
@@ -75,10 +78,10 @@ public class ReplayManager : Singleton<ReplayManager>
         
         //최신 데이터 10개만 유지되도록 저장
         RecordCountChecker();
-        Debug.Log("기보 저장 완료: " + path);
     }
 
 
+    //폴더내 기보 파일을 전부 읽어옵니다.
     public List<ReplayRecord> LoadReplayDatas()
     {
         List<ReplayRecord> records = new List<ReplayRecord>();

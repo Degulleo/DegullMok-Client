@@ -13,17 +13,20 @@ public class ReplayPanelController : MonoBehaviour
     
     public delegate void PanelControllerHideDelegate();
     
-    //TODO:Test용 닉네임 나중에 삭제하고 PlayerInfo에서 가져올 것
     private string _myNickname;
     private void Awake()
     {
         _backgroundCanvasGroup = GetComponent<CanvasGroup>();
+        
+        //TODO:Test용 닉네임 나중에 삭제하고 PlayerInfo에서 가져올 것
         _myNickname = "Gildong";
     }
 
     private void Start()
     {
         List<ReplayRecord> records = new List<ReplayRecord>();
+        
+        // ReplayManager에서 가져온 기보 데이터들을 패널 셀에 초기화
         records = ReplayManager.Instance.LoadReplayDatas();
         foreach (var replayRecord in records)
         {
@@ -37,9 +40,6 @@ public class ReplayPanelController : MonoBehaviour
             replayCell.SetOpponentPlayerNickname(opponentNickname);
             replayCell.SetRecordDate(replayRecord.gameDate);
             replayCell.SetReplayRecord(replayRecord);
-            
-            
-            
         }
     }
     
