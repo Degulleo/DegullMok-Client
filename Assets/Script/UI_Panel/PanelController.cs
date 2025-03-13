@@ -9,13 +9,13 @@ public class PanelController : MonoBehaviour
 {
     [SerializeField] private RectTransform panelRectTransform;      //팝업창 UI를 조작할 변수 // 자기 자신 할당
     
-    private CanvasGroup _backgroundCanvasGroup;                     // 배경 페이드 효과를 위한 변수
+    private CanvasGroup backGroundCanvasGroup;                     // 배경 페이드 효과를 위한 변수
     
     public delegate void PanelControllerHideDelegate();
     
     private void Awake()
     {
-        _backgroundCanvasGroup = GetComponent<CanvasGroup>();
+        backGroundCanvasGroup = GetComponent<CanvasGroup>();
     }
 
     /// <summary>
@@ -24,10 +24,10 @@ public class PanelController : MonoBehaviour
     /// </summary>
     public void Show()
     {
-        _backgroundCanvasGroup.alpha = 0;
+        backGroundCanvasGroup.alpha = 0;
         panelRectTransform.localScale = Vector3.zero;
         
-        _backgroundCanvasGroup.DOFade(1, 0.3f).SetEase(Ease.Linear);
+        backGroundCanvasGroup.DOFade(1, 0.3f).SetEase(Ease.Linear);
         panelRectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
     }
 
@@ -37,10 +37,10 @@ public class PanelController : MonoBehaviour
     /// </summary>
     public void Hide(PanelControllerHideDelegate hideDelegate = null)
     {
-        _backgroundCanvasGroup.alpha = 1;
+        backGroundCanvasGroup.alpha = 1;
         panelRectTransform.localScale = Vector3.one;
         
-        _backgroundCanvasGroup.DOFade(0, 0.3f).SetEase(Ease.Linear);
+        backGroundCanvasGroup.DOFade(0, 0.3f).SetEase(Ease.Linear);
         panelRectTransform.DOScale(0, 0.3f)
             .SetEase(Ease.InBack).OnComplete(() =>
             {
