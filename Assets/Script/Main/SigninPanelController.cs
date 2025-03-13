@@ -14,6 +14,11 @@ public struct SigninResult
     public int result;
 }
 
+public struct SignoutResult
+{
+    public string result;
+}
+
 [Serializable]
 public struct ScoreInfo
 {

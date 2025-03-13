@@ -1,11 +1,13 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainPanelController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nicknameText;
     [SerializeField] private TextMeshProUGUI ratingText;
+    [SerializeField] private Button signOutButton;
 
     public void UpdateUserInfo()
     {
@@ -13,5 +15,20 @@ public class MainPanelController : MonoBehaviour
 
         nicknameText.text = UserManager.Instance.Nickname;
         ratingText.text = $"{UserManager.Instance.Rating}급";
+    }
+
+    public void OnSignOutClick()
+    {
+        NetworkManager.Instance.SignOut(() =>
+        {
+            Debug.Log("로그아웃 성공");
+            
+            // 로그인 화면
+            GameManager.Instance.OpenSigninPanel();
+        }, () =>
+        {
+            Debug.Log("로그아웃 실패");
+            // OpenConfirmPanel("로그아웃 되었습니다.", () => { });
+        });
     }
 }

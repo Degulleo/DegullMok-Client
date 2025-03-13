@@ -45,5 +45,50 @@ public class UserManager : Singleton<UserManager>
         ImageIndex = userData.imageIndex;
         Win = userData.win;
         Lose = userData.lose;
+        
+        // 유저 정보를 PlayerPrefs에 저장
+        SaveUserInfoToPlayerPrefs();
     }
+    
+    public void SaveUserInfoToPlayerPrefs()
+    {
+        // UserInfoResult 객체를 JSON 문자열로 직렬화
+        UserInfoResult userInfo = new UserInfoResult
+        {
+            id = UserId,
+            email = Email,
+            nickname = Nickname,
+            rating = Rating,
+            score = Score,
+            imageIndex = ImageIndex,
+            win = Win,
+            lose = Lose
+        };
+
+        string json = JsonUtility.ToJson(userInfo);
+
+        // PlayerPrefs에 저장
+        PlayerPrefs.SetString("UserInfo", json);
+        PlayerPrefs.Save();
+    }
+    
+    public void LoadUserInfoFromPlayerPrefs()
+    {
+        // PlayerPrefs에서 유저 정보 가져오기
+        string json = PlayerPrefs.GetString("UserInfo", "");
+
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.Log("저장된 유저 정보가 없습니다.");
+            return;
+        }
+
+        // JSON 문자열을 UserInfoResult 객체로 역직렬화
+        UserInfoResult userInfo = JsonUtility.FromJson<UserInfoResult>(json);
+
+        // 역직렬화한 데이터로 UserManager의 값을 설정
+        SetUserInfo(userInfo);
+    }
+
+
 }

@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
     
-    private Canvas _canvas;
+    [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
     
     private void Awake()
@@ -53,22 +53,21 @@ public class GameManager : Singleton<GameManager>
     
     public void OpenSigninPanel()
     {
-        if (_canvas != null)
+        if (canvas != null)
         {
-            var signinPanelObject = Instantiate(signinPanel, _canvas.transform);
+            var signinPanelObject = Instantiate(signinPanel, canvas.transform);
         }
     }
 
     public void OpenSignupPanel()
     {
-        if (_canvas != null)
+        if (canvas != null)
         {
-            var signupPanelObject = Instantiate(signupPanel, _canvas.transform);
+            var signupPanelObject = Instantiate(signupPanel, canvas.transform);
         }
     }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        _canvas = GameObject.FindObjectOfType<Canvas>();
     }
 }
