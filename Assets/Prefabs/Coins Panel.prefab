@@ -51,11 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea2199565579f74994703cd3b57324b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coinsRemoveImageObject: {fileID: 0}
-  _coinsCountText: {fileID: 0}
-  _coinsRemoveAudioClip: {fileID: 0}
-  _coinsAddAudioClip: {fileID: 0}
-  _coinsEmptyAudioClip: {fileID: 0}
+  _coinsRemoveImageObject: {fileID: 4198953742281733827}
+  _coinsCountText: {fileID: 2892066450466788586}
+  _coinsRemoveAudioClip: {fileID: 8300000, guid: 585a9de0fb7ee4163af5c559ba5b2364, type: 3}
+  _coinsAddAudioClip: {fileID: 8300000, guid: 1ec44182fa76a4b3eb1459c0a6d9a8ab, type: 3}
+  _coinsEmptyAudioClip: {fileID: 8300000, guid: 908a78cb991984977bea42916bed8684, type: 3}
 --- !u!82 &5499754916380040505
 AudioSource:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 4144968568495096558}
   - component: {fileID: 6016265620447360569}
   m_Layer: 5
-  m_Name: Heart Remove Image
+  m_Name: Coins Remove Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4100b35e05ee5742b84036e3fac9739, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 307bff9630735f342852f28b1cd5d300, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4100b35e05ee5742b84036e3fac9739, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 307bff9630735f342852f28b1cd5d300, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

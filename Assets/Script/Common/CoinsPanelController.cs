@@ -35,7 +35,7 @@ public class CoinsPanelController : MonoBehaviour
         _coinsRemoveImageObject.SetActive(false);
 
         // TODO : 코인 수량 초기화
-        // InitCoinsCount(<어디선가 가져와야함!>);
+        InitCoinsCount(0);
     }
 
     /// <summary>
@@ -59,12 +59,18 @@ public class CoinsPanelController : MonoBehaviour
             if (isAdd)
             {
                 var currentHeartCount = _coinsCountText.text;
-                _coinsCountText.text = (int.Parse(currentHeartCount) + 1).ToString();
+                _coinsCountText.text = (int.Parse(currentHeartCount) + 100).ToString();
+                // --------------------------------------------------------------------
+                // 임시
+                _coinsCount += 100;
             }
             else
             {
                 var currentHeartCount = _coinsCountText.text;
-                _coinsCountText.text = (int.Parse(currentHeartCount) - 1).ToString();
+                _coinsCountText.text = (int.Parse(currentHeartCount) - 100).ToString();
+                // --------------------------------------------------------------------
+                // 임시
+                _coinsCount -= 100;
             }
             
             // Coins Panel의 Width를 글자 수에 따라 변경
@@ -85,7 +91,7 @@ public class CoinsPanelController : MonoBehaviour
     {
         Sequence sequence = DOTween.Sequence();
 
-        for (int i = 0; i < coinsCount; i++)
+        for (int i = 0; i < coinsCount; i+=100)
         {
             sequence.AppendCallback(() =>
             {
@@ -96,8 +102,8 @@ public class CoinsPanelController : MonoBehaviour
                 });
                 
                 // 효과음 재생
-                // if (UserInformation.IsPlaySFX)
-                //     _audioSource.PlayOneShot(_coinsAddAudioClip);
+                // TODO : if (UserInformation.IsPlaySFX)
+                _audioSource.PlayOneShot(_coinsAddAudioClip);
             });
             sequence.AppendInterval(0.5f);
         }
@@ -106,17 +112,25 @@ public class CoinsPanelController : MonoBehaviour
     public void EmptyCoins()
     {
         // 효과음 재생
-        // if (UserInformation.IsPlaySFX)
-        //     _audioSource.PlayOneShot(_coinsEmptyAudioClip);
+        // TODO: if (UserInformation.IsPlaySFX)
+        _audioSource.PlayOneShot(_coinsEmptyAudioClip);
         
         GetComponent<RectTransform>().DOPunchPosition(new Vector3(20f, 0, 0), 1f, 7);
     }
 
     public void RemoveCoins(Action action)
     {
+        // --------------------------------------------------------------------
+        // 임시
+        if (_coinsCount < 100)
+        {
+            EmptyCoins();
+            return;
+        }
+
         // 효과음 재생
-        // if (UserInformation.IsPlaySFX)
-        //     _audioSource.PlayOneShot(_coinsRemoveAudioClip);
+        // TODO: if (UserInformation.IsPlaySFX)
+        _audioSource.PlayOneShot(_coinsRemoveAudioClip);
         
         // 코인 사라지는 연출
         _coinsRemoveImageObject.SetActive(true);
@@ -127,9 +141,9 @@ public class CoinsPanelController : MonoBehaviour
         _coinsRemoveImageObject.GetComponent<Image>().DOFade(0f, 1f)
             .OnComplete( ()=>ChangeTextAnimation(false, ()=>
             {
-                // 코인 수량 감소
+                // TODO: 코인 수량 감소
                 // GameManager.Instance.heartCount--;
                 action?.Invoke();
-            }));   // 하트 수 텍스트 떨어지는 연출
+            }));   // 텍스트 떨어지는 연출
     }
 }
