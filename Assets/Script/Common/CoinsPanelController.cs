@@ -2,17 +2,18 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class CoinsPanelController : MonoBehaviour
 {
-    [SerializeField] private GameObject _coinsRemoveImageObject;
-    [SerializeField] private TMP_Text _coinsCountText;
+    [SerializeField] private GameObject coinsRemoveImageObject;
+    [SerializeField] private TMP_Text coinsCountText;
     
-    [SerializeField] private AudioClip _coinsRemoveAudioClip;
-    [SerializeField] private AudioClip _coinsAddAudioClip;
-    [SerializeField] private AudioClip _coinsEmptyAudioClip;
+    [SerializeField] private AudioClip coinsRemoveAudioClip;
+    [SerializeField] private AudioClip coinsAddAudioClip;
+    [SerializeField] private AudioClip coinsEmptyAudioClip;
     
     private Color _coinsColor;
     
@@ -27,12 +28,12 @@ public class CoinsPanelController : MonoBehaviour
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        _coinsColor = _coinsRemoveImageObject.GetComponent<Image>().color;
+        _coinsColor = coinsRemoveImageObject.GetComponent<Image>().color;
     }
 
     private void Start()
     {
-        _coinsRemoveImageObject.SetActive(false);
+        coinsRemoveImageObject.SetActive(false);
 
         // TODO : 코인 수량 초기화
         InitCoinsCount(0);
@@ -45,7 +46,7 @@ public class CoinsPanelController : MonoBehaviour
     public void InitCoinsCount(int coinsCount)
     {
         _coinsCount = coinsCount;
-        _coinsCountText.text = _coinsCount.ToString();
+        coinsCountText.text = _coinsCount.ToString();
     }
 
     private void ChangeTextAnimation(bool isAdd, Action action)
@@ -53,30 +54,30 @@ public class CoinsPanelController : MonoBehaviour
         float duration = 0.2f;
         float yPos = 40f;
         
-        _coinsCountText.rectTransform.DOAnchorPosY(-yPos, duration);
-        _coinsCountText.DOFade(0, duration).OnComplete(() =>
+        coinsCountText.rectTransform.DOAnchorPosY(-yPos, duration);
+        coinsCountText.DOFade(0, duration).OnComplete(() =>
         {
             if (isAdd)
             {
-                var currentHeartCount = _coinsCountText.text;
-                _coinsCountText.text = (int.Parse(currentHeartCount) + 100).ToString();
+                var currentHeartCount = coinsCountText.text;
+                coinsCountText.text = (int.Parse(currentHeartCount) + 100).ToString();
                 // 코인 텍스트 100씩 증가
             }
             else
             {
-                var currentHeartCount = _coinsCountText.text;
-                _coinsCountText.text = (int.Parse(currentHeartCount) - 100).ToString();
+                var currentHeartCount = coinsCountText.text;
+                coinsCountText.text = (int.Parse(currentHeartCount) - 100).ToString();
                 // 코인 텍스트 100씩 감소
             }
             
             // Coins Panel의 Width를 글자 수에 따라 변경
-            var textLength = _coinsCountText.text.Length;
+            var textLength = coinsCountText.text.Length;
             GetComponent<RectTransform>().sizeDelta = new Vector2(100 + textLength * 30f, 100f);
             
             // 새로운 코인 수 추가 애니메이션
-            _coinsCountText.rectTransform.DOAnchorPosY(yPos, 0);
-            _coinsCountText.rectTransform.DOAnchorPosY(0, duration);
-            _coinsCountText.DOFade(1, duration).OnComplete(() =>
+            coinsCountText.rectTransform.DOAnchorPosY(yPos, 0);
+            coinsCountText.rectTransform.DOAnchorPosY(0, duration);
+            coinsCountText.DOFade(1, duration).OnComplete(() =>
             {
                 action?.Invoke();
             });
@@ -105,7 +106,7 @@ public class CoinsPanelController : MonoBehaviour
                 
                 // 효과음 재생
                 // TODO : if (UserInformation.IsPlaySFX)
-                _audioSource.PlayOneShot(_coinsAddAudioClip);
+                _audioSource.PlayOneShot(coinsAddAudioClip);
             });
             sequence.AppendInterval(0.5f);
         }
@@ -115,7 +116,7 @@ public class CoinsPanelController : MonoBehaviour
     {
         // 효과음 재생
         // TODO: if (UserInformation.IsPlaySFX)
-        _audioSource.PlayOneShot(_coinsEmptyAudioClip);
+        _audioSource.PlayOneShot(coinsEmptyAudioClip);
         
         GetComponent<RectTransform>().DOPunchPosition(new Vector3(20f, 0, 0), 1f, 7);
     }
@@ -136,15 +137,15 @@ public class CoinsPanelController : MonoBehaviour
 
         // 효과음 재생
         // TODO: if (UserInformation.IsPlaySFX)
-        _audioSource.PlayOneShot(_coinsRemoveAudioClip);
+        _audioSource.PlayOneShot(coinsRemoveAudioClip);
         
         // 코인 사라지는 연출
-        _coinsRemoveImageObject.SetActive(true);
-        _coinsRemoveImageObject.transform.localScale = Vector3.zero;
-        _coinsRemoveImageObject.GetComponent<Image>().color = _coinsColor;
+        coinsRemoveImageObject.SetActive(true);
+        coinsRemoveImageObject.transform.localScale = Vector3.zero;
+        coinsRemoveImageObject.GetComponent<Image>().color = _coinsColor;
         
-        _coinsRemoveImageObject.transform.DOScale(3f, 1f);
-        _coinsRemoveImageObject.GetComponent<Image>().DOFade(0f, 1f)
+        coinsRemoveImageObject.transform.DOScale(3f, 1f);
+        coinsRemoveImageObject.GetComponent<Image>().DOFade(0f, 1f)
             .OnComplete( ()=>ChangeTextAnimation(false, ()=>
             {
                 // TODO: 코인 수량 감소
