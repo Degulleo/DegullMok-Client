@@ -35,16 +35,15 @@ public class UserManager : Singleton<UserManager>
             Debug.Log("유저 데이터가 비어있습니다");
             return;
         }
-        Debug.Log("유저정보"+userData.nickname);
         
         UserId = userData.id;
         Email = userData.email;
         Nickname = userData.nickname;
         Rating = userData.rating;
-        Score = userData.score;
+        // Score = userData.score;
         ImageIndex = userData.imageIndex;
-        Win = userData.win;
-        Lose = userData.lose;
+        // Win = userData.win;
+        // Lose = userData.lose;
         
         // 유저 정보를 PlayerPrefs에 저장
         SaveUserInfoToPlayerPrefs();
@@ -58,11 +57,11 @@ public class UserManager : Singleton<UserManager>
             id = UserId,
             email = Email,
             nickname = Nickname,
-            rating = Rating,
-            score = Score,
+            // rating = Rating,
+            // score = Score,
             imageIndex = ImageIndex,
-            win = Win,
-            lose = Lose
+            // win = Win,
+            // lose = Lose
         };
 
         string json = JsonUtility.ToJson(userInfo);
