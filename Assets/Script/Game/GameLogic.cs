@@ -24,15 +24,12 @@ public class GameLogic : MonoBehaviour
         lastRow = -1;
         lastCol = -1;
         
-        SetTurn(Enums.PlayerType.PlayerA);
-    }
-
-    private void SetState()
-    {
+        currentTurn = Enums.PlayerType.PlayerA;
         
+        SetState(currentTurn);
     }
 
-    private void SetTurn(Enums.PlayerType player)
+    private void SetState(Enums.PlayerType player)
     {
         currentTurn = player;
         _stoneController.OnStoneClickedDelegate = (row, col) =>
@@ -60,26 +57,32 @@ public class GameLogic : MonoBehaviour
                 _stoneController.SetStoneType(Enums.StoneType.Black, row, col);
                 _stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerA;
+                LastNSelectedSetting(row, col);
             }
             if (playerType == Enums.PlayerType.PlayerB)
             {
                 _stoneController.SetStoneType(Enums.StoneType.White, row, col);
                 _stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerB;
+                
+                LastNSelectedSetting(row, col);
             }
-        
-            //첫수 확인
-            if (lastRow != -1 || lastCol != -1)
-            {
-                _stoneController.SetStoneState(Enums.StoneState.None, lastRow, lastCol);
-            }
-            //마지막 좌표 저장
-            lastRow = row;
-            lastCol = col;
-            //선택 좌표 초기화
-            selectedRow = -1;
-            selectedCol = -1;
         }
+    }
+
+    private void LastNSelectedSetting(int row, int col)
+    {
+        //첫수 확인
+        if (lastRow != -1 || lastCol != -1)
+        {
+            _stoneController.SetStoneState(Enums.StoneState.None, lastRow, lastCol);
+        }
+        //마지막 좌표 저장
+        lastRow = row;
+        lastCol = col;
+        //선택 좌표 초기화
+        selectedRow = -1;
+        selectedCol = -1;
     }
 
     //스톤의 상태변경 명령함수
