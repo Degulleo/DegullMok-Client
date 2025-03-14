@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
     
@@ -33,13 +34,18 @@ public class GameManager : Singleton<GameManager>
     
     private void Start()
     {
+        // TODO: 로딩 화면 추가(자동 로그인 응답 전까지)
+        
         // 자동 로그인
         TryAutoSignin();
         
+        // 메인 패널 열기
+        OpenMainPanel();
+        
         //게임 씬에서 확인하기 위한 임시 코드
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        _gameLogic = new GameLogic(_stoneController, _gameType);
+        // _stoneController = GameObject.FindObjectOfType<StoneController>();
+        // _stoneController.InitStones();
+        // _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -49,6 +55,7 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("자동 로그인 성공");
             
             UpdateMainPanelUI();
+            
             // ScoreData.SetScore(userInfo.score);
             // OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
         }, () =>
@@ -59,12 +66,30 @@ public class GameManager : Singleton<GameManager>
         });
     }
     
+    /// <summary>
+    /// 유저 별명, 급수, 코인을 서버에서 가져온 정보로 업데이트하여 메인화면에 표시
+    /// </summary>
     private void UpdateMainPanelUI()
     {
-        MainPanelController mainPanel = FindObjectOfType<MainPanelController>();
-        if (mainPanel != null)
+        MainPanelController mainPanelController = mainPanel.GetComponent<MainPanelController>();
+        
+        if (mainPanelController == null) return;
+        
+        mainPanelController.UpdateUserInfo();
+
+        CoinsPanelController coinsPanel = FindObjectOfType<CoinsPanelController>();
+        if (coinsPanel != null)
         {
-            mainPanel.UpdateUserInfo();
+            Debug.Log("코인패널존재?" + UserManager.Instance.Coins);
+            coinsPanel.InitCoinsCount(UserManager.Instance.Coins);
+        }
+    }
+    
+    public void OpenMainPanel()
+    {
+        if (canvas != null)
+        {
+            var mainPanelObject = Instantiate(mainPanel, canvas.transform);
         }
     }
     

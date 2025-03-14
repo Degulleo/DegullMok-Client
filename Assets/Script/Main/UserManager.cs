@@ -11,6 +11,13 @@ public class UserInfoResult
     public int imageIndex;
     public int win;
     public int lose;
+    public int coins;
+}
+
+public class CoinsInfoResult
+{
+    public string result;
+    public int coins;
 }
 
 public class UserManager : Singleton<UserManager>
@@ -23,6 +30,7 @@ public class UserManager : Singleton<UserManager>
     public int ImageIndex { get; private set; }
     public int Win { get; private set; }
     public int Lose { get; private set; }
+    public int Coins { get; private set; }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -44,6 +52,7 @@ public class UserManager : Singleton<UserManager>
         ImageIndex = userData.imageIndex;
         // Win = userData.win;
         // Lose = userData.lose;
+        Coins = userData.coins;
         
         // 유저 정보를 PlayerPrefs에 저장
         SaveUserInfoToPlayerPrefs();
@@ -89,5 +98,14 @@ public class UserManager : Singleton<UserManager>
         SetUserInfo(userInfo);
     }
 
-
+    public void SetCoinsInfo()
+    {
+        NetworkManager.Instance.GetCoinsInfo((coinsResult) =>
+        {
+            Coins = coinsResult.coins;
+        }, () =>
+        {
+            Debug.Log("서버에서 코인 불러오기 실패");
+        });
+    }
 }

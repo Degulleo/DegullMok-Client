@@ -208,6 +208,8 @@ public class NetworkManager : Singleton<NetworkManager>
                 Debug.Log("로그아웃 실행결과" + result);
                 // 로그아웃 후 sid를 삭제하여 세션을 클리어
                 PlayerPrefs.SetString("sid", "");
+                // 유저 정보도 삭제
+                PlayerPrefs.SetString("UserInfo", "");
 
                 success?.Invoke();
             }
@@ -245,6 +247,52 @@ public class NetworkManager : Singleton<NetworkManager>
                 var scores = JsonUtility.FromJson<Scores>(result);
                 
                 success?.Invoke(scores);
+            }
+        }
+    }
+    
+    
+    public void GetCoinsInfo(Action<CoinsInfoResult> success, Action failure)
+    {
+        StartCoroutine(GetCoinsInfoCoroutine(success, failure));
+    }
+
+    public IEnumerator GetCoinsInfoCoroutine(Action<CoinsInfoResult> success, Action failure)
+    {
+        using (UnityWebRequest www =
+               new UnityWebRequest(Constants.ServerURL + "/users/coins", UnityWebRequest.kHttpVerbGET))
+        {
+            www.downloadHandler = new DownloadHandlerBuffer();
+            string sid = PlayerPrefs.GetString("sid", "");
+            if (!string.IsNullOrEmpty(sid))
+            {
+                www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                failure?.Invoke();
+                yield break; // 더 이상 진행하지 않고 종료
+            }
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                if (www.responseCode == 403)
+                {
+                    Debug.Log("로그인이 필요합니다.");
+                }
+                
+                failure?.Invoke();
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                var coinsInfo = JsonUtility.FromJson<CoinsInfoResult>(result);
+                
+                success?.Invoke(coinsInfo);
             }
         }
     }
