@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RenjuDetector
+public class RenjuDetectorBase
 {
     // 방향 배열 (가로, 세로, 대각선)
     private protected Vector2Int[] directions =

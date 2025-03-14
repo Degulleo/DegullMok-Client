@@ -4,10 +4,10 @@ using UnityEngine;
 /// <summary>
 /// 렌주 룰에서 삼삼 금수 위치를 감지하는 클래스
 /// </summary>
-public class DoubleThreeDetector :RenjuDetector
+public class DoubleThreeDetector :RenjuDetectorBase
 {
     //  해당 위치가 33 금수인지 반환
-    private bool IsDoubleThree(Enums.PlayerType[,] board, int row, int col)
+    public bool IsDoubleThree(Enums.PlayerType[,] board, int row, int col)
     {
         // 빈 위치가 아니면 검사할 필요 없음
         if (!IsEmptyPosition(board, row, col))
