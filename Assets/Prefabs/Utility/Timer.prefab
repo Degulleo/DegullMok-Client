@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.17254902, g: 0.21568628, b: 0.34901962, a: 1}
+  m_Color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.17254902, g: 0.21568628, b: 0.34901962, a: 1}
+  m_Color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060305112283542636}
   - component: {fileID: 8984618795075575334}
+  - component: {fileID: 2222382815855860034}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -208,6 +209,45 @@ MonoBehaviour:
   headCapImage: {fileID: 3995031286537022070}
   tailCapImage: {fileID: 3282082939413405386}
   timeText: {fileID: 1414465240440161498}
+--- !u!114 &2222382815855860034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197632138137602266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb8d899eaaa7614cbb7b1fdb98d0dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorSettings:
+  - targetObject: {fileID: 8836467620212376791}
+    componentType: Image
+    color: {r: 1, g: 1, b: 1, a: 1}
+    applyToChildren: 0
+    colorableComponent: {fileID: 4727671169278371324}
+  - targetObject: {fileID: 3197710723148271819}
+    componentType: Image
+    color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
+    applyToChildren: 0
+    colorableComponent: {fileID: 337344169386659086}
+  - targetObject: {fileID: 6184671321993608803}
+    componentType: TMP_Text
+    color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
+    applyToChildren: 0
+    colorableComponent: {fileID: 1414465240440161498}
+  - targetObject: {fileID: 880875562942959157}
+    componentType: Image
+    color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
+    applyToChildren: 0
+    colorableComponent: {fileID: 3995031286537022070}
+  - targetObject: {fileID: 8065228685685210519}
+    componentType: Image
+    color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
+    applyToChildren: 0
+    colorableComponent: {fileID: 3282082939413405386}
+  autoDetectChildren: 1
 --- !u!1 &6184671321993608803
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,8 +322,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284036908
-  m_fontColor: {r: 0.17254902, g: 0.21568628, b: 0.34901962, a: 1}
+    rgba: 4289522718
+  m_fontColor: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -400,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.17254902, g: 0.21568628, b: 0.34901962, a: 1}
+  m_Color: {r: 0.119200125, g: 0.9245283, b: 0.67288977, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -475,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
