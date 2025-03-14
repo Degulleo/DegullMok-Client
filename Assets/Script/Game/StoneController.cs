@@ -24,7 +24,7 @@ public class StoneController : MonoBehaviour
             });
         }
     }
-
+    //스톤 타입변경
     public void SetStoneType(Enums.StoneType stoneType, int row, int col)
     {
         
@@ -32,6 +32,7 @@ public class StoneController : MonoBehaviour
         stones[index].SetStone(stoneType);
     }
     
+    //스톤상태변경
     public void SetStoneState(Enums.StoneState state,int row, int col)
     {
         var index = BoardValue * row + col;
