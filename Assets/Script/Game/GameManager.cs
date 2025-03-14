@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -9,6 +11,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
     
+    private Enums.GameType _gameType;
+    private GameLogic _gameLogic;
+    private StoneController _stoneController;
+    private Canvas _canvas;
+    
     private void Awake()
     {
         // UserManager가 없으면 생성
@@ -16,6 +23,9 @@ public class GameManager : Singleton<GameManager>
         {
             GameObject userManagerObj = new GameObject("UserManager");
             _userManager = userManagerObj.AddComponent<UserManager>();
+            
+            //게임 씬에서 확인하기 위한 임시 코드
+            _gameType = Enums.GameType.SinglePlay;
         }
     }
     
@@ -23,6 +33,11 @@ public class GameManager : Singleton<GameManager>
     {
         // 자동 로그인
         TryAutoSignin();
+        
+        //게임 씬에서 확인하기 위한 임시 코드
+        _stoneController = GameObject.FindObjectOfType<StoneController>();
+        _stoneController.InitStones();
+        _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -66,8 +81,26 @@ public class GameManager : Singleton<GameManager>
             var signupPanelObject = Instantiate(signupPanel, canvas.transform);
         }
     }
+    
+    public void OnClickConfirmButton()
+    {
+        _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
+    }
+    
+    private void ChangeToGameScene(Enums.GameType gameType)
+    {
+        _gameType = gameType;
+        SceneManager.LoadScene("Game");
+    }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "Game")
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            _gameLogic = new GameLogic(_stoneController, _gameType);
+        }
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 }

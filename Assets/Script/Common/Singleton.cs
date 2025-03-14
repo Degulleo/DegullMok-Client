@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -43,4 +43,5 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     }
 
     protected abstract void OnSceneLoaded(Scene scene, LoadSceneMode mode);
+    
 }
