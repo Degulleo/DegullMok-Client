@@ -9,7 +9,7 @@ public class StoneController : MonoBehaviour
     public delegate void OnStoneClicked(int row, int col);
     public OnStoneClicked OnStoneClickedDelegate;
     //네이밍 필요
-    public const int BoardValue = 15;
+    public const int MaxCellCount = 15;
 
     //Stone 객체들 초기화 함수 호출
     public void InitStones()
@@ -18,8 +18,8 @@ public class StoneController : MonoBehaviour
         {
             stones[i].InitStone(i, (index) =>
             {
-                var rowIndex = index / BoardValue;
-                var colIndex = index % BoardValue;
+                var rowIndex = index / MaxCellCount;
+                var colIndex = index % MaxCellCount;
                 OnStoneClickedDelegate?.Invoke(rowIndex, colIndex);
             });
         }
@@ -28,14 +28,14 @@ public class StoneController : MonoBehaviour
     public void SetStoneType(Enums.StoneType stoneType, int row, int col)
     {
         
-        var index = BoardValue * row + col;
+        var index = MaxCellCount * row + col;
         stones[index].SetStone(stoneType);
     }
     
     //스톤상태변경
     public void SetStoneState(Enums.StoneState state,int row, int col)
     {
-        var index = BoardValue * row + col;
+        var index = MaxCellCount * row + col;
         stones[index].SetState(state);
     }
 }
