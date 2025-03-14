@@ -11,7 +11,11 @@ public class NetworkManager : Singleton<NetworkManager>
         
     }
     
-    public IEnumerator Signup(SignupData signupData, Action success, Action failure)
+    public void Signup(SignupData signupData, Action success, Action failure)
+    {
+        StartCoroutine(SignupCoroutine(signupData, success, failure));
+    }
+    public IEnumerator SignupCoroutine(SignupData signupData, Action success, Action failure)
     {
         string jsonString = JsonUtility.ToJson(signupData);
         Debug.Log("jsonString" + jsonString);
@@ -58,7 +62,12 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
     
-    public IEnumerator Signin(SigninData signinData, Action success, Action<int> failure)
+    public void Signin(SigninData signinData, Action<SigninResult> success, Action<int> failure)
+    {
+        StartCoroutine(SigninCoroutine(signinData, success, failure));
+    }
+
+    public IEnumerator SigninCoroutine(SigninData signinData, Action<SigninResult> success, Action<int> failure)
     {
         string jsonString = JsonUtility.ToJson(signinData);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
@@ -87,10 +96,10 @@ public class NetworkManager : Singleton<NetworkManager>
                     PlayerPrefs.SetString("sid", sid); 
                 }
                 
-                var resultString = www.downloadHandler.text;
-                var result = JsonUtility.FromJson<SigninResult>(resultString);
+                var result = www.downloadHandler.text;
+                var signinResult = JsonUtility.FromJson<SigninResult>(result);
 
-                if (result.result == 0)
+                if (signinResult.result == 0)
                 {
                     Debug.Log("유저네임이 유효하지 않습니다.");
                     failure?.Invoke(0);
@@ -100,7 +109,7 @@ public class NetworkManager : Singleton<NetworkManager>
                     //     failure?.Invoke(0);
                     // });
                 }
-                else if (result.result == 1)
+                else if (signinResult.result == 1)
                 {
                     Debug.Log("패스워드가 유효하지 않습니다.");
                     failure?.Invoke(1);
@@ -110,10 +119,13 @@ public class NetworkManager : Singleton<NetworkManager>
                     //     failure?.Invoke(1);
                     // });
                 }
-                else if (result.result == 2)
+                else if (signinResult.result == 2)
                 {
                     Debug.Log("로그인에 성공하였습니다.");
-                    success?.Invoke();
+                    success?.Invoke(signinResult);
+                    Debug.Log("서버 응답 JSON: " + result); // 서버 응답 확인
+                    Debug.Log("파싱 후 SigninResult: " + JsonUtility.ToJson(signinResult)); // JSON 파싱 확인
+                    Debug.Log("SetUserInfo 호출됨. imageIndex: " + signinResult.imageIndex); // UserManager에 값이 전달되는지 확인
                     // TODO: 성공 팝업 표시
                     // GameManager.Instance.OpenConfirmPanel("로그인에 성공하였습니다.", () =>
                     // {
@@ -163,7 +175,6 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 var result = www.downloadHandler.text;
                 var userInfo = JsonUtility.FromJson<UserInfoResult>(result);
-                UserManager.Instance.SetUserInfo(userInfo);
                 
                 success?.Invoke(userInfo);
             }
@@ -205,11 +216,11 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 var result = www.downloadHandler.text;
-                Debug.Log("로그아웃 실행결과" + result);
                 // 로그아웃 후 sid를 삭제하여 세션을 클리어
                 PlayerPrefs.SetString("sid", "");
                 // 유저 정보도 삭제
                 PlayerPrefs.SetString("UserInfo", "");
+                UserManager.Instance.UserInfoInit();
 
                 success?.Invoke();
             }

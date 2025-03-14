@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -8,9 +9,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
-    
     [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
+    private CoinsPanelController _coinsPanel;
     
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
@@ -39,9 +40,6 @@ public class GameManager : Singleton<GameManager>
         // 자동 로그인
         TryAutoSignin();
         
-        // 메인 패널 열기
-        OpenMainPanel();
-        
         //게임 씬에서 확인하기 위한 임시 코드
         // _stoneController = GameObject.FindObjectOfType<StoneController>();
         // _stoneController.InitStones();
@@ -53,11 +51,12 @@ public class GameManager : Singleton<GameManager>
         NetworkManager.Instance.GetInfo((userInfo) =>
         {
             Debug.Log("자동 로그인 성공");
-            
-            UpdateMainPanelUI();
-            
+            UserManager.Instance.SetUserInfo(userInfo);
+
+            UpdateMainPanelUI(OpenMainPanel);
             // ScoreData.SetScore(userInfo.score);
             // OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
+
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
@@ -67,9 +66,9 @@ public class GameManager : Singleton<GameManager>
     }
     
     /// <summary>
-    /// 유저 별명, 급수, 코인을 서버에서 가져온 정보로 업데이트하여 메인화면에 표시
+    /// 유저 별명, 급수를 서버에서 가져온 정보로 업데이트하여 메인화면에 표시
     /// </summary>
-    private void UpdateMainPanelUI()
+    public void UpdateMainPanelUI(Action success = null)
     {
         MainPanelController mainPanelController = mainPanel.GetComponent<MainPanelController>();
         
@@ -77,12 +76,7 @@ public class GameManager : Singleton<GameManager>
         
         mainPanelController.UpdateUserInfo();
 
-        CoinsPanelController coinsPanel = FindObjectOfType<CoinsPanelController>();
-        if (coinsPanel != null)
-        {
-            Debug.Log("코인패널존재?" + UserManager.Instance.Coins);
-            coinsPanel.InitCoinsCount(UserManager.Instance.Coins);
-        }
+        success?.Invoke();
     }
     
     public void OpenMainPanel()
@@ -90,6 +84,16 @@ public class GameManager : Singleton<GameManager>
         if (canvas != null)
         {
             var mainPanelObject = Instantiate(mainPanel, canvas.transform);
+            
+            // 메인 화면 아래의 코인 패널에 서버에서 가져 온 코인 값 업데이트
+            _coinsPanel = mainPanelObject.GetComponentInChildren<CoinsPanelController>();
+            
+            if (_coinsPanel != null)
+            {
+                Debug.Log("UserManager.Instance.Coins?: " + UserManager.Instance.Coins);
+                _coinsPanel.InitCoinsCount(UserManager.Instance.Coins);
+            }
+
         }
     }
     
