@@ -65,19 +65,26 @@ public class ReplayManager : Singleton<ReplayManager>
     /// </summary>
     public void SaveReplayData(PlayerType winnerPlayerType)
     {
-        string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
-        _recordingReplayData.gameDate = time;
-        string winner = winnerPlayerType == PlayerType.PlayerA ? "PlayerA" : "PlayerB";
-        
-        
-        string json = JsonUtility.ToJson(_recordingReplayData, true); 
-        
-        
-        string path = Path.Combine(Application.persistentDataPath, $"{time}.json");
-        File.WriteAllText(path, json);
-        
-        //최신 데이터 10개만 유지되도록 저장
-        RecordCountChecker();
+        try
+        {
+            string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
+            _recordingReplayData.gameDate = time;
+            string winner = winnerPlayerType == PlayerType.PlayerA ? "PlayerA" : "PlayerB";
+
+
+            string json = JsonUtility.ToJson(_recordingReplayData, true);
+
+
+            string path = Path.Combine(Application.persistentDataPath, $"{time}.json");
+            File.WriteAllText(path, json);
+
+            //최신 데이터 10개만 유지되도록 저장
+            RecordCountChecker();
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"An error occurred while saving replay data:{e.Message}");
+        }
     }
 
 
@@ -86,10 +93,26 @@ public class ReplayManager : Singleton<ReplayManager>
     {
         List<ReplayRecord> records = new List<ReplayRecord>();
         string path = Application.persistentDataPath;
-        var files = Directory.GetFiles(path, "*.json");
-        foreach (var file in files)
+
+        try
         {
-            records.Add(JsonUtility.FromJson<ReplayRecord>(File.ReadAllText(file)));
+            var files = Directory.GetFiles(path, "*.json");
+            foreach (var file in files)
+            {
+                try
+                {
+                    ReplayRecord record = JsonUtility.FromJson<ReplayRecord>(File.ReadAllText(file));
+                    records.Add(record);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Replaydata cannot be converted to JSON: {e.Message}");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Replay Directory Error: {e.Message}");
         }
 
         return records;
@@ -97,12 +120,19 @@ public class ReplayManager : Singleton<ReplayManager>
     
     private void RecordCountChecker()
     {
-        string path = Application.persistentDataPath;
-        var files = Directory.GetFiles(path, "*.json");
-        if (files.Length <= 10)
-            return;
-        File.Delete(files[0]);
-        RecordCountChecker();
+        try
+        {
+            string path = Application.persistentDataPath;
+            var files = Directory.GetFiles(path, "*.json");
+            if (files.Length <= 10)
+                return;
+            File.Delete(files[0]);
+            RecordCountChecker();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Replay Directory Error: {e.Message}");
+        }
     }
     
 
