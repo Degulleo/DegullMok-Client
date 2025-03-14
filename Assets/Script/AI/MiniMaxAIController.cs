@@ -6,7 +6,6 @@ using UnityEngine;
 public static class MiniMaxAIController
 {
     // To-Do List
-    // 랜덤 실수 (랜덤하게 덜 좋은 수 리턴)
     // 탐색 시간 개선
     // 코드 중복 제거
     // AI 난이도 개선
@@ -22,12 +21,23 @@ public static class MiniMaxAIController
         new int[] {1, -1} // 대각선 ↙ ↗
     };
 
-    private static int _playerLevel; // 급수 설정
+    private static int _playerLevel = 1; // 급수 설정
+    private static float _mistakeMove;
+    private static Enums.PlayerType _AIPlayerType = Enums.PlayerType.PlayerB;
 
     // 급수 설정 -> 실수 넣을 때 계산
     public static void SetLevel(int level)
     {
         _playerLevel = level;
+        
+        _mistakeMove = GetMistakeProbability(_playerLevel);
+    }
+    
+    // 실수 확률 계산 함수
+    private static float GetMistakeProbability(int level)
+    {
+        // 레벨이 1일 때 실수 확률 0%, 레벨이 18일 때 실수 확률 50%
+        return (level - 1) / 17f * 0.5f;
     }
     
     // return 값이 null 일 경우 == 보드에 칸 꽉 참
@@ -54,7 +64,7 @@ public static class MiniMaxAIController
         
         foreach (var (row, col) in validMoves)
         {
-            board[row, col] = Enums.PlayerType.PlayerB;
+            board[row, col] = _AIPlayerType;
             float score = DoMinimax(board, SEARCH_DEPTH, false, -1000, 1000, row, col);
             board[row, col] = Enums.PlayerType.None;
 
@@ -71,6 +81,13 @@ public static class MiniMaxAIController
             }
         }
 
+        // 랜덤 실수
+        if (secondBestMove != null && UnityEngine.Random.value < _mistakeMove) // UnityEngine.Random.value == 0~1 사이 반환
+        {
+            Debug.Log("AI Mistake");
+            return secondBestMove;
+        }
+        
         return bestMove;
     }
 
@@ -203,7 +220,7 @@ public static class MiniMaxAIController
                     
                     // 왼쪽 방향 확인
                     int r = row + dir[0], c = col + dir[1];
-                    while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.PlayerB)
+                    while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == _AIPlayerType)
                     {
                         count++;
                         r += dir[0];
@@ -215,7 +232,7 @@ public static class MiniMaxAIController
                     // 오른쪽 방향 확인
                     r = row - dir[0];
                     c = col - dir[1];
-                    while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.PlayerB)
+                    while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == _AIPlayerType)
                     {
                         count++;
                         r -= dir[0];
@@ -223,8 +240,7 @@ public static class MiniMaxAIController
                     }
                     if (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.None)
                         openEnds++;
-
-                    // 5연승이 가능하면 그 자리를 리스트에 추가
+                    
                     if (count == 4 && openEnds > 0)
                     {
                         fiveInARowMoves.Add((row, col));
@@ -249,7 +265,7 @@ public static class MiniMaxAIController
                 if (board[row, col] == Enums.PlayerType.None) continue;
 
                 Enums.PlayerType player = board[row, col];
-                int playerScore = (player == Enums.PlayerType.PlayerB) ? 1 : -1; // AI는 양수, 상대는 음수
+                int playerScore = (player == _AIPlayerType) ? 1 : -1; // AI는 양수, 상대는 음수
 
                 foreach (var dir in _directions)
                 {
@@ -275,7 +291,6 @@ public static class MiniMaxAIController
 
                     while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player)
                     {
-                        count++;
                         r -= dir[0];
                         c -= dir[1];
                     }
@@ -284,9 +299,7 @@ public static class MiniMaxAIController
                         openEnds++;
 
                     // 점수 계산
-                    if (count >= 5) 
-                        score += playerScore * 1000000; // 실제로 호출되는 일이 없음 왜지??
-                    else if (count == 4)
+                    if (count == 4)
                         score += playerScore * (openEnds == 2 ? 10000 : 1000);
                     else if (count == 3)
                         score += playerScore * (openEnds == 2 ? 1000 : 100);
