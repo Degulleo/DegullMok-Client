@@ -15,6 +15,8 @@ public class GameManager : Singleton<GameManager>
     private GameLogic _gameLogic;
     private StoneController _stoneController;
     private Canvas _canvas;
+
+    public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
     
     private void Awake()
     {
