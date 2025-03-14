@@ -1257,7 +1257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5553341337845712589}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1316706425349991338}
+        m_TargetAssemblyTypeName: MainPanelControllerTestLIN, Assembly-CSharp
+        m_MethodName: OnclickReplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4348816988605791720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1745,7 @@ GameObject:
   - component: {fileID: 6110152713294678410}
   - component: {fileID: 3427246911059574568}
   - component: {fileID: 5475593685932698206}
-  - component: {fileID: 7488082087611091670}
+  - component: {fileID: 1316706425349991338}
   m_Layer: 5
   m_Name: Main Panel Test LIN
   m_TagString: Untagged
@@ -1803,7 +1815,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7488082087611091670
+--- !u!114 &1316706425349991338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1812,12 +1824,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8564394481744056992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4dc3fd9e59f47df80e344680d1b9803, type: 3}
+  m_Script: {fileID: 11500000, guid: 67ce17de423b0644bb099f5272a48faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nicknameText: {fileID: 6229663128658405980}
   ratingText: {fileID: 5975803210787517482}
-  signOutButton: {fileID: 1336680714261373895}
+  signOutButton: {fileID: 0}
+  replayPanel: {fileID: 3652256375875260186, guid: 05029822800bdfc48895ad2aca318566, type: 3}
 --- !u!1 &9186617826613474881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +1951,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7488082087611091670}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainPanelController, Assembly-CSharp
         m_MethodName: OnSignOutClick
         m_Mode: 1

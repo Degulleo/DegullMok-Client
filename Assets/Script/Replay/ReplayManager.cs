@@ -5,12 +5,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-//TODO: 테스트용, 게임로직과 머지시 삭제
-public enum PlayerType{None, PlayerA, PlayerB}
-public enum StoneType{None, White, Black}
-
-
 [Serializable]
 public class ReplayRecord
 {
@@ -53,7 +47,7 @@ public class ReplayManager : Singleton<ReplayManager>
     ///<summary>
     /// 게임 씬에서 착수를 할 때마다 호출해서 기록
     /// </summary>
-    public void RecordStonePlaced(StoneType stoneType,int row, int col)
+    public void RecordStonePlaced(Enums.StoneType stoneType,int row, int col)
     {
         string stoneColor = stoneType.ToString();
         _recordingReplayData.moves.Add(new Move(stoneColor, row, col));
@@ -63,7 +57,7 @@ public class ReplayManager : Singleton<ReplayManager>
     /// <summary>
     /// 게임 종료 후 호출하여 리플레이 데이터를 저장합니다.
     /// </summary>
-    public void SaveReplayData(PlayerType winnerPlayerType)
+    public void SaveReplayData(Enums.PlayerType winnerPlayerType)
     {
         try
         {
@@ -139,4 +133,18 @@ public class ReplayManager : Singleton<ReplayManager>
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
     }
+
+    #region for tests
+
+    public void OnClickSaveButton(string winnerPlayerType = "PlayerA")
+    {
+        if(winnerPlayerType == Enums.PlayerType.PlayerA.ToString())
+            SaveReplayData(Enums.PlayerType.PlayerA);
+        else
+            SaveReplayData(Enums.PlayerType.PlayerB);
+            
+    }
+    
+
+    #endregion
 }

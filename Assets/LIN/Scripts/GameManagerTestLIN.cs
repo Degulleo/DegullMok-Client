@@ -33,8 +33,7 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
     
     private void Start()
     {
-        // 자동 로그인
-        TryAutoSignin();
+        
         
         //게임 씬에서 확인하기 위한 임시 코드
         _stoneController = GameObject.FindObjectOfType<StoneController>();
@@ -87,6 +86,7 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
     public void OnClickConfirmButton()
     {
         _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
+        
     }
     
     private void ChangeToGameScene(Enums.GameType gameType)
