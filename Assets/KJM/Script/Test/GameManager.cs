@@ -11,21 +11,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject confirmPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject rankingPanel;
+    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject giboPanel;
     
     //[SerializeField] private GameObject scrollPanel;
     
     public Sprite[] profileSprites = new Sprite[2];   //테스트용 스프라이트 배열
     
     public Canvas canvas;
-
-    public enum ScrollType
-    {
-        Ranking,
-        Shop,
-        Gibo
-    }
-    
-    
     
     
     public static GameManager Instance { get; private set; }
@@ -70,30 +63,30 @@ public class GameManager : MonoBehaviour
     {
         if (canvas != null)
         {
-            var scrollPanelObject = Instantiate(rankingPanel, canvas.transform);
-            scrollPanelObject.GetComponent<RankingPanelController>().Show(items);
+            var rankingPanelObject = Instantiate(rankingPanel, canvas.transform);
+            rankingPanelObject.GetComponent<RankingPanelController>().Show(items);
         }
     }
     
     //상점 스크롤 패널 여는 함수
-    // public void OpenShopScrollPanel(List<ScrollItem> items)
-    // {
-    //     if (canvas != null)
-    //     {
-    //         var scrollPanelObject = Instantiate(scrollPanel, canvas.transform);
-    //         scrollPanelObject.GetComponent<ScrollPanelController>().Show(items);
-    //     }
-    // }
+    public void OpenShopScrollPanel(List<ShopItem> items)
+    {
+        if (canvas != null)
+        {
+            var scrollPanelObject = Instantiate(shopPanel, canvas.transform);
+            scrollPanelObject.GetComponent<ShopPanelController>().Show(items);
+        }
+    }
     
     //기보 스크롤 패널 여는 함수
-    // public void OpenGiboScrollPanel(List<ScrollItem> items)
-    // {
-    //     if (canvas != null)
-    //     {
-    //         var scrollPanelObject = Instantiate(scrollPanel, canvas.transform);
-    //         scrollPanelObject.GetComponent<ScrollPanelController>().Show(items);
-    //     }
-    // }
+     public void OpenGiboScrollPanel(List<GiboItem> items)
+     {
+         if (canvas != null)
+         {
+             var giboPanelObject = Instantiate(giboPanel, canvas.transform);
+             giboPanelObject.GetComponent<GiboPanelController>().Show(items);
+         }
+     }
     
     //결과 패널 여는 함수..
     
