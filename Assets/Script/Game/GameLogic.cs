@@ -58,6 +58,8 @@ public class GameLogic : MonoBehaviour
                 _stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerA;
                 LastNSelectedSetting(row, col);
+                
+                SetState(Enums.PlayerType.PlayerB);
             }
             if (playerType == Enums.PlayerType.PlayerB)
             {
@@ -66,6 +68,7 @@ public class GameLogic : MonoBehaviour
                 _board[row, col] = Enums.PlayerType.PlayerB;
                 
                 LastNSelectedSetting(row, col);
+                SetState(Enums.PlayerType.PlayerA);
             }
         }
     }
