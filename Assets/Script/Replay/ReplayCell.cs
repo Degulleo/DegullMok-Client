@@ -8,11 +8,12 @@ public class ReplayCell : MonoBehaviour
 {
     [SerializeField] private Image winImage;
     [SerializeField] private Image loseImage;
+    //TODO: TextMeshProUGI 수정하기
     [SerializeField] private TMP_Text playerNicknameText;
     [SerializeField] private TMP_Text recordDateText;
     
     private ReplayRecord _storedReplayRecord;
-    private string _myPlayerType;
+    private PlayerType _myPlayerType;
     private string _opponentNickname;
     
     
@@ -31,7 +32,7 @@ public class ReplayCell : MonoBehaviour
         }
     }
     
-    public void SetMyPlayerType(string myPlayerType)
+    public void SetMyPlayerType(PlayerType myPlayerType)
     {
         _myPlayerType = myPlayerType;
     }

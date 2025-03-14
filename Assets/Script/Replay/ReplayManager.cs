@@ -55,7 +55,7 @@ public class ReplayManager : Singleton<ReplayManager>
     /// </summary>
     public void RecordStonePlaced(StoneType stoneType,int row, int col)
     {
-        string stoneColor = stoneType == StoneType.Black ? "Black" : "White";
+        string stoneColor = stoneType.ToString();
         _recordingReplayData.moves.Add(new Move(stoneColor, row, col));
     }
 
@@ -69,7 +69,7 @@ public class ReplayManager : Singleton<ReplayManager>
         {
             string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
             _recordingReplayData.gameDate = time;
-            string winner = winnerPlayerType == PlayerType.PlayerA ? "PlayerA" : "PlayerB";
+            _recordingReplayData.winnerPlayerType = winnerPlayerType.ToString();
 
 
             string json = JsonUtility.ToJson(_recordingReplayData, true);
