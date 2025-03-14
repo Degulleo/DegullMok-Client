@@ -8,10 +8,19 @@ public static class MiniMaxAIController
     // To-Do List
     // 랜덤 실수 (랜덤하게 덜 좋은 수 리턴)
     // 탐색 시간 개선
-    // 방어적인 플레이라 AI 자신이 5연승할 자리에 안 둠 -> 해결
+    // 코드 중복 제거
+    // AI 난이도 개선
     
     private const int SEARCH_DEPTH = 3; // 탐색 깊이 제한 (3 = 빠른 응답, 4 = 좀 더 강한 AI 그러나 느린)
     private const int WIN_COUNT = 5;
+    
+    private static int[][] _directions = new int[][]
+    {
+        new int[] {1, 0}, // 수직
+        new int[] {0, 1}, // 수평
+        new int[] {1, 1}, // 대각선 ↘ ↖
+        new int[] {1, -1} // 대각선 ↙ ↗
+    };
 
     private static int _playerLevel; // 급수 설정
 
@@ -21,27 +30,25 @@ public static class MiniMaxAIController
         _playerLevel = level;
     }
     
+    // return 값이 null 일 경우 == 보드에 칸 꽉 참
     public static (int row, int col)? GetBestMove(Enums.PlayerType[,] board)
     {
-        float bestScore = -1000;
+        float bestScore = float.MinValue;
         (int row, int col)? bestMove = null;
+        (int row, int col)? secondBestMove = null;
         List<(int row, int col)> validMoves = GetValidMoves(board);
         
-        if (validMoves.Count == 0) // 놓을 수 있는 칸 없음 == 칸 꽉 참
+        if (validMoves.Count == 0)
         {
             Debug.Log("칸이 없습니다...");
             return null;
         }
-        
-        // To-Do : bestMove는 null로 유지하고 맨 마지막 리턴 문에서 삼항 연산자로 날리기(Second용)
-        bestMove = validMoves[0]; // 기본 값, null 반환 방지. 
         
         // 5연승 가능한 자리를 먼저 찾아서 우선적으로 설정
         List<(int row, int col)> fiveInARowMoves = GetFiveInARowCandidateMoves(board);
         if (fiveInARowMoves.Count > 0)
         {
             bestMove = fiveInARowMoves[0]; 
-            Debug.Log($"5 wins move {bestMove.Value.row}, {bestMove.Value.col}");
             return bestMove;
         }
         
@@ -54,8 +61,13 @@ public static class MiniMaxAIController
             if (score > bestScore)
             {
                 bestScore = score;
-                bestMove = (row, col); // 초반에는 bestMove가 잘 안바뀌어서 (돌 한 2~3개 둬야 여러 개 나옴) 2라운드까지는 그대로 출력 필요
-                // To-Do : 실수용으로 secondBestMove 추가
+
+                if (bestMove != null)
+                {
+                    secondBestMove = bestMove;
+                }
+                
+                bestMove = (row, col);
             }
         }
 
@@ -94,10 +106,7 @@ public static class MiniMaxAIController
         return bestScore;
     }
 
-    /// <summary>
-    /// 이동 가능 + 주변에 돌 있는 위치 탐색
-    /// </summary>
-    /// <returns></returns>
+    // 이동 가능 + 주변에 돌 있는 위치 탐색
     private static List<(int row, int col)> GetValidMoves(Enums.PlayerType[,] board)
     {
         List<(int, int)> validMoves = new List<(int, int)>();
@@ -115,13 +124,7 @@ public static class MiniMaxAIController
         }
         return validMoves;
     }
-
-    /// <summary>
-    /// 주변 8칸에 놓인 돌이 있는 지 확인
-    /// </summary>
-    /// <param name="row">현재 탐색하는 위치의 row값</param>
-    /// <param name="col">현재 탐색하는 위치의 col값</param>
-    /// <returns>true: 돌 있음, fasle: 돌 없음</returns>
+    
     private static bool HasNearbyStones(Enums.PlayerType[,] board, int row, int col)
     {
         // 9칸 기준으로 현재 위치를 중앙으로 상정한 후 나머지 8방향
@@ -140,28 +143,13 @@ public static class MiniMaxAIController
         return false;
     }
 
-    /// <summary>
-    /// 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수.
-    /// </summary>
-    /// <param name="player"> 어떤 플레이어 기준으로 승리 판별 </param>
-    /// <param name="board"> 게임 보드 </param>
-    /// <param name="row"> 최근에 둔 돌의 위치 중 row 값 </param>
-    /// <param name="col">최근에 둔 돌의 위치 중 col 값 </param>
-    /// <returns> true: 승리, false: 승리 아님 </returns>
+    // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
     public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, int row, int col)
     {
         int size = board.GetLength(0);
         
-        int[][] directions = new int[][]
-        {
-            new int[] {1, 0}, // 수직
-            new int[] {0, 1}, // 수평
-            new int[] {1, 1}, // 대각선 ↘ ↖
-            new int[] {1, -1} // 대각선 ↙ ↗
-        };
-        
         // 각 방향별로 판단
-        foreach (var dir in directions)
+        foreach (var dir in _directions)
         {
             // 자기 자신 포함해서 카운트 시작
             int stoneCount = 1;
@@ -200,15 +188,6 @@ public static class MiniMaxAIController
         List<(int row, int col)> fiveInARowMoves = new List<(int, int)>();
         int size = board.GetLength(0);
 
-        // 방향 설정: 가로, 세로, 대각선
-        int[][] directions = new int[][]
-        {
-            new int[] {1, 0}, // 가로
-            new int[] {0, 1}, // 세로
-            new int[] {1, 1}, // 대각선 (\)
-            new int[] {1, -1} // 대각선 (/)
-        };
-
         // 각 칸에 대해 5연승이 될 수 있는 위치 찾기
         for (int row = 0; row < size; row++)
         {
@@ -217,11 +196,12 @@ public static class MiniMaxAIController
                 if (board[row, col] != Enums.PlayerType.None)
                     continue; // 이미 돌이 놓인 곳
 
-                foreach (var dir in directions)
+                foreach (var dir in _directions)
                 {
                     int count = 0;
                     int openEnds = 0;
-                    // 왼쪽 방향부터 확인
+                    
+                    // 왼쪽 방향 확인
                     int r = row + dir[0], c = col + dir[1];
                     while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.PlayerB)
                     {
@@ -256,21 +236,11 @@ public static class MiniMaxAIController
         return fiveInARowMoves;
     }
     
-    /// <summary>
-    /// 현재 보드의 상태 평가
-    /// </summary>
-    /// <returns>평가 후 점수</returns>
+    // 현재 보드의 상태 평가
     private static float EvaluateBoard(Enums.PlayerType[,] board)
     {
         float score = 0;
         int size = board.GetLength(0);
-        int[][] directions = new int[][] 
-        {
-            new int[] {1, 0},  // 수직
-            new int[] {0, 1},  // 수평
-            new int[] {1, 1},  // 대각선 ↘
-            new int[] {1, -1}  // 대각선 ↙
-        };
 
         for (int row = 0; row < size; row++)
         {
@@ -281,7 +251,7 @@ public static class MiniMaxAIController
                 Enums.PlayerType player = board[row, col];
                 int playerScore = (player == Enums.PlayerType.PlayerB) ? 1 : -1; // AI는 양수, 상대는 음수
 
-                foreach (var dir in directions)
+                foreach (var dir in _directions)
                 {
                     int count = 1;
                     int openEnds = 0;
