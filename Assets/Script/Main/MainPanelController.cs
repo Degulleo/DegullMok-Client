@@ -31,10 +31,8 @@ public class MainPanelController : MonoBehaviour
 
         // 프로필 이미지 갱신
         _selectedImageIndex = UserManager.Instance.imageIndex;
-        Debug.Log("UserManager.Instance.ImageIndex" + UserManager.Instance.imageIndex);
         if (_selectedImageIndex < 0 || _selectedImageIndex >= profileImages.Length)
         {
-            Debug.LogError($"Invalid ImageIndex: {_selectedImageIndex}, profileImages length: {profileImages.Length}");
             return;
         }
 

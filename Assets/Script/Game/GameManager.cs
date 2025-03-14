@@ -16,7 +16,6 @@ public class GameManager : Singleton<GameManager>
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
-    private Canvas _canvas;
 
     public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
     
@@ -29,7 +28,7 @@ public class GameManager : Singleton<GameManager>
             _userManager = userManagerObj.AddComponent<UserManager>();
             
             //게임 씬에서 확인하기 위한 임시 코드
-            _gameType = Enums.GameType.SinglePlay;
+            // _gameType = Enums.GameType.SinglePlay;
         }
     }
     
@@ -90,7 +89,6 @@ public class GameManager : Singleton<GameManager>
             
             if (_coinsPanel != null)
             {
-                Debug.Log("UserManager.Instance.Coins?: " + UserManager.Instance.Coins);
                 _coinsPanel.InitCoinsCount(UserManager.Instance.Coins);
             }
 
@@ -132,6 +130,5 @@ public class GameManager : Singleton<GameManager>
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, _gameType);
         }
-        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 }

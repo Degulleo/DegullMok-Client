@@ -18,7 +18,6 @@ public class NetworkManager : Singleton<NetworkManager>
     public IEnumerator SignupCoroutine(SignupData signupData, Action success, Action failure)
     {
         string jsonString = JsonUtility.ToJson(signupData);
-        Debug.Log("jsonString" + jsonString);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
 
         using (UnityWebRequest www =
@@ -50,7 +49,6 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 var result = www.downloadHandler.text;
-                Debug.Log("Result: " + result);
                 success?.Invoke();
                 
                 // TODO: 회원가입 성공 팝업 표시
@@ -84,7 +82,7 @@ public class NetworkManager : Singleton<NetworkManager>
             if (www.result == UnityWebRequest.Result.ConnectionError ||
                 www.result == UnityWebRequest.Result.ProtocolError)
             {
-                
+                Debug.Log("Error: " + www.error);
             }
             else
             {
@@ -101,7 +99,7 @@ public class NetworkManager : Singleton<NetworkManager>
 
                 if (signinResult.result == 0)
                 {
-                    Debug.Log("유저네임이 유효하지 않습니다.");
+                    Debug.Log("유저 이메일이 유효하지 않습니다.");
                     failure?.Invoke(0);
                     // TODO: 유저네임 유효하지 않음 팝업 표시
                     // GameManager.Instance.OpenConfirmPanel("유저네임이 유효하지 않습니다.", () =>
@@ -123,9 +121,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 {
                     Debug.Log("로그인에 성공하였습니다.");
                     success?.Invoke(signinResult);
-                    Debug.Log("서버 응답 JSON: " + result); // 서버 응답 확인
-                    Debug.Log("파싱 후 SigninResult: " + JsonUtility.ToJson(signinResult)); // JSON 파싱 확인
-                    Debug.Log("SetUserInfo 호출됨. imageIndex: " + signinResult.imageIndex); // UserManager에 값이 전달되는지 확인
+                    
                     // TODO: 성공 팝업 표시
                     // GameManager.Instance.OpenConfirmPanel("로그인에 성공하였습니다.", () =>
                     // {

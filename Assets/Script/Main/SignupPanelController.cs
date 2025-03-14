@@ -105,7 +105,6 @@ public class SignupPanelController : MonoBehaviour
 
     public void OnClickCancelButton()
     {
-        Debug.Log("OnClickCancelButton");
         Destroy(gameObject);
     }
 }

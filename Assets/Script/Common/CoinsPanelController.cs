@@ -45,8 +45,6 @@ public class CoinsPanelController : MonoBehaviour
         _coinsCount = coinsCount;
         coinsCountText.text = _coinsCount.ToString();
         
-        Debug.Log("coinsCount?: " + coinsCount);
-
         ResizingCoinsRect();
     }
 

@@ -84,7 +84,6 @@ public class UserManager : Singleton<UserManager>
         // Score = signinResult.score;
         imageIndex = signinResult.imageIndex;
         Coins = signinResult.coins;
-        Debug.Log("머임??: " + imageIndex);
     }
     
     public void SaveUserInfoToPlayerPrefs()
