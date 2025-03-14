@@ -11,40 +11,53 @@ public struct SignupData
     public string email;
     public string nickname;
     public string password;
-    public int imageindex;
+    public int imageIndex;
 }
 
 public class SignupPanelController : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField _emailInputField;
-    [SerializeField] private TMP_InputField _nicknameInputField;
-    [SerializeField] private TMP_InputField _passwordInputField;
-    [SerializeField] private TMP_InputField _confirmPasswordInputField;
-    [SerializeField] private Button[] imageSelectButtons;
+    [SerializeField] private TMP_InputField emailInputField;
+    [SerializeField] private TMP_InputField nicknameInputField;
+    [SerializeField] private TMP_InputField passwordInputField;
+    [SerializeField] private TMP_InputField confirmPasswordInputField;
+    [SerializeField] private Toggle[] imageSelectToggles;
     private int _selectedImageIndex = 0;
     
     private void Start()
     {
+        SetToggleInit();
+    }
+
+    private void SetToggleInit()
+    {
         // 각 프로필 이미지 선택 버튼에 클릭 이벤트 추가
-        for (int i = 0; i < imageSelectButtons.Length; i++)
+        for (int i = 0; i < imageSelectToggles.Length; i++)
         {
             int index = i; // 클로저 문제 방지
-            imageSelectButtons[i].onClick.AddListener(() => SelectImage(index));
+            imageSelectToggles[i].onValueChanged.AddListener((bool value) => OnValueChanged(value, index));
         }
+        
+        // 선택된 버튼 초기화
+        imageSelectToggles[_selectedImageIndex].isOn = true;
     }
-    
-    private void SelectImage(int index)
+
+    public void OnValueChanged(bool value, int index)
+    {
+        if (value)
         {
             _selectedImageIndex = index;
-            Debug.Log($"이미지 {index} 선택됨");
+            int previousIndex = (_selectedImageIndex == 0) ? 1 : 0;
+            imageSelectToggles[previousIndex].isOn = false;
         }
+    }
+
     
     public void OnClickConfirmButton()
     {
-        var email = _emailInputField.text;
-        var nickname = _nicknameInputField.text;
-        var password = _passwordInputField.text;
-        var confirmPassword = _confirmPasswordInputField.text;
+        var email = emailInputField.text;
+        var nickname = nicknameInputField.text;
+        var password = passwordInputField.text;
+        var confirmPassword = confirmPasswordInputField.text;
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(nickname) ||
             string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
@@ -64,7 +77,7 @@ public class SignupPanelController : MonoBehaviour
             signupData.email = email;
             signupData.nickname = nickname;
             signupData.password = password;
-            signupData.imageindex = _selectedImageIndex;
+            signupData.imageIndex = _selectedImageIndex;
             
             // 서버로 SignupData 전달하면서 회원가입 진행
             StartCoroutine(NetworkManager.Instance.Signup(signupData, () =>
@@ -72,10 +85,10 @@ public class SignupPanelController : MonoBehaviour
                 Destroy(gameObject);
             }, () =>
             {
-                _emailInputField.text = "";
-                _nicknameInputField.text = "";
-                _passwordInputField.text = "";
-                _confirmPasswordInputField.text = "";
+                emailInputField.text = "";
+                nicknameInputField.text = "";
+                passwordInputField.text = "";
+                confirmPasswordInputField.text = "";
             }));
         }
         else
@@ -84,8 +97,8 @@ public class SignupPanelController : MonoBehaviour
             Debug.Log("비밀번호가 서로 다릅니다.");
             // GameManager.Instance.OpenConfirmPanel("비밀번호가 서로 다릅니다.", () =>
             // {
-            //     _passwordInputField.text = "";
-            //     _confirmPasswordInputField.text = "";
+            //     passwordInputField.text = "";
+            //     confirmPasswordInputField.text = "";
             // });
         }
     }

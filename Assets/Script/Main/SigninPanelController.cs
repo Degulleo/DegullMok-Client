@@ -14,12 +14,9 @@ public struct SigninResult
     public int result;
 }
 
-public struct ScoreResult
+public struct SignoutResult
 {
-    public string id;
-    public string email;
-    public string nickname;
-    public int score;
+    public string result;
 }
 
 [Serializable]
@@ -38,13 +35,13 @@ public struct Scores
 
 public class SigninPanelController : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField _emailInputField;
-    [SerializeField] private TMP_InputField _passwordInputField;
+    [SerializeField] private TMP_InputField emailInputField;
+    [SerializeField] private TMP_InputField passwordInputField;
 
     public void OnClickSigninButton()
     {
-        string email = _emailInputField.text;
-        string password = _passwordInputField.text;
+        string email = emailInputField.text;
+        string password = passwordInputField.text;
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
@@ -63,19 +60,19 @@ public class SigninPanelController : MonoBehaviour
         {
             if (result == 0)
             {
-                _emailInputField.text = "";
+                emailInputField.text = "";
             }
             else if (result == 1)
             {
-                _passwordInputField.text = "";
+                passwordInputField.text = "";
             }
         }));
     }
 
     public void OnClickSignupButton()
     {
-        _emailInputField.text = "";
-        _passwordInputField.text = "";
+        emailInputField.text = "";
+        passwordInputField.text = "";
         GameManager.Instance.OpenSignupPanel();
     }
 }

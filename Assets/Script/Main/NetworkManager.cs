@@ -124,17 +124,27 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
 
-    public IEnumerator GetScore(Action<ScoreResult> success, Action failure)
+    public void GetInfo(Action<UserInfoResult> success, Action failure)
+    {
+        StartCoroutine(GetInfoCoroutine(success, failure));
+    }
+
+    public IEnumerator GetInfoCoroutine(Action<UserInfoResult> success, Action failure)
     {
         using (UnityWebRequest www =
-               new UnityWebRequest(Constants.ServerURL + "/users/score", UnityWebRequest.kHttpVerbGET))
+               new UnityWebRequest(Constants.ServerURL + "/users/get-info", UnityWebRequest.kHttpVerbGET))
         {
             www.downloadHandler = new DownloadHandlerBuffer();
-            
             string sid = PlayerPrefs.GetString("sid", "");
             if (!string.IsNullOrEmpty(sid))
             {
                 www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                failure?.Invoke();
+                yield break; // 더 이상 진행하지 않고 종료
             }
 
             yield return www.SendWebRequest();
@@ -152,11 +162,54 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 var result = www.downloadHandler.text;
-                var userScore = JsonUtility.FromJson<ScoreResult>(result);
+                var userInfo = JsonUtility.FromJson<UserInfoResult>(result);
+                UserManager.Instance.SetUserInfo(userInfo);
                 
-                Debug.Log(userScore.score);
-                
-                success?.Invoke(userScore);
+                success?.Invoke(userInfo);
+            }
+        }
+    }
+    
+    public void SignOut(Action success, Action failure)
+    {
+        StartCoroutine(SignOutCoroutine(success, failure));
+    }
+
+    public IEnumerator SignOutCoroutine(Action success, Action failure)
+    {
+        Debug.Log("로그아웃 호출?");
+    
+        string sid = PlayerPrefs.GetString("sid", "");
+        if (string.IsNullOrEmpty(sid))
+        {
+            Debug.Log("로그인 정보가 없습니다.");
+            failure?.Invoke();
+            yield break; // 로그인이 되어 있지 않다면 로그아웃을 시도하지 않음
+        }
+
+        using (UnityWebRequest www = new UnityWebRequest(Constants.ServerURL + "/users/signout", UnityWebRequest.kHttpVerbPOST))
+        {
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Cookie", sid);
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                if (www.responseCode == 403)
+                {
+                    Debug.Log("로그인이 필요합니다.");
+                }
+                failure?.Invoke();
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                Debug.Log("로그아웃 실행결과" + result);
+                // 로그아웃 후 sid를 삭제하여 세션을 클리어
+                PlayerPrefs.SetString("sid", "");
+
+                success?.Invoke();
             }
         }
     }
