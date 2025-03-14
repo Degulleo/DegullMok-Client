@@ -25,16 +25,15 @@ public class GameManager : Singleton<GameManager>
         {
             GameObject userManagerObj = new GameObject("UserManager");
             _userManager = userManagerObj.AddComponent<UserManager>();
-            
-            //게임 씬에서 확인하기 위한 임시 코드
-            _gameType = Enums.GameType.SinglePlay;
         }
+        //게임 씬에서 확인하기 위한 임시 코드
+        _gameType = Enums.GameType.SinglePlay;
     }
     
     private void Start()
     {
         // 자동 로그인
-        TryAutoSignin();
+        // TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
         _stoneController = GameObject.FindObjectOfType<StoneController>();
@@ -86,7 +85,15 @@ public class GameManager : Singleton<GameManager>
     
     public void OnClickConfirmButton()
     {
-        _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
+        if (_gameLogic.selectedRow != -1 && _gameLogic.selectedCol != -1)
+        {
+            _gameLogic.OnConfirm();
+        }
+        else
+        {
+            Debug.Log("착수 위치를 선택 해주세요");
+            //TODO: 착수할 위치를 선택하라는 동작
+        }
     }
     
     private void ChangeToGameScene(Enums.GameType gameType)

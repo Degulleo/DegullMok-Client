@@ -27,7 +27,6 @@ public class StoneController : MonoBehaviour
     //스톤 타입변경
     public void SetStoneType(Enums.StoneType stoneType, int row, int col)
     {
-        
         var index = MaxCellCount * row + col;
         stones[index].SetStone(stoneType);
     }
