@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2122f6b13f8bb394f9c0196cc035d366, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c06da2c324d0fee43b8b1998cf9fcd09, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "\uD655\uC778"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -341,8 +341,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ba45364f20357c644bb9e133d15fb595, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e89f6694961e7574b98368e14934a8b1, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
