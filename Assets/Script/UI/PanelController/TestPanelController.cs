@@ -111,7 +111,7 @@ public class TestPanelController : MonoBehaviour
             ShopItem shopItem = new ShopItem
             {
                 ItemSpriteIndex = Random.Range(0, 1),
-                Name = i.ToString(),
+                Name = "코인"+i+"개",
                 Price = (i * 1000)+ "원"
             };
             shopItems.Add(shopItem);
@@ -129,7 +129,7 @@ public class TestPanelController : MonoBehaviour
         {
             GiboItem giboItem = new GiboItem
             {
-                WinLoseSpriteIndex = Random.Range(0, 1),
+                WinLoseSpriteIndex = Random.Range(0, 2),
                 Date = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
                 Name = i.ToString(),
             };

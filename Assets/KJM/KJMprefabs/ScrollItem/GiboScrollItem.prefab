@@ -493,3 +493,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   profileSprites:
   - {fileID: 21300000, guid: edeacd6d8f6ab0d42bbdf4ada3c61a27, type: 3}
+  - {fileID: 21300000, guid: 2f801858eeb5f4540a432b60aca3d57a, type: 3}
