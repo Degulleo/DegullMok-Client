@@ -240,13 +240,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1017982169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b945f44e6cbf420a9f40dc21b5f2e365, type: 3}
+  m_Script: {fileID: 11500000, guid: 35a4c6d5d3a97b444b968e68ec8bb9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   signinPanel: {fileID: 925522282249935710, guid: e14c9b2925f0ddb4192af743e5cc166a, type: 3}
   signupPanel: {fileID: 3181524094944658765, guid: 8827fe7caa3145e40b1369cc42f8697d, type: 3}
-  canvas: {fileID: 0}
-  _userManager: {fileID: 0}
+  leaderboardPanel: {fileID: 3181524094944658765, guid: 1260c2be24f60c547af05635e06e0441, type: 3}
+  canvas: {fileID: 2704399793730691091, guid: 65aac0e22fe25aa42b9cf7df776a854d, type: 3}
+  profileSprites: []
 --- !u!4 &1017982171
 Transform:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
 using System;
+using System.Net.Mime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public struct SigninData
 {
@@ -25,6 +27,11 @@ public struct ScoreInfo
     public string email;
     public string nickname;
     public int score;
+    public float winRate;
+    public int win;
+    public int lose;
+    public int totalGames;
+    public Image profileImage;
 }
 
 [Serializable]
@@ -74,5 +81,10 @@ public class SigninPanelController : MonoBehaviour
         emailInputField.text = "";
         passwordInputField.text = "";
         GameManager.Instance.OpenSignupPanel();
+    }
+
+    public void OnClickLeaderboardButton()
+    {
+        GameManager.Instance.OpenLeaderboardPanel();
     }
 }

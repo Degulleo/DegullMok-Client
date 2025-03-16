@@ -7,7 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
-    
+    [SerializeField] private GameObject leaderboardPanel;
     [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
     
@@ -37,9 +37,9 @@ public class GameManager : Singleton<GameManager>
         TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        _gameLogic = new GameLogic(_stoneController, _gameType);
+        // _stoneController = GameObject.FindObjectOfType<StoneController>();
+        // _stoneController.InitStones();
+        // _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -104,5 +104,29 @@ public class GameManager : Singleton<GameManager>
             _gameLogic = new GameLogic(_stoneController, _gameType);
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+    }
+    
+    /// <summary>
+    ///  랭킹보드 점수 활성화하는 함수.
+    /// </summary>
+    public void OpenLeaderboardPanel()
+    {
+        if (_canvas != null)
+        {
+            var leaderboardPanelObject = Instantiate(leaderboardPanel, _canvas.transform);
+            StartCoroutine(NetworkManager.Instance.GetLeaderboard(
+                ranks =>
+                {
+                    foreach (var rank in ranks.scores)
+                    {
+                        var leaderboardController = leaderboardPanelObject.GetComponent<LeaderBoardController>();
+                        leaderboardController.CreateCell(rank);
+                    }
+                }, 
+                () => 
+                {
+                    Debug.LogError("랭킹 불러오기 실패");
+                }));
+        }
     }
 }
