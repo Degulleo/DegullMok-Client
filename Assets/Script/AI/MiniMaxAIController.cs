@@ -50,7 +50,6 @@ public static class MiniMaxAIController
         
         if (validMoves.Count == 0)
         {
-            Debug.Log("칸이 없습니다...");
             return null;
         }
         
@@ -159,48 +158,8 @@ public static class MiniMaxAIController
         }
         return false;
     }
-
-    // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
-    public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, int row, int col)
-    {
-        int size = board.GetLength(0);
-        
-        // 각 방향별로 판단
-        foreach (var dir in _directions)
-        {
-            // 자기 자신 포함해서 카운트 시작
-            int stoneCount = 1;
-
-            // 정방향 탐색
-            int r = row + dir[0], c = col + dir[1];
-            while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player) // 0~15내에서 플레이어 타입 판단
-            {
-                // 동일 플레이어 타입인 경우
-                stoneCount++;
-                r += dir[0]; // row값 옮기기 
-                c += dir[1]; // col값 옮기기
-            }
-            
-            // 역방향 탐색 전에 정방향에서 Win했는지 확인 (이미 Win한 상태에서 역방향 검사 방지)
-            if (stoneCount >= WIN_COUNT) return true; 
-
-            // 역방향 탐색
-            r = row - dir[0]; 
-            c = col - dir[1];
-            while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player)
-            {
-                stoneCount++;
-                r -= dir[0];
-                c -= dir[1];
-            }
-
-            if (stoneCount >= WIN_COUNT) return true; 
-        }
-        
-        return false;
-    }
     
-    private static List<(int row, int col)> GetFiveInARowCandidateMoves(Enums.PlayerType[,] board)
+    /*private static List<(int row, int col)> GetFiveInARowCandidateMoves(Enums.PlayerType[,] board)
     {
         List<(int row, int col)> fiveInARowMoves = new List<(int, int)>();
         int size = board.GetLength(0);
@@ -309,6 +268,121 @@ public static class MiniMaxAIController
             }
         }
 
+        return score;
+    }*/
+    
+    // 특정 방향으로 같은 돌 개수와 열린 끝 개수를 계산하는 함수
+    private static (int count, int openEnds) CountStones(
+        Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player)
+    {
+        int size = board.GetLength(0);
+        int count = 0;
+        int openEnds = 0;
+
+        // 정방향 탐색
+        int r = row + direction[0], c = col + direction[1];
+        while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player)
+        {
+            count++;
+            r += direction[0]; // row값 옮기기
+            c += direction[1]; // col값 옮기기
+        }
+        
+        if (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.None)
+        {
+            openEnds++;
+        }
+
+        // 역방향 탐색
+        r = row - direction[0]; 
+        c = col - direction[1];
+        while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player)
+        {
+            count++;
+            r -= direction[0];
+            c -= direction[1];
+        }
+        
+        if (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.None)
+        {
+            openEnds++;
+        }
+
+        return (count, openEnds);
+    }
+    
+    // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
+    public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, int row, int col)
+    {
+        foreach (var dir in _directions)
+        {
+            var (count, _) = CountStones(board, row, col, dir, player);
+
+            // 자기 자신 포함하여 5개 이상일 시 true 반환
+            if (count + 1 >= WIN_COUNT) 
+                return true;
+        }
+        
+        return false;
+    }
+
+    // 5목이 될 수 있는 위치 찾기
+    private static List<(int row, int col)> GetFiveInARowCandidateMoves(Enums.PlayerType[,] board)
+    {
+        List<(int row, int col)> fiveInARowMoves = new List<(int, int)>();
+        int size = board.GetLength(0);
+
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                if (board[row, col] != Enums.PlayerType.None) continue;
+
+                foreach (var dir in _directions)
+                {
+                    var (count, openEnds) = CountStones(board, row, col, dir, _AIPlayerType);
+
+                    if (count == 4 && openEnds > 0)
+                    {
+                        fiveInARowMoves.Add((row, col));
+                        break;  // 하나 나오면 바로 break (시간 단축)
+                    }
+                }
+            }
+        }
+
+        return fiveInARowMoves;
+    }
+
+    // 현재 보드 평가 함수
+    private static float EvaluateBoard(Enums.PlayerType[,] board)
+    {
+        float score = 0;
+        int size = board.GetLength(0);
+
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                if (board[row, col] == Enums.PlayerType.None) continue;
+
+                Enums.PlayerType player = board[row, col];
+                int playerScore = (player == _AIPlayerType) ? 1 : -1; // AI는 양수, 플레이어는 음수
+
+                foreach (var dir in _directions)
+                {
+                    var (count, openEnds) = CountStones(board, row, col, dir, player);
+
+                    // 점수 계산
+                    if (count == 4)
+                        score += playerScore * (openEnds == 2 ? 10000 : 1000);
+                    else if (count == 3)
+                        score += playerScore * (openEnds == 2 ? 1000 : 100);
+                    else if (count == 2)
+                        score += playerScore * (openEnds == 2 ? 100 : 10);
+                }
+            }
+        }
         return score;
     }
 }
