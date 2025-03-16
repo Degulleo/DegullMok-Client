@@ -11,20 +11,78 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class TestPanelController : MonoBehaviour
 {
+    //게임매니저 없이 동작하도록 작성한 테스트 코드  
+    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject confirmPanel;
+    [SerializeField] private GameObject rankingPanel;
+    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject giboPanel;
+    public Canvas _canvas;
+    public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
+    {
+        if (_canvas != null)
+        {
+            var confirmPanelObject = Instantiate(confirmPanel, _canvas.transform);
+            confirmPanelObject.GetComponent<ConfirmPanelController>()
+                .Show(message, onConfirmButtonClick);
+        }
+    }
+    
+    public void OpenSettingsPanel()
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(settingsPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<PanelController>().Show();
+        }
+    }
+    
+    public void OpenRankingPanel(List<RankingItem> rankingItems)
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(rankingPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<RankingPanelController>().Show(rankingItems);
+        }
+    }
+    
+    public void OpenShopPanel(List<ShopItem> shopItems)
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(shopPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<ShopPanelController>().Show(shopItems);
+        }
+    }
+    
+    public void OpenGiboPanel(List<GiboItem> giboItems)
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<GiboPanelController>().Show(giboItems);
+        }
+    }
+    
+    
+    
+    //확인 패널 생성
     public void OnConfirmPanelClick()
     {
-        GameManager.Instance.OpenConfirmPanel("확인 패널 입니다.", () =>
+        OpenConfirmPanel("확인 패널 입니다.", () =>
         {
                 Debug.Log("확인 버튼을 누르셨습니다.");
         });
         return;
     }
     
+    //세팅 패널 생성
     public void OnSettingPanelClick()
     {
-        GameManager.Instance.OpenSettingsPanel();
+        OpenSettingsPanel();
     }
     
+    //랭킹 패널 생성
     public void OnRankingPanelClick()
     {
         
@@ -40,9 +98,10 @@ public class TestPanelController : MonoBehaviour
             rankingItems.Add(rankingItem);
         }
         
-        GameManager.Instance.OpenRankingPanel(rankingItems);
+        OpenRankingPanel(rankingItems);
     }
     
+    //상점 패널 생성
     public void OnShopPanelClick()
     {
         
@@ -51,16 +110,17 @@ public class TestPanelController : MonoBehaviour
         {
             ShopItem shopItem = new ShopItem
             {
-                ItemSpriteIndex = Random.Range(0, 2),
+                ItemSpriteIndex = Random.Range(0, 1),
                 Name = i.ToString(),
                 Price = (i * 1000)+ "원"
             };
             shopItems.Add(shopItem);
         }
         
-        GameManager.Instance.OpenShopPanel(shopItems);
+        OpenShopPanel(shopItems);
     }
     
+    //기보 패널 생성
     public void OnGiboPanelClick()
     {
         
@@ -69,7 +129,7 @@ public class TestPanelController : MonoBehaviour
         {
             GiboItem giboItem = new GiboItem
             {
-                WinLoseSpriteIndex = Random.Range(0, 2),
+                WinLoseSpriteIndex = Random.Range(0, 1),
                 Date = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
                 Name = i.ToString(),
             };
@@ -77,7 +137,7 @@ public class TestPanelController : MonoBehaviour
             giboItems.Add(giboItem);
         }
         
-        GameManager.Instance.OpenGiboPanel(giboItems);
+        OpenGiboPanel(giboItems);
     }
 
    
