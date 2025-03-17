@@ -16,7 +16,7 @@ public abstract class BasePlayerState
         gameLogic.fioTimer.PauseTimer();
         
         gameLogic.SetNewBoardValue(playerType, row, col);
-        //TODO: 승리확인
+        
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
             GameManager.Instance.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
@@ -24,6 +24,7 @@ public abstract class BasePlayerState
         }
         else
         {
+            //TODO: 무승부 확인
             HandleNextTurn(gameLogic);
         }
         
@@ -43,6 +44,8 @@ public class PlayerState : BasePlayerState
     public override void OnEnter(GameLogic gameLogic)
     {
         gameLogic.fioTimer.StartTimer();
+        
+        //TODO: 첫번째 플레이어면 렌주 룰 확인
         
         gameLogic.currentTurn = _playerType;
         gameLogic.stoneController.OnStoneClickedDelegate = (row, col) =>
@@ -188,9 +191,6 @@ public class GameLogic : MonoBehaviour
                 //TODO: 멀티 구현 필요
                 break;
         }
-        
-        //임시 금수
-        stoneController.SetStoneState(Enums.StoneState.Blocked, 3, 3);
     }
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
@@ -235,26 +235,29 @@ public class GameLogic : MonoBehaviour
     public void SetNewBoardValue(Enums.PlayerType playerType, int row, int col)
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
-        
-        if (playerType == Enums.PlayerType.PlayerA) 
+
+        switch (playerType)
         {
-            stoneController.SetStoneType(Enums.StoneType.Black, row, col);
-            stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
-            _board[row, col] = Enums.PlayerType.PlayerA;
-            LastNSelectedSetting(row, col);
+            case Enums.PlayerType.PlayerA:
+                stoneController.SetStoneType(Enums.StoneType.Black, row, col);
+                stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
+                _board[row, col] = Enums.PlayerType.PlayerA;
+                LastNSelectedSetting(row, col);
+                break;
+            case Enums.PlayerType.PlayerB:
+                stoneController.SetStoneType(Enums.StoneType.White, row, col);
+                stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
+                _board[row, col] = Enums.PlayerType.PlayerB;
+                LastNSelectedSetting(row, col);
+                break;
         }
-        if (playerType == Enums.PlayerType.PlayerB)
-        {
-            stoneController.SetStoneType(Enums.StoneType.White, row, col);
-            stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
-            _board[row, col] = Enums.PlayerType.PlayerB;
-            LastNSelectedSetting(row, col);
-        }
+
     }
 
     //돌 지우는 함수
     public void RemoveStone(int row, int col)
     {
+        _board[row, col] = Enums.PlayerType.None;
         stoneController.SetStoneType(Enums.StoneType.None, row, col);
         stoneController.SetStoneState(Enums.StoneState.None, row, col);
     }
