@@ -110,12 +110,14 @@ public static class MiniMaxAIController
         foreach (var (row, col, _) in validMoves)
         {
             board[row, col] = isMaximizing ? Enums.PlayerType.PlayerB : Enums.PlayerType.PlayerA;
-            ClearCache(); // 돌 
+            ClearCachePartial(row, col); // 부분 초기화
+            // ClearCache();
             
             float minimaxScore = DoMinimax(board, depth - 1, !isMaximizing, alpha, beta, row, col);
             
             board[row, col] = Enums.PlayerType.None;
-            ClearCache();
+            ClearCachePartial(row, col);
+            // ClearCache();
 
             if (isMaximizing)
             {
@@ -155,7 +157,7 @@ public static class MiniMaxAIController
         return validMoves;
     }
     
-    private static bool HasNearbyStones(Enums.PlayerType[,] board, int row, int col)
+    private static bool HasNearbyStones(Enums.PlayerType[,] board, int row, int col, int distance = 3)
     {
         // 9칸 기준으로 현재 위치를 중앙으로 상정한 후 나머지 8방향
         int[] dr = { -1, -1, -1, 0, 0, 1, 1, 1 };
@@ -227,8 +229,38 @@ public static class MiniMaxAIController
     // 캐시 초기화, 새로운 돌이 놓일 시 실행
     private static void ClearCache()
     {
-        // 전체 초기화가 아닌 부분 초기화하기? (현재 변경된 위치 N에서 반경 5칸만 초기화)
         _stoneInfoCache.Clear();
+    }
+    
+    // 캐시 부분 초기화 (현재 변경된 위치 N에서 반경 5칸만 초기화)
+    private static void ClearCachePartial(int centerRow, int centerCol, int radius = 5)
+    {
+        // 캐시가 비어있으면 아무 작업도 하지 않음
+        if (_stoneInfoCache.Count == 0) return;
+    
+        // 제거할 키 목록
+        List<(int, int, int, int)> keysToRemove = new List<(int, int, int, int)>();
+    
+        // 모든 캐시 항목을 검사
+        foreach (var key in _stoneInfoCache.Keys)
+        {
+            var (row, col, _, _) = key;
+            
+            // 거리 계산
+            int distance = Math.Max(Math.Abs(row - centerRow), Math.Abs(col - centerCol));
+        
+            // 지정된 반경 내에 있는 캐시 항목을 삭제 목록에 추가
+            if (distance <= radius)
+            {
+                keysToRemove.Add(key);
+            }
+        }
+    
+        // 반경 내의 키 제거
+        foreach (var key in keysToRemove)
+        {
+            _stoneInfoCache.Remove(key);
+        }
     }
     
     // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
