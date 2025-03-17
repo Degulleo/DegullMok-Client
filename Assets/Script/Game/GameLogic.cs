@@ -117,7 +117,7 @@ public class GameLogic : MonoBehaviour
     private void UpdateForbiddenMoves()
     {
         // TODO: 이전 금수 표시 제거
-
+        ClearForbiddenMarks();
 
         // 흑돌 차례에만 금수 규칙 적용
         if (currentTurn == Enums.PlayerType.PlayerA)
@@ -134,6 +134,19 @@ public class GameLogic : MonoBehaviour
         {
             // 백돌 차례면 금수 목록 비우기
             _forbiddenMoves.Clear();
+        }
+    }
+
+    // 이전에 표시된 금수 마크 제거
+    private void ClearForbiddenMarks()
+    {
+        foreach (var forbiddenMove in _forbiddenMoves)
+        {
+            Vector2Int pos = forbiddenMove.position;
+            if (_board[pos.x, pos.y] == Enums.PlayerType.None)
+            {
+                SetStoneNewState(Enums.StoneState.None, pos.x, pos.y);
+            }
         }
     }
 
