@@ -13,7 +13,7 @@ public class ReplayCell : MonoBehaviour
     [SerializeField] private TMP_Text recordDateText;
     
     private ReplayRecord _storedReplayRecord;
-    private PlayerType _myPlayerType;
+    private Enums.PlayerType _myPlayerType;
     private string _opponentNickname;
     
     
@@ -32,7 +32,7 @@ public class ReplayCell : MonoBehaviour
         }
     }
     
-    public void SetMyPlayerType(PlayerType myPlayerType)
+    public void SetMyPlayerType(Enums.PlayerType myPlayerType)
     {
         _myPlayerType = myPlayerType;
     }

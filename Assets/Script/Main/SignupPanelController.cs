@@ -80,7 +80,7 @@ public class SignupPanelController : MonoBehaviour
             signupData.imageIndex = _selectedImageIndex;
             
             // 서버로 SignupData 전달하면서 회원가입 진행
-            StartCoroutine(NetworkManager.Instance.Signup(signupData, () =>
+            NetworkManager.Instance.Signup(signupData, () =>
             {
                 Destroy(gameObject);
             }, () =>
@@ -89,7 +89,7 @@ public class SignupPanelController : MonoBehaviour
                 nicknameInputField.text = "";
                 passwordInputField.text = "";
                 confirmPasswordInputField.text = "";
-            }));
+            });
         }
         else
         {
@@ -105,7 +105,6 @@ public class SignupPanelController : MonoBehaviour
 
     public void OnClickCancelButton()
     {
-        Debug.Log("OnClickCancelButton");
         Destroy(gameObject);
     }
 }

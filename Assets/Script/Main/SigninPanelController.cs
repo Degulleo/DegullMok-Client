@@ -14,11 +14,11 @@ public struct SigninData
 public struct SigninResult
 {
     public int result;
-}
-
-public struct SignoutResult
-{
-    public string result;
+    public string nickname;
+    public int imageIndex;
+    public int rating;
+    public int score;
+    public int coins;
 }
 
 [Serializable]
@@ -52,17 +52,21 @@ public class SigninPanelController : MonoBehaviour
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            // TODO: 누락된 값 입렵 요청 팝업 표시
+            // TODO: 누락된 값 입력 요청 팝업 표시
             return;
         }
 
-        var signinData = new SigninData();
-        signinData.email = email;
-        signinData.password = password;
+        var signinData = new SigninData { email = email, password = password };
         
-        StartCoroutine(NetworkManager.Instance.Signin(signinData, () =>
+        NetworkManager.Instance.Signin(signinData, (signinResult) =>
         {
             Destroy(gameObject);
+            
+            // 유저 정보 저장
+            UserManager.Instance.SetUserInfo(signinResult);
+            
+            // 메인 패널 정보 갱신
+            GameManager.Instance.UpdateMainPanelUI(GameManager.Instance.OpenMainPanel);
         }, result =>
         {
             if (result == 0)
@@ -73,7 +77,7 @@ public class SigninPanelController : MonoBehaviour
             {
                 passwordInputField.text = "";
             }
-        }));
+        });
     }
 
     public void OnClickSignupButton()

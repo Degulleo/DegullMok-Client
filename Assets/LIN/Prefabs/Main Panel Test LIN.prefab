@@ -1257,7 +1257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5553341337845712589}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1316706425349991338}
+        m_TargetAssemblyTypeName: MainPanelControllerTestLIN, Assembly-CSharp
+        m_MethodName: OnclickReplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4348816988605791720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,12 +1416,12 @@ GameObject:
   - component: {fileID: 2069651035330330026}
   - component: {fileID: 2769129427375959542}
   m_Layer: 5
-  m_Name: Profile Image_dragon
+  m_Name: Profile Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &405965270916774547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1653,7 +1665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD638\uB7AD\uC774"
+  m_text: " \uD64D\uAE38\uB3D9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -1722,81 +1734,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &6837262359343561592
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8172929902404983356}
-  - component: {fileID: 9151821260105146833}
-  - component: {fileID: 662347117161959313}
-  m_Layer: 5
-  m_Name: Profile Image_tiger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8172929902404983356
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837262359343561592}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6110152713294678410}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -180}
-  m_SizeDelta: {x: 403, y: 409}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!222 &9151821260105146833
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837262359343561592}
-  m_CullTransparentMesh: 1
---- !u!114 &662347117161959313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837262359343561592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 59492a1d9c2719641bd0d4d53988c9b4, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8564394481744056992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,9 +1745,9 @@ GameObject:
   - component: {fileID: 6110152713294678410}
   - component: {fileID: 3427246911059574568}
   - component: {fileID: 5475593685932698206}
-  - component: {fileID: 7488082087611091670}
+  - component: {fileID: 1316706425349991338}
   m_Layer: 5
-  m_Name: Main Panel
+  m_Name: Main Panel Test LIN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1831,7 +1768,6 @@ RectTransform:
   - {fileID: 1983801467959214643}
   - {fileID: 2720476515686469179}
   - {fileID: 405965270916774547}
-  - {fileID: 8172929902404983356}
   - {fileID: 6726863397751661662}
   - {fileID: 7295287573366824212}
   m_Father: {fileID: 0}
@@ -1879,7 +1815,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7488082087611091670
+--- !u!114 &1316706425349991338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1888,15 +1824,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8564394481744056992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4dc3fd9e59f47df80e344680d1b9803, type: 3}
+  m_Script: {fileID: 11500000, guid: 67ce17de423b0644bb099f5272a48faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nicknameText: {fileID: 6229663128658405980}
   ratingText: {fileID: 5975803210787517482}
-  signOutButton: {fileID: 1336680714261373895}
-  profileImages:
-  - {fileID: 4381601883819518242}
-  - {fileID: 6837262359343561592}
+  signOutButton: {fileID: 0}
+  replayPanel: {fileID: 3652256375875260186, guid: 05029822800bdfc48895ad2aca318566, type: 3}
 --- !u!1 &9186617826613474881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,7 +1950,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4776591815315724498}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MainPanelController, Assembly-CSharp
+        m_MethodName: OnSignOutClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &218636292198555703
 PrefabInstance:
   m_ObjectHideFlags: 0
