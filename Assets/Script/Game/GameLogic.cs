@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public abstract class BasePlayerState
         //TODO: 승리확인
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            Debug.Log($"Game Over: {playerType} Win");
+            GameManager.Instance.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
             gameLogic.EndGame();
         }
         else
@@ -165,10 +166,15 @@ public class GameLogic : MonoBehaviour
         //임시 금수
         stoneController.SetStoneState(Enums.StoneState.Blocked, 3, 3);
     }
-
+    //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
         _currentPlayerState.ProcessMove(this, currentTurn, selectedRow, selectedCol);
+    }
+    //보드 초기화
+    public void ResetBoard()
+    {
+        Array.Clear(_board, 0, _board.Length);
     }
 
     public void SetState(BasePlayerState state)
@@ -187,6 +193,7 @@ public class GameLogic : MonoBehaviour
     public void SetStoneSelectedState(int row, int col)
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
+        
         if (stoneController.GetStoneState(row, col) != Enums.StoneState.None) return;
         //첫수 및 중복 확인
         if ((selectedRow != row || selectedCol != col) && (selectedRow != -1 && selectedCol != -1))
@@ -202,6 +209,7 @@ public class GameLogic : MonoBehaviour
     public void SetNewBoardValue(Enums.PlayerType playerType, int row, int col)
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
+        
         if (playerType == Enums.PlayerType.PlayerA) 
         {
             stoneController.SetStoneType(Enums.StoneType.Black, row, col);
@@ -237,6 +245,7 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         SetState(null);
+        
     }
     
     //승리 확인 함수

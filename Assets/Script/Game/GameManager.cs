@@ -46,6 +46,7 @@ public class GameManager : Singleton<GameManager>
         // TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
+        _canvas = canvas.GetComponent<Canvas>();
         _stoneController = GameObject.FindObjectOfType<StoneController>();
         _stoneController.InitStones();
         _gameLogic = new GameLogic(_stoneController, _gameType);
@@ -145,7 +146,13 @@ public class GameManager : Singleton<GameManager>
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
-    
+    //임시 재시작 재대결
+    public void RetryGame()
+    {
+        _gameLogic.ResetBoard();
+        _stoneController.InitStones();
+        _gameLogic.SetState(_gameLogic.firstPlayerState);
+    }
     public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
     {
         if (_canvas != null)

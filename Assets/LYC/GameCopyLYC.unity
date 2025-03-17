@@ -4817,9 +4817,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a4c6d5d3a97b444b968e68ec8bb9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainPanel: {fileID: 0}
   signinPanel: {fileID: 0}
   signupPanel: {fileID: 0}
-  canvas: {fileID: 0}
+  settingsPanel: {fileID: 0}
+  confirmPanel: {fileID: 8145365568262946399, guid: 76f1fe6b5243faf4f9b8caee7312d336, type: 3}
+  rankingPanel: {fileID: 0}
+  shopPanel: {fileID: 0}
+  giboPanel: {fileID: 0}
+  canvas: {fileID: 2704399793934511678}
   profileSprites: []
 --- !u!4 &679766978
 Transform:
