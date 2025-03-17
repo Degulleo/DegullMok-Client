@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -5,6 +6,7 @@ using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
     [SerializeField] private GameObject settingsPanel;
@@ -15,12 +17,14 @@ public class GameManager : Singleton<GameManager>
     
     [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
+    private CoinsPanelController _coinsPanel;
     
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
     private Canvas _canvas;
 
+    public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
     
     private void Awake()
     {
@@ -31,19 +35,21 @@ public class GameManager : Singleton<GameManager>
             _userManager = userManagerObj.AddComponent<UserManager>();
             
             //게임 씬에서 확인하기 위한 임시 코드
-            _gameType = Enums.GameType.SinglePlay;
+            // _gameType = Enums.GameType.SinglePlay;
         }
     }
     
     private void Start()
     {
+        // TODO: 로딩 화면 추가(자동 로그인 응답 전까지)
+        
         // 자동 로그인
         TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        _gameLogic = new GameLogic(_stoneController, _gameType);
+        // _stoneController = GameObject.FindObjectOfType<StoneController>();
+        // _stoneController.InitStones();
+        // _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -51,8 +57,9 @@ public class GameManager : Singleton<GameManager>
         NetworkManager.Instance.GetInfo((userInfo) =>
         {
             Debug.Log("자동 로그인 성공");
-            
-            UpdateMainPanelUI();
+            UserManager.Instance.SetUserInfo(userInfo);
+
+            UpdateMainPanelUI(OpenMainPanel);
             // ScoreData.SetScore(userInfo.score);
             // OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
         }, () =>
@@ -63,12 +70,34 @@ public class GameManager : Singleton<GameManager>
         });
     }
     
-    private void UpdateMainPanelUI()
+    /// <summary>
+    /// 유저 별명, 급수를 서버에서 가져온 정보로 업데이트하여 메인화면에 표시
+    /// </summary>
+    public void UpdateMainPanelUI(Action success = null)
     {
-        MainPanelController mainPanel = FindObjectOfType<MainPanelController>();
-        if (mainPanel != null)
+        MainPanelController mainPanelController = mainPanel.GetComponent<MainPanelController>();
+        
+        if (mainPanelController == null) return;
+        
+        mainPanelController.UpdateUserInfo();
+
+        success?.Invoke();
+    }
+    
+    public void OpenMainPanel()
+    {
+        if (canvas != null)
         {
-            mainPanel.UpdateUserInfo();
+            var mainPanelObject = Instantiate(mainPanel, canvas.transform);
+            
+            // 메인 화면 아래의 코인 패널에 서버에서 가져 온 코인 값 업데이트
+            _coinsPanel = mainPanelObject.GetComponentInChildren<CoinsPanelController>();
+            
+            if (_coinsPanel != null)
+            {
+                _coinsPanel.InitCoinsCount(UserManager.Instance.Coins);
+            }
+
         }
     }
     
