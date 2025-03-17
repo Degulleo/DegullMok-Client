@@ -27,6 +27,9 @@ public class GameLogic : MonoBehaviour
         currentTurn = Enums.PlayerType.PlayerA;
         
         SetState(currentTurn);
+        
+        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
+        ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
     }
 
     private void SetState(Enums.PlayerType player)
@@ -60,6 +63,8 @@ public class GameLogic : MonoBehaviour
                 LastNSelectedSetting(row, col);
                 
                 SetState(Enums.PlayerType.PlayerB);
+                
+                ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.Black, row, col);      //기보 데이터 저장
             }
             if (playerType == Enums.PlayerType.PlayerB)
             {
@@ -69,6 +74,8 @@ public class GameLogic : MonoBehaviour
                 
                 LastNSelectedSetting(row, col);
                 SetState(Enums.PlayerType.PlayerA);
+                
+                ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, row, col);
             }
         }
     }
