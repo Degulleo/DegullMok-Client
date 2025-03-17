@@ -26,13 +26,15 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
             GameObject userManagerObj = new GameObject("UserManager");
             _userManager = userManagerObj.AddComponent<UserManager>();
             
-            //게임 씬에서 확인하기 위한 임시 코드
-            _gameType = Enums.GameType.SinglePlay;
+            //TODO: 게임 내에서 기보 타입 적용하기
+            _gameType = Enums.GameType.Replay;
         }
     }
     
     private void Start()
     {
+        //TODO: 기보 타입으로 들어왔을 때 데이터 로드 테스트 수정할것
+        ReplayManager.Instance.InitReplayBoard(ReplayManager.Instance.LoadReplayDatas()[9]);
         
         
         //게임 씬에서 확인하기 위한 임시 코드
@@ -88,7 +90,28 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
         _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
         
     }
-    
+
+    public void OnClickReplayNextButton()
+    {
+        Move nextMove = ReplayManager.Instance.GetNextMove();
+        if (nextMove != null)
+        {
+            if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+            {
+                _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, nextMove.columnIndex, nextMove.rowIndex);
+
+            }
+            else if (nextMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+            {
+                _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
+            }
+        }
+    }
+
+    public void OnClickReplayUndoButton()
+    {
+        
+    }
     private void ChangeToGameScene(Enums.GameType gameType)
     {
         _gameType = gameType;

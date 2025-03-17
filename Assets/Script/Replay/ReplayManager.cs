@@ -32,8 +32,37 @@ public class Move
 public class ReplayManager : Singleton<ReplayManager>
 {
     private ReplayRecord _recordingReplayData;
+
+    #region 기보 시작 후 데이터를 컨트롤하기 위한 변수
+    
+    private ReplayRecord _replayRecord;
+    private Stack<Move> _plavedStoneStack;
+    private Stack<Move> _undoStack;
+    private int _moveIndex;
+    
+    #endregion
+
+    public void InitReplayBoard(ReplayRecord replayRecord)
+    {        
+        _replayRecord = replayRecord;
+        _moveIndex = 0;
+    }
     
 
+    public Move GetNextMove()
+    {
+        if (_undoStack.Count > 0)
+            return _undoStack.Pop();
+        
+        if(_moveIndex >= _replayRecord.moves.Count)
+            return null;
+        
+        Move move = _replayRecord.moves[_moveIndex];
+        _moveIndex++;
+        return move;
+    }
+    
+    #region 게임 플레이중 기보 데이터 저장
     ///<summary>
     /// 게임 시작에 호출해서 기보 데이터 초기화
     /// </summary>
@@ -81,7 +110,8 @@ public class ReplayManager : Singleton<ReplayManager>
         }
     }
 
-
+    #endregion
+    
     //폴더내 기보 파일을 전부 읽어옵니다.
     public List<ReplayRecord> LoadReplayDatas()
     {
