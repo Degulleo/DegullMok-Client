@@ -17,6 +17,7 @@ public class TestGameManager : MonoBehaviour
     private void Start()
     {
         _board = new Enums.PlayerType[15, 15];
+        MiniMaxAIController.SetLevel(1); // 급수 설정 테스트
         ResultBoard();
     }
 
@@ -32,6 +33,7 @@ public class TestGameManager : MonoBehaviour
         }
         
         _board[row, col] = Enums.PlayerType.PlayerA;
+        Debug.Log($"Player's row: {row} col: {col}");
         
         // var isEnded = MiniMaxAIController.CheckGameWin(Enums.PlayerType.PlayerA, _board, row, col);
         // Debug.Log("PlayerA is Win: " + isEnded);
