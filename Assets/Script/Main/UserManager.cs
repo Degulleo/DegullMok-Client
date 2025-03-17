@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UserInfoResult
 {
@@ -11,6 +12,7 @@ public class UserInfoResult
     public int imageIndex;
     public int win;
     public int lose;
+    public Image profileImage;
 }
 
 public class UserManager : Singleton<UserManager>
@@ -23,6 +25,7 @@ public class UserManager : Singleton<UserManager>
     public int ImageIndex { get; private set; }
     public int Win { get; private set; }
     public int Lose { get; private set; }
+    public Image profileImage { get; private set; }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
