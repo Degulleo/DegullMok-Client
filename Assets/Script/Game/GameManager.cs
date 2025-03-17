@@ -7,6 +7,11 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
+    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject confirmPanel;
+    [SerializeField] private GameObject rankingPanel;
+    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject giboPanel;
     
     [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
@@ -16,7 +21,6 @@ public class GameManager : Singleton<GameManager>
     private StoneController _stoneController;
     private Canvas _canvas;
 
-    public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
     
     private void Awake()
     {
@@ -104,5 +108,51 @@ public class GameManager : Singleton<GameManager>
             _gameLogic = new GameLogic(_stoneController, _gameType);
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+    }
+    
+    public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
+    {
+        if (_canvas != null)
+        {
+            var confirmPanelObject = Instantiate(confirmPanel, _canvas.transform);
+            confirmPanelObject.GetComponent<ConfirmPanelController>()
+                .Show(message, onConfirmButtonClick);
+        }
+    }
+    
+    public void OpenSettingsPanel()
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(settingsPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<PanelController>().Show();
+        }
+    }
+    
+    public void OpenRankingPanel(List<RankingItem> rankingItems)
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(rankingPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<RankingPanelController>().Show(rankingItems);
+        }
+    }
+    
+    public void OpenShopPanel(List<ShopItem> shopItems)
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(shopPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<ShopPanelController>().Show(shopItems);
+        }
+    }
+    
+    public void OpenGiboPanel(List<GiboItem> giboItems)
+    {
+        if (_canvas != null)
+        {
+            var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
+            settingsPanelObject.GetComponent<GiboPanelController>().Show(giboItems);
+        }
     }
 }
