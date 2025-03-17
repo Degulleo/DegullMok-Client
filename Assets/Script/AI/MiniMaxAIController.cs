@@ -6,7 +6,7 @@ using UnityEngine;
 public static class MiniMaxAIController
 {
     // To-Do List
-    // 탐색 시간 개선
+    // 탐색 시간 개선: 캐싱(_stoneInfoCache), 좋은 수부터 탐색(Move Ordering) 
     // AI 난이도 개선
     
     private const int SEARCH_DEPTH = 3; // 탐색 깊이 제한 (3 = 빠른 응답, 4 = 좀 더 강한 AI 그러나 느린)
@@ -52,7 +52,7 @@ public static class MiniMaxAIController
         float bestScore = float.MinValue;
         (int row, int col)? bestMove = null;
         (int row, int col)? secondBestMove = null;
-        List<(int row, int col)> validMoves = GetValidMoves(board);
+        List<(int row, int col, float score)> validMoves = GetValidMoves(board);
         
         // 보드에 놓을 수 있는 자리가 있는지 확인
         if (validMoves.Count == 0)
@@ -68,7 +68,7 @@ public static class MiniMaxAIController
             return bestMove;
         }
         
-        foreach (var (row, col) in validMoves)
+        foreach (var (row, col, _) in validMoves)
         {
             board[row, col] = _AIPlayerType;
             float score = DoMinimax(board, SEARCH_DEPTH, false, -1000, 1000, row, col);
@@ -105,26 +105,26 @@ public static class MiniMaxAIController
         if (depth == 0) return EvaluateBoard(board);
 
         float bestScore = isMaximizing ? float.MinValue : float.MaxValue;
-        List<(int row, int col)> validMoves = GetValidMoves(board); // 현재 놓을 수 있는 자리 리스트
+        List<(int row, int col, float score)> validMoves = GetValidMoves(board); // 현재 놓을 수 있는 자리 리스트
 
-        foreach (var (row, col) in validMoves)
+        foreach (var (row, col, _) in validMoves)
         {
             board[row, col] = isMaximizing ? Enums.PlayerType.PlayerB : Enums.PlayerType.PlayerA;
             ClearCache(); // 돌 
             
-            float score = DoMinimax(board, depth - 1, !isMaximizing, alpha, beta, row, col);
+            float minimaxScore = DoMinimax(board, depth - 1, !isMaximizing, alpha, beta, row, col);
             
             board[row, col] = Enums.PlayerType.None;
             ClearCache();
 
             if (isMaximizing)
             {
-                bestScore = Math.Max(bestScore, score);
+                bestScore = Math.Max(bestScore, minimaxScore);
                 alpha = Math.Max(alpha, bestScore);
             }
             else
             {
-                bestScore = Math.Min(bestScore, score);
+                bestScore = Math.Min(bestScore, minimaxScore);
                 beta = Math.Min(beta, bestScore);
             }
             
@@ -134,9 +134,9 @@ public static class MiniMaxAIController
     }
 
     // 이동 가능 + 주변에 돌 있는 위치 탐색
-    private static List<(int row, int col)> GetValidMoves(Enums.PlayerType[,] board)
+    private static List<(int row, int col, float score)> GetValidMoves(Enums.PlayerType[,] board)
     {
-        List<(int, int)> validMoves = new List<(int, int)>();
+        List<(int, int, float)> validMoves = new List<(int, int, float)>();
         int size = board.GetLength(0);
 
         for (int row = 0; row < size; row++)
@@ -145,10 +145,13 @@ public static class MiniMaxAIController
             {
                 if (board[row, col] == Enums.PlayerType.None && HasNearbyStones(board, row, col))
                 {
-                    validMoves.Add((row, col));
+                    float score = EvaluateBoard(board);
+                    validMoves.Add((row, col, score));
                 }
             }
         }
+
+        validMoves.Sort((a, b) => b.Item3.CompareTo(a.Item3));  
         return validMoves;
     }
     
@@ -224,6 +227,7 @@ public static class MiniMaxAIController
     // 캐시 초기화, 새로운 돌이 놓일 시 실행
     private static void ClearCache()
     {
+        // 전체 초기화가 아닌 부분 초기화하기? (현재 변경된 위치 N에서 반경 5칸만 초기화)
         _stoneInfoCache.Clear();
     }
     
