@@ -491,5 +491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d28917ad20c19e428cbf98ba5609e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adManager: {fileID: 8786799901643631561, guid: c401513426cb83c4e8759c73d8be4c3a, type: 3}
   profileSprites:
   - {fileID: 21300000, guid: 307bff9630735f342852f28b1cd5d300, type: 3}

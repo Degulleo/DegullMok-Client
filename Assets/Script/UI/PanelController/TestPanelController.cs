@@ -106,19 +106,33 @@ public class TestPanelController : MonoBehaviour
     {
         
         List<ShopItem> shopItems = new List<ShopItem>();       //테스트 데이터 리스트 생성
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 10; i++)
         {
-            ShopItem shopItem = new ShopItem
+            if (i == 0)     //광고 항목
             {
-                ItemSpriteIndex = Random.Range(0, 1),
-                Name = "코인"+i+"개",
-                Price = (i * 1000)+ "원"
-            };
-            shopItems.Add(shopItem);
+                ShopItem shopItem = new ShopItem
+                {
+                    ItemSpriteIndex = Random.Range(0, 1),
+                    Name = "코인10개",
+                    Price = "광고"
+                };
+                shopItems.Add(shopItem);
+            }
+            else
+            {
+                ShopItem shopItem = new ShopItem
+                {
+                    ItemSpriteIndex = Random.Range(0, 1),
+                    Name = "코인"+i+"개",
+                    Price = (i * 1000)+ "원"
+                };
+                shopItems.Add(shopItem);
+            }
         }
-        
+ 
         OpenShopPanel(shopItems);
     }
+    
     
     //기보 패널 생성
     public void OnGiboPanelClick()
