@@ -33,21 +33,24 @@ public class ReplayManager : Singleton<ReplayManager>
 {
     private ReplayRecord _recordingReplayData;
 
-    #region 기보 시작 후 데이터를 컨트롤하기 위한 변수
+    #region 기보 시작 후 데이터를 컨트롤하기
     
     private ReplayRecord _replayRecord;
-    private Stack<Move> _plavedStoneStack;
+    
+    //DO, Undo를 위한 스택
+    private Stack<Move> _placedStoneStack;
     private Stack<Move> _undoStack;
     private int _moveIndex;
     
-    #endregion
-
+    
     public void InitReplayBoard(ReplayRecord replayRecord)
     {        
         _replayRecord = replayRecord;
         _moveIndex = 0;
+        
+        _placedStoneStack = new Stack<Move>();
+        _undoStack = new Stack<Move>();
     }
-    
 
     public Move GetNextMove()
     {
@@ -61,6 +64,26 @@ public class ReplayManager : Singleton<ReplayManager>
         _moveIndex++;
         return move;
     }
+
+    public void PushMove(Move storedMove)
+    {
+        _placedStoneStack.Push(storedMove);
+    }
+
+    public Move PopMove()
+    {
+        if (_placedStoneStack.Count == 0)
+            return null;
+        Move move = _placedStoneStack.Pop();
+        return move;
+    }
+    
+    public void PushUndoMove(Move storedMove)
+    {
+        _undoStack.Push(storedMove);
+    }
+    
+    #endregion
     
     #region 게임 플레이중 기보 데이터 저장
     ///<summary>

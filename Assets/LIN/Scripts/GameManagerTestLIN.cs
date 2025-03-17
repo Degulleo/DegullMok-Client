@@ -105,12 +105,27 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
             {
                 _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
             }
+            ReplayManager.Instance.PushMove(nextMove);
         }
     }
 
     public void OnClickReplayUndoButton()
     {
-        
+        Move targetMove = ReplayManager.Instance.PopMove();
+        if (targetMove != null)
+        {
+            if (targetMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+            {
+                _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, targetMove.columnIndex, targetMove.rowIndex);
+
+            }
+            else if (targetMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+            {
+                _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, targetMove.columnIndex, targetMove.rowIndex);
+            }
+            ReplayManager.Instance.PushUndoMove(targetMove);
+            //TODO: 화면상에서 돌 치우기
+        }
     }
     private void ChangeToGameScene(Enums.GameType gameType)
     {
