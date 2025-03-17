@@ -194,7 +194,7 @@ public class GameLogic : MonoBehaviour
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
         
-        if (stoneController.GetStoneState(row, col) != Enums.StoneState.None) return;
+        if (stoneController.GetStoneState(row, col) != Enums.StoneState.None && currentTurn == Enums.PlayerType.PlayerA) return;
         //첫수 및 중복 확인
         if ((selectedRow != row || selectedCol != col) && (selectedRow != -1 && selectedCol != -1))
         {
@@ -224,6 +224,13 @@ public class GameLogic : MonoBehaviour
             _board[row, col] = Enums.PlayerType.PlayerB;
             LastNSelectedSetting(row, col);
         }
+    }
+
+    //돌 지우는 함수
+    public void RemoveStone(int row, int col)
+    {
+        stoneController.SetStoneType(Enums.StoneType.None, row, col);
+        stoneController.SetStoneState(Enums.StoneState.None, row, col);
     }
 
     //마지막 좌표와 선택 좌표 세팅
