@@ -37,4 +37,11 @@ public class StoneController : MonoBehaviour
         var index = MaxCellCount * row + col;
         stones[index].SetState(state);
     }
+    
+    //스톤상태 확인
+    public Enums.StoneState GetStoneState(int row, int col)
+    {
+        var index = MaxCellCount * row + col;
+        return stones[index].GetStoneState();
+    }
 }

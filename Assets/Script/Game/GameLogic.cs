@@ -161,6 +161,9 @@ public class GameLogic : MonoBehaviour
                 //TODO: 멀티 구현 필요
                 break;
         }
+        
+        //임시 금수
+        stoneController.SetStoneState(Enums.StoneState.Blocked, 3, 3);
     }
 
     public void OnConfirm()
@@ -184,6 +187,7 @@ public class GameLogic : MonoBehaviour
     public void SetStoneSelectedState(int row, int col)
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
+        if (stoneController.GetStoneState(row, col) != Enums.StoneState.None) return;
         //첫수 및 중복 확인
         if ((selectedRow != row || selectedCol != col) && (selectedRow != -1 && selectedCol != -1))
         {
