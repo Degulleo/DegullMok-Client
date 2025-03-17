@@ -25,7 +25,7 @@ public class RenjuForbiddenMoveDetector
     }
 
     /// <summary>
-    /// 모든 금수 위치를 찾아 반환
+    /// 모든 금수 위치를 찾아 반환하는 함수
     /// </summary>
     /// <param name="board">현재 보드 상태</param>
     /// <returns>금수 위치 목록 (각 위치별 금수 타입 정보 포함)</returns>

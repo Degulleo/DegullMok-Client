@@ -13,7 +13,16 @@ public class GameLogic : MonoBehaviour
     //마지막 배치된 좌표
     public int lastRow;
     public int lastCol;
-    
+
+    #region Renju Members
+    // 렌주룰 금수 검사기
+    private RenjuForbiddenMoveDetector _forbiddenDetector;
+
+    // 현재 금수 위치 목록
+    private List<(Vector2Int position, ForbiddenType type)> _forbiddenMoves = new List<(Vector2Int, ForbiddenType)>();
+
+    #endregion
+
     public GameLogic(StoneController stoneController, Enums.GameType gameType)
     {
         //보드 초기화
@@ -23,7 +32,10 @@ public class GameLogic : MonoBehaviour
         selectedCol = -1;
         lastRow = -1;
         lastCol = -1;
-        
+
+        // 금수 감지기 초기화
+        _forbiddenDetector = new RenjuForbiddenMoveDetector();
+
         currentTurn = Enums.PlayerType.PlayerA;
         
         SetState(currentTurn);
@@ -32,6 +44,10 @@ public class GameLogic : MonoBehaviour
     private void SetState(Enums.PlayerType player)
     {
         currentTurn = player;
+
+        // 턴이 변경될 때마다 금수 위치 업데이트
+        UpdateForbiddenMoves();
+
         _stoneController.OnStoneClickedDelegate = (row, col) =>
         {
             if (_board[row, col] == Enums.PlayerType.None)
@@ -93,4 +109,33 @@ public class GameLogic : MonoBehaviour
     {
         _stoneController.SetStoneState(state, row, col);
     }
+
+
+    #region Renju Rule Detector
+
+    // 금수 위치 업데이트 및 표시
+    private void UpdateForbiddenMoves()
+    {
+        // TODO: 이전 금수 표시 제거
+
+
+        // 흑돌 차례에만 금수 규칙 적용
+        if (currentTurn == Enums.PlayerType.PlayerA)
+        {
+            // 모든 금수의 위치 찾기
+            _forbiddenMoves = _forbiddenDetector.FindAllForbiddenMoves(_board);
+            foreach (var forbiddenMove in _forbiddenMoves)
+            {
+                Vector2Int pos = forbiddenMove.position;
+                SetStoneNewState(Enums.StoneState.Blocked, pos.x, pos.y);
+            }
+        }
+        else
+        {
+            // 백돌 차례면 금수 목록 비우기
+            _forbiddenMoves.Clear();
+        }
+    }
+
+    #endregion
 }
