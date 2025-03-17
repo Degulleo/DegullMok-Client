@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -6,7 +7,27 @@ using UnityEngine;
 /// </summary>
 public class DoubleThreeDetector :RenjuDetectorBase
 {
-    //  해당 위치가 33 금수인지 반환
+    // 열린 4 감지기
+    private OpenFourDetector _openFourDetector = new();
+
+    // 디버깅용 방향 이름
+    private readonly string[] _directionNames = new string[]
+    {
+        "가로", "세로", "우하향 대각선", "우상향 대각선"
+    };
+
+    private readonly string[] _rowNames = new[]
+    {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"
+    };
+
+    /// <summary>
+    /// 해당 위치가 금수인지 반환하는 함수
+    /// </summary>
+    /// <param name="board">현재 보드 상태</param>
+    /// <param name="row">row 좌표</param>
+    /// <param name="col">col 좌표</param>
+    /// <returns>금수 여부</returns>
     public bool IsDoubleThree(Enums.PlayerType[,] board, int row, int col)
     {
         // 빈 위치가 아니면 검사할 필요 없음
@@ -21,141 +42,160 @@ public class DoubleThreeDetector :RenjuDetectorBase
         // 해당 위치에 흑돌 놓기
         tempBoard[row, col] = Enums.PlayerType.PlayerA;
 
-        // 열린 삼 개수 카운트
-        int openThreeCount = 0;
+        // 열린 3의 방향 목록
+        HashSet<int> openThreeDirectionIndices = new HashSet<int>();
 
-        // 각 방향으로 열린 삼 검사
-        foreach (var dir in directions)
+        // 각 빈 위치에 대해 가상으로 돌을 놓아보고 열린 4가 되는지 확인
+        for (int r = 0; r < _boardSize; r++)
         {
-            if (HasOpenThree(tempBoard, row, col, dir))
+            for (int c = 0; c < _boardSize; c++)
             {
-                openThreeCount++;
-
-                // 디버깅 정보
-                Debug.Log($"열린 삼 발견: ({row}, {col}) 방향: ({dir.x}, {dir.y})");
-
-                // 이미 2개의 열린 삼을 찾았으면 3-3 금수임
-                if (openThreeCount >= 2)
+                // 빈 위치만 검사 (원래 위치 제외)
+                if (tempBoard[r, c] != Enums.PlayerType.None || (r == row && c == col))
                 {
-                    return true;
+                    continue;
+                }
+
+                // 이 위치에 가상으로 돌을 놓았을 때 열린 4가 되는지 확인
+                var (isOpenFour, openFourDirs) = _openFourDetector.DetectOpenFour(tempBoard, r, c, Enums.PlayerType.PlayerA);
+
+                if (isOpenFour)
+                {
+                    // 각 방향에 대해 원래 위치와 관련된 열린 3인지 확인
+                    foreach (Vector2Int dir in openFourDirs)
+                    {
+                        // 이 방향에서 원래 위치가 포함된 라인에 열린 4가 만들어지는지 확인
+                        if (IsPositionInSameLine(row, col, r, c, dir))
+                        {
+                            // 방향 인덱스 찾기
+                            int dirIndex = GetDirectionIndex(dir);
+                            if (dirIndex >= 0)
+                            {
+                                openThreeDirectionIndices.Add(dirIndex);
+                                Debug.Log($"위치 ({_rowNames[row]}{col})에서 {_directionNames[dirIndex]} 방향으로 열린 3 발견 - ({_rowNames[r]}{c})에 놓으면 열린 4 형성");
+                            }
+                        }
+                    }
                 }
             }
         }
-        return true;
-    }
 
-    // 열린 삼을 가졌는지 확인하는 함수
-    private bool HasOpenThree(Enums.PlayerType[,] board, int row, int col, Vector2Int dir)
-    {
-        int dRow = dir.x;
-        int dCol = dir.y;
+        // 서로 다른 방향에서 열린 3이 2개 이상 발견되면 3-3 금수 후보
+        bool isDoubleThreeCandidate = openThreeDirectionIndices.Count >= 2;
 
-        // 해당 위치의 돌 흑돌 = PlayerA
-        Enums.PlayerType stone = board[row, col];
-        if (stone != Enums.PlayerType.PlayerA)
+        if (isDoubleThreeCandidate)
         {
-            return false;
-        }
-
-        // 각 방향으로 양쪽 6칸씩 검사 (현재 위치 포함 총 13칸)
-        // 보드 영역을 벗어나거나 다른 돌에 의해 막히는 경우를 고려
-        List<Enums.PlayerType> line = new List<Enums.PlayerType>();
-
-        // 현재 위치 추가
-        line.Add(stone);
-
-        // 정방향으로 최대 6칸 검사
-        for (int i = 1; i <= 6; i++)
-        {
-            int r = row + i * dRow;
-            int c = col + i * dCol;
-
-            if (!IsValidPosition(r, c))
+            // 각 방향별로 진짜 열린 3인지 확인
+            foreach (int dirIndex in new List<int>(openThreeDirectionIndices))
             {
-                line.Add(Enums.PlayerType.None); // 보드 바깥은 None 처리
-                break;
+                Vector2Int dir = directions[dirIndex];
+
+                // 이 방향에서 실제로 열린 4가 만들어질 수 있는지 확인
+                bool canFormOpenFour = false;
+
+                // 보드의 모든 빈 위치를 검사
+                for (int r = 0; r < _boardSize; r++)
+                {
+                    for (int c = 0; c < _boardSize; c++)
+                    {
+                        // 빈 위치만 검사 (원래 위치 제외)
+                        if (tempBoard[r, c] != Enums.PlayerType.None || (r == row && c == col))
+                        {
+                            continue;
+                        }
+
+                        // 이 위치가 동일한 방향에 있는지 확인
+                        if (IsPositionInSameLine(row, col, r, c, dir))
+                        {
+                            // 이 위치에 흑돌을 놓고 열린 4가 되는지 확인
+                            Enums.PlayerType[,] testBoard = (Enums.PlayerType[,])tempBoard.Clone();
+                            testBoard[r, c] = Enums.PlayerType.PlayerA;
+
+                            var (isOpenFour, _) = _openFourDetector.DetectOpenFour(testBoard, r, c, Enums.PlayerType.PlayerA);
+
+                            if (isOpenFour)
+                            {
+                                canFormOpenFour = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (canFormOpenFour)
+                    {
+                        break;
+                    }
+                }
+
+                // 이 방향에서 열린 4를 만들 수 없다면 거짓 열린 3
+                if (!canFormOpenFour)
+                {
+                    openThreeDirectionIndices.Remove(dirIndex);
+                    Debug.Log($"위치 ({row},{col})에서 {_directionNames[dirIndex]} 방향은 거짓 열린 3");
+                }
             }
 
-            line.Add(board[r, c]);
+            // 실제 열린 3이 2개 이상인 경우만 3-3 금수
+            bool isDoubleThree = openThreeDirectionIndices.Count >= 2;
 
-            // 백돌을 만나면 그 이상 검사할 필요 없음
-            if (board[r, c] == Enums.PlayerType.PlayerB)
+            if (isDoubleThree)
             {
-                break;
+                string directions = string.Join(", ", openThreeDirectionIndices.Select(i => _directionNames[i]));
+                Debug.Log($"위치 ({row},{col})에서 3-3 금수 감지! 진짜 열린 3 방향: {directions}");
             }
-        }
 
-        // 역방향으로 최대 6칸 검사
-        // 위에서 추가한 현재 위치를 제외하고 반대 방향 검사
-        for (int i = 0; i <= 6; i++)
-        {
-            int r = row - i * dRow;
-            int c = col - i * dCol;
-
-            if (!IsValidPosition(r, c))
-            {
-                line.Insert(0, Enums.PlayerType.None); // 보드 밖은 None 처리
-                break;
-            }
-            line.Insert(0, board[r, c]);
-
-            // 백돌을 만나면 그 이상은 검사할 필요 없음
-            if (board[r, c] == Enums.PlayerType.PlayerB)
-            {
-                break;
-            }
-        }
-
-        // 수집한 라인에서 열린 삼 패턴 검사
-        return CheckOpenThreePatterns(line);
-    }
-
-    /// <summary>
-    /// 수집한 라인에서 열린 삼 패턴이 있는지 검사
-    /// </summary>
-    private bool CheckOpenThreePatterns(List<Enums.PlayerType> line)
-    {
-        // 라인 문자열로 변환 (디버깅 및 패턴 비교용)
-        string lineStr = ConvertLineToString(line);
-
-        // 열린 삼 패턴들
-        string[] openThreePatterns = {
-            "...XXX...",  // 기본 열린 삼: ...OOO...
-            "..XXX..",    // 벽이 있는 열린 삼: ..OOO..
-            "...XX.X...",  // 한 칸 띄인 열린 삼: ...OO.O...
-            "...X.XX...",  // 한 칸 띄인 열린 삼: ...O.OO...
-            "..XX.X..",    // 벽이 있는 한 칸 띄인 열린 삼
-            "..X.XX.."     // 벽이 있는 한 칸 띄인 열린 삼
-        };
-
-        // 각 패턴에 대해 검사
-        foreach (string pattern in openThreePatterns)
-        {
-            if (lineStr.Contains(pattern))
-            {
-                Debug.Log($"열린 삼 패턴 발견: {pattern} in {lineStr}");
-                return true;
-            }
+            return isDoubleThree;
         }
 
         return false;
     }
 
     /// <summary>
-    /// 라인을 문자열로 변환 (디버깅 및 패턴 비교용)
+    /// 두 위치가 같은 라인(직선) 상에 있는지 확인
     /// </summary>
-    private string ConvertLineToString(List<Enums.PlayerType> line)
+    private bool IsPositionInSameLine(int row1, int col1, int row2, int col2, Vector2Int dir)
     {
-        string result = "";
-        foreach (Enums.PlayerType stone in line)
+        int dRow = dir.x;
+        int dCol = dir.y;
+
+        // 행 차이와 열 차이가 방향 벡터의 배수인지 확인
+        int rowDiff = row2 - row1;
+        int colDiff = col2 - col1;
+
+        // 방향 벡터가 0인 경우 처리
+        if (dRow == 0)
+            return colDiff % dCol == 0 && rowDiff == 0;
+        if (dCol == 0)
+            return rowDiff % dRow == 0 && colDiff == 0;
+
+        // 두 위치의 차이가 방향 벡터의 배수인지 확인
+        return (rowDiff * dCol == colDiff * dRow);
+    }
+
+    /// <summary>
+    /// 방향 벡터의 인덱스 찾기
+    /// </summary>
+    private int GetDirectionIndex(Vector2Int dir)
+    {
+        // 방향 벡터 정규화
+        Vector2Int normalizedDir = NormalizeDirection(dir);
+
+        for (int i = 0; i < directions.Length; i++)
         {
-            if (stone == Enums.PlayerType.None)
-                result += ".";
-            else if (stone == Enums.PlayerType.PlayerA)
-                result += "X";
-            else if (stone == Enums.PlayerType.PlayerB)
-                result += "O";
+            if (directions[i].Equals(normalizedDir))
+                return i;
         }
-        return result;
+
+        return -1;
+    }
+
+    /// <summary>
+    /// 방향 벡터 정규화 (항상 x가 양수이거나, x가 0일 때 y가 양수)
+    /// </summary>
+    private Vector2Int NormalizeDirection(Vector2Int dir)
+    {
+        if (dir.x < 0 || (dir.x == 0 && dir.y < 0))
+            return new Vector2Int(-dir.x, -dir.y);
+        return dir;
     }
 }
