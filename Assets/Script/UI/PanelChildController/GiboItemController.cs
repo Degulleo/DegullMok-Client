@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GiboItemController : MonoBehaviour
 {
    GiboItem _giboItem;
+   public Sprite[] profileSprites;
    public void Init(GiboItem giboItem)
    {
       _giboItem = giboItem;
@@ -14,7 +15,7 @@ public class GiboItemController : MonoBehaviour
       var itemImage = GetComponentsInChildren<Image>()[1];
       var itemText = GetComponentsInChildren<TextMeshProUGUI>();
             
-      itemImage.sprite = GameManager.Instance.profileSprites[this._giboItem.WinLoseSpriteIndex];
+      itemImage.sprite = profileSprites[this._giboItem.WinLoseSpriteIndex];
       itemText[0].text = this._giboItem.Date;
       itemText[1].text = this._giboItem.Name;
    }

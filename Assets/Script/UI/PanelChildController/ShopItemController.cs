@@ -7,13 +7,15 @@ using UnityEngine.UI;
 public class ShopItemController : MonoBehaviour
 {
     ShopItem _shopItem;
+    public Sprite[] profileSprites;
+
     public void Init(ShopItem shopItem)
     {
         _shopItem = shopItem;
         var itemImage = GetComponentsInChildren<Image>()[1];
         var itemText = GetComponentsInChildren<TextMeshProUGUI>();
             
-        itemImage.sprite = GameManager.Instance.profileSprites[this._shopItem.ItemSpriteIndex];
+        itemImage.sprite = profileSprites[this._shopItem.ItemSpriteIndex];
         itemText[0].text = this._shopItem.Name;
         itemText[1].text = this._shopItem.Price;
     }
