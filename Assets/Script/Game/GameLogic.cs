@@ -12,9 +12,17 @@ public abstract class BasePlayerState
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
         gameLogic.SetNewBoardValue(playerType, row, col);
-        //TODO: 승패 비교 필요
+        //TODO: 승리확인
+        if (gameLogic.CheckGameWin(playerType, row, col))
+        {
+            Debug.Log($"Game Over: {playerType} Win");
+            gameLogic.EndGame();
+        }
+        else
+        {
+            HandleNextTurn(gameLogic);
+        }
         
-        HandleNextTurn(gameLogic);
     }
 }
 
@@ -74,12 +82,12 @@ public class AIState: BasePlayerState
 
     public override void HandleMove(GameLogic gameLogic, int row, int col)
     {
-        
+        ProcessMove(gameLogic, Enums.PlayerType.PlayerB,row, col);
     }
 
     public override void HandleNextTurn(GameLogic gameLogic)
     {
-        
+        gameLogic.SetState(gameLogic.firstPlayerState);
     }
 }
 public class MultiPlayerState: BasePlayerState
@@ -110,9 +118,12 @@ public class GameLogic : MonoBehaviour
     private Enums.PlayerType[,] _board;
     public StoneController stoneController;
     public Enums.PlayerType currentTurn;
+    public Enums.GameType gameType;
     public BasePlayerState firstPlayerState;
     public BasePlayerState secondPlayerState;
     private BasePlayerState _currentPlayerState;
+    
+    private const int WIN_COUNT = 5;
     //선택된 좌표
     public int selectedRow;
     public int selectedCol;
@@ -120,11 +131,20 @@ public class GameLogic : MonoBehaviour
     private int _lastRow;
     private int _lastCol;
     
+    private static int[][] _directions = new int[][]
+    {
+        new int[] {1, 0}, // 수직
+        new int[] {0, 1}, // 수평
+        new int[] {1, 1}, // 대각선 ↘ ↖
+        new int[] {1, -1} // 대각선 ↙ ↗
+    };
+    
     public GameLogic(StoneController stoneController, Enums.GameType gameType)
     {
         //보드 초기화
         _board = new Enums.PlayerType[15, 15];
         this.stoneController = stoneController;
+        this.gameType = gameType;
         selectedRow = -1;
         selectedCol = -1;
         _lastRow = -1;
@@ -208,5 +228,64 @@ public class GameLogic : MonoBehaviour
         //선택 좌표 초기화
         selectedRow = -1;
         selectedCol = -1;
+    }
+    //게임 끝
+    public void EndGame()
+    {
+        SetState(null);
+    }
+    
+    //승리 확인 함수
+    public bool CheckGameWin(Enums.PlayerType player, int row, int col)
+    {
+        foreach (var dir in _directions)
+        {
+            var (count, _) = CountStones(_board, row, col, dir, player);
+
+            // 자기 자신 포함하여 5개 이상일 시 true 반환
+            if (count + 1 >= WIN_COUNT) 
+                return true;
+        }
+
+        return false;
+    }
+    // 특정 방향으로 같은 돌 개수와 열린 끝 개수를 계산하는 함수
+    private (int count, int openEnds) CountStones(
+        Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player)
+    {
+        int size = board.GetLength(0);
+        int count = 0;
+        int openEnds = 0;
+
+        // 정방향 탐색
+        int r = row + direction[0], c = col + direction[1];
+        while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player)
+        {
+            count++;
+            r += direction[0]; // row값 옮기기
+            c += direction[1]; // col값 옮기기
+        }
+
+        if (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.None)
+        {
+            openEnds++;
+        }
+
+        // 역방향 탐색
+        r = row - direction[0]; 
+        c = col - direction[1];
+        while (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == player)
+        {
+            count++;
+            r -= direction[0];
+            c -= direction[1];
+        }
+
+        if (r >= 0 && r < size && c >= 0 && c < size && board[r, c] == Enums.PlayerType.None)
+        {
+            openEnds++;
+        }
+        
+        return (count, openEnds);
     }
 }
