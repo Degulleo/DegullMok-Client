@@ -46,6 +46,7 @@ public class MainPanelController : MonoBehaviour
 
     public void OnSignOutClick()
     {
+        signOutButton.interactable = false; // 중복 클릭 방지
         NetworkManager.Instance.SignOut(() =>
         {
             Debug.Log("로그아웃 성공");
@@ -63,6 +64,7 @@ public class MainPanelController : MonoBehaviour
         }, () =>
         {
             Debug.Log("로그아웃 실패");
+            signOutButton.interactable = true; // 실패 시 다시 활성화
         });
     }
 }

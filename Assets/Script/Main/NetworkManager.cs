@@ -184,8 +184,6 @@ public class NetworkManager : Singleton<NetworkManager>
 
     public IEnumerator SignOutCoroutine(Action success, Action failure)
     {
-        Debug.Log("로그아웃 호출?");
-    
         string sid = PlayerPrefs.GetString("sid", "");
         if (string.IsNullOrEmpty(sid))
         {
