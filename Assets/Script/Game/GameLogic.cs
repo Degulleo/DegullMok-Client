@@ -12,6 +12,9 @@ public abstract class BasePlayerState
 
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
+        
+        gameLogic.fioTimer.PauseTimer();
+        
         gameLogic.SetNewBoardValue(playerType, row, col);
         //TODO: 승리확인
         if (gameLogic.CheckGameWin(playerType, row, col))
@@ -39,6 +42,8 @@ public class PlayerState : BasePlayerState
     
     public override void OnEnter(GameLogic gameLogic)
     {
+        gameLogic.fioTimer.StartTimer();
+        
         gameLogic.currentTurn = _playerType;
         gameLogic.stoneController.OnStoneClickedDelegate = (row, col) =>
         {
@@ -48,6 +53,7 @@ public class PlayerState : BasePlayerState
     
     public override void OnExit(GameLogic gameLogic)
     {
+        gameLogic.fioTimer.InitTimer();
         gameLogic.stoneController.OnStoneClickedDelegate = null;
     }
 
@@ -73,12 +79,13 @@ public class AIState: BasePlayerState
 {
     public override void OnEnter(GameLogic gameLogic)
     {
+        gameLogic.fioTimer.StartTimer();
         //TODO: AI이식
     }
 
     public override void OnExit(GameLogic gameLogic)
     {
-        
+        gameLogic.fioTimer.InitTimer();
     }
 
     public override void HandleMove(GameLogic gameLogic, int row, int col)
@@ -95,12 +102,12 @@ public class MultiPlayerState: BasePlayerState
 {
     public override void OnEnter(GameLogic gameLogic)
     {
-        
+        gameLogic.fioTimer.StartTimer();
     }
 
     public override void OnExit(GameLogic gameLogic)
     {
-        
+        gameLogic.fioTimer.InitTimer();
     }
 
     public override void HandleMove(GameLogic gameLogic, int row, int col)
@@ -123,6 +130,7 @@ public class GameLogic : MonoBehaviour
     public BasePlayerState firstPlayerState;
     public BasePlayerState secondPlayerState;
     private BasePlayerState _currentPlayerState;
+    public FioTimer fioTimer;
     
     private const int WIN_COUNT = 5;
     //선택된 좌표
@@ -140,16 +148,34 @@ public class GameLogic : MonoBehaviour
         new int[] {1, -1} // 대각선 ↙ ↗
     };
     
-    public GameLogic(StoneController stoneController, Enums.GameType gameType)
+    public GameLogic(StoneController stoneController, Enums.GameType gameType, FioTimer fioTimer)
     {
         //보드 초기화
         _board = new Enums.PlayerType[15, 15];
         this.stoneController = stoneController;
         this.gameType = gameType;
+        
         selectedRow = -1;
         selectedCol = -1;
         _lastRow = -1;
         _lastCol = -1;
+        //timer 초기화
+        this.fioTimer = fioTimer;
+        this.fioTimer.InitTimer();
+        //timer 시간초과시 진행 함수
+        this.fioTimer.OnTimeout = () =>
+        {
+            if (currentTurn == Enums.PlayerType.PlayerA)
+            {
+                GameManager.Instance.OpenConfirmPanel($"Game Over: {PlayerType.PlayerB} Win",() =>{});
+                EndGame();
+            }
+            else if (currentTurn == Enums.PlayerType.PlayerB)
+            {
+                GameManager.Instance.OpenConfirmPanel($"Game Over: {PlayerType.PlayerA} Win",() =>{});
+                EndGame();
+            }
+        };
         
         switch (gameType)
         {

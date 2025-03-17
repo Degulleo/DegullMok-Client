@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     private UserManager _userManager;  // UserManager 인스턴스 관리
     private CoinsPanelController _coinsPanel;
     
+    
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
@@ -49,7 +50,8 @@ public class GameManager : Singleton<GameManager>
         _canvas = canvas.GetComponent<Canvas>();
         _stoneController = GameObject.FindObjectOfType<StoneController>();
         _stoneController.InitStones();
-        _gameLogic = new GameLogic(_stoneController, _gameType);
+        var fioTimer = FindObjectOfType<FioTimer>();
+        _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
     
     private void TryAutoSignin()
@@ -142,7 +144,8 @@ public class GameManager : Singleton<GameManager>
         {
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
-            _gameLogic = new GameLogic(_stoneController, _gameType);
+            var fioTimer = FindObjectOfType<FioTimer>();
+            _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
