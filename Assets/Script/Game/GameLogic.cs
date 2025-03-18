@@ -160,6 +160,7 @@ public class GameLogic : MonoBehaviour
         
         selectedRow = -1;
         selectedCol = -1;
+
         _lastRow = -1;
         _lastCol = -1;
         //timer 초기화
@@ -170,15 +171,17 @@ public class GameLogic : MonoBehaviour
         {
             if (currentTurn == Enums.PlayerType.PlayerA)
             {
-                GameManager.Instance.OpenConfirmPanel($"Game Over: {PlayerType.PlayerB} Win",() =>{});
+                GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",() =>{});
                 EndGame();
             }
             else if (currentTurn == Enums.PlayerType.PlayerB)
             {
-                GameManager.Instance.OpenConfirmPanel($"Game Over: {PlayerType.PlayerA} Win",() =>{});
+                GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",() =>{});
                 EndGame();
             }
         };
+        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
+        ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
         
         switch (gameType)
         {
@@ -243,12 +246,16 @@ public class GameLogic : MonoBehaviour
                 stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerA;
                 LastNSelectedSetting(row, col);
+                
+                ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.Black, row, col);      //기보 데이터 저장
                 break;
             case Enums.PlayerType.PlayerB:
                 stoneController.SetStoneType(Enums.StoneType.White, row, col);
                 stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerB;
                 LastNSelectedSetting(row, col);
+                
+                ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, row, col);
                 break;
         }
     }

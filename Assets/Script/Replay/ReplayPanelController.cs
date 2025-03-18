@@ -33,8 +33,8 @@ public class ReplayPanelController : MonoBehaviour
             var replayCellButtonObject = Instantiate(replayCellPrefab, contentTransform);
             ReplayCell replayCell = replayCellButtonObject.GetComponent<ReplayCell>();
             
-            PlayerType myPlayerType = _myNickname.Equals(replayRecord.playerA) ? PlayerType.PlayerA : PlayerType.PlayerB;
-            string opponentNickname = myPlayerType==PlayerType.PlayerA ? replayRecord.playerB : replayRecord.playerA;
+            Enums.PlayerType myPlayerType = _myNickname.Equals(replayRecord.playerA) ? Enums.PlayerType.PlayerA : Enums.PlayerType.PlayerB;
+            string opponentNickname = myPlayerType==Enums.PlayerType.PlayerA ? replayRecord.playerB : replayRecord.playerA;
             
             replayCell.SetMyPlayerType(myPlayerType);
             replayCell.SetWinImage(myPlayerType.ToString().Equals(replayRecord.winnerPlayerType));
