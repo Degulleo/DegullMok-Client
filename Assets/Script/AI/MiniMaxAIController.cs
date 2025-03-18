@@ -111,13 +111,11 @@ public static class MiniMaxAIController
         {
             board[row, col] = isMaximizing ? Enums.PlayerType.PlayerB : Enums.PlayerType.PlayerA;
             ClearCachePartial(row, col); // 부분 초기화
-            // ClearCache();
             
             float minimaxScore = DoMinimax(board, depth - 1, !isMaximizing, alpha, beta, row, col);
             
             board[row, col] = Enums.PlayerType.None;
             ClearCachePartial(row, col);
-            // ClearCache();
 
             if (isMaximizing)
             {
@@ -320,21 +318,59 @@ public static class MiniMaxAIController
 
                 Enums.PlayerType player = board[row, col];
                 int playerScore = (player == _AIPlayerType) ? 1 : -1; // AI는 양수, 플레이어는 음수
+                
+                // 위치 가중치 계산. 중앙 중심으로 돌을 두도록 함
+                float positionWeight = CalculatePositionWeight(row, col, size);
 
                 foreach (var dir in _directions)
                 {
                     var (count, openEnds) = CountStones(board, row, col, dir, player);
 
                     // 점수 계산
-                    if (count == 4)
-                        score += playerScore * (openEnds == 2 ? 10000 : 1000);
+                    float patternScore = 0;
+    
+                    if (count >= 5) 
+                    {
+                        Debug.Log("count 평가: " + count);
+                        patternScore = 100000;
+                    }
+                    else if (count == 4)
+                    {
+                        patternScore = (openEnds == 2) ? 15000 : (openEnds == 1) ? 5000 : 500;
+                    }
                     else if (count == 3)
-                        score += playerScore * (openEnds == 2 ? 1000 : 100);
+                    {
+                        patternScore = (openEnds == 2) ? 3000 : (openEnds == 1) ? 500 : 50;
+                    }
                     else if (count == 2)
-                        score += playerScore * (openEnds == 2 ? 100 : 10);
+                    {
+                        patternScore = (openEnds == 2) ? 100 : (openEnds == 1) ? 30 : 10;
+                    }
+                    else if (count == 1)
+                    {
+                        patternScore = (openEnds == 2) ? 10 : 1;
+                    }
+    
+                    // 위치 가중치 적용
+                    patternScore *= positionWeight;
+                    
+                    // 최종 점수 적용 (플레이어는 음수)
+                    score += playerScore * patternScore;
                 }
             }
         }
         return score;
+    }
+    
+    // 위치 가중치 계산 함수
+    private static float CalculatePositionWeight(int row, int col, int size)
+    {
+        float boardCenterPos = (size - 1) / 2.0f;
+    
+        // 현재 위치와 중앙과의 거리 계산 (0~1 사이 값)
+        float distance = Math.Max(Math.Abs(row - boardCenterPos), Math.Abs(col - boardCenterPos)) / boardCenterPos;
+    
+        // 중앙(거리 0)은 1.2배, 가장자리(거리 1)는 0.8배
+        return 1.2f - (0.4f * distance);
     }
 }
