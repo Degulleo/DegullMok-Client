@@ -170,7 +170,7 @@ MonoBehaviour:
   signinPanel: {fileID: 925522282249935710, guid: e14c9b2925f0ddb4192af743e5cc166a, type: 3}
   signupPanel: {fileID: 3181524094944658765, guid: 8827fe7caa3145e40b1369cc42f8697d, type: 3}
   settingsPanel: {fileID: 0}
-  confirmPanel: {fileID: 0}
+  confirmPanel: {fileID: 8145365568262946399, guid: 76f1fe6b5243faf4f9b8caee7312d336, type: 3}
   rankingPanel: {fileID: 0}
   shopPanel: {fileID: 0}
   giboPanel: {fileID: 0}

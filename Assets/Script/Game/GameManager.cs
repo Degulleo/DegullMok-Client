@@ -49,11 +49,11 @@ public class GameManager : Singleton<GameManager>
         // TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
-        _canvas = canvas.GetComponent<Canvas>();
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        var fioTimer = FindObjectOfType<FioTimer>();
-        _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
+        // _canvas = canvas.GetComponent<Canvas>();
+        // _stoneController = GameObject.FindObjectOfType<StoneController>();
+        // _stoneController.InitStones();
+        // var fioTimer = FindObjectOfType<FioTimer>();
+        // _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
     
     private void TryAutoSignin()

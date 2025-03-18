@@ -170,22 +170,7 @@ public class GameLogic : MonoBehaviour
         {
             this.fioTimer = fioTimer;
             this.fioTimer.InitTimer();
-            //timer 시간초과시 진행 함수
-            this.fioTimer.OnTimeout = () =>
-            {
-                if (currentTurn == Enums.PlayerType.PlayerA)
-                {
-                    GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
-                        () =>{});
-                    EndGame();
-                }
-                else if (currentTurn == Enums.PlayerType.PlayerB)
-                {
-                    GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
-                        () =>{});
-                    EndGame();
-                }
-            };
+            this.fioTimer.OnTimeout = OnTimeout;
         }
         
         //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
@@ -206,6 +191,24 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
+
+    //타임아웃 시 할 행동
+    private void OnTimeout()
+    {
+        if (currentTurn == Enums.PlayerType.PlayerA)
+        {
+            GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
+                () =>{});
+            EndGame();
+        }
+        else if (currentTurn == Enums.PlayerType.PlayerB)
+        {
+            GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
+                () =>{});
+            EndGame();
+        }
+    }
+
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
@@ -298,7 +301,7 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         SetState(null);
-        
+        ReplayManager.Instance.SaveReplayData(currentTurn);
     }
     
     //승리 확인 함수
