@@ -1,15 +1,27 @@
-﻿using UnityEngine;
-
-public class ForbiddenDetectorBase
+﻿public class ForbiddenDetectorBase
 {
-    // 방향 배열 (가로, 세로, 대각선)
-    private protected Vector2Int[] directions =
+    private protected Enums.PlayerType Black = Enums.PlayerType.PlayerA;
+    private protected Enums.PlayerType Space = Enums.PlayerType.None;
+
+    // 8방향을 나타내는 델타 배열 (가로, 세로, 대각선 방향)
+    private protected readonly int[,] Directions = new int[8, 2]
     {
-        new Vector2Int(1, 0),   // 가로
-        new Vector2Int(0, 1),   // 세로
-        new Vector2Int(1, 1),   // 대각선 (우하향)
-        new Vector2Int(1, -1)   // 대각선 (우상향)
+        { 1, 0 },   // 오른쪽
+        { 1, 1 },   // 오른쪽 아래
+        { 0, 1 },   // 아래
+        { -1, 1 },  // 왼쪽 아래
+        { -1, 0 },  // 왼쪽
+        { -1, -1 }, // 왼쪽 위
+        { 0, -1 },  // 위
+        { 1, -1 }   // 오른쪽 위
     };
+
+    // 방향 쌍을 정의 (반대 방향끼리 쌍을 이룸)
+    // 0-4: 가로 방향 쌍 (동-서)
+    // 1-5: 대각선 방향 쌍 (남동-북서)
+    // 2-6: 세로 방향 쌍 (남-북)
+    // 3-7: 대각선 방향 쌍 (남서-북동)
+    private protected readonly int[,] DirectionPairs = { { 0, 4 }, { 1, 5 }, { 2, 6 }, { 3, 7 } };
 
     // 15*15 보드 사이즈
     private protected int _boardSize = Constants.BoardSize;

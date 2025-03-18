@@ -13,7 +13,7 @@ public class RenjuForbiddenMoveDetector
     /// </summary>
     public RenjuForbiddenMoveDetector()
     {
-        // 각 감지기 초기화
+        // 감지기 초기화
         _ruleChecker = new RenjuRuleChecker();
     }
 
@@ -26,10 +26,6 @@ public class RenjuForbiddenMoveDetector
     {
         var doubleThreeList =  _ruleChecker.GetForbiddenMoves(board);
 
-        foreach (var doubleThreePos in doubleThreeList)
-        {
-            Debug.Log("삼삼 금수 좌표 X축 : " + doubleThreePos.x + ", Y축 : " + doubleThreePos.y);
-        }
         return doubleThreeList;
     }
 
