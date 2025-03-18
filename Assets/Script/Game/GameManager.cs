@@ -62,7 +62,6 @@ public class GameManager : Singleton<GameManager>
             UpdateMainPanelUI(OpenMainPanel);
             // ScoreData.SetScore(userInfo.score);
             OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
-            Debug.Log(userInfo.nickname);
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
