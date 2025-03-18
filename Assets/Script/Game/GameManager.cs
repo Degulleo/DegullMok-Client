@@ -63,7 +63,7 @@ public class GameManager : Singleton<GameManager>
 
             UpdateMainPanelUI(OpenMainPanel);
             // ScoreData.SetScore(userInfo.score);
-            // OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
+            OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
@@ -202,7 +202,7 @@ public class GameManager : Singleton<GameManager>
         if (_canvas != null)
         {
             var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
-            settingsPanelObject.GetComponent<GiboPanelController>().Show(giboItems);
+            settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
 }

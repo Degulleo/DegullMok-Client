@@ -1,36 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class ReplayPanelController : MonoBehaviour
+public class ReplayPanelController : ScrollPanelController
 {
-    [SerializeField] private RectTransform panelRectTransform;
-    [SerializeField] private GameObject replayCellPrefab;
-    [SerializeField] private Transform contentTransform;
-    
-    private CanvasGroup _backgroundCanvasGroup;    
-    
-    public delegate void PanelControllerHideDelegate();
-    
+        
     private string _myNickname;
     private void Awake()
     {
-        _backgroundCanvasGroup = GetComponent<CanvasGroup>();
-        
-        //TODO:Test용 닉네임 나중에 삭제하고 PlayerInfo에서 가져올 것
-        _myNickname = "Gildong";
-    }
-
-    private void Start()
-    {
+        //TODO: 로그인 기능 연동 후 닉네임 바꾸기
+        _myNickname = "PlayerA";        
         List<ReplayRecord> records = new List<ReplayRecord>();
         
         // ReplayManager에서 가져온 기보 데이터들을 패널 셀에 초기화
         records = ReplayManager.Instance.LoadReplayDatas();
         foreach (var replayRecord in records)
         {
-            var replayCellButtonObject = Instantiate(replayCellPrefab, contentTransform);
+            var replayCellButtonObject = Instantiate(scrollItemPrefab, content.transform);
             ReplayCell replayCell = replayCellButtonObject.GetComponent<ReplayCell>();
             
             Enums.PlayerType myPlayerType = _myNickname.Equals(replayRecord.playerA) ? Enums.PlayerType.PlayerA : Enums.PlayerType.PlayerB;
@@ -43,20 +29,8 @@ public class ReplayPanelController : MonoBehaviour
             replayCell.SetReplayRecord(replayRecord);
         }
     }
-    
-    
-    
-    public void OnClickCloseButton()
+    public virtual void Show()
     {
-        Hide(() =>
-        {
-            Destroy(gameObject);
-        });
-    }
-    public void Hide(PanelControllerHideDelegate hideDelegate = null)
-    {
-        _backgroundCanvasGroup.alpha = 0;
-        panelRectTransform.localScale = Vector3.zero;
-        hideDelegate?.Invoke();
+        base.Show();
     }
 }

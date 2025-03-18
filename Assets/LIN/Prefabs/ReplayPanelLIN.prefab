@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 5559365133802195336}
   - component: {fileID: 5893210151593350084}
   m_Layer: 5
-  m_Name: ReplayPanel
+  m_Name: ReplayPanelLIN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
