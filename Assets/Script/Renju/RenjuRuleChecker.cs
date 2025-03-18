@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 렌주 규칙의 모든 금수 규칙(3-3, 4-4, 장목)을 검사하는 통합 클래스
+/// </summary>
 public class RenjuRuleChecker: ForbiddenDetectorBase
 {
     private RenjuOverlineDetector _overlineDetactor = new();
@@ -10,9 +13,9 @@ public class RenjuRuleChecker: ForbiddenDetectorBase
     public List<Vector2Int> GetForbiddenMoves(Enums.PlayerType[,] board)
     {
         List<Vector2Int> forbiddenMoves = new();
-        for (int row = 0; row < _boardSize; row++)
+        for (int row = 0; row < BoardSize; row++)
         {
-            for (int col = 0; col < _boardSize; col++)
+            for (int col = 0; col < BoardSize; col++)
             {
                 // ** 비어 있지 않으면 검사할 필요 없음 **
                 if (!IsEmptyPosition(board, row, col)) continue;

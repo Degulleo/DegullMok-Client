@@ -74,7 +74,6 @@
     /// <param name="startRow">시작 행</param>
     /// <param name="startCol">시작 열</param>
     /// <param name="dirIndex">방향 인덱스</param>
-    /// <param name="playerType">검사할 플레이어 타입</param>
     /// <returns>해당 방향의 연속된 돌 개수</returns>
     private int CountInDirection(Enums.PlayerType[,] board, int startRow, int startCol, int dirIndex)
     {
@@ -82,7 +81,7 @@
         int dRow = Directions[dirIndex, 0];
         int dCol = Directions[dirIndex, 1];
 
-        for (int i = 1; i < _boardSize; i++)
+        for (int i = 1; i < BoardSize; i++)
         {
             int newRow = startRow + dRow * i;
             int newCol = startCol + dCol * i;

@@ -24,15 +24,15 @@
     private protected readonly int[,] DirectionPairs = { { 0, 4 }, { 1, 5 }, { 2, 6 }, { 3, 7 } };
 
     // 15*15 보드 사이즈
-    private protected int _boardSize = Constants.BoardSize;
+    private protected int BoardSize = Constants.BoardSize;
 
     /// <summary>
     /// 좌표가 보드 범위 내에 있는지 확인
     /// </summary>
     private protected bool IsInBounds(int row, int col)
     {
-        var inBoardSizeRow = row >= 0 && row < _boardSize;
-        var inBoardSizeCol = col >= 0 && col < _boardSize;
+        var inBoardSizeRow = row >= 0 && row < BoardSize;
+        var inBoardSizeCol = col >= 0 && col < BoardSize;
 
         return inBoardSizeRow && inBoardSizeCol;
     }
@@ -44,6 +44,6 @@
     {
         if (!IsInBounds(row, col)) return false;
 
-        return board[row, col] == Enums.PlayerType.None;
+        return board[row, col] == Space;
     }
 }
