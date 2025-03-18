@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : Singleton<GameManager>
 {
+    [Header("Panel")]
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
@@ -15,6 +17,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject giboPanel;
     [SerializeField] private GameObject loadingPanel;
+    
+    [Header("Sound")]
+    [SerializeField] private AudioClip mainBgm;
+    private AudioSource audioSource;
     
     private LoadingPanelController loadingPanelController;
     
@@ -31,6 +37,9 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        // TODO: 음악 관련은 AuidoManager로 분리?
+        PlayMainBGM();
+            
         // UserManager가 없으면 생성
         if (UserManager.Instance == null)
         {
@@ -57,6 +66,21 @@ public class GameManager : Singleton<GameManager>
         // _stoneController.InitStones();
         // var fioTimer = FindObjectOfType<FioTimer>();
         // _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
+    }
+
+    private void PlayMainBGM()
+    {
+        // AudioSource 컴포넌트 가져오기
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource != null && mainBgm != null)
+        {
+            // 배경음악이 설정되면 재생
+            audioSource.clip = mainBgm; // 음악 클립 설정
+            audioSource.loop = true; // 반복 재생
+            audioSource.volume = 0.4f; // 볼륨
+            audioSource.Play(); // 음악 시작
+        }
     }
     
     private void TryAutoSignin()
