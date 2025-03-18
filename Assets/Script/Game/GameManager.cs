@@ -132,7 +132,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
-    private void ChangeToGameScene(Enums.GameType gameType)
+    public void ChangeToGameScene(Enums.GameType gameType)
     {
         _gameType = gameType;
         SceneManager.LoadScene("Game");
