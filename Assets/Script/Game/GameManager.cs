@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Canvas))]
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject mainPanel;
@@ -17,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject giboPanel;
     [SerializeField] private GameObject loadingPanel;
     
+    private LoadingPanelController loadingPanelController;
+    
     private UserManager _userManager;  // UserManager 인스턴스 관리
     private CoinsPanelController _coinsPanel;
     
@@ -27,8 +28,8 @@ public class GameManager : Singleton<GameManager>
     private Canvas _canvas;
 
     public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
-    
-    private void Awake()
+
+    private void Start()
     {
         // UserManager가 없으면 생성
         if (UserManager.Instance == null)
@@ -39,20 +40,16 @@ public class GameManager : Singleton<GameManager>
         
         //게임 씬에서 확인하기 위한 임시 코드
         _gameType = Enums.GameType.SinglePlay;
-    }
-    
-    private void Start()
-    {
+        
         if (_canvas == null)
         {
             _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         }
         // 로딩 화면 추가(자동 로그인 응답 전까지)
-        OpenLoadingPanel(false, true, true);
-        loadingPanel.SetActive(true);
+        OpenLoadingPanel(false, false, true);
         
         // 자동 로그인
-        // TryAutoSignin();
+        TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
         // _canvas = canvas.GetComponent<Canvas>();
@@ -67,33 +64,24 @@ public class GameManager : Singleton<GameManager>
         NetworkManager.Instance.GetInfo((userInfo) =>
         {
             Debug.Log("자동 로그인 성공");
-            StartCoroutine(WaitForLoading(userInfo));
-            // loadingPanel.SetActive(false);
             
-            // UserManager.Instance.SetUserInfo(userInfo);
-            //
-            // UpdateMainPanelUI(OpenMainPanel);
-            // // ScoreData.SetScore(userInfo.score);
-            // OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
+            UserManager.Instance.SetUserInfo(userInfo);
+            
+            UpdateMainPanelUI(OpenMainPanel);
+            // ScoreData.SetScore(userInfo.score);
+            OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
+            
+            loadingPanelController.StopLoading();
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
-            loadingPanel.SetActive(false);
+            // 로딩 멈추기
+            loadingPanelController.StopLoading();
             // 로그인 화면
             OpenSigninPanel();
         });
     }
 
-    private IEnumerator WaitForLoading(UserInfoResult userInfo)
-    {
-        yield return new WaitForSeconds(2f);
-        loadingPanel.SetActive(false);
-        UserManager.Instance.SetUserInfo(userInfo);
-            
-        UpdateMainPanelUI(OpenMainPanel);
-        // ScoreData.SetScore(userInfo.score);
-        OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
-    }
     
     /// <summary>
     /// 유저 별명, 급수를 서버에서 가져온 정보로 업데이트하여 메인화면에 표시
@@ -133,10 +121,10 @@ public class GameManager : Singleton<GameManager>
             var loadingPanelObject = Instantiate(loadingPanel, _canvas.transform);
         
             // 로딩 화면이 생성된 후, 원하는 애니메이션 활성화
-            LoadingPanelController loadingPanelController = loadingPanelObject.GetComponent<LoadingPanelController>();
+            loadingPanelController = loadingPanelObject.GetComponent<LoadingPanelController>();
             if (loadingPanelController != null)
             {
-                loadingPanelController.SetAnimation(rotateImage, animatedText, flipImage);
+                loadingPanelController.StartLoading(rotateImage, animatedText, flipImage);
             }
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -20,10 +21,15 @@ public class LoadingPanelController : MonoBehaviour
     [SerializeField] float delayBetweenFlips = 1f; // 이미지 변경 주기
     
     private int currentLength = 0;
+    private CancellationTokenSource cancellationTokenSource;
     
     // 타 컴포넌트에서 애니메이션 효과 설정을 위해 호출(RotateImages와 FlipImages 혼용은 불가능: DORotate가 서로 충돌함)
-    public void SetAnimation(bool animatedImage, bool animatedText, bool animatedFlip)
+    public void StartLoading(bool animatedImage, bool animatedText, bool animatedFlip)
     {
+        // 패널 활성화
+        gameObject.SetActive(true);
+        cancellationTokenSource = new CancellationTokenSource();
+
         if (animatedImage) RotateImages(); // 캐릭터들이 좌우로 회전하는 효과
         if (animatedText) StartCoroutine(AnimateLoadingText()); // 한글자씩 나타나는 효과
         if (animatedFlip) FlipImages(); // 캐릭터들이 뒤집히면서 표정이 바뀌는 효과
@@ -54,7 +60,7 @@ public class LoadingPanelController : MonoBehaviour
     // 한글자씩 나타나는 효과
     private IEnumerator AnimateLoadingText()
     {
-        while (true)
+        while (!cancellationTokenSource.IsCancellationRequested)
         {
             // 글자 하나씩 추가
             currentLength = (currentLength + 1) % (fullText.Length + 1); // 글자 하나씩 추가 (0 ~ fullText.Length 반복)
@@ -85,7 +91,7 @@ public class LoadingPanelController : MonoBehaviour
     {
         var imageComponent = component.gameObject.GetComponent<Image>();
 
-        while (true)
+        while (!cancellationTokenSource.IsCancellationRequested)
         {
             yield return new WaitForSeconds(delayBetweenFlips);
 
@@ -105,5 +111,15 @@ public class LoadingPanelController : MonoBehaviour
                 .SetEase(Ease.OutBounce)
                 .WaitForCompletion();
         }
+    }
+    
+    public void StopLoading()
+    {
+        // 코루틴 취소
+        if (cancellationTokenSource != null)
+        {
+            cancellationTokenSource.Cancel();
+        }
+        gameObject.SetActive(false);
     }
 }
