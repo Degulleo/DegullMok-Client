@@ -60,7 +60,7 @@ public class TestPanelController : MonoBehaviour
         if (_canvas != null)
         {
             var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
-            settingsPanelObject.GetComponent<GiboPanelController>().Show();
+            settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
     

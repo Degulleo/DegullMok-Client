@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 9008029491930858052}
   - component: {fileID: 5051480494068645349}
   m_Layer: 5
-  m_Name: Gibo Panel
+  m_Name: Replay Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

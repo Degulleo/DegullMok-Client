@@ -182,7 +182,7 @@ public class GameManager : Singleton<GameManager>
         if (_canvas != null)
         {
             var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
-            settingsPanelObject.GetComponent<GiboPanelController>().Show();
+            settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
 }

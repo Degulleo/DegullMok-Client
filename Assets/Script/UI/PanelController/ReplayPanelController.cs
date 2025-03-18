@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GiboPanelController : ScrollPanelController
+public class ReplayPanelController : ScrollPanelController
 {
         
     private string _myNickname;
     private void Awake()
     {
         //TODO: 로그인 기능 연동 후 닉네임 바꾸기
-        _myNickname = "Test1";        
+        _myNickname = "PlayerA";        
         List<ReplayRecord> records = new List<ReplayRecord>();
         
         // ReplayManager에서 가져온 기보 데이터들을 패널 셀에 초기화
@@ -31,8 +31,6 @@ public class GiboPanelController : ScrollPanelController
     }
     public virtual void Show()
     {
-        Debug.Log("GiboPanelController.Show");
-
         base.Show();
     }
 }
