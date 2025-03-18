@@ -195,6 +195,7 @@ MonoBehaviour:
   panelRectTransform: {fileID: 1819504122199746525}
   scrollItemPrefab: {fileID: 7605012172595602668, guid: bef1de10a3cc5834a95a8689a2de2bb7, type: 3}
   content: {fileID: 7514948643227889924}
+  replayCellPrefab: {fileID: 6381393519116383223, guid: e4d9ccbb1a6d7b1408923e47b6e7b690, type: 3}
 --- !u!1 &3668037476601755215
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -392, y: -56.893047}
+  m_AnchoredPosition: {x: -392, y: 0}
   m_SizeDelta: {x: 784, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7384686566427463252

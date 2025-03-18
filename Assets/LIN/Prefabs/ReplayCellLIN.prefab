@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 7107302514257622686}
   - component: {fileID: 5230863580921726021}
   m_Layer: 5
-  m_Name: ReplayCell
+  m_Name: ReplayCellLIN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

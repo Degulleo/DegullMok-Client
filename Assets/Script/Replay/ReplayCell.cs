@@ -45,7 +45,16 @@ public class ReplayCell : MonoBehaviour
 
     public void SetRecordDate(string date)
     {
-        recordDateText.text = date;
+        string text = "";
+        string[] dateSplit = date.Split(' ');
+        if (dateSplit.Length == 2)
+        {
+             text += dateSplit[0].Replace("-", ".");
+             text += "\n";
+             text += dateSplit[1].Replace("_", ":");
+        }
+
+        recordDateText.text = text;
     }
 
     public void SetReplayRecord(ReplayRecord record)

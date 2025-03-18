@@ -18,8 +18,7 @@ public class ReplayPanelController : MonoBehaviour
     {
         _backgroundCanvasGroup = GetComponent<CanvasGroup>();
         
-        //TODO:Test용 닉네임 나중에 삭제하고 PlayerInfo에서 가져올 것
-        _myNickname = "Gildong";
+        _myNickname = UserManager.Instance.Nickname;
     }
 
     private void Start()

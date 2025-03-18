@@ -4,14 +4,35 @@ using UnityEngine;
 
 public class GiboPanelController : ScrollPanelController
 {
-    public virtual void Show(List<GiboItem> items)
+        
+    private string _myNickname;
+    private void Awake()
     {
-        for (int i = 0; i < items.Count && i <= MAX_COUNT; i++)
+        //TODO: 로그인 기능 연동 후 닉네임 바꾸기
+        _myNickname = "Test1";        
+        List<ReplayRecord> records = new List<ReplayRecord>();
+        
+        // ReplayManager에서 가져온 기보 데이터들을 패널 셀에 초기화
+        records = ReplayManager.Instance.LoadReplayDatas();
+        foreach (var replayRecord in records)
         {
-            var scrollItem= Instantiate(scrollItemPrefab, content.transform);
-            scrollItem.GetComponent<GiboItemController>().Init(items[i]);
+            var replayCellButtonObject = Instantiate(scrollItemPrefab, content.transform);
+            ReplayCell replayCell = replayCellButtonObject.GetComponent<ReplayCell>();
             
+            Enums.PlayerType myPlayerType = _myNickname.Equals(replayRecord.playerA) ? Enums.PlayerType.PlayerA : Enums.PlayerType.PlayerB;
+            string opponentNickname = myPlayerType==Enums.PlayerType.PlayerA ? replayRecord.playerB : replayRecord.playerA;
+            
+            replayCell.SetMyPlayerType(myPlayerType);
+            replayCell.SetWinImage(myPlayerType.ToString().Equals(replayRecord.winnerPlayerType));
+            replayCell.SetOpponentPlayerNickname(opponentNickname);
+            replayCell.SetRecordDate(replayRecord.gameDate);
+            replayCell.SetReplayRecord(replayRecord);
         }
+    }
+    public virtual void Show()
+    {
+        Debug.Log("GiboPanelController.Show");
+
         base.Show();
     }
 }
