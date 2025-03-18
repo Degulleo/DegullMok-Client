@@ -13,6 +13,7 @@ public class Stone : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     public delegate void OnStoneClicked(int index);
     private OnStoneClicked _onStoneClicked;
+    private Enums.StoneState _currentStoneState;
     
 
     private void Awake()
@@ -52,18 +53,28 @@ public class Stone : MonoBehaviour
         switch (stoneState)
         {
             case Enums.StoneState.None:
+                _currentStoneState = Enums.StoneState.None;
                 _spriteRenderer.sprite = stoneStateSprites[0];
                 break;
             case Enums.StoneState.Selected:
+                _currentStoneState = Enums.StoneState.Selected;
                 _spriteRenderer.sprite = stoneStateSprites[1];
                 break;
             case Enums.StoneState.Blocked:
+                _currentStoneState = Enums.StoneState.Blocked;
                 _spriteRenderer.sprite = stoneStateSprites[2];
                 break;
             case Enums.StoneState.LastPositioned:
+                _currentStoneState = Enums.StoneState.LastPositioned;
                 _spriteRenderer.sprite = stoneStateSprites[3];
                 break;
         }
+    }
+    
+    //Stone 상태 확인
+    public Enums.StoneState GetStoneState()
+    {
+        return _currentStoneState;
     }
 
     private void OnMouseUpAsButton()
