@@ -68,4 +68,9 @@ public class SwitchController : MonoBehaviour
     {
         SetOn(!_isOn);
     }
+    
+    public void SetSwitch(bool isOn)
+    {
+        SetOn(isOn);
+    }
 }

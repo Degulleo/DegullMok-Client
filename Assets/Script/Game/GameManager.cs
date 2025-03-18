@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Canvas))]
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject mainPanel;
@@ -14,8 +15,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject rankingPanel;
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject giboPanel;
+    [SerializeField] private GameObject loadingPanel;
     
-    [SerializeField] private Canvas canvas;
     private UserManager _userManager;  // UserManager 인스턴스 관리
     private CoinsPanelController _coinsPanel;
     
@@ -35,23 +36,30 @@ public class GameManager : Singleton<GameManager>
             GameObject userManagerObj = new GameObject("UserManager");
             _userManager = userManagerObj.AddComponent<UserManager>();
         }
+        
         //게임 씬에서 확인하기 위한 임시 코드
         _gameType = Enums.GameType.SinglePlay;
     }
     
     private void Start()
     {
-        // TODO: 로딩 화면 추가(자동 로그인 응답 전까지)
+        if (_canvas == null)
+        {
+            _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        }
+        // 로딩 화면 추가(자동 로그인 응답 전까지)
+        OpenLoadingPanel(false, true, true);
+        loadingPanel.SetActive(true);
         
         // 자동 로그인
         // TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
-        _canvas = canvas.GetComponent<Canvas>();
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        var fioTimer = FindObjectOfType<FioTimer>();
-        _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
+        // _canvas = canvas.GetComponent<Canvas>();
+        // _stoneController = GameObject.FindObjectOfType<StoneController>();
+        // _stoneController.InitStones();
+        // var fioTimer = FindObjectOfType<FioTimer>();
+        // _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
     
     private void TryAutoSignin()
@@ -59,17 +67,32 @@ public class GameManager : Singleton<GameManager>
         NetworkManager.Instance.GetInfo((userInfo) =>
         {
             Debug.Log("자동 로그인 성공");
-            UserManager.Instance.SetUserInfo(userInfo);
-
-            UpdateMainPanelUI(OpenMainPanel);
-            // ScoreData.SetScore(userInfo.score);
-            // OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
+            StartCoroutine(WaitForLoading(userInfo));
+            // loadingPanel.SetActive(false);
+            
+            // UserManager.Instance.SetUserInfo(userInfo);
+            //
+            // UpdateMainPanelUI(OpenMainPanel);
+            // // ScoreData.SetScore(userInfo.score);
+            // OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
+            loadingPanel.SetActive(false);
             // 로그인 화면
             OpenSigninPanel();
         });
+    }
+
+    private IEnumerator WaitForLoading(UserInfoResult userInfo)
+    {
+        yield return new WaitForSeconds(2f);
+        loadingPanel.SetActive(false);
+        UserManager.Instance.SetUserInfo(userInfo);
+            
+        UpdateMainPanelUI(OpenMainPanel);
+        // ScoreData.SetScore(userInfo.score);
+        OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
     }
     
     /// <summary>
@@ -88,9 +111,9 @@ public class GameManager : Singleton<GameManager>
     
     public void OpenMainPanel()
     {
-        if (canvas != null)
+        if (_canvas != null)
         {
-            var mainPanelObject = Instantiate(mainPanel, canvas.transform);
+            var mainPanelObject = Instantiate(mainPanel, _canvas.transform);
             
             // 메인 화면 아래의 코인 패널에 서버에서 가져 온 코인 값 업데이트
             _coinsPanel = mainPanelObject.GetComponentInChildren<CoinsPanelController>();
@@ -103,19 +126,34 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
+    public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false)
+    {
+        if (_canvas != null)
+        {
+            var loadingPanelObject = Instantiate(loadingPanel, _canvas.transform);
+        
+            // 로딩 화면이 생성된 후, 원하는 애니메이션 활성화
+            LoadingPanelController loadingPanelController = loadingPanelObject.GetComponent<LoadingPanelController>();
+            if (loadingPanelController != null)
+            {
+                loadingPanelController.SetAnimation(rotateImage, animatedText, flipImage);
+            }
+        }
+    }
+    
     public void OpenSigninPanel()
     {
-        if (canvas != null)
+        if (_canvas != null)
         {
-            var signinPanelObject = Instantiate(signinPanel, canvas.transform);
+            var signinPanelObject = Instantiate(signinPanel, _canvas.transform);
         }
     }
 
     public void OpenSignupPanel()
     {
-        if (canvas != null)
+        if (_canvas != null)
         {
-            var signupPanelObject = Instantiate(signupPanel, canvas.transform);
+            var signupPanelObject = Instantiate(signupPanel, _canvas.transform);
         }
     }
     

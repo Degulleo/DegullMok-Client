@@ -32,6 +32,20 @@ public class UserManager : Singleton<UserManager>
     public int Lose { get; private set; }
     public int Coins { get; private set; }
 
+    // 효과음 재생 여부
+    public static bool IsPlaySFX
+    {
+        get { return PlayerPrefs.GetInt("IsPlaySFX", 1) == 1; }
+        set { PlayerPrefs.SetInt("IsPlaySFX", value ? 1 : 0); }
+    }
+    
+    // 배경음악 재생 여부
+    public static bool IsPlayBGM
+    {
+        get { return PlayerPrefs.GetInt("IsPlayBGM", 1) == 1; }
+        set { PlayerPrefs.SetInt("IsPlayBGM", value ? 1 : 0); }
+    }
+    
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
     }

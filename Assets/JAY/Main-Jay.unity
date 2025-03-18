@@ -169,7 +169,12 @@ MonoBehaviour:
   mainPanel: {fileID: 8564394481744056992, guid: e1835a90a4d722a4b99be61179de8789, type: 3}
   signinPanel: {fileID: 925522282249935710, guid: e14c9b2925f0ddb4192af743e5cc166a, type: 3}
   signupPanel: {fileID: 3181524094944658765, guid: 8827fe7caa3145e40b1369cc42f8697d, type: 3}
-  canvas: {fileID: 1867732346}
+  settingsPanel: {fileID: 2861881646994438329, guid: ea820246b5075c54d9f614291ca41c5d, type: 3}
+  confirmPanel: {fileID: 8145365568262946399, guid: 76f1fe6b5243faf4f9b8caee7312d336, type: 3}
+  rankingPanel: {fileID: 154459105952450598, guid: bf4bb18aa323fe748b3eb1d537503596, type: 3}
+  shopPanel: {fileID: 8190964574954487140, guid: eb257b0a685b2254f860f294ce8cba54, type: 3}
+  giboPanel: {fileID: 3090474328172188941, guid: c63914e01332f8d479ada92325335e41, type: 3}
+  loadingPanel: {fileID: 1942997847427067673, guid: 634a60576b4855940a97d1e7447b9fcc, type: 3}
   profileSprites: []
 --- !u!1 &333752980
 GameObject:
@@ -408,7 +413,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
