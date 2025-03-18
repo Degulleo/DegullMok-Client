@@ -88,11 +88,11 @@ public static class MiniMaxAIController
         }
 
         // 랜덤 실수
-        if (secondBestMove != null && UnityEngine.Random.value < _mistakeMove) // UnityEngine.Random.value == 0~1 사이 반환
+        /*if (secondBestMove != null && UnityEngine.Random.value < _mistakeMove) // UnityEngine.Random.value == 0~1 사이 반환
         {
             Debug.Log("AI Mistake");
             return secondBestMove;
-        }
+        }*/
         
         return bestMove;
     }
