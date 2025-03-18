@@ -56,6 +56,8 @@ public class PlayerState : BasePlayerState
     
     public override void OnExit(GameLogic gameLogic)
     {
+        //TODO: 렌주 룰 금수자리 초기화
+        
         gameLogic.fioTimer.InitTimer();
         gameLogic.stoneController.OnStoneClickedDelegate = null;
     }
