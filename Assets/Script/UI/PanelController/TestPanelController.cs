@@ -55,12 +55,12 @@ public class TestPanelController : MonoBehaviour
         }
     }
     
-    public void OpenGiboPanel(List<GiboItem> giboItems)
+    public void OpenGiboPanel()
     {
         if (_canvas != null)
         {
             var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
-            settingsPanelObject.GetComponent<GiboPanelController>().Show(giboItems);
+            settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
     
@@ -137,21 +137,8 @@ public class TestPanelController : MonoBehaviour
     //기보 패널 생성
     public void OnGiboPanelClick()
     {
-        
-        List<GiboItem> giboItems = new List<GiboItem>();       //테스트 데이터 리스트 생성
-        for (int i = 0; i < 30; i++)
-        {
-            GiboItem giboItem = new GiboItem
-            {
-                WinLoseSpriteIndex = Random.Range(0, 2),
-                Date = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
-                Name = i.ToString(),
-            };
-            
-            giboItems.Add(giboItem);
-        }
-        
-        OpenGiboPanel(giboItems);
+      
+        OpenGiboPanel();
     }
 
    

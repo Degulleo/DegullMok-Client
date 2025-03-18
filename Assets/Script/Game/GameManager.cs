@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     private UserManager _userManager;  // UserManager 인스턴스 관리
     private CoinsPanelController _coinsPanel;
     
+    
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
@@ -33,10 +34,9 @@ public class GameManager : Singleton<GameManager>
         {
             GameObject userManagerObj = new GameObject("UserManager");
             _userManager = userManagerObj.AddComponent<UserManager>();
-            
-            //게임 씬에서 확인하기 위한 임시 코드
-            // _gameType = Enums.GameType.SinglePlay;
         }
+        //게임 씬에서 확인하기 위한 임시 코드
+        _gameType = Enums.GameType.SinglePlay;
     }
     
     private void Start()
@@ -44,12 +44,14 @@ public class GameManager : Singleton<GameManager>
         // TODO: 로딩 화면 추가(자동 로그인 응답 전까지)
         
         // 자동 로그인
-        TryAutoSignin();
+        // TryAutoSignin();
         
         //게임 씬에서 확인하기 위한 임시 코드
-        // _stoneController = GameObject.FindObjectOfType<StoneController>();
-        // _stoneController.InitStones();
-        // _gameLogic = new GameLogic(_stoneController, _gameType);
+        _canvas = canvas.GetComponent<Canvas>();
+        _stoneController = GameObject.FindObjectOfType<StoneController>();
+        _stoneController.InitStones();
+        var fioTimer = FindObjectOfType<FioTimer>();
+        _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
     
     private void TryAutoSignin()
@@ -61,7 +63,7 @@ public class GameManager : Singleton<GameManager>
 
             UpdateMainPanelUI(OpenMainPanel);
             // ScoreData.SetScore(userInfo.score);
-            // OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
+            OpenConfirmPanel(userInfo.nickname + "님 로그인 성공하였습니다.", () => { });
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
@@ -119,7 +121,15 @@ public class GameManager : Singleton<GameManager>
     
     public void OnClickConfirmButton()
     {
-        _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
+        if (_gameLogic.selectedRow != -1 && _gameLogic.selectedCol != -1)
+        {
+            _gameLogic.OnConfirm();
+        }
+        else
+        {
+            Debug.Log("착수 위치를 선택 해주세요");
+            //TODO: 착수할 위치를 선택하라는 동작
+        }
     }
     
     private void ChangeToGameScene(Enums.GameType gameType)
@@ -132,13 +142,24 @@ public class GameManager : Singleton<GameManager>
     {
         if (scene.name == "Game")
         {
+            if (_gameType == Enums.GameType.Replay)
+            {
+                //TODO: 리플레이를 위한 초기화
+            }
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
-            _gameLogic = new GameLogic(_stoneController, _gameType);
+            var fioTimer = FindObjectOfType<FioTimer>();
+            _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
-    
+    //임시 재시작 재대결
+    public void RetryGame()
+    {
+        _gameLogic.ResetBoard();
+        _stoneController.InitStones();
+        _gameLogic.SetState(_gameLogic.firstPlayerState);
+    }
     public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
     {
         if (_canvas != null)
@@ -181,7 +202,7 @@ public class GameManager : Singleton<GameManager>
         if (_canvas != null)
         {
             var settingsPanelObject = Instantiate(giboPanel, _canvas.transform);
-            settingsPanelObject.GetComponent<GiboPanelController>().Show(giboItems);
+            settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
 }

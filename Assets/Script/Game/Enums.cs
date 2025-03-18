@@ -8,5 +8,6 @@ public class Enums
     
     public enum StoneState{ None, Selected, Blocked, LastPositioned }
     
-    public enum GameType{ None, SinglePlay, MultiPlay }
+    public enum GameType{ None, SinglePlay, MultiPlay, Replay }
+
 }
