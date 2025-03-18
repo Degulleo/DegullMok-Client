@@ -37,6 +37,8 @@ public class GameManager : Singleton<GameManager>
         }
         //게임 씬에서 확인하기 위한 임시 코드
         _gameType = Enums.GameType.SinglePlay;
+        
+        base.Awake();
     }
     
     private void Start()
@@ -132,15 +134,15 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
+    //GameCopyLYC은 임시 게임씬 이름
     public void ChangeToGameScene(Enums.GameType gameType)
     {
         _gameType = gameType;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("GameCopyLYC");
     }
-
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Game")
+        if (scene.name == "GameCopyLYC")
         {
             if (_gameType == Enums.GameType.Replay)
             {
@@ -151,7 +153,7 @@ public class GameManager : Singleton<GameManager>
             var fioTimer = FindObjectOfType<FioTimer>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
-        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        _canvas = FindObjectOfType<Canvas>();
     }
     //임시 재시작 재대결
     public void RetryGame()

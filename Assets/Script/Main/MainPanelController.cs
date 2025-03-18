@@ -67,4 +67,10 @@ public class MainPanelController : MonoBehaviour
             signOutButton.interactable = true; // 실패 시 다시 활성화
         });
     }
+    
+    //대국 시작 버튼 클릭
+    public void OnClickGameStart()
+    {
+        GameManager.Instance.ChangeToGameScene(Enums.GameType.SinglePlay);
+    }
 }
