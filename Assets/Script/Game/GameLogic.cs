@@ -251,7 +251,6 @@ public class GameLogic : MonoBehaviour
                 LastNSelectedSetting(row, col);
                 break;
         }
-
     }
 
     //돌 지우는 함수
