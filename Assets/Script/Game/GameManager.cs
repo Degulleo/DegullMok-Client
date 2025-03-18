@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class GameManager : Singleton<GameManager>
@@ -68,7 +69,8 @@ public class GameManager : Singleton<GameManager>
         // _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
 
-    private void PlayMainBGM()
+    // 배경음악 시작
+    public void PlayMainBGM()
     {
         // AudioSource 컴포넌트 가져오기
         audioSource = GetComponent<AudioSource>();
@@ -80,6 +82,15 @@ public class GameManager : Singleton<GameManager>
             audioSource.loop = true; // 반복 재생
             audioSource.volume = 0.4f; // 볼륨
             audioSource.Play(); // 음악 시작
+        }
+    }
+
+    // 배경음악 멈추기
+    public void StopMainBGM()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop(); // 배경음악 멈추기
         }
     }
     

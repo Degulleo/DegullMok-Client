@@ -32,7 +32,17 @@ public class SettingsPanelController : PanelController
     public void OnBGMToggleValueChanged(bool value)
     {
         Debug.Log("BGM : "+ value);
-        UserManager.IsPlaySFX = value; // UserManager에 값 저장
+        UserManager.IsPlayBGM = value; // UserManager에 값 저장
+        
+        // GameManager에서 BGM 상태를 반영
+        if (value)
+        {
+            GameManager.Instance.PlayMainBGM();  // BGM을 켜기
+        }
+        else
+        {
+            GameManager.Instance.StopMainBGM();  // BGM을 끄기
+        }
     }
 
 
