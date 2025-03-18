@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RenjuDetectorBase
+public class ForbiddenDetectorBase
 {
     // 방향 배열 (가로, 세로, 대각선)
     private protected Vector2Int[] directions =
@@ -12,12 +12,12 @@ public class RenjuDetectorBase
     };
 
     // 15*15 보드 사이즈
-    private protected int _boardSize = 15;
+    private protected int _boardSize = Constants.BoardSize;
 
     /// <summary>
     /// 좌표가 보드 범위 내에 있는지 확인
     /// </summary>
-    private protected bool IsValidPosition(int row, int col)
+    private protected bool IsInBounds(int row, int col)
     {
         var inBoardSizeRow = row >= 0 && row < _boardSize;
         var inBoardSizeCol = col >= 0 && col < _boardSize;
@@ -30,7 +30,7 @@ public class RenjuDetectorBase
     /// </summary>
     private protected bool IsEmptyPosition(Enums.PlayerType[,] board, int row, int col)
     {
-        if (!IsValidPosition(row, col)) return false;
+        if (!IsInBounds(row, col)) return false;
 
         return board[row, col] == Enums.PlayerType.None;
     }
