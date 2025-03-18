@@ -24,6 +24,11 @@ public class PanelController : MonoBehaviour
     /// </summary>
     public void Show()
     {
+        if (backGroundCanvasGroup == null)
+        {
+            backGroundCanvasGroup = GetComponent<CanvasGroup>();
+        }
+            
         backGroundCanvasGroup.alpha = 0;
         panelRectTransform.localScale = Vector3.zero;
         

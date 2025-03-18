@@ -33,6 +33,7 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
     
     private void Start()
     {
+        Debug.Log(UserManager.Instance.Nickname);
         //TODO: 기보 타입으로 들어왔을 때 데이터 로드 테스트 수정할것
         ReplayManager.Instance.InitReplayBoard(ReplayManager.Instance.LoadReplayDatas()[9]);
         
