@@ -151,7 +151,7 @@ public class GameLogic : MonoBehaviour
         new int[] {1, -1} // 대각선 ↙ ↗
     };
     
-    public GameLogic(StoneController stoneController, Enums.GameType gameType, FioTimer fioTimer)
+    public GameLogic(StoneController stoneController, Enums.GameType gameType, FioTimer fioTimer = null)
     {
         //보드 초기화
         _board = new Enums.PlayerType[15, 15];
@@ -164,22 +164,28 @@ public class GameLogic : MonoBehaviour
         _lastRow = -1;
         _lastCol = -1;
         //timer 초기화
-        this.fioTimer = fioTimer;
-        this.fioTimer.InitTimer();
-        //timer 시간초과시 진행 함수
-        this.fioTimer.OnTimeout = () =>
+        if (fioTimer != null)
         {
-            if (currentTurn == Enums.PlayerType.PlayerA)
+            this.fioTimer = fioTimer;
+            this.fioTimer.InitTimer();
+            //timer 시간초과시 진행 함수
+            this.fioTimer.OnTimeout = () =>
             {
-                GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",() =>{});
-                EndGame();
-            }
-            else if (currentTurn == Enums.PlayerType.PlayerB)
-            {
-                GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",() =>{});
-                EndGame();
-            }
-        };
+                if (currentTurn == Enums.PlayerType.PlayerA)
+                {
+                    GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
+                        () =>{});
+                    EndGame();
+                }
+                else if (currentTurn == Enums.PlayerType.PlayerB)
+                {
+                    GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
+                        () =>{});
+                    EndGame();
+                }
+            };
+        }
+        
         //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
         ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
         
@@ -192,6 +198,9 @@ public class GameLogic : MonoBehaviour
                 break;
             case Enums.GameType.MultiPlay:
                 //TODO: 멀티 구현 필요
+                break;
+            case Enums.GameType.Replay:
+                //TODO: 리플레이 구현
                 break;
         }
     }
