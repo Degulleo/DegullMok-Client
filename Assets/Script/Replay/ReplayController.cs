@@ -16,12 +16,12 @@ public class ReplayController : MonoBehaviour
 
     public void OnclickFirstButton()
     {
-        
+        ReplayManager.Instance.ReplayFirst();
     }
 
     public void OnclickUndoButton()
     {
-        Move targetMove = ReplayManager.Instance.PopMove();
+        Move targetMove = ReplayManager.Instance.PopPlacedMove();
         if (targetMove != null)
         {
             ReplayManager.Instance.ReplayUndo(targetMove);
@@ -39,7 +39,7 @@ public class ReplayController : MonoBehaviour
 
     public void OnClickFinishButton()
     {
-        
+        ReplayManager.Instance.ReplayFinish();
     }
     
     

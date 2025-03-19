@@ -72,7 +72,7 @@ public class ReplayManager : Singleton<ReplayManager>
         _placedStoneStack.Push(storedMove);
     }
 
-    public Move PopMove()
+    public Move PopPlacedMove()
     {
         if (_placedStoneStack.Count == 0)
             return null;
@@ -80,7 +80,7 @@ public class ReplayManager : Singleton<ReplayManager>
         return move;
     }
     
-    public void PushUndoMove(Move storedMove)
+    private void PushUndoMove(Move storedMove)
     {
         _undoStack.Push(storedMove);
     }
@@ -167,13 +167,14 @@ public class ReplayManager : Singleton<ReplayManager>
         return records;
     }
     
+    // 최대 저장 개수만큼 기보데이터가 저장, 유지되도록 하는 함수
     private void RecordCountChecker()
     {
         try
         {
             string path = Application.persistentDataPath;
             var files = Directory.GetFiles(path, "*.json");
-            if (files.Length <= 10)
+            if (files.Length <= Constants.ReplayMaxRecordSize)
                 return;
             File.Delete(files[0]);
             RecordCountChecker();
@@ -184,10 +185,51 @@ public class ReplayManager : Singleton<ReplayManager>
         }
     }
 
+    // 기보 데이터 하나를 선택해서 매니저에 저장(씬 이동 후 데이터 활용을 위해)
     public void SetReplayData(ReplayRecord replayRecord)
     {
         _selectedReplayRecord = replayRecord;
     }
+
+    #region ReplayController에서 호출할 함수들
+    public void ReplayNext(Move nextMove)
+    {
+        // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
+        if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, nextMove.columnIndex, nextMove.rowIndex);
+
+        }
+        else if (nextMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
+        }
+        // 돌이 놓인 내역을 ReplayManager에도 반영
+        ReplayManager.Instance.PushMove(nextMove);
+    }
+
+    public void ReplayUndo(Move targetMove)
+    {
+        ReplayManager.Instance.PushUndoMove(targetMove);
+        _gameLogic.RemoveStone(targetMove.columnIndex, targetMove.rowIndex);
+    }
+
+    public void ReplayFirst()
+    {
+        while (_placedStoneStack.Count > 0)
+        {
+            ReplayUndo(_placedStoneStack.Pop());
+        }
+    }
+    
+    public void ReplayFinish()
+    {
+        while(_placedStoneStack.Count < _selectedReplayRecord.moves.Count)
+        {
+            ReplayNext(GetNextMove());
+        }
+    }
+    #endregion
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -207,49 +249,4 @@ public class ReplayManager : Singleton<ReplayManager>
             // Main으로 강제 전환 ?
         }
     }
-
-    public void ReplayNext(Move nextMove )
-    {
-        // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
-        if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
-        {
-            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, nextMove.columnIndex, nextMove.rowIndex);
-
-        }
-        else if (nextMove.stoneType.Equals(Enums.StoneType.White.ToString()))
-        {
-            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
-        }
-        // 돌이 놓인 내역을 ReplayManager에도 반영
-        ReplayManager.Instance.PushMove(nextMove);
-    }
-
-    public void ReplayUndo(Move targetMove)
-    {
-        if (targetMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
-        {
-            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, targetMove.columnIndex, targetMove.rowIndex);
-
-        }
-        else if (targetMove.stoneType.Equals(Enums.StoneType.White.ToString()))
-        {
-            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, targetMove.columnIndex, targetMove.rowIndex);
-        }
-        ReplayManager.Instance.PushUndoMove(targetMove);
-        _gameLogic.RemoveStone(targetMove.columnIndex, targetMove.rowIndex);
-    }
-
-    #region for tests
-
-    public void OnClickSaveButton(string winnerPlayerType = "PlayerA")
-    {
-        if(winnerPlayerType == Enums.PlayerType.PlayerA.ToString())
-            SaveReplayData(Enums.PlayerType.PlayerA);
-        else
-            SaveReplayData(Enums.PlayerType.PlayerB);
-            
-    }
-    
-
-    #endregion
 }
