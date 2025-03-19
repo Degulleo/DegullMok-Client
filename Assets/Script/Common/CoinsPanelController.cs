@@ -34,9 +34,6 @@ public class CoinsPanelController : MonoBehaviour
     private void Start()
     {
         coinsRemoveImageObject.SetActive(false);
-
-        // TODO : 코인 수량 초기화
-        InitCoinsCount(500);
     }
 
     /// <summary>
@@ -47,7 +44,7 @@ public class CoinsPanelController : MonoBehaviour
     {
         _coinsCount = coinsCount;
         coinsCountText.text = _coinsCount.ToString();
-
+        
         ResizingCoinsRect();
     }
 

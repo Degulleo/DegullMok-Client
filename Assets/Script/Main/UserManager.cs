@@ -11,6 +11,13 @@ public class UserInfoResult
     public int imageIndex;
     public int win;
     public int lose;
+    public int coins;
+}
+
+public class CoinsInfoResult
+{
+    public string result;
+    public int coins;
 }
 
 public class UserManager : Singleton<UserManager>
@@ -20,14 +27,43 @@ public class UserManager : Singleton<UserManager>
     public string Nickname { get; private set; }
     public int Rating { get; private set; }
     public int Score { get; private set; }
-    public int ImageIndex { get; private set; }
+    public int imageIndex { get; private set; }
     public int Win { get; private set; }
     public int Lose { get; private set; }
+    public int Coins { get; private set; }
 
+    // 효과음 재생 여부
+    public static bool IsPlaySFX
+    {
+        get { return PlayerPrefs.GetInt("IsPlaySFX", 1) == 1; }
+        set { PlayerPrefs.SetInt("IsPlaySFX", value ? 1 : 0); }
+    }
+    
+    // 배경음악 재생 여부
+    public static bool IsPlayBGM
+    {
+        get { return PlayerPrefs.GetInt("IsPlayBGM", 1) == 1; }
+        set { PlayerPrefs.SetInt("IsPlayBGM", value ? 1 : 0); }
+    }
+    
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
     }
 
+    public void UserInfoInit()
+    {
+        UserId = "";
+        Email = "";
+        Nickname = "";
+        Rating = 0;
+        imageIndex = 0;
+        Coins = 0;
+    }
+
+    /// <summary>
+    /// GetInfo 호출 시
+    /// </summary>
+    /// <param name="userData"></param>
     public void SetUserInfo(UserInfoResult userData)
     {
         if (userData == null)
@@ -41,12 +77,27 @@ public class UserManager : Singleton<UserManager>
         Nickname = userData.nickname;
         Rating = userData.rating;
         // Score = userData.score;
-        ImageIndex = userData.imageIndex;
+        imageIndex = userData.imageIndex;
         // Win = userData.win;
         // Lose = userData.lose;
+        Coins = userData.coins;
         
         // 유저 정보를 PlayerPrefs에 저장
         SaveUserInfoToPlayerPrefs();
+    }
+    
+    
+    /// <summary>
+    /// Signin 호출 시 : 로그인 정보만 반영
+    /// </summary>
+    /// <param name="signinResult"></param>
+    public void SetUserInfo(SigninResult signinResult)
+    {
+        Nickname = signinResult.nickname;
+        Rating = signinResult.rating;
+        // Score = signinResult.score;
+        imageIndex = signinResult.imageIndex;
+        Coins = signinResult.coins;
     }
     
     public void SaveUserInfoToPlayerPrefs()
@@ -59,7 +110,7 @@ public class UserManager : Singleton<UserManager>
             nickname = Nickname,
             // rating = Rating,
             // score = Score,
-            imageIndex = ImageIndex,
+            imageIndex = imageIndex,
             // win = Win,
             // lose = Lose
         };
@@ -89,5 +140,14 @@ public class UserManager : Singleton<UserManager>
         SetUserInfo(userInfo);
     }
 
-
+    public void SetCoinsInfo()
+    {
+        NetworkManager.Instance.GetCoinsInfo((coinsResult) =>
+        {
+            Coins = coinsResult.coins;
+        }, () =>
+        {
+            Debug.Log("서버에서 코인 불러오기 실패");
+        });
+    }
 }

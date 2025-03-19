@@ -13,10 +13,4 @@ public class CameraController : MonoBehaviour
         _camera = GetComponent<Camera>();
         _camera.orthographicSize = widthUnit / _camera.aspect / 2;
     }
-
-    
-    void Update()
-    {
-        
-    }
 }
