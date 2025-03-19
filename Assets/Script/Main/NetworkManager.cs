@@ -47,8 +47,6 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 var result = www.downloadHandler.text;
-                success?.Invoke();
-                
                 // 회원가입 성공 팝업 표시
                 GameManager.Instance.panelManager.OpenConfirmPanel("회원 가입이 완료 되었습니다.", () =>
                 {
