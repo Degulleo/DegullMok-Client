@@ -5,5 +5,5 @@ using UnityEngine;
 public class ShopItem
 {
     public string Name;
-    public string Price;
+    public int Price;
 }

@@ -30,7 +30,6 @@ public class AdManager : MonoBehaviour
                     return;
                 }
 
-                Debug.Log("보상형 전면 광고 로드 성공");
                 rewardedInterstitialAd = ad;
 
                 // 광고 종료 이벤트 설정

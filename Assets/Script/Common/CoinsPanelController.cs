@@ -66,7 +66,7 @@ public class CoinsPanelController : MonoBehaviour
             if (isAdd)
             {
                 var currentHeartCount = coinsCountText.text;
-                coinsCountText.text = (int.Parse(currentHeartCount) + 100).ToString();
+                coinsCountText.text = (int.Parse(currentHeartCount) + 500).ToString();
                 // 코인 텍스트 100씩 증가
             }
             else
@@ -99,7 +99,7 @@ public class CoinsPanelController : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         // i += a  반복 횟수 조절, 100개 단위로 상승 차감 시 100으로 설정
-        for (int i = 0; i < coinsCount; i+=100)
+        for (int i = 0; i < coinsCount; i+=500)
         {
             sequence.AppendCallback(() =>
             {
