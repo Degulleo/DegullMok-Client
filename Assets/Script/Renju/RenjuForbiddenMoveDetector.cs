@@ -14,6 +14,7 @@ public class RenjuForbiddenMoveDetector
     /// <returns>금수 좌표를 담은 리스트</returns>
     public List<Vector2Int> RenjuForbiddenMove(Enums.PlayerType[,] board)
     {
+        var tempBoard = (Enums.PlayerType[,])board.Clone();
         return _ruleChecker.GetForbiddenMoves(board);
     }
 }
