@@ -24,7 +24,7 @@ public class ReplayController : MonoBehaviour
         Move targetMove = ReplayManager.Instance.PopMove();
         if (targetMove != null)
         {
-            GameManager.Instance.ReplayUndo(targetMove);
+            ReplayManager.Instance.ReplayUndo(targetMove);
         }
     }
 
@@ -33,7 +33,7 @@ public class ReplayController : MonoBehaviour
         Move nextMove = ReplayManager.Instance.GetNextMove();
         if (nextMove != null)
         {
-            GameManager.Instance.ReplayNext(nextMove);
+            ReplayManager.Instance.ReplayNext(nextMove);
         }
     }
 

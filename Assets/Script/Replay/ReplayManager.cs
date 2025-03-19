@@ -31,6 +31,7 @@ public class Move
 
 public class ReplayManager : Singleton<ReplayManager>
 {
+    
     private ReplayRecord _recordingReplayData;
 
     #region 기보 시작 후 데이터를 컨트롤하기
@@ -42,6 +43,8 @@ public class ReplayManager : Singleton<ReplayManager>
     private Stack<Move> _undoStack;
     private int _moveIndex;
     
+    private GameLogic _gameLogic;
+    private StoneController _stoneController;
     
     public void InitReplayBoard(ReplayRecord replayRecord)
     {        
@@ -196,11 +199,51 @@ public class ReplayManager : Singleton<ReplayManager>
                 InitReplayBoard(_selectedReplayRecord);
             }
             
+            
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
+            
             // TODO: 데이터 잘못 가져왔을 때 어떻게 처리할지 고민하기
             // Main으로 강제 전환 ?
         }
     }
 
+    #region ReplayControll
+
+    public void ReplayNext(Move nextMove )
+    {
+        // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
+        if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, nextMove.columnIndex, nextMove.rowIndex);
+
+        }
+        else if (nextMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
+        }
+        // 돌이 놓인 내역을 ReplayManager에도 반영
+        ReplayManager.Instance.PushMove(nextMove);
+    }
+    
+    public void ReplayUndo(Move targetMove)
+    {
+        if (targetMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, targetMove.columnIndex, targetMove.rowIndex);
+
+        }
+        else if (targetMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, targetMove.columnIndex, targetMove.rowIndex);
+        }
+        ReplayManager.Instance.PushUndoMove(targetMove);
+        //TODO: 화면상에서 돌 치우기
+    }
+    
+
+    #endregion
     #region for tests
 
     public void OnClickSaveButton(string winnerPlayerType = "PlayerA")
