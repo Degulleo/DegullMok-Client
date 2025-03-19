@@ -25,7 +25,15 @@ public abstract class BasePlayerState
         else
         {
             //TODO: 무승부 확인
-            HandleNextTurn(gameLogic);
+            if (gameLogic.CheckGameDraw(gameLogic.GetBoard()))
+            {
+                GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
+                gameLogic.EndGame();
+            }
+            else
+            {
+                HandleNextTurn(gameLogic);
+            }
         }
         
     }
@@ -374,6 +382,31 @@ public class GameLogic : MonoBehaviour
         }
         
         return (count, openEnds);
+    }
+
+    public Enums.PlayerType[,] GetBoard()
+    {
+        return _board;
+    }
+
+    public bool CheckGameDraw(Enums.PlayerType[,] board)
+    {
+        List<(int, int)> validMoves = new List<(int, int)>();
+        int size = board.GetLength(0);
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                if (board[row, col] == Enums.PlayerType.None)
+                {
+                    validMoves.Add((row, col));
+                }
+            }
+        }
+
+        if (validMoves.Count == 0) return true;   
+        
+        return false;
     }
 
 #region Renju Rule Detector
