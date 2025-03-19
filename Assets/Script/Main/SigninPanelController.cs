@@ -38,6 +38,8 @@ public class SigninPanelController : MonoBehaviour
     [SerializeField] private TMP_InputField emailInputField;
     [SerializeField] private TMP_InputField passwordInputField;
 
+    [SerializeField] private MainPanelManager mainPanel;
+
     public void OnClickSigninButton()
     {
         string email = emailInputField.text;
@@ -45,7 +47,7 @@ public class SigninPanelController : MonoBehaviour
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            GameManager.Instance.OpenConfirmPanel("입력 내용이 누락되었습니다.", () => {});
+            GameManager.Instance.panelManager.OpenConfirmPanel("입력 내용이 누락되었습니다.", () => {});
             return;
         }
 
@@ -59,7 +61,7 @@ public class SigninPanelController : MonoBehaviour
             UserManager.Instance.SetUserInfo(signinResult);
             
             // 메인 패널 정보 갱신
-            GameManager.Instance.UpdateMainPanelUI(GameManager.Instance.OpenMainPanel);
+            mainPanel.UpdateMainPanelUI(GameManager.Instance.panelManager.OpenMainPanel);
         }, result =>
         {
             if (result == 0)
@@ -77,6 +79,6 @@ public class SigninPanelController : MonoBehaviour
     {
         emailInputField.text = "";
         passwordInputField.text = "";
-        GameManager.Instance.OpenSignupPanel();
+        GameManager.Instance.panelManager.OpenSignupPanel();
     }
 }

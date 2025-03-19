@@ -38,7 +38,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 {
                     Debug.Log("중복사용자");
                     // 중복 사용자 생성 팝업 표시
-                    GameManager.Instance.OpenConfirmPanel("이미 존재하는 사용자입니다.", () =>
+                    GameManager.Instance.panelManager.OpenConfirmPanel("이미 존재하는 사용자입니다.", () =>
                     {
                         failure?.Invoke();
                     });
@@ -50,7 +50,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 success?.Invoke();
                 
                 // 회원가입 성공 팝업 표시
-                GameManager.Instance.OpenConfirmPanel("회원 가입이 완료 되었습니다.", () =>
+                GameManager.Instance.panelManager.OpenConfirmPanel("회원 가입이 완료 되었습니다.", () =>
                 {
                     success?.Invoke();
                 });
@@ -100,7 +100,7 @@ public class NetworkManager : Singleton<NetworkManager>
                     Debug.Log("유저 이메일이 유효하지 않습니다.");
                     failure?.Invoke(0);
                     // 유저 이메일 유효하지 않음 팝업 표시
-                    GameManager.Instance.OpenConfirmPanel("이메일이 유효하지 않습니다.", () =>
+                    GameManager.Instance.panelManager.OpenConfirmPanel("이메일이 유효하지 않습니다.", () =>
                     {
                         failure?.Invoke(0);
                     });
@@ -110,7 +110,7 @@ public class NetworkManager : Singleton<NetworkManager>
                     Debug.Log("패스워드가 유효하지 않습니다.");
                     failure?.Invoke(1);
                     // 패스워드가 유효하지 않음 팝업 표시
-                    GameManager.Instance.OpenConfirmPanel("패스워드가 유효하지 않습니다.", () =>
+                    GameManager.Instance.panelManager.OpenConfirmPanel("패스워드가 유효하지 않습니다.", () =>
                     {
                         failure?.Invoke(1);
                     });
@@ -121,7 +121,7 @@ public class NetworkManager : Singleton<NetworkManager>
                     success?.Invoke(signinResult);
                     
                     // 성공 팝업 표시
-                    // GameManager.Instance.OpenConfirmPanel("로그인에 성공하였습니다.", () =>
+                    // GameManager.Instance.panelManager.OpenConfirmPanel("로그인에 성공하였습니다.", () =>
                     // {
                     //     success?.Invoke();
                     // });
@@ -149,7 +149,7 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
-                // GameManager.Instance.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
+                // GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
                 // {
                 // });
                 failure?.Invoke();
@@ -164,7 +164,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 if (www.responseCode == 403)
                 {
                     Debug.Log("로그인이 필요합니다.");
-                    GameManager.Instance.OpenConfirmPanel("로그인이 필요합니다.", () =>
+                    GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () =>
                     {
                         failure?.Invoke();
                     });
@@ -191,7 +191,7 @@ public class NetworkManager : Singleton<NetworkManager>
         if (string.IsNullOrEmpty(sid))
         {
             Debug.Log("로그인 정보가 없습니다.");
-            GameManager.Instance.OpenConfirmPanel("로그인이 필요합니다.", () =>
+            GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () =>
             {
                 failure?.Invoke();
             });
@@ -210,7 +210,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 if (www.responseCode == 403)
                 {
                     Debug.Log("로그인이 필요합니다.");
-                    GameManager.Instance.OpenConfirmPanel("로그인이 필요합니다.", () => { });
+                    GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () => { });
                 }
                 failure?.Invoke();
             }
@@ -249,7 +249,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 if (www.responseCode == 403)
                 {
                     Debug.Log("로그인이 필요합니다.");
-                    GameManager.Instance.OpenConfirmPanel("로그인이 필요합니다.", () => { });
+                    GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () => { });
                 }
                 
                 failure?.Invoke();
@@ -284,7 +284,7 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
-                GameManager.Instance.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
+                GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
                 {
                     failure?.Invoke();
                 });
@@ -299,7 +299,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 if (www.responseCode == 403)
                 {
                     Debug.Log("로그인이 필요합니다.");
-                    GameManager.Instance.OpenConfirmPanel("로그인이 필요합니다.", () => { });
+                    GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () => { });
                 }
                 
                 failure?.Invoke();

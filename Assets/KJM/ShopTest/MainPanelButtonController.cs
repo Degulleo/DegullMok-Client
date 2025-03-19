@@ -32,6 +32,6 @@ public class MainPanelButtonController : MonoBehaviour
             }
         }
  
-        GameManager.Instance.OpenShopPanel(shopItems);
+        GameManager.Instance.panelManager.OpenShopPanel(shopItems);
     }
 }
