@@ -229,24 +229,30 @@ public class ReplayManager : Singleton<ReplayManager>
             ReplayNext(GetNextMove());
         }
     }
+
+    public string GetPlayerANickname()
+    {
+        return _selectedReplayRecord.playerA;
+    }
+
+    public string GetPlayerBNickname()
+    {
+        return _selectedReplayRecord.playerB;
+    }
+    
+    
     #endregion
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Replay")
         {
-            if (_selectedReplayRecord != null)
-            {
-                InitReplayBoard(_selectedReplayRecord);
-            }
-            
+            InitReplayBoard(_selectedReplayRecord);
+
             //게임 매니저에서 가져온 코드입니다.
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
-            
-            // TODO: 데이터 잘못 가져왔을 때 어떻게 처리할지 고민하기
-            // Main으로 강제 전환 ?
         }
     }
 }

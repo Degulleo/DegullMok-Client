@@ -18776,7 +18776,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3806122117153528265}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6113787613455091454}
+        m_TargetAssemblyTypeName: ReplayController, Assembly-CSharp
+        m_MethodName: OnclickExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2180157736468784195
 GameObject:
   m_ObjectHideFlags: 0
@@ -18914,7 +18926,7 @@ GameObject:
   - component: {fileID: 182763848042457448}
   - component: {fileID: 5649645114534718557}
   m_Layer: 5
-  m_Name: Player Name Text
+  m_Name: PlayerB Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19033,7 +19045,7 @@ GameObject:
   - component: {fileID: 1750532428139497284}
   - component: {fileID: 4888719462519445862}
   m_Layer: 5
-  m_Name: Player Name Text
+  m_Name: PlayerA Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19453,6 +19465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda9793c3fea2104199340f907378533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerANicknameText: {fileID: 4888719462519445862}
+  playerBNicknameText: {fileID: 5649645114534718557}
+  playerAImage: {fileID: 8274101518570821972}
+  playerBImage: {fileID: 1516328598779423605}
 --- !u!224 &6390176559513736999
 RectTransform:
   m_ObjectHideFlags: 0
