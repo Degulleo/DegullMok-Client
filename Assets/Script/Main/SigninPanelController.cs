@@ -31,7 +31,7 @@ public struct ScoreInfo
     public int win;
     public int lose;
     public int totalGames;
-    public Image profileImage;
+    public int profileImageIndex;
 }
 
 [Serializable]
@@ -85,10 +85,5 @@ public class SigninPanelController : MonoBehaviour
         emailInputField.text = "";
         passwordInputField.text = "";
         GameManager.Instance.OpenSignupPanel();
-    }
-
-    public void OnClickLeaderboardButton()
-    {
-        GameManager.Instance.OpenLeaderboardPanel();
     }
 }

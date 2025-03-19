@@ -9,9 +9,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject signinPanel;
     [SerializeField] private GameObject signupPanel;
+    [SerializeField] private GameObject leaderboardPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject confirmPanel;
-    [SerializeField] private GameObject rankingPanel;
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject giboPanel;
     
@@ -43,13 +43,13 @@ public class GameManager : Singleton<GameManager>
     {
         // TODO: 로딩 화면 추가(자동 로그인 응답 전까지)
         
-        // 자동 로그인
+         // 자동 로그인
         TryAutoSignin();
         
-        //게임 씬에서 확인하기 위한 임시 코드
-        // _stoneController = GameObject.FindObjectOfType<StoneController>();
-        // _stoneController.InitStones();
-        // _gameLogic = new GameLogic(_stoneController, _gameType);
+        // 게임 씬에서 확인하기 위한 임시 코드
+         // _stoneController = GameObject.FindObjectOfType<StoneController>();
+         // _stoneController.InitStones();
+         // _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -117,17 +117,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
-    public void OnClickConfirmButton()
-    {
-        _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
-    }
-    
-    private void ChangeToGameScene(Enums.GameType gameType)
-    {
-        _gameType = gameType;
-        SceneManager.LoadScene("Game");
-    }
-
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Game")
@@ -158,12 +147,12 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
-    public void OpenRankingPanel(List<RankingItem> rankingItems)
+    public void OpenLeaderboardPanel()
     {
-        if (_canvas != null)
+        if (canvas != null)
         {
-            var settingsPanelObject = Instantiate(rankingPanel, _canvas.transform);
-            settingsPanelObject.GetComponent<RankingPanelController>().Show(rankingItems);
+            // LeaderboardPanel을 인스턴스화
+            var leaderboardPanelObject = Instantiate(leaderboardPanel, canvas.transform); 
         }
     }
     
@@ -175,6 +164,18 @@ public class GameManager : Singleton<GameManager>
             settingsPanelObject.GetComponent<ShopPanelController>().Show(shopItems);
         }
     }
+
+    public void OnClickConfirmButton()
+    {
+        _gameLogic.SetNewBoardValue(_gameLogic.currentTurn, _gameLogic.selectedRow,_gameLogic.selectedCol);
+    }
+    
+    private void ChangeToGameScene(Enums.GameType gameType)
+    {
+        _gameType = gameType;
+        SceneManager.LoadScene("Game");
+    }
+
     
     public void OpenGiboPanel(List<GiboItem> giboItems)
     {

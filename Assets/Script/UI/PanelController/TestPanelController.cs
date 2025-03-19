@@ -37,7 +37,7 @@ public class TestPanelController : MonoBehaviour
         }
     }
     
-    public void OpenRankingPanel(List<RankingItem> rankingItems)
+    public void OpenRankingPanel(List<ScoreInfo> rankingItems)
     {
         if (_canvas != null)
         {
@@ -86,16 +86,16 @@ public class TestPanelController : MonoBehaviour
     public void OnRankingPanelClick()
     {
         
-        List<RankingItem> rankingItems = new List<RankingItem>();       //테스트 데이터 리스트 생성
+        List<ScoreInfo> rankingItems = new List<ScoreInfo>();       //테스트 데이터 리스트 생성
         for (int i = 0; i < 30; i++)
         {
-            RankingItem rankingItem = new RankingItem
+            ScoreInfo scoreInfo = new ScoreInfo
             {
-                ProfileSpriteIndex = Random.Range(0, 2),
-                Name = i.ToString(),
-                WinRate = Random.Range(0f, 1f)
+                // ProfileSpriteIndex = Random.Range(0, 2),
+                nickname = i.ToString(),
+                winRate = Random.Range(0f, 1f)
             };
-            rankingItems.Add(rankingItem);
+            rankingItems.Add(scoreInfo);
         }
         
         OpenRankingPanel(rankingItems);

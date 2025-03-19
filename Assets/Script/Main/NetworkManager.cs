@@ -221,7 +221,7 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
 
-    public IEnumerator GetLeaderboard(Action<Scores> success, Action failure)
+    public IEnumerator GetRanking(Action<Scores> success, Action failure)
     {
         using (UnityWebRequest www =
                new UnityWebRequest(Constants.ServerURL + "/leaderboard", UnityWebRequest.kHttpVerbGET))

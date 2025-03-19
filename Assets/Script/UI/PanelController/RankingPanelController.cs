@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class RankingPanelController : ScrollPanelController
 {
-    public virtual void Show(List<RankingItem> items)
+    public virtual void Show(List<ScoreInfo> items)
     {
         for (int i = 0; i < items.Count && i <= MAX_COUNT; i++)
         {
