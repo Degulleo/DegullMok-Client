@@ -204,7 +204,6 @@ public class GameLogic : MonoBehaviour
         
         //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
         ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
-
         
         switch (gameType)
         {

@@ -221,10 +221,6 @@ public class GameManager : Singleton<GameManager>
             var fioTimer = FindObjectOfType<FioTimer>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
-        else if (scene.name == "Replay")
-        {
-        }
-        
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
     //임시 재시작 재대결
