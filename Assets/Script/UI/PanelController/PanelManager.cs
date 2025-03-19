@@ -32,8 +32,6 @@ public class PanelManager : MonoBehaviour
     
     void Start()
     {
-        PanelManager panelManager = FindObjectOfType<PanelManager>();
-        
         if (_canvas == null)
         {
             _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
@@ -72,10 +70,8 @@ public class PanelManager : MonoBehaviour
 
     public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false)
     {
-        Debug.Log("loadingPanelObject 실행?");
         if (_canvas != null)
         {
-            Debug.Log("CANVSALKDFJLSKDFJAOIJVASDLKFJLSIDF?");
             var loadingPanelObject = GetPanel("Loading Panel");
             
         
