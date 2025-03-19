@@ -20,6 +20,14 @@ public class CoinsInfoResult
     public int coins;
 }
 
+public class CoinsAdResult
+{
+    public string result;      
+    public string message;     
+    public int recharged;      // 충전된 코인량
+    public int currentCoins;   // 현재 보유 코인량
+}
+
 public class UserManager : Singleton<UserManager>
 {
     public string UserId { get; private set; }

@@ -33,9 +33,7 @@ public class GameManager : Singleton<GameManager>
     private GameLogic _gameLogic;
     private StoneController _stoneController;
     private Canvas _canvas;
-
-    public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
-
+    
     private void Start()
     {
         // TODO: 음악 관련은 AuidoManager로 분리?
@@ -146,6 +144,21 @@ public class GameManager : Singleton<GameManager>
                 _coinsPanel.InitCoinsCount(UserManager.Instance.Coins);
             }
 
+        }
+    }
+
+    public void UpdateCoinsPanelUI(int coinsChanged)
+    {
+        if (_coinsPanel != null)
+        {
+            _coinsPanel.AddCoins(coinsChanged, () =>
+            {
+                
+            });
+        }
+        else
+        {
+            Debug.Log("코인 패널이 null 입니다.");
         }
     }
     
