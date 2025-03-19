@@ -119,19 +119,9 @@ public class RenjuDoubleThreeDetector: ForbiddenDetectorBase
     /// </summary>
     private bool CheckForOpenThree(Enums.PlayerType[] linePattern, int centerIndex)
     {
-        // 연속된 열린 3 확인
-        if (CheckConsecutiveOpenThree(linePattern, centerIndex))
-        {
-            return true;
-        }
-
-        // 한 칸 떨어진 열린 3 확인
-        if (CheckGappedOpenThree(linePattern, centerIndex))
-        {
-            return true;
-        }
-
-        return false;
+        // 둘다 아니면 열린 3이 아님
+        return CheckConsecutiveOpenThree(linePattern, centerIndex) || // 연속된 열린 3 확인
+                CheckGappedOpenThree(linePattern, centerIndex); // 한 칸 떨어진 열린 3 확인
     }
 
     /// <summary>

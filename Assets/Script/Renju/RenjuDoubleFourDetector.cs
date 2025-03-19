@@ -30,12 +30,9 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
     /// </summary>
     private bool CheckDoubleFour(Enums.PlayerType[,] board, int row, int col)
     {
-        // 각각 두개의 라인에서 쌍사를 형성하는 경우
-        if (FindDoubleLineFour(board, row, col)) return true;
-
-        //  true : 일직선으로 쌍사가 만들어지는 특수 패턴
         //  false : 모든 경우에도 쌍사가 만들어지지 않음
-        return FindSingleLineDoubleFour(board, row, col);
+        return FindDoubleLineFour(board, row, col) ||       // 각각 두개의 라인에서 쌍사를 형성하는 경우
+                FindSingleLineDoubleFour(board, row, col);  // 일직선으로 쌍사가 만들어지는 특수 패턴
     }
 
     private bool FindDoubleLineFour(Enums.PlayerType[,] board, int row, int col)
