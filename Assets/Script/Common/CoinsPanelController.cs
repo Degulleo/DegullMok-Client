@@ -99,7 +99,7 @@ public class CoinsPanelController : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         // i += a  반복 횟수 조절, 100개 단위로 상승 차감 시 100으로 설정
-        for (int i = 0; i < coinsCount; i+=1)
+        for (int i = 0; i < coinsCount; i+=100)
         {
             sequence.AppendCallback(() =>
             {

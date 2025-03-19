@@ -112,7 +112,6 @@ public class TestPanelController : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    ItemSpriteIndex = Random.Range(0, 1),
                     Name = "코인10개",
                     Price = "광고"
                 };
@@ -122,7 +121,6 @@ public class TestPanelController : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    ItemSpriteIndex = Random.Range(0, 1),
                     Name = "코인"+i+"개",
                     Price = (i * 1000)+ "원"
                 };

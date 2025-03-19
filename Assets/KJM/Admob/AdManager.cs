@@ -10,7 +10,7 @@ public class AdManager : MonoBehaviour
     void Start()
     {
         // Google Mobile Ads 초기화
-        MobileAds.Initialize(initStatus => { Debug.Log("AdMob Initialized"); });
+        MobileAds.Initialize(initStatus => {  });
 
         // 광고 로드
         LoadRewardedInterstitialAd();
@@ -45,7 +45,6 @@ public class AdManager : MonoBehaviour
         {
             rewardedInterstitialAd.Show((Reward reward) =>
             {
-                Debug.Log("코인 지급됨: " + reward.Amount);
                 // 코인 지급 로직
                 GrantReward();
             });
@@ -66,7 +65,13 @@ public class AdManager : MonoBehaviour
     // 코인 지급 함수
     private void GrantReward()
     {
-        Debug.Log("코인 지금 완료");
-        // 코인 보상 로직 추가
+        NetworkManager.Instance.WatchAdForCoins((coinsAdded) =>
+        {
+            // UI 업데이트
+            GameManager.Instance.UpdateCoinsPanelUI(coinsAdded);
+        }, () =>
+        {
+            Debug.Log("광고 시청 후 코인 추가 실패!");
+        });
     }
 }
