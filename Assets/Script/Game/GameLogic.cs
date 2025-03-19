@@ -357,4 +357,12 @@ public class GameLogic : MonoBehaviour
         
         return (count, openEnds);
     }
+
+    public bool CheckGameDraw(Enums.PlayerType[,] board)
+    {
+        
+        
+        
+        return false;
+    }
 }
