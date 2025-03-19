@@ -55,14 +55,14 @@ public class SigninPanelController : MonoBehaviour
         
         NetworkManager.Instance.Signin(signinData, (signinResult) =>
         {
-            mainPanel = gameObject.GetComponent<MainPanelManager>();
-            Destroy(gameObject);
+            if (mainPanel == null) mainPanel = FindObjectOfType<MainPanelManager>();
             
             // 유저 정보 저장
             UserManager.Instance.SetUserInfo(signinResult);
             
             // 메인 패널 정보 갱신
             mainPanel.UpdateMainPanelUI(GameManager.Instance.panelManager.OpenMainPanel);
+            Destroy(gameObject);
         }, result =>
         {
             if (result == 0)
