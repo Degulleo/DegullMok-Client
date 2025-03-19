@@ -64,7 +64,11 @@ public class MainPanelController : MonoBehaviour
         }, () =>
         {
             Debug.Log("로그아웃 실패");
-            signOutButton.interactable = true; // 실패 시 다시 활성화
+            // 입력 내용 누락 팝업 표시
+            GameManager.Instance.OpenConfirmPanel("로그아웃을 실패했습니다.", () =>
+            {
+                signOutButton.interactable = true; // 실패 시 다시 활성화
+            });
         });
     }
 }
