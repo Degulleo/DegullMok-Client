@@ -8,19 +8,14 @@ public static class MiniMaxAIController
     private const int SEARCH_DEPTH = 3; // 탐색 깊이 제한 (3 = 빠른 응답, 4 = 좀 더 강한 AI 그러나 느린)
     private const int WIN_COUNT = 5;
     
-    private static int[][] _directions = new int[][]
-    {
-        new int[] {1, 0}, // 수직
-        new int[] {0, 1}, // 수평
-        new int[] {1, 1}, // 대각선 ↘ ↖
-        new int[] {1, -1} // 대각선 ↙ ↗
-    };
+    private static int[][] _directions = AIConstants.Directions;
 
     private static int _playerLevel = 1; // 급수 설정
     private static float _mistakeMove;
+    
     private static Enums.PlayerType _AIPlayerType = Enums.PlayerType.PlayerB;
     
-    private static System.Random _random = new System.Random();
+    private static System.Random _random = new System.Random(); // 랜덤 실수용 Random 함수
     
     // 중복 계산을 방지하기 위한 캐싱 데이터. 위치 기반 (그리드 기반 해시맵)
     private static Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>> 
@@ -36,7 +31,7 @@ public static class MiniMaxAIController
     public static void SetLevel(int level)
     {
         _playerLevel = level;
-        
+        // 레벨에 따른 실수률? 설정
         _mistakeMove = GetMistakeProbability(_playerLevel);
     }
     
@@ -158,7 +153,10 @@ public static class MiniMaxAIController
 
         // score가 높은 순으로 정렬 -> 더 좋은 수 먼저 계산하도록 함
         validMoves.Sort((a, b) => b.Item3.CompareTo(a.Item3));  
-        return validMoves;
+        
+        // 상위 10-15개만 고려. 일단 15개
+        return validMoves.Take(15).ToList(); 
+        // return validMoves;
     }
     
     private static bool HasNearbyStones(Enums.PlayerType[,] board, int row, int col, int distance = 3)
@@ -274,11 +272,13 @@ public static class MiniMaxAIController
     #endregion
     
     // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
-    public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, int row, int col)
+    // !!!!!!MinimaxAIController 밖의 cs파일은 호출 시 맨 마지막을 false로 지정해야 합니다.!!!!!!
+    public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, 
+                                            int row, int col, bool isSavedCache = true)
     {
         foreach (var dir in _directions)
         {
-            var (count, _) = CountStones(board, row, col, dir, player);
+            var (count, _) = CountStones(board, row, col, dir, player, isSavedCache);
 
             // 자기 자신 포함하여 5개 이상일 시 true 반환
             if (count + 1 >= WIN_COUNT) 

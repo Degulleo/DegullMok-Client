@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class AIEvaluator
 {
     // 패턴 가중치 상수
-    public static class PatternScore
+    public struct PatternScore
     {
         // AI 패턴 점수
         public const float FIVE_IN_A_ROW = 100000f;
@@ -30,15 +31,8 @@ public static class AIEvaluator
         public const float CENTER_WEIGHT = 1.2f;
         public const float EDGE_WEIGHT = 0.8f;
     }
-    
-    // 방향 상수 -> public으로 빼기
-    private static readonly int[][] Directions = new int[][]
-    {
-        new int[] {1, 0}, // 수직
-        new int[] {0, 1}, // 수평
-        new int[] {1, 1}, // 대각선 ↘ ↖
-        new int[] {1, -1} // 대각선 ↙ ↗
-    };
+
+    private static readonly int[][] Directions = AIConstants.Directions;
     
     // 보드 전체 상태 평가
     public static float EvaluateBoard(Enums.PlayerType[,] board, Enums.PlayerType aiPlayer)
@@ -102,7 +96,7 @@ public static class AIEvaluator
                     // 위치 가중치 적용
                     patternScore *= positionWeight;
                     
-                    // 최종 점수 적용 (플레이어는 음수)
+                    // 최종 점수 (플레이어는 음수)
                     score += playerScore * patternScore;
                 }
             }
@@ -310,12 +304,16 @@ public static class AIEvaluator
         return fourThreeCount;
     }
     
-    // 이동 평가 함수 (EvaluateMove 대체)
+    // 이동 평가 함수
     public static float EvaluateMove(Enums.PlayerType[,] board, int row, int col, Enums.PlayerType AIPlayer)
     {
         float score = 0;
         Enums.PlayerType opponentPlayer = (AIPlayer == Enums.PlayerType.PlayerA) ? 
                                       Enums.PlayerType.PlayerB : Enums.PlayerType.PlayerA;
+        
+        // 복합 패턴 감지를 위한 위치 저장 리스트
+        List<(int[] dir, int count, int openEnds)> aiPatterns = new List<(int[], int, int)>();
+        List<(int[] dir, int count, int openEnds)> opponentPatterns = new List<(int[], int, int)>();
         
         // AI 관점에서 평가
         board[row, col] = AIPlayer;
@@ -323,6 +321,7 @@ public static class AIEvaluator
         foreach (var dir in Directions)
         {
             var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, AIPlayer, false);
+            aiPatterns.Add((dir, count, openEnds));
             
             if (count >= 4) 
             {
@@ -347,12 +346,16 @@ public static class AIEvaluator
             }
         }
         
+        // AI 복합 패턴 점수 계산 (새로 추가)
+        score += EvaluateComplexMovePatterns(aiPatterns, true);
+        
         // 상대 관점에서 평가 (방어 가치)
         board[row, col] = opponentPlayer;
         
         foreach (var dir in Directions)
         {
             var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, opponentPlayer, false);
+            opponentPatterns.Add((dir, count, openEnds));
             
             // 상대 패턴 차단에 대한 가치 (약간 낮은 가중치)
             if (count >= 4)
@@ -378,6 +381,8 @@ public static class AIEvaluator
             }
         }
         
+        score += EvaluateComplexMovePatterns(opponentPatterns, false);
+        
         // 원래 상태로 복원
         board[row, col] = Enums.PlayerType.None;
         
@@ -390,5 +395,58 @@ public static class AIEvaluator
         float centerBonus = 1.0f - (centerDistance / ((size - 1) / 2.0f)) * 0.3f; // 30% 가중치
         
         return score * centerBonus;
+    }
+    
+    // 복합 패턴 평가를 위한 새로운 함수
+    private static float EvaluateComplexMovePatterns(List<(int[] dir, int count, int openEnds)> patterns, bool isAI)
+    {
+        float score = 0;
+    
+        // 열린 3 패턴 및 4 패턴 찾기
+        var openThrees = patterns.Where(p => p.count == 3 && p.openEnds == 2).ToList();
+        var fours = patterns.Where(p => p.count == 4 && p.openEnds >= 1).ToList();
+    
+        // 3-3 패턴 감지
+        if (openThrees.Count >= 2)
+        {
+            for (int i = 0; i < openThrees.Count; i++)
+            {
+                for (int j = i + 1; j < openThrees.Count; j++)
+                {
+                    if (!AreParallelDirections(openThrees[i].dir, openThrees[j].dir))
+                    {
+                        float threeThreeScore = PatternScore.DOUBLE_THREE / 4; // 복합 패턴 가중치
+                        score += isAI ? threeThreeScore : threeThreeScore;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        // 4-4 패턴 감지
+        if (fours.Count >= 2)
+        {
+            for (int i = 0; i < fours.Count; i++)
+            {
+                for (int j = i + 1; j < fours.Count; j++)
+                {
+                    if (!AreParallelDirections(fours[i].dir, fours[j].dir))
+                    {
+                        float fourFourScore = PatternScore.DOUBLE_FOUR / 4;
+                        score += isAI ? fourFourScore : fourFourScore;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        // 4-3 패턴 감지
+        if (fours.Count > 0 && openThrees.Count > 0)
+        {
+            float fourThreeScore = PatternScore.FOUR_THREE / 4;
+            score += isAI ? fourThreeScore : fourThreeScore;
+        }
+    
+        return score;
     }
 }
