@@ -4817,11 +4817,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a4c6d5d3a97b444b968e68ec8bb9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainPanel: {fileID: 0}
-  signinPanel: {fileID: 0}
-  signupPanel: {fileID: 0}
-  settingsPanel: {fileID: 0}
-  confirmPanel: {fileID: 0}
+  mainPanel: {fileID: 8564394481744056992, guid: e1835a90a4d722a4b99be61179de8789, type: 3}
+  signinPanel: {fileID: 925522282249935710, guid: e14c9b2925f0ddb4192af743e5cc166a, type: 3}
+  signupPanel: {fileID: 3181524094944658765, guid: 8827fe7caa3145e40b1369cc42f8697d, type: 3}
+  settingsPanel: {fileID: 2861881646994438329, guid: ea820246b5075c54d9f614291ca41c5d, type: 3}
+  confirmPanel: {fileID: 8145365568262946399, guid: 76f1fe6b5243faf4f9b8caee7312d336, type: 3}
   rankingPanel: {fileID: 0}
   shopPanel: {fileID: 0}
   giboPanel: {fileID: 0}

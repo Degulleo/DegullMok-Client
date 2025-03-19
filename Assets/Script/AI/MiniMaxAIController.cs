@@ -5,10 +5,6 @@ using UnityEngine;
 
 public static class MiniMaxAIController
 {
-    // To-Do List
-    // 탐색 시간 개선: 캐싱(_stoneInfoCache), 좋은 수부터 탐색(Move Ordering) 
-    // AI 난이도 개선
-    
     private const int SEARCH_DEPTH = 3; // 탐색 깊이 제한 (3 = 빠른 응답, 4 = 좀 더 강한 AI 그러나 느린)
     private const int WIN_COUNT = 5;
     
@@ -24,9 +20,12 @@ public static class MiniMaxAIController
     private static float _mistakeMove;
     private static Enums.PlayerType _AIPlayerType = Enums.PlayerType.PlayerB;
     
-    // 중복 계산을 방지하기 위한 캐싱 데이터. 위치(row, col) 와 방향(dirX, dirY) 중복 계산 방지
-    private static Dictionary<(int, int, int, int), (int count, int openEnds)> _stoneCountCache 
-        = new Dictionary<(int, int, int, int), (int count, int openEnds)>();
+    private static System.Random _random = new System.Random();
+    
+    // 중복 계산을 방지하기 위한 캐싱 데이터. 위치 기반 (그리드 기반 해시맵)
+    private static Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>> 
+        _spatialStoneCache = new Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>>();
+
     
     // 급수 설정 -> 실수 넣을 때 계산
     public static void SetLevel(int level)
@@ -88,11 +87,11 @@ public static class MiniMaxAIController
         }
 
         // 랜덤 실수
-        /*if (secondBestMove != null && UnityEngine.Random.value < _mistakeMove) // UnityEngine.Random.value == 0~1 사이 반환
+        if (secondBestMove != null && _random.NextDouble() < _mistakeMove)
         {
             Debug.Log("AI Mistake");
             return secondBestMove;
-        }*/
+        }
         
         return bestMove;
     }
@@ -180,10 +179,14 @@ public static class MiniMaxAIController
         Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player, bool isSaveInCache = true)
     {
         int dirX = direction[0], dirY = direction[1];
-        var key = (row, col, dirX, dirY);
+        // var key = (row, col, dirX, dirY);
+        
+        var posKey = (row, col);
+        var dirKey = (dirX, dirY);
 
         // 캐시에 존재하면 바로 반환 (탐색 시간 감소)
-        if (_stoneCountCache.TryGetValue(key, out var cachedResult))
+        if (_spatialStoneCache.TryGetValue(posKey, out var dirCache) && 
+            dirCache.TryGetValue(dirKey, out var cachedResult))
         {
             return cachedResult;
         }
@@ -224,7 +227,12 @@ public static class MiniMaxAIController
         var resultValue = (count, openEnds);
         if(isSaveInCache) // 결과 저장
         {
-            _stoneCountCache[key] = resultValue;
+            if (!_spatialStoneCache.TryGetValue(posKey, out dirCache))
+            {
+                dirCache = new Dictionary<(int, int), (int, int)>();
+                _spatialStoneCache[posKey] = dirCache;
+            }
+            dirCache[dirKey] = (count, openEnds);
         }
         
         return resultValue;
@@ -235,37 +243,26 @@ public static class MiniMaxAIController
     // 캐시 초기화, 새로운 돌이 놓일 시 실행
     private static void ClearCache()
     {
-        _stoneCountCache.Clear();
+        _spatialStoneCache.Clear();
     }
     
     // 캐시 부분 초기화 (현재 변경된 위치 N에서 반경 5칸만 초기화)
     private static void ClearCachePartial(int centerRow, int centerCol, int radius = 5)
     {
         // 캐시가 비어있으면 아무 작업도 하지 않음
-        if (_stoneCountCache.Count == 0) return;
-    
-        // 제거할 키 목록
-        List<(int, int, int, int)> keysToRemove = new List<(int, int, int, int)>();
-    
-        // 모든 캐시 항목을 검사
-        foreach (var key in _stoneCountCache.Keys)
-        {
-            var (row, col, _, _) = key;
-            
-            // 거리 계산
-            int distance = Math.Max(Math.Abs(row - centerRow), Math.Abs(col - centerCol));
+        if (_spatialStoneCache.Count == 0) return;
         
-            // 지정된 반경 내에 있는 캐시 항목을 삭제 목록에 추가
-            if (distance <= radius)
-            {
-                keysToRemove.Add(key);
-            }
-        }
-    
-        // 반경 내의 키 제거
-        foreach (var key in keysToRemove)
+        for (int r = centerRow - radius; r <= centerRow + radius; r++)
         {
-            _stoneCountCache.Remove(key);
+            for (int c = centerCol - radius; c <= centerCol + radius; c++)
+            {
+                // 반경 내 위치 확인
+                if (Math.Max(Math.Abs(r - centerRow), Math.Abs(c - centerCol)) <= radius)
+                {
+                    // 해당 위치의 캐시 항목 제거
+                    _spatialStoneCache.Remove((r, c));
+                }
+            }
         }
     }
     
