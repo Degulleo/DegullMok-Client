@@ -26,6 +26,11 @@ public static class MiniMaxAIController
     private static Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>> 
         _spatialStoneCache = new Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>>();
 
+    // AI Player Type 변경 (AI가 선수로 둘 수 있을지도 모르니..)
+    public static void SetAIPlayerType(Enums.PlayerType AIPlayerType)
+    {
+        _AIPlayerType = AIPlayerType;
+    }
     
     // 급수 설정 -> 실수 넣을 때 계산
     public static void SetLevel(int level)
@@ -101,7 +106,7 @@ public static class MiniMaxAIController
     {
         if (CheckGameWin(Enums.PlayerType.PlayerA, board, recentRow, recentCol)) return -100 + depth;
         if (CheckGameWin(Enums.PlayerType.PlayerB, board, recentRow, recentCol)) return 100 - depth;
-        if (depth == 0) return EvaluateBoard(board);
+        if (depth == 0) return AIEvaluator.EvaluateBoard(board, _AIPlayerType);
 
         float bestScore = isMaximizing ? float.MinValue : float.MaxValue;
         List<(int row, int col, float score)> validMoves = GetValidMoves(board); // 현재 놓을 수 있는 자리 리스트
@@ -145,7 +150,7 @@ public static class MiniMaxAIController
                 if (board[row, col] == Enums.PlayerType.None && HasNearbyStones(board, row, col))
                 {
                     // 보드 전체가 아닌 해당 돌에 대해서만 Score 계산
-                    float score = EvaluateMove(board, row, col);
+                    float score = AIEvaluator.EvaluateMove(board, row, col, _AIPlayerType);
                     validMoves.Add((row, col, score));
                 }
             }
@@ -175,7 +180,7 @@ public static class MiniMaxAIController
     }
     
     // 특정 방향으로 같은 돌 개수와 열린 끝 개수를 계산하는 함수
-    private static (int count, int openEnds) CountStones(
+    public static (int count, int openEnds) CountStones(
         Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player, bool isSaveInCache = true)
     {
         int dirX = direction[0], dirY = direction[1];
@@ -310,7 +315,7 @@ public static class MiniMaxAIController
 
         return fiveInARowMoves;
     }
-
+/*
     #region Evaluate Score
     
     // 특정 위치의 Score를 평가하는 새로운 함수
@@ -590,4 +595,5 @@ public static class MiniMaxAIController
     }
     
 #endregion
+*/
 }

@@ -261,7 +261,7 @@ public class GameLogic : MonoBehaviour
                 ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.Black, row, col);      //기보 데이터 저장
                 break;
             case Enums.PlayerType.PlayerB:
-                
+                /*
                 // AI 테스트 시작
                 OmokAI.Instance.StartBestMoveSearch(_board, (bestMove) => 
                 {
@@ -277,13 +277,14 @@ public class GameLogic : MonoBehaviour
                     }
                 });
                 // AI 테스트 끝
+                */
                 
-                /*stoneController.SetStoneType(Enums.StoneType.White, row, col);
+                stoneController.SetStoneType(Enums.StoneType.White, row, col);
                 stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerB;
                 LastNSelectedSetting(row, col);
                 
-                ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, row, col);*/
+                ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, row, col);
                 break;
         }
     }
