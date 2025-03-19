@@ -15,6 +15,6 @@ public class RenjuForbiddenMoveDetector
     public List<Vector2Int> RenjuForbiddenMove(Enums.PlayerType[,] board)
     {
         var tempBoard = (Enums.PlayerType[,])board.Clone();
-        return _ruleChecker.GetForbiddenMoves(board);
+        return _ruleChecker.GetForbiddenMoves(tempBoard);
     }
 }

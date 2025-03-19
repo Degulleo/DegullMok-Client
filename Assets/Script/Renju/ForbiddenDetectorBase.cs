@@ -2,6 +2,7 @@
 {
     private protected Enums.PlayerType Black = Enums.PlayerType.PlayerA;
     private protected Enums.PlayerType Space = Enums.PlayerType.None;
+    private protected Enums.PlayerType White = Enums.PlayerType.PlayerB;
 
     // 8방향을 나타내는 델타 배열 (가로, 세로, 대각선 방향)
     private protected readonly int[,] Directions = new int[8, 2]
