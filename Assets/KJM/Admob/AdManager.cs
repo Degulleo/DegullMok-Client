@@ -43,7 +43,7 @@ public class AdManager : MonoBehaviour
     {
         if (rewardedInterstitialAd != null && rewardedInterstitialAd.CanShowAd())
         {
-            rewardedInterstitialAd.Show((Reward reward) =>
+            rewardedInterstitialAd.Show((Reward reward) =>  //서버에서 500코인을 고정으로 반환하기 때문에 reward는 사용하지 않음.
             {
                 // 코인 지급 로직
                 GrantReward();

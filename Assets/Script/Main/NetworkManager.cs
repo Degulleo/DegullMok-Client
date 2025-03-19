@@ -375,4 +375,62 @@ public class NetworkManager : Singleton<NetworkManager>
             }
         }
     }
+    
+    //코인 구매 함수
+    public void PurchaseCoins(Action<int> success, Action failure)
+    {
+        StartCoroutine(PurchaseCoinsCoroutine(success, failure));
+    }
+
+    private IEnumerator PurchaseCoinsCoroutine(Action<int> success, Action failure)
+    {
+        string jsonString = "{\"adCompleted\": true}";  //테스트를 위해 ture로 설정
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
+
+        using (UnityWebRequest www =
+               new UnityWebRequest(Constants.ServerURL + "/coins/recharge/ad", UnityWebRequest.kHttpVerbPOST))
+        {
+            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            string sid = PlayerPrefs.GetString("sid", "");
+            if (!string.IsNullOrEmpty(sid))
+            {
+                www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                failure?.Invoke();
+                yield break;
+            }
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log("광고 시청 후 코인 충전 실패: " + www.error);
+                failure?.Invoke();
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                var rechargeResult = JsonUtility.FromJson<CoinsAdResult>(result);
+
+                if (rechargeResult.result == "SUCCESS")
+                {
+                    Debug.Log("광고 시청으로 코인 충전 완료: " + rechargeResult.recharged);
+                    UserManager.Instance.SetCoinsInfo();
+                    success?.Invoke(rechargeResult.recharged);
+                }
+                else
+                {
+                    Debug.Log("광고 시청 후 충전 실패: " + rechargeResult.result);
+                    failure?.Invoke();
+                }
+            }
+        }
+    }
 }

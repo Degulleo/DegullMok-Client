@@ -27,5 +27,9 @@ public class ShopItemController : MonoBehaviour
             //보상형 전면 광고 로드
             FindObjectOfType<AdManager>().ShowRewardedInterstitialAd(); //Todo FindOf 함수 수정
         }
+        else
+        {
+            //todo 가격별로 구매하기
+        }
     }
 }
