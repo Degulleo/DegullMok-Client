@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
-    private Canvas _canvas;
     
     [SerializeField] private GameObject panelManagerPrefab;
     [SerializeField] private GameObject audioManagerPrefab;
@@ -82,8 +81,6 @@ public class GameManager : Singleton<GameManager>
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
         }
-        
-        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
     //임시 재시작 재대결
     public void RetryGame()
