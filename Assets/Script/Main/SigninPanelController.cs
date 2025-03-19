@@ -45,7 +45,7 @@ public class SigninPanelController : MonoBehaviour
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            // TODO: 누락된 값 입력 요청 팝업 표시
+            GameManager.Instance.OpenConfirmPanel("입력 내용이 누락되었습니다.", () => {});
             return;
         }
 
