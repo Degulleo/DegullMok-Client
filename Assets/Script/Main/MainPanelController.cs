@@ -10,7 +10,7 @@ public class MainPanelController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ratingText;
     [SerializeField] private Button signOutButton;
     [SerializeField] private GameObject[] profileImages;
-
+    
     private int _selectedImageIndex;
     
     private void Awake()
@@ -21,7 +21,7 @@ public class MainPanelController : MonoBehaviour
             signOutButton.onClick.AddListener(OnSignOutClick);
         }
     }
-
+    
     public void UpdateUserInfo()
     {
         if (UserManager.Instance == null) return;
@@ -51,7 +51,7 @@ public class MainPanelController : MonoBehaviour
         {
             Debug.Log("로그아웃 성공");
 
-            GameManager.Instance.OpenSigninPanel();
+            GameManager.Instance.panelManager.OpenSigninPanel();
             
             // 로그아웃 버튼 메서드 삭제
             signOutButton.onClick.RemoveAllListeners();
@@ -64,7 +64,11 @@ public class MainPanelController : MonoBehaviour
         }, () =>
         {
             Debug.Log("로그아웃 실패");
-            signOutButton.interactable = true; // 실패 시 다시 활성화
+            // 입력 내용 누락 팝업 표시
+            GameManager.Instance.panelManager.OpenConfirmPanel("로그아웃을 실패했습니다.", () =>
+            {
+                signOutButton.interactable = true; // 실패 시 다시 활성화
+            });
         });
     }
 }
