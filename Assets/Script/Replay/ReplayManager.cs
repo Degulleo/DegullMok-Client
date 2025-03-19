@@ -208,8 +208,6 @@ public class ReplayManager : Singleton<ReplayManager>
         }
     }
 
-    #region ReplayControll
-
     public void ReplayNext(Move nextMove )
     {
         // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
@@ -238,11 +236,9 @@ public class ReplayManager : Singleton<ReplayManager>
             _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, targetMove.columnIndex, targetMove.rowIndex);
         }
         ReplayManager.Instance.PushUndoMove(targetMove);
-        //TODO: 화면상에서 돌 치우기
+        _gameLogic.RemoveStone(targetMove.columnIndex, targetMove.rowIndex);
     }
 
-
-    #endregion
     #region for tests
 
     public void OnClickSaveButton(string winnerPlayerType = "PlayerA")
