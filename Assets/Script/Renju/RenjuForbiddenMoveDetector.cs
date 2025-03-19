@@ -18,6 +18,7 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
     {
         var tempBoard = (Enums.PlayerType[,])board.Clone();
 
+        var forbiddenCount = 0;
         List<Vector2Int> forbiddenMoves = new();
         for (int row = 0; row < BoardSize; row++)
         {
@@ -29,6 +30,7 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 // 장목 검사
                 if (_overlineDetactor.IsOverline(tempBoard, row, col))
                 {
+                    forbiddenCount++;
                     Debug.Log("장목 금수 좌표 X축 : " + row + ", Y축 : " + col);
                     forbiddenMoves.Add(new Vector2Int(row, col));
                     continue;
@@ -37,20 +39,46 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 // 4-4 검사
                 if (_doubleFourDetactor.IsDoubleFour(tempBoard, row, col))
                 {
+                    forbiddenCount++;
                     Debug.Log("사사 금수 좌표 X축 : " + row + ", Y축 : " + col);
                     forbiddenMoves.Add(new Vector2Int(row, col));
                     continue;
                 }
 
+                if(forbiddenCount >1) continue;
+
                 // 3-3 검사
                 if (_doubleThreeDetector.IsDoubleThree(tempBoard, row, col))
                 {
-                    Debug.Log("삼삼 금수 좌표 X축 : " + row + ", Y축 : " + col);
-                    forbiddenMoves.Add(new Vector2Int(row, col));
+                    if (CheckFakeForbiddenMove(tempBoard, row, col))
+                    {
+                        Debug.Log("삼삼 금수 좌표 X축 : " + row + ", Y축 : " + col);
+                        forbiddenMoves.Add(new Vector2Int(row, col));
+                    }
+
                 }
             }
         }
 
         return forbiddenMoves;
+    }
+
+    private bool CheckFakeForbiddenMove(Enums.PlayerType[,] board, int row, int col)
+    {
+        var tempBoard = (Enums.PlayerType[,])board.Clone();
+        tempBoard[row, col] = Black;
+
+        for (int newRow = 0; newRow < BoardSize; newRow++)
+        {
+            for (int newCol = 0; newCol < BoardSize; newCol++)
+            {
+                // ** 비어 있지 않으면 검사할 필요 없음 **
+                if (!IsEmptyPosition(tempBoard, newRow, newCol)) continue;
+
+                return _overlineDetactor.IsOverline(tempBoard, newRow, newCol) ||
+                       _doubleFourDetactor.IsDoubleFour(tempBoard, newRow, newCol);
+            }
+        }
+        return false;
     }
 }
