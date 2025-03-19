@@ -142,6 +142,15 @@ public class GameLogic : MonoBehaviour
     public int selectedRow;
     public int selectedCol;
     //마지막 배치된 좌표
+
+#region Renju Members
+    // 렌주룰 금수 검사기
+    private RenjuForbiddenMoveDetector _forbiddenDetector;
+
+    // 현재 금수 위치 목록
+    private List<Vector2Int> _forbiddenMoves = new List<Vector2Int>();
+#endregion
+
     private int _lastRow;
     private int _lastCol;
     
@@ -162,6 +171,11 @@ public class GameLogic : MonoBehaviour
         
         selectedRow = -1;
         selectedCol = -1;
+
+#region Renju Init
+        // 금수 감지기 초기화
+        _forbiddenDetector = new RenjuForbiddenMoveDetector();
+#endregion
 
         _lastRow = -1;
         _lastCol = -1;
@@ -235,6 +249,12 @@ public class GameLogic : MonoBehaviour
 
     public void SetStoneSelectedState(int row, int col)
     {
+
+#region Renju Turn Set
+        // 턴이 변경될 때마다 금수 위치 업데이트
+        UpdateForbiddenMoves();
+#endregion
+
         if (_board[row, col] != Enums.PlayerType.None) return;
         
         if (stoneController.GetStoneState(row, col) != Enums.StoneState.None && currentTurn == Enums.PlayerType.PlayerA) return;
@@ -357,6 +377,38 @@ public class GameLogic : MonoBehaviour
         
         return (count, openEnds);
     }
+
+#region Renju Rule Detector
+    // 금수 위치 업데이트 및 표시
+    private void UpdateForbiddenMoves()
+    {
+        ClearForbiddenMarks();
+
+        if (currentTurn == Enums.PlayerType.PlayerA)
+        {
+            _forbiddenMoves = _forbiddenDetector.RenjuForbiddenMove(_board);
+
+            foreach (var pos in _forbiddenMoves)
+            {
+                SetStoneNewState(Enums.StoneState.Blocked, pos.x, pos.y);
+            }
+        }
+
+    }
+
+    // 이전에 표시된 금수 마크 제거
+    private void ClearForbiddenMarks()
+    {
+        foreach (var forbiddenMove in _forbiddenMoves)
+        {
+            Vector2Int pos = forbiddenMove;
+            if (_board[pos.x, pos.y] == Enums.PlayerType.None)
+            {
+                SetStoneNewState(Enums.StoneState.None, pos.x, pos.y);
+            }
+        }
+    }
+#endregion
 
     public bool CheckGameDraw(Enums.PlayerType[,] board)
     {
