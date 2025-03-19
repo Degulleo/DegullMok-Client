@@ -46,12 +46,6 @@ public class GameManager : Singleton<GameManager>
         // 자동 로그인
         // TryAutoSignin();
         
-        //게임 씬에서 확인하기 위한 임시 코드
-        _canvas = canvas.GetComponent<Canvas>();
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        var fioTimer = FindObjectOfType<FioTimer>();
-        _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
     
     private void TryAutoSignin()
@@ -142,15 +136,18 @@ public class GameManager : Singleton<GameManager>
     {
         if (scene.name == "Game")
         {
-            if (_gameType == Enums.GameType.Replay)
-            {
-                //TODO: 리플레이를 위한 초기화
-            }
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             var fioTimer = FindObjectOfType<FioTimer>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
+        else if (scene.name == "Replay")
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
+        }
+        
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
     //임시 재시작 재대결
@@ -205,4 +202,64 @@ public class GameManager : Singleton<GameManager>
             settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
+
+    #region ReplayControll
+
+    public void ReplayNext(Move nextMove )
+    {
+        if (_gameLogic == null)
+        {
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
+        }
+
+        if (_stoneController == null)
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            Debug.Log("스톤컨트롤러 재할당");
+        }
+        
+        // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
+        if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, nextMove.columnIndex, nextMove.rowIndex);
+
+        }
+        else if (nextMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
+        }
+        // 돌이 놓인 내역을 ReplayManager에도 반영
+        ReplayManager.Instance.PushMove(nextMove);
+    }
+    
+    public void ReplayUndo(Move targetMove)
+    {
+        if (_gameLogic == null)
+        {
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
+        }
+
+        if (_stoneController == null)
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            Debug.Log("스톤컨트롤러 재할당");
+        }
+        
+        if (targetMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, targetMove.columnIndex, targetMove.rowIndex);
+
+        }
+        else if (targetMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, targetMove.columnIndex, targetMove.rowIndex);
+        }
+        ReplayManager.Instance.PushUndoMove(targetMove);
+        //TODO: 화면상에서 돌 치우기
+    }
+    
+
+    #endregion
 }
