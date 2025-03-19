@@ -38,14 +38,14 @@ public class AdManager : MonoBehaviour
     }
 
     // 보상형 전면 광고 실행
-    public void ShowRewardedInterstitialAd()
+    public void ShowRewardedInterstitialAd(CanvasGroup shopPanel)
     {
         if (rewardedInterstitialAd != null && rewardedInterstitialAd.CanShowAd())
         {
             rewardedInterstitialAd.Show((Reward reward) =>  //서버에서 500코인을 고정으로 반환하기 때문에 reward는 사용하지 않음.
             {
                 // 코인 지급 로직
-                GrantReward();
+                GrantReward(shopPanel);
             });
         }
         else
@@ -62,12 +62,12 @@ public class AdManager : MonoBehaviour
     }
 
     // 코인 지급 함수
-    private void GrantReward()
+    private void GrantReward(CanvasGroup shopPanel)
     {
         NetworkManager.Instance.WatchAdForCoins((coinsAdded) =>
         {
             // UI 업데이트
-            GameManager.Instance.panelManager.UpdateCoinsPanelUI(coinsAdded);
+            GameManager.Instance.panelManager.UpdateCoinsPanelUI(coinsAdded, shopPanel);
         }, () =>
         {
             Debug.Log("광고 시청 후 코인 추가 실패!");

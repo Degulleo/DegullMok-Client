@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class CoinsPanelController : MonoBehaviour
     [SerializeField] private AudioClip coinsRemoveAudioClip;
     [SerializeField] private AudioClip coinsAddAudioClip;
     [SerializeField] private AudioClip coinsEmptyAudioClip;
-    
+
     private Color _coinsColor;
     private AudioSource _audioSource;
     private int _coinsCount;
@@ -93,11 +94,13 @@ public class CoinsPanelController : MonoBehaviour
     /// 코인 추가 함수
     /// </summary>
     /// <param name="coinsCount"> 추가할 코인 수량</param>
+    /// <param name="shopPanel"></param>
     /// <param name="action">애니메이션 종료 후 동작 EX) 코인 수량 변경</param>
-    public void AddCoins(int coinsCount, Action action)
+    public void AddCoins(int coinsCount, CanvasGroup shopPanel,Action action)
     {
+        shopPanel.blocksRaycasts = false;   //코인 중복 추가 방지 코드
+        
         Sequence sequence = DOTween.Sequence();
-
         // i += a  반복 횟수 조절, 100개 단위로 상승 차감 시 100으로 설정
         for (int i = 0; i < coinsCount; i+=500)
         {
@@ -115,6 +118,10 @@ public class CoinsPanelController : MonoBehaviour
             });
             sequence.AppendInterval(0.5f);
         }
+        sequence.OnComplete(() =>
+        {
+            shopPanel.blocksRaycasts = true;    //구매 후 클릭 활성화
+        });
     }
 
     public void EmptyCoins()

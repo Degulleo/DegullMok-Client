@@ -202,11 +202,11 @@ public class PanelManager : MonoBehaviour
     }
     
     //코인 패널 코인 갱신
-    public void UpdateCoinsPanelUI(int coinsChanged)
+    public void UpdateCoinsPanelUI(int coinsChanged, CanvasGroup shopPanel)
     {
         if (_coinsPanel != null)
         {
-            _coinsPanel.AddCoins(coinsChanged, () =>
+            _coinsPanel.AddCoins(coinsChanged, shopPanel, () =>
             {
                 
             });
