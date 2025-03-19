@@ -18567,7 +18567,7 @@ GameObject:
   - component: {fileID: 1366478885779137686}
   - component: {fileID: 6113787613455091454}
   m_Layer: 5
-  m_Name: '[Canvas] Replay UI'
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -37,6 +37,8 @@ public class GameManager : Singleton<GameManager>
         }
         //게임 씬에서 확인하기 위한 임시 코드
         _gameType = Enums.GameType.SinglePlay;
+
+        base.Awake();
     }
     
     private void Start()
@@ -207,18 +209,6 @@ public class GameManager : Singleton<GameManager>
 
     public void ReplayNext(Move nextMove )
     {
-        if (_gameLogic == null)
-        {
-            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
-        }
-
-        if (_stoneController == null)
-        {
-            _stoneController = GameObject.FindObjectOfType<StoneController>();
-            _stoneController.InitStones();
-            Debug.Log("스톤컨트롤러 재할당");
-        }
-        
         // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
         if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
         {
@@ -235,18 +225,6 @@ public class GameManager : Singleton<GameManager>
     
     public void ReplayUndo(Move targetMove)
     {
-        if (_gameLogic == null)
-        {
-            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
-        }
-
-        if (_stoneController == null)
-        {
-            _stoneController = GameObject.FindObjectOfType<StoneController>();
-            _stoneController.InitStones();
-            Debug.Log("스톤컨트롤러 재할당");
-        }
-        
         if (targetMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
         {
             _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, targetMove.columnIndex, targetMove.rowIndex);
