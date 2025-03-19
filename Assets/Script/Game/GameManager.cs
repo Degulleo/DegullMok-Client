@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
-    private void ChangeToGameScene(Enums.GameType gameType)
+    public void ChangeToGameScene(Enums.GameType gameType)
     {
         _gameType = gameType;
         SceneManager.LoadScene("Game");
@@ -66,6 +66,10 @@ public class GameManager : Singleton<GameManager>
     {
         if (scene.name == "Game")
         {
+            if (_gameType == Enums.GameType.Replay)
+            {
+                //TODO: 리플레이를 위한 초기화
+            }
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             var fioTimer = FindObjectOfType<FioTimer>();
