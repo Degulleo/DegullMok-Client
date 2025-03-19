@@ -33,10 +33,8 @@ public class GameManager : Singleton<GameManager>
     private GameLogic _gameLogic;
     private StoneController _stoneController;
     private Canvas _canvas;
-
-    public Sprite[] profileSprites; //패널에서 사용할 테스트 배열
     
-    private void Awake()
+    private void Start()
     {
         // TODO: 음악 관련은 AuidoManager로 분리?
         PlayMainBGM();
@@ -47,28 +45,20 @@ public class GameManager : Singleton<GameManager>
             GameObject userManagerObj = new GameObject("UserManager");
             _userManager = userManagerObj.AddComponent<UserManager>();
         }
+        
         //게임 씬에서 확인하기 위한 임시 코드
         _gameType = Enums.GameType.SinglePlay;
-        
-        base.Awake();
-    }
-    
-    private void Start()
-    {
-        _gameType = Enums.GameType.SinglePlay;
-        
+
         if (_canvas == null)
         {
             _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         }
         // 로딩 화면 추가(자동 로그인 응답 전까지)
         OpenLoadingPanel(false, false, true);
-
-        // TODO: 로딩 화면 추가(자동 로그인 응답 전까지)
-        
+  
         // 자동 로그인
-        // TryAutoSignin();
-        
+        TryAutoSignin();
+
         //게임 씬에서 확인하기 위한 임시 코드
         // _canvas = canvas.GetComponent<Canvas>();
         // _stoneController = GameObject.FindObjectOfType<StoneController>();
@@ -156,6 +146,21 @@ public class GameManager : Singleton<GameManager>
 
         }
     }
+
+    public void UpdateCoinsPanelUI(int coinsChanged)
+    {
+        if (_coinsPanel != null)
+        {
+            _coinsPanel.AddCoins(coinsChanged, () =>
+            {
+                
+            });
+        }
+        else
+        {
+            Debug.Log("코인 패널이 null 입니다.");
+        }
+    }
     
     public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false)
     {
@@ -220,7 +225,14 @@ public class GameManager : Singleton<GameManager>
             var fioTimer = FindObjectOfType<FioTimer>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
-        _canvas = FindObjectOfType<Canvas>();
+        else if (scene.name == "Replay")
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
+        }
+        
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
     //임시 재시작 재대결
     public void RetryGame()
@@ -274,4 +286,40 @@ public class GameManager : Singleton<GameManager>
             settingsPanelObject.GetComponent<ReplayPanelController>().Show();
         }
     }
+
+    #region ReplayControll
+
+    public void ReplayNext(Move nextMove )
+    {
+        // 보드에 돌을 설정하기 위해 gameLogic의 SetNewBoardValue호출
+        if (nextMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, nextMove.columnIndex, nextMove.rowIndex);
+
+        }
+        else if (nextMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
+        }
+        // 돌이 놓인 내역을 ReplayManager에도 반영
+        ReplayManager.Instance.PushMove(nextMove);
+    }
+    
+    public void ReplayUndo(Move targetMove)
+    {
+        if (targetMove.stoneType.Equals(Enums.StoneType.Black.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerA, targetMove.columnIndex, targetMove.rowIndex);
+
+        }
+        else if (targetMove.stoneType.Equals(Enums.StoneType.White.ToString()))
+        {
+            _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, targetMove.columnIndex, targetMove.rowIndex);
+        }
+        ReplayManager.Instance.PushUndoMove(targetMove);
+        //TODO: 화면상에서 돌 치우기
+    }
+    
+
+    #endregion
 }
