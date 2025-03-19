@@ -61,7 +61,6 @@ public class MainPanelManager : MonoBehaviour
     /// </summary>
     public void UpdateMainPanelUI(Action success = null)
     {
-        Debug.Log("로그인 후 Udpateawfsefasefsefasdfefsefsefsefsef");
         mainPanelController.UpdateUserInfo();
 
         success?.Invoke();

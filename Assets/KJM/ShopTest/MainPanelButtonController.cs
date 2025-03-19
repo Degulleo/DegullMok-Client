@@ -34,4 +34,9 @@ public class MainPanelButtonController : MonoBehaviour
  
         GameManager.Instance.panelManager.OpenShopPanel(shopItems);
     }
+
+    public void OpenReplayPanelClick()
+    {
+        GameManager.Instance.panelManager.OpenReplayPanel();
+    }
 }
