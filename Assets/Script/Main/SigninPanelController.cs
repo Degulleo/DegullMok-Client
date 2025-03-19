@@ -55,6 +55,7 @@ public class SigninPanelController : MonoBehaviour
         
         NetworkManager.Instance.Signin(signinData, (signinResult) =>
         {
+            mainPanel = gameObject.GetComponent<MainPanelManager>();
             Destroy(gameObject);
             
             // 유저 정보 저장
