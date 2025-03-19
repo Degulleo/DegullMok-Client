@@ -39,9 +39,6 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
         
         
         //게임 씬에서 확인하기 위한 임시 코드
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -141,6 +138,12 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, _gameType);
+        }
+        else if (scene.name == "Replay")
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }

@@ -386,6 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2720476515686469179}
   - component: {fileID: 7796730417217941349}
+  - component: {fileID: 8890768496808647529}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -443,6 +444,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8890768496808647529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637449823560643887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9598d78723880e4f8026beb096f28c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2440131775796007731
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +844,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1942682002419496767}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8890768496808647529}
+        m_TargetAssemblyTypeName: MainPanelButtonController, Assembly-CSharp
+        m_MethodName: OnShopPanelClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3505803793046748957
 GameObject:
   m_ObjectHideFlags: 0

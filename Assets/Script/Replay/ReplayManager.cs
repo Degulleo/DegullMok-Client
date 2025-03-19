@@ -35,7 +35,7 @@ public class ReplayManager : Singleton<ReplayManager>
 
     #region 기보 시작 후 데이터를 컨트롤하기
     
-    private ReplayRecord _replayRecord;
+    private ReplayRecord _selectedReplayRecord;
     
     //DO, Undo를 위한 스택
     private Stack<Move> _placedStoneStack;
@@ -45,7 +45,7 @@ public class ReplayManager : Singleton<ReplayManager>
     
     public void InitReplayBoard(ReplayRecord replayRecord)
     {        
-        _replayRecord = replayRecord;
+        _selectedReplayRecord = replayRecord;
         _moveIndex = 0;
         
         _placedStoneStack = new Stack<Move>();
@@ -57,10 +57,10 @@ public class ReplayManager : Singleton<ReplayManager>
         if (_undoStack.Count > 0)
             return _undoStack.Pop();
         
-        if(_moveIndex >= _replayRecord.moves.Count)
+        if(_moveIndex >= _selectedReplayRecord.moves.Count)
             return null;
         
-        Move move = _replayRecord.moves[_moveIndex];
+        Move move = _selectedReplayRecord.moves[_moveIndex];
         _moveIndex++;
         return move;
     }
@@ -89,7 +89,7 @@ public class ReplayManager : Singleton<ReplayManager>
     ///<summary>
     /// 게임 시작에 호출해서 기보 데이터 초기화
     /// </summary>
-    public void InitReplayData(string playerANickname, string playerBNickname)
+    public void InitReplayData(string playerANickname="", string playerBNickname="")
     {
         _recordingReplayData = new ReplayRecord();
         _recordingReplayData.playerA = playerANickname;
@@ -181,10 +181,24 @@ public class ReplayManager : Singleton<ReplayManager>
             Debug.LogError($"Replay Directory Error: {e.Message}");
         }
     }
-    
+
+    public void SetReplayData(ReplayRecord replayRecord)
+    {
+        _selectedReplayRecord = replayRecord;
+    }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "Replay")
+        {
+            if (_selectedReplayRecord != null)
+            {
+                InitReplayBoard(_selectedReplayRecord);
+            }
+            
+            // TODO: 데이터 잘못 가져왔을 때 어떻게 처리할지 고민하기
+            // Main으로 강제 전환 ?
+        }
     }
 
     #region for tests

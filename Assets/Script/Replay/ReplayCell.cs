@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ReplayCell : MonoBehaviour
@@ -83,8 +84,10 @@ public class ReplayCell : MonoBehaviour
     //TODO: storedReplayRecord를 가지고 게임 씬으로 전환
     public void OnClickReplayButton()
     {
-        Debug.Log($"Replay Start with {_opponentNickname}\nDate: {_storedReplayRecord.gameDate}\n" +
-                  $"Moves: {_storedReplayRecord.moves}");
+        //TODO: 확인 패널 띄우고 밑의 내용 콜백 함수로 옮기기
+        // GameManager.Instance.OpenConfirmPanel($"{_opponentNickname}님 과의 대결을 다시 보시겠습니까?", () => { });
+        ReplayManager.Instance.SetReplayData(_storedReplayRecord);
+        SceneManager.LoadScene("Replay");
     }
     
 }

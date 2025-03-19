@@ -19,7 +19,7 @@ public abstract class BasePlayerState
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            GameManager.Instance.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
+            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
             gameLogic.EndGame();
         }
         else
@@ -189,13 +189,13 @@ public class GameLogic : MonoBehaviour
             {
                 if (currentTurn == Enums.PlayerType.PlayerA)
                 {
-                    GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
                         () =>{});
                     EndGame();
                 }
                 else if (currentTurn == Enums.PlayerType.PlayerB)
                 {
-                    GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
                         () =>{});
                     EndGame();
                 }
