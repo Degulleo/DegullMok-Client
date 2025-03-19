@@ -19,7 +19,7 @@ public abstract class BasePlayerState
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            GameManager.Instance.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
+            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
             gameLogic.EndGame();
         }
         else
@@ -184,11 +184,27 @@ public class GameLogic : MonoBehaviour
         {
             this.fioTimer = fioTimer;
             this.fioTimer.InitTimer();
-            this.fioTimer.OnTimeout = OnTimeout;
+            //timer 시간초과시 진행 함수
+            this.fioTimer.OnTimeout = () =>
+            {
+                if (currentTurn == Enums.PlayerType.PlayerA)
+                {
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
+                        () =>{});
+                    EndGame();
+                }
+                else if (currentTurn == Enums.PlayerType.PlayerB)
+                {
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
+                        () =>{});
+                    EndGame();
+                }
+            };
         }
         
         //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
         ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
+
         
         switch (gameType)
         {
@@ -205,24 +221,6 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
-
-    //타임아웃 시 할 행동
-    private void OnTimeout()
-    {
-        if (currentTurn == Enums.PlayerType.PlayerA)
-        {
-            GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
-                () =>{});
-            EndGame();
-        }
-        else if (currentTurn == Enums.PlayerType.PlayerB)
-        {
-            GameManager.Instance.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
-                () =>{});
-            EndGame();
-        }
-    }
-
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
@@ -321,7 +319,7 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         SetState(null);
-        ReplayManager.Instance.SaveReplayData(currentTurn);
+        
     }
     
     //승리 확인 함수
@@ -409,12 +407,4 @@ public class GameLogic : MonoBehaviour
         }
     }
 #endregion
-
-    public bool CheckGameDraw(Enums.PlayerType[,] board)
-    {
-        
-        
-        
-        return false;
-    }
 }

@@ -37,11 +37,11 @@ public class SettingsPanelController : PanelController
         // GameManager에서 BGM 상태를 반영
         if (value)
         {
-            GameManager.Instance.PlayMainBGM();  // BGM을 켜기
+            GameManager.Instance.audioManager.PlayMainBGM();  // BGM을 켜기
         }
         else
         {
-            GameManager.Instance.StopMainBGM();  // BGM을 끄기
+            GameManager.Instance.audioManager.StopMainBGM();  // BGM을 끄기
         }
     }
 

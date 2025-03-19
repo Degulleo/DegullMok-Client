@@ -152,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4501886400186872935
 RectTransform:
   m_ObjectHideFlags: 0
@@ -243,6 +243,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e18c394847e2c3d4b8af043437d3c5ab, type: 3}
   fullText: "\uBD88\uB7EC\uC624\uB294 \uC911..."
   interval: 0.5
+  flipDuration: 0.3
+  delayBetweenFlips: 1
 --- !u!1 &4677795762614618252
 GameObject:
   m_ObjectHideFlags: 0
