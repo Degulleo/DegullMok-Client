@@ -243,7 +243,7 @@ public static class AIEvaluator
     }
     
     // 방향이 평행한지 확인하는 함수
-    private static bool AreParallelDirections(int[] dir1, int[] dir2)
+    private static bool AreParallelDirections(int[] dir1, int[] dir2) // Vector로 변경
     {
         return (dir1[0] == dir2[0] && dir1[1] == dir2[1]) || 
                (dir1[0] == -dir2[0] && dir1[1] == -dir2[1]);
@@ -320,6 +320,7 @@ public static class AIEvaluator
         
         foreach (var dir in Directions)
         {
+            // 평가를 위한 가상 보드이기에 캐시 데이터에 저장X
             var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, AIPlayer, false);
             aiPatterns.Add((dir, count, openEnds));
             

@@ -181,8 +181,6 @@ public static class MiniMaxAIController
         Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player, bool isSaveInCache = true)
     {
         int dirX = direction[0], dirY = direction[1];
-        // var key = (row, col, dirX, dirY);
-        
         var posKey = (row, col);
         var dirKey = (dirX, dirY);
 
@@ -271,7 +269,7 @@ public static class MiniMaxAIController
     #endregion
     
     // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
-    // !!!!!!MinimaxAIController 밖의 cs파일은 호출 시 맨 마지막을 false로 지정해야 합니다.!!!!!!
+    // MinimaxAIController 밖의 cs파일은 호출 시 맨 마지막을 false로 지정해야 합니다.
     public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, 
                                             int row, int col, bool isSavedCache)
     {
