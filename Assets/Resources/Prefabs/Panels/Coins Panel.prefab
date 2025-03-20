@@ -56,6 +56,7 @@ MonoBehaviour:
   coinsRemoveAudioClip: {fileID: 8300000, guid: 585a9de0fb7ee4163af5c559ba5b2364, type: 3}
   coinsAddAudioClip: {fileID: 8300000, guid: 1ec44182fa76a4b3eb1459c0a6d9a8ab, type: 3}
   coinsEmptyAudioClip: {fileID: 8300000, guid: 908a78cb991984977bea42916bed8684, type: 3}
+  ShopPanel: {fileID: 8190964574954487140, guid: eb257b0a685b2254f860f294ce8cba54, type: 3}
 --- !u!82 &5499754916380040505
 AudioSource:
   m_ObjectHideFlags: 0

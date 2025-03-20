@@ -19,6 +19,12 @@ public class AdManager : MonoBehaviour
     // 보상형 전면 광고 로드
     public void LoadRewardedInterstitialAd()
     {
+        if (rewardedInterstitialAd != null)
+        {
+            rewardedInterstitialAd.Destroy();  // 기존 광고 객체 해제
+            rewardedInterstitialAd = null;
+        }
+        
         AdRequest request = new AdRequest();
 
         RewardedInterstitialAd.Load(adUnitId, request,
@@ -30,7 +36,6 @@ public class AdManager : MonoBehaviour
                     return;
                 }
 
-                Debug.Log("보상형 전면 광고 로드 성공");
                 rewardedInterstitialAd = ad;
 
                 // 광고 종료 이벤트 설정
@@ -39,14 +44,14 @@ public class AdManager : MonoBehaviour
     }
 
     // 보상형 전면 광고 실행
-    public void ShowRewardedInterstitialAd()
+    public void ShowRewardedInterstitialAd(CanvasGroup shopPanel)
     {
         if (rewardedInterstitialAd != null && rewardedInterstitialAd.CanShowAd())
         {
             rewardedInterstitialAd.Show((Reward reward) =>  //서버에서 500코인을 고정으로 반환하기 때문에 reward는 사용하지 않음.
             {
                 // 코인 지급 로직
-                GrantReward();
+                GrantReward(shopPanel);
             });
         }
         else
@@ -58,20 +63,19 @@ public class AdManager : MonoBehaviour
     // 광고 닫힘 이벤트 처리
     private void HandleAdClosed()
     {
-        Debug.Log("보상형 전면 광고 닫힘, 새로운 광고 로드.");
         LoadRewardedInterstitialAd(); // 광고가 닫힌 후 다시 로드
     }
 
     // 코인 지급 함수
-    private void GrantReward()
+    private void GrantReward(CanvasGroup shopPanel)
     {
         NetworkManager.Instance.WatchAdForCoins((coinsAdded) =>
         {
             // UI 업데이트
-            GameManager.Instance.panelManager.UpdateCoinsPanelUI(coinsAdded);
+            GameManager.Instance.panelManager.UpdateCoinsPanelUI(coinsAdded, shopPanel);
         }, () =>
         {
-            Debug.Log("광고 시청 후 코인 추가 실패!");
+            Debug.Log("광고 시청 후 코인 추가 실패");
         });
     }
 }

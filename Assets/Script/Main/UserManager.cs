@@ -20,6 +20,19 @@ public class CoinsInfoResult
     public int coins;
 }
 
+/// <summary>
+/// 코인 구매 응답 클래스 
+/// </summary>
+public class CoinsPurchaseResult
+{
+    public string result;      
+    public string message;     
+    public int purchased;      // 충전된 코인량
+    public int currentCoins;   // 현재 보유 코인량
+}
+/// <summary>
+/// 광고 시청 응답 클래스
+/// </summary>
 public class CoinsAdResult
 {
     public string result;      
@@ -27,6 +40,25 @@ public class CoinsAdResult
     public int recharged;      // 충전된 코인량
     public int currentCoins;   // 현재 보유 코인량
 }
+
+/// <summary>
+/// 코인 구매 요청 데이터 클래스
+/// </summary>
+public class PurchaseData
+{
+    public int amount;
+    public string paymentId;
+    public string paymentType;
+
+    public PurchaseData(int amount, string paymentId, string paymentType)
+    {
+        this.amount = amount;
+        this.paymentId = paymentId;
+        this.paymentType = paymentType;
+    }
+}
+
+
 
 public class UserManager : Singleton<UserManager>
 {
