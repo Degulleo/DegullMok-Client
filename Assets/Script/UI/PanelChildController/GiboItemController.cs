@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+//TODO: 사용을 안하는데 스크립트 삭제해도 될까요?
 public class GiboItemController : MonoBehaviour
 {
    GiboItem _giboItem;

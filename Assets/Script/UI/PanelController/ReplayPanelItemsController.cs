@@ -6,14 +6,26 @@ public class ReplayPanelItemsController : ScrollPanelController
 {
         
     private string _myNickname;
+    private UserManager _userManager;
     private void Awake()
-    {
-        //TODO: 로그인 기능 연동 후 닉네임 바꾸기
-        _myNickname = "PlayerA";        
+    {        
+        if (UserManager.Instance == null)
+        {
+            GameObject userManagerObj = new GameObject("UserManager");
+            _userManager = userManagerObj.AddComponent<UserManager>();
+        }
+        _myNickname = UserManager.Instance.Nickname;
+
+        InitReplayPanel();
+    }
+
+    private void InitReplayPanel()
+    {        
         List<ReplayRecord> records = new List<ReplayRecord>();
         
         // ReplayManager에서 가져온 기보 데이터들을 패널 셀에 초기화
         records = ReplayManager.Instance.LoadReplayDatas();
+        
         foreach (var replayRecord in records)
         {
             var replayCellButtonObject = Instantiate(scrollItemPrefab, content.transform);
@@ -29,6 +41,7 @@ public class ReplayPanelItemsController : ScrollPanelController
             replayCell.SetReplayRecord(replayRecord);
         }
     }
+    
     public virtual void Show()
     {
         base.Show();
