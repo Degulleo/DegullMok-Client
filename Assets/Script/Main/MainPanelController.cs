@@ -10,6 +10,7 @@ public class MainPanelController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ratingText;
     [SerializeField] private Button signOutButton;
     [SerializeField] private GameObject[] profileImages;
+    [SerializeField] private Button rankingButton;
     
     private int _selectedImageIndex;
     
@@ -70,6 +71,11 @@ public class MainPanelController : MonoBehaviour
                 signOutButton.interactable = true; // 실패 시 다시 활성화
             });
         });
+    }
+    
+    public void OnLeaderboardButtonClick()
+    {
+        GameManager.Instance.panelManager.OpenRankingPanel();  // GameManager를 통해 리더보드 열기
     }
     
     //대국 시작 버튼 클릭

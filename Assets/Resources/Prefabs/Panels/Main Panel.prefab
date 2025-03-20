@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
-        m_MethodName: OnRankingPanelClick
+      - m_Target: {fileID: 7488082087611091670}
+        m_TargetAssemblyTypeName: MainPanelController, Assembly-CSharp
+        m_MethodName: OnLeaderboardButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: test1
+  m_text: "\uBC15\uC77C\uD658"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -1958,6 +1958,7 @@ MonoBehaviour:
   profileImages:
   - {fileID: 4381601883819518242}
   - {fileID: 6837262359343561592}
+  rankingButton: {fileID: 202560210887412943}
 --- !u!1 &9186617826613474881
 GameObject:
   m_ObjectHideFlags: 0
