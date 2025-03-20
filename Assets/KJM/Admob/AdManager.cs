@@ -63,7 +63,6 @@ public class AdManager : MonoBehaviour
     // 광고 닫힘 이벤트 처리
     private void HandleAdClosed()
     {
-        Debug.Log("보상형 전면 광고 닫힘, 새로운 광고 로드.");
         LoadRewardedInterstitialAd(); // 광고가 닫힌 후 다시 로드
     }
 
@@ -76,7 +75,7 @@ public class AdManager : MonoBehaviour
             GameManager.Instance.panelManager.UpdateCoinsPanelUI(coinsAdded, shopPanel);
         }, () =>
         {
-            Debug.Log("광고 시청 후 코인 추가 실패!");
+            Debug.Log("광고 시청 후 코인 추가 실패");
         });
     }
 }

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ShopItem
 {
-    public string Name;
-    public int Price;
+    public string name;
+    public int price;
 }

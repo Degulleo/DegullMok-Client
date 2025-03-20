@@ -94,7 +94,7 @@ public class CoinsPanelController : MonoBehaviour
     /// 코인 추가 함수
     /// </summary>
     /// <param name="coinsCount"> 추가할 코인 수량</param>
-    /// <param name="shopPanel"></param>
+    /// <param name="shopPanel">상점 패널 캔버스 그룹</param>
     /// <param name="action">애니메이션 종료 후 동작 EX) 코인 수량 변경</param>
     public void AddCoins(int coinsCount, CanvasGroup shopPanel,Action action)
     {

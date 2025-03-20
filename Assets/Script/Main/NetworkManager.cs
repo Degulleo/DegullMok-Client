@@ -429,7 +429,7 @@ public class NetworkManager : Singleton<NetworkManager>
 
                 if (purchaseResult.result == "SUCCESS")
                 {
-                    Debug.Log($"결제 완료! {purchaseResult.purchased} 코인 충전됨, 현재 코인: {purchaseResult.currentCoins}");
+                    Debug.Log($"결제 완료 {purchaseResult.purchased} 코인 충전됨, 현재 코인: {purchaseResult.currentCoins}");
 
                     // 유저 데이터 갱신
                     UserManager.Instance.SetCoinsInfo();

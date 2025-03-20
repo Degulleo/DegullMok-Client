@@ -183,8 +183,8 @@ public class PanelManager : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    Name = "광고) 코인500개 ",
-                    Price = 0
+                    name = "광고) 코인500개 ",
+                    price = 0
                 };
                 shopItems.Add(shopItem);
             }
@@ -192,8 +192,8 @@ public class PanelManager : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    Name = i*1000+"개 ",
-                    Price = i * 1000
+                    name = i*1000+"개 ",
+                    price = i * 1000
                 };
                 shopItems.Add(shopItem);
             }
