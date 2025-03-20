@@ -1,9 +1,7 @@
 using System;
-using System.Net.Mime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public struct SigninData
 {
