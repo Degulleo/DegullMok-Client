@@ -12,10 +12,10 @@ public abstract class BasePlayerState
 
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
-        
         gameLogic.fioTimer.PauseTimer();
         
         gameLogic.SetNewBoardValue(playerType, row, col);
+        gameLogic.CountStoneCounter();
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
@@ -24,7 +24,6 @@ public abstract class BasePlayerState
         }
         else
         {
-            //TODO: 무승부 확인
             if (gameLogic.CheckGameDraw(gameLogic.GetBoard()))
             {
                 GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
@@ -145,17 +144,26 @@ public class GameLogic : MonoBehaviour
     public StoneController stoneController;
     public Enums.PlayerType currentTurn;
     public Enums.GameType gameType;
+    //총 착수된 돌 카운터
+    private int _totalStoneCounter = 0;
+    public int TotalStoneCounter{get{return _totalStoneCounter;}}
+    
     public BasePlayerState firstPlayerState;
     public BasePlayerState secondPlayerState;
     private BasePlayerState _currentPlayerState;
+    //타이머
     public FioTimer fioTimer;
     
     private const int WIN_COUNT = 5;
+    //무승부 확인을 위한 최소 착수 수
+    private const int MinCountForDrawCheck = 150;
     //선택된 좌표
     public int selectedRow;
     public int selectedCol;
     //마지막 배치된 좌표
-
+    private int _lastRow;
+    private int _lastCol;
+    
 #region Renju Members
     // 렌주룰 금수 검사기
     private RenjuForbiddenMoveDetector _forbiddenDetector;
@@ -164,9 +172,6 @@ public class GameLogic : MonoBehaviour
     private List<Vector2Int> _forbiddenMoves = new List<Vector2Int>();
 #endregion
 
-    private int _lastRow;
-    private int _lastCol;
-    
     private static int[][] _directions = new int[][]
     {
         new int[] {1, 0}, // 수직
@@ -232,6 +237,11 @@ public class GameLogic : MonoBehaviour
                 //TODO: 리플레이 구현
                 break;
         }
+    }
+    //돌 카운터 증가 함수
+    public void CountStoneCounter()
+    {
+        _totalStoneCounter++;
     }
     
     //착수 버튼 클릭시 호출되는 함수
@@ -397,6 +407,7 @@ public class GameLogic : MonoBehaviour
     //무승부 확인
     public bool CheckGameDraw(Enums.PlayerType[,] board)
     {
+        if (_totalStoneCounter < MinCountForDrawCheck) return false; //최소 착수 수보다 작으면 false 리턴
         if (CheckIsFull(board)) return true; // 빈 칸이 없으면 무승부
         bool playerAHasChance = CheckFiveChance(board, Enums.PlayerType.PlayerA);
         bool playerBHasChance = CheckFiveChance(board, Enums.PlayerType.PlayerB);
