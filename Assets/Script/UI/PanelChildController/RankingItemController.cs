@@ -6,22 +6,22 @@ using UnityEngine.UI;
 
 public class RankingItemController : MonoBehaviour
 {
-   ScoreInfo ScoreInfo;
-   public Sprite[] profileSprites;
+    RankingItem _rankingItem;
+    public Sprite[] profileSprites;
 
-   public void Init(ScoreInfo ScoreInfo)
-   {
-      this.ScoreInfo = ScoreInfo;
-      var itemImage = GetComponentsInChildren<Image>()[1];
-      var itemText = GetComponentsInChildren<TextMeshProUGUI>();
+    public void Init(RankingItem rankingItem)
+    {
+        _rankingItem = rankingItem;
+        var itemImage = GetComponentsInChildren<Image>()[1];
+        var itemText = GetComponentsInChildren<TextMeshProUGUI>();
             
-      // itemImage.sprite = this.ScoreInfo.profileImageIndex;
-      itemText[0].text = this.ScoreInfo.nickname;
-      itemText[1].text = this.ScoreInfo.winRate.ToString();
-   }
+        itemImage.sprite = profileSprites[this._rankingItem.ProfileSpriteIndex];
+        itemText[0].text = this._rankingItem.Name;
+        itemText[1].text = this._rankingItem.WinRate.ToString();
+    }
 
-   public void OnClickRankingItem()
-   {
-      Debug.Log(ScoreInfo.nickname + "의 승률은" + ScoreInfo.winRate);
-   }
+    public void OnClickRankingItem()
+    {
+        Debug.Log(_rankingItem.Name + "의 승률은" + _rankingItem.WinRate);
+    }
 }

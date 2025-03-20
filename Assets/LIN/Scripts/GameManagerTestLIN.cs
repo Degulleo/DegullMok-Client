@@ -33,14 +33,12 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
     
     private void Start()
     {
+        Debug.Log(UserManager.Instance.Nickname);
         //TODO: 기보 타입으로 들어왔을 때 데이터 로드 테스트 수정할것
         ReplayManager.Instance.InitReplayBoard(ReplayManager.Instance.LoadReplayDatas()[9]);
         
         
         //게임 씬에서 확인하기 위한 임시 코드
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        _gameLogic = new GameLogic(_stoneController, _gameType);
     }
     
     private void TryAutoSignin()
@@ -140,6 +138,12 @@ public class GameManagerTestLIN : Singleton<GameManagerTestLIN>
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, _gameType);
+        }
+        else if (scene.name == "Replay")
+        {
+            _stoneController = GameObject.FindObjectOfType<StoneController>();
+            _stoneController.InitStones();
+            _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
         }
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }

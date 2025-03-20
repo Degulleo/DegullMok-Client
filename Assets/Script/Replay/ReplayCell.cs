@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ReplayCell : MonoBehaviour
@@ -45,7 +47,32 @@ public class ReplayCell : MonoBehaviour
 
     public void SetRecordDate(string date)
     {
-        recordDateText.text = date;
+        if (string.IsNullOrEmpty(date))
+        {
+            // 입력이 비어있거나 null인 경우 예외 처리
+            recordDateText.text = "Invalid Date Format";
+            return;
+        }
+        
+        string[] dateSplit = date.Split(' ');
+        if (dateSplit.Length == 2)
+        {
+            StringBuilder text = new StringBuilder();
+        
+            // 첫 번째 부분 (날짜) - "-"을 "."으로 교체
+            text.Append(dateSplit[0].Replace("-", "."));
+            text.Append("\n");
+        
+            // 두 번째 부분 (시간) - "_"을 ":"으로 교체
+            text.Append(dateSplit[1].Replace("_", ":"));
+
+            recordDateText.text = text.ToString();
+        }
+        else
+        {
+            // 잘못된 포맷 처리
+            recordDateText.text = "Invalid Date Format";
+        }
     }
 
     public void SetReplayRecord(ReplayRecord record)
@@ -57,8 +84,10 @@ public class ReplayCell : MonoBehaviour
     //TODO: storedReplayRecord를 가지고 게임 씬으로 전환
     public void OnClickReplayButton()
     {
-        Debug.Log($"Replay Start with {_opponentNickname}\nDate: {_storedReplayRecord.gameDate}\n" +
-                  $"Moves: {_storedReplayRecord.moves}");
+        //TODO: 확인 패널 띄우고 밑의 내용 콜백 함수로 옮기기
+        // GameManager.Instance.OpenConfirmPanel($"{_opponentNickname}님 과의 대결을 다시 보시겠습니까?", () => { });
+        ReplayManager.Instance.SetReplayData(_storedReplayRecord);
+        SceneManager.LoadScene("Replay");
     }
     
 }

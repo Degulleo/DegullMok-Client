@@ -25,7 +25,7 @@ public class MainPanelControllerTestLIN : MonoBehaviour
             Debug.Log("로그아웃 성공");
             
             // 로그인 화면
-            GameManager.Instance.OpenSigninPanel();
+            GameManager.Instance.panelManager.OpenSigninPanel();
         }, () =>
         {
             Debug.Log("로그아웃 실패");
