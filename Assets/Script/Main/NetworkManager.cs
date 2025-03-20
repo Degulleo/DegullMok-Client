@@ -376,29 +376,20 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
     
-    
-    /// <summary>
-    /// 코인 구매 함수
-    /// </summary>
-    /// <param name="amount">충전양</param>
-    /// <param name="paymentId">결제ID(??)</param>
-    /// <param name="paymentType">결제타입(카드,구글페이)</param>
-    /// <param name="success"></param>
-    /// <param name="failure"></param>
-        public void PurchaseCoins(int amount, string paymentId, string paymentType, Action<int> success, Action failure)
+    //코인 구매 함수
+    public void PurchaseCoins(Action<int> success, Action failure)
     {
-        StartCoroutine(PurchaseCoinsCoroutine(amount, paymentId, paymentType, success, failure));
+        StartCoroutine(PurchaseCoinsCoroutine(success, failure));
     }
 
-    private IEnumerator PurchaseCoinsCoroutine(int amount, string paymentId, string paymentType, Action<int> success, Action failure)
+    private IEnumerator PurchaseCoinsCoroutine(Action<int> success, Action failure)
     {
-        string url = Constants.ServerURL + "/coins/purchase"; // 서버 엔드포인트
-        PurchaseData purchaseData = new PurchaseData(amount, paymentId, paymentType);
-        string jsonString = JsonUtility.ToJson(purchaseData);
+        string jsonString = "{\"adCompleted\": true}";  //테스트를 위해 ture로 설정
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
 
-        using (UnityWebRequest www = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST))
+        using (UnityWebRequest www =
+               new UnityWebRequest(Constants.ServerURL + "/coins/recharge/ad", UnityWebRequest.kHttpVerbPOST))
         {
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
@@ -417,29 +408,26 @@ public class NetworkManager : Singleton<NetworkManager>
 
             yield return www.SendWebRequest();
 
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("결제 요청 실패: " + www.error);
+                Debug.Log("광고 시청 후 코인 충전 실패: " + www.error);
                 failure?.Invoke();
             }
             else
             {
                 var result = www.downloadHandler.text;
-                var purchaseResult = JsonUtility.FromJson<CoinsPurchaseResult>(result);
+                var rechargeResult = JsonUtility.FromJson<CoinsAdResult>(result);
 
-                if (purchaseResult.result == "SUCCESS")
+                if (rechargeResult.result == "SUCCESS")
                 {
-                    Debug.Log($"결제 완료 {purchaseResult.purchased} 코인 충전됨, 현재 코인: {purchaseResult.currentCoins}");
-
-                    // 유저 데이터 갱신
+                    Debug.Log("광고 시청으로 코인 충전 완료: " + rechargeResult.recharged);
                     UserManager.Instance.SetCoinsInfo();
-
-                    // 최신 코인 개수를 성공 콜백으로 전달
-                    success?.Invoke(purchaseResult.purchased);
+                    success?.Invoke(rechargeResult.recharged);
                 }
                 else
                 {
-                    Debug.LogError("결제 후 코인 충전 실패: " + purchaseResult.result);
+                    Debug.Log("광고 시청 후 충전 실패: " + rechargeResult.result);
                     failure?.Invoke();
                 }
             }

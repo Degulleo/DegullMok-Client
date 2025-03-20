@@ -19,6 +19,7 @@ public class PanelManager : MonoBehaviour
     
     private void Awake()
     {
+        SetCanvas();
         // Prefabs 폴더에서 모든 패널 프리팹 로드
         GameObject[] prefabs = Resources.LoadAll<GameObject>("Prefabs/Panels");
 
@@ -29,8 +30,8 @@ public class PanelManager : MonoBehaviour
 
         Debug.Log($"총 {panelPrefabs.Count}개의 패널이 로드됨.");
     }
-    
-    void Start()
+
+    private void SetCanvas()
     {
         if (_canvas == null)
         {
@@ -176,15 +177,16 @@ public class PanelManager : MonoBehaviour
     //상점 패널 생성
     public void OnShopPanelClick()
     {
-        List<ShopItem> shopItems = new List<ShopItem>();       //상점 데이터 리스트 생성
-        for (int i = 0; i < 5; i++)
+        
+        List<ShopItem> shopItems = new List<ShopItem>();       //테스트 데이터 리스트 생성
+        for (int i = 0; i < 10; i++)
         {
             if (i == 0)     //광고 항목
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    name = "광고) 코인500개 ",
-                    price = 0
+                    Name = "코인10개",
+                    Price = "광고"
                 };
                 shopItems.Add(shopItem);
             }
@@ -192,21 +194,21 @@ public class PanelManager : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    name = i*1000+"개 ",
-                    price = i * 1000
+                    Name = "코인"+i+"개",
+                    Price = (i * 1000)+ "원"
                 };
                 shopItems.Add(shopItem);
             }
         }
-        GameManager.Instance.panelManager.OpenShopPanel(shopItems);
+ 
+        OpenShopPanel(shopItems);
     }
     
-    //코인 패널 코인 갱신
-    public void UpdateCoinsPanelUI(int coinsChanged, CanvasGroup shopPanel)
+    public void UpdateCoinsPanelUI(int coinsChanged)
     {
         if (_coinsPanel != null)
         {
-            _coinsPanel.AddCoins(coinsChanged, shopPanel, () =>
+            _coinsPanel.AddCoins(coinsChanged, () =>
             {
                 
             });
