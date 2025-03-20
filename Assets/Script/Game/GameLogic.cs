@@ -86,6 +86,11 @@ public class AIState: BasePlayerState
     {
         gameLogic.fioTimer.StartTimer();
         //TODO: AI이식
+        OmokAI.Instance.StartBestMoveSearch(gameLogic.GetBoard(), (bestMove) =>
+        {
+            if(bestMove.HasValue)
+                HandleMove(gameLogic, bestMove.Value.Item1, bestMove.Value.Item2);
+        });
     }
 
     public override void OnExit(GameLogic gameLogic)
@@ -210,7 +215,7 @@ public class GameLogic : MonoBehaviour
         {
             case Enums.GameType.SinglePlay:
                 firstPlayerState = new PlayerState(true);
-                secondPlayerState = new PlayerState(false);
+                secondPlayerState = new AIState();
                 SetState(firstPlayerState);
                 break;
             case Enums.GameType.MultiPlay:
@@ -221,6 +226,12 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
+
+    public Enums.PlayerType[,] GetBoard()
+    {
+        return _board;
+    }
+    
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
@@ -288,6 +299,7 @@ public class GameLogic : MonoBehaviour
                 LastNSelectedSetting(row, col);
                 
                 ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, row, col);
+                
                 break;
         }
     }
