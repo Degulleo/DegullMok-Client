@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: 0}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchoredPosition: {x: 0.5, y: 0}
+  m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8644449565768019552
 CanvasRenderer:
@@ -168,8 +168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 176.9, y: 0}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchoredPosition: {x: 200, y: 0}
+  m_SizeDelta: {x: 160, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7968533753814083057
 CanvasRenderer:
@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 5750108967662755581}
   - component: {fileID: 6941609111617388457}
   - component: {fileID: -8178793116256795857}
+  - component: {fileID: 1941271810694746857}
   m_Layer: 5
   m_Name: ShopScrollItem
   m_TagString: Untagged
@@ -413,8 +414,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c06da2c324d0fee43b8b1998cf9fcd09, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 05a670e614d7817429ee256ceb7efbe6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -491,5 +492,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d28917ad20c19e428cbf98ba5609e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileSprites:
-  - {fileID: 21300000, guid: 307bff9630735f342852f28b1cd5d300, type: 3}
+--- !u!114 &1941271810694746857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7605012172595602668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644acbaf5d5791242b26c1b1b0a0ceeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
