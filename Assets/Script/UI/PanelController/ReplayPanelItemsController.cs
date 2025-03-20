@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReplayPanelController : ScrollPanelController
+public class ReplayPanelItemsController : ScrollPanelController
 {
         
     private string _myNickname;

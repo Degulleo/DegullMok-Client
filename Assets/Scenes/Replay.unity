@@ -5198,6 +5198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 679766978}
   - component: {fileID: 679766977}
+  - component: {fileID: 679766979}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5217,16 +5218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a4c6d5d3a97b444b968e68ec8bb9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainPanel: {fileID: 0}
-  signinPanel: {fileID: 0}
-  signupPanel: {fileID: 0}
-  settingsPanel: {fileID: 0}
-  confirmPanel: {fileID: 8145365568262946399, guid: 76f1fe6b5243faf4f9b8caee7312d336, type: 3}
-  rankingPanel: {fileID: 0}
-  shopPanel: {fileID: 0}
-  giboPanel: {fileID: 0}
-  canvas: {fileID: 2704399793934511678}
-  profileSprites: []
+  panelManagerPrefab: {fileID: 3475740041361426276, guid: 085ca07ca90c92545b2594bd13412701, type: 3}
+  audioManagerPrefab: {fileID: 2946408323859178723, guid: e829818dce39a5d4383e061111bed871, type: 3}
 --- !u!4 &679766978
 Transform:
   m_ObjectHideFlags: 0
@@ -5242,6 +5235,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &679766979
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679766976}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &681290285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18687,7 +18776,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3806122117153528265}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6113787613455091454}
+        m_TargetAssemblyTypeName: ReplayController, Assembly-CSharp
+        m_MethodName: OnclickExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2180157736468784195
 GameObject:
   m_ObjectHideFlags: 0
@@ -18825,7 +18926,7 @@ GameObject:
   - component: {fileID: 182763848042457448}
   - component: {fileID: 5649645114534718557}
   m_Layer: 5
-  m_Name: Player Name Text
+  m_Name: PlayerB Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18944,7 +19045,7 @@ GameObject:
   - component: {fileID: 1750532428139497284}
   - component: {fileID: 4888719462519445862}
   m_Layer: 5
-  m_Name: Player Name Text
+  m_Name: PlayerA Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19364,6 +19465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda9793c3fea2104199340f907378533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerANicknameText: {fileID: 4888719462519445862}
+  playerBNicknameText: {fileID: 5649645114534718557}
+  playerAImage: {fileID: 8274101518570821972}
+  playerBImage: {fileID: 1516328598779423605}
 --- !u!224 &6390176559513736999
 RectTransform:
   m_ObjectHideFlags: 0
