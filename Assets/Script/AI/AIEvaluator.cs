@@ -86,8 +86,18 @@ public static class AIEvaluator
                 {
                     var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, currentPlayer);
 
-                    // 점수 계산
+                    // 기본 패턴 평가 및 점수 계산
                     float patternScore = EvaluatePattern(count, openEnds);
+                    
+                    // 깨진 패턴 평가
+                    var (isBroken, brokenCount, brokenOpenEnds) = 
+                        DetectBrokenPattern(board, row, col, dir, currentPlayer);
+                
+                    if (isBroken) // 깨진 패턴이 있을 시 비교 후 더 높은 점수 할당
+                    {
+                        float brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds);
+                        patternScore = Math.Max(patternScore, brokenScore);
+                    }
                     
                     // 패턴 수집 (복합 패턴 감지용)
                     CollectPatterns(row, col, dir, count, openEnds, currentPlayer, aiPlayer,
@@ -185,6 +195,13 @@ public static class AIEvaluator
         return PatternScore.CENTER_WEIGHT - ((PatternScore.CENTER_WEIGHT - PatternScore.EDGE_WEIGHT) * distance);
     }
     
+    // 방향이 평행한지 확인하는 함수
+    private static bool AreParallelDirections(int[] dir1, int[] dir2) // Vector로 변경
+    {
+        return (dir1[0] == dir2[0] && dir1[1] == dir2[1]) || 
+               (dir1[0] == -dir2[0] && dir1[1] == -dir2[1]);
+    }
+    
     // 패턴 수집 함수 (복합 패턴 감지용)
     private static void CollectPatterns(
         int row, int col, int[] dir, int count, int openEnds, 
@@ -212,7 +229,8 @@ public static class AIEvaluator
                 player4Positions.Add((row, col, dir));
         }
     }
-    
+
+    #region Complex Pattern (3-3, 4-4, 4-3)
     // 삼삼(3-3) 감지 함수
     private static int DetectDoubleThree(List<(int row, int col, int[] dir)> openThreePositions)
     {
@@ -240,13 +258,6 @@ public static class AIEvaluator
         }
         
         return doubleThreeCount;
-    }
-    
-    // 방향이 평행한지 확인하는 함수
-    private static bool AreParallelDirections(int[] dir1, int[] dir2) // Vector로 변경
-    {
-        return (dir1[0] == dir2[0] && dir1[1] == dir2[1]) || 
-               (dir1[0] == -dir2[0] && dir1[1] == -dir2[1]);
     }
     
     // 사사(4-4) 감지 함수
@@ -304,6 +315,9 @@ public static class AIEvaluator
         return fourThreeCount;
     }
     
+    #endregion
+    
+    #region Evaluate Move Position
     // 이동 평가 함수
     public static float EvaluateMove(Enums.PlayerType[,] board, int row, int col, Enums.PlayerType AIPlayer)
     {
@@ -344,6 +358,15 @@ public static class AIEvaluator
             {
                 score += (openEnds == 2) ? PatternScore.OPEN_ONE : 
                                            PatternScore.CLOSED_ONE;
+            }
+            
+            // 깨진 패턴 평가
+            var (isBroken, brokenCount, brokenOpenEnds) = DetectBrokenPattern(board, row, col, dir, AIPlayer);
+        
+            if (isBroken)
+            {
+                float brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds);
+                score = Math.Max(score, brokenScore);
             }
         }
         
@@ -450,4 +473,108 @@ public static class AIEvaluator
     
         return score;
     }
+    
+    // 깨진 패턴 (3-빈칸-1) 감지
+    private static (bool isDetected, int count, int openEnds) DetectBrokenPattern(
+        Enums.PlayerType[,] board, int row, int col, int[] dir, Enums.PlayerType player)
+    {
+        int size = board.GetLength(0);
+        int totalStones = 1;  // 현재 위치의 돌 포함
+        int gapCount = 0;     // 빈칸 개수
+        int openEnds = 0;     // 열린 끝 개수
+        
+        // 정방향 탐색
+        int r = row, c = col;
+        for (int i = 1; i <= 5; i++) 
+        {
+            r += dir[0];
+            c += dir[1];
+            
+            if (r < 0 || r >= size || c < 0 || c >= size)
+                break;
+                
+            if (board[r, c] == player)
+            {
+                totalStones++;
+            }
+            else if (board[r, c] == Enums.PlayerType.None)
+            {
+                if (gapCount < 1)  // 최대 1개 빈칸만 허용
+                {
+                    gapCount++;
+                }
+                else
+                {
+                    openEnds++;
+                    break;
+                }
+            }
+            else  // 상대방 돌
+            {
+                break;
+            }
+        }
+        
+        // 역방향 탐색
+        r = row; c = col;
+        for (int i = 1; i <= 5; i++)
+        {
+            r -= dir[0];
+            c -= dir[1];
+            
+            if (r < 0 || r >= size || c < 0 || c >= size)
+                break;
+                
+            if (board[r, c] == player)
+            {
+                totalStones++;
+            }
+            else if (board[r, c] == Enums.PlayerType.None)
+            {
+                if (gapCount < 1)
+                {
+                    gapCount++;
+                }
+                else
+                {
+                    openEnds++;
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        // 깨진 패턴 감지: 총 돌 개수 ≥ 4 그리고 빈칸이 1개
+        bool isDetected = (totalStones >= 4 && gapCount == 1);
+        
+        return (isDetected, totalStones, openEnds);
+    }
+
+    // 깨진 패턴 점수 계산 함수
+    private static float EvaluateBrokenPattern(int count, int openEnds)
+    {
+        if (count >= 5)  // 5개 이상 돌이 있으면 승리
+        {
+            return PatternScore.FIVE_IN_A_ROW;
+        }
+        else if (count == 4)  // 깨진 4
+        {
+            return (openEnds == 2) ? PatternScore.OPEN_FOUR * 0.8f : 
+                   (openEnds == 1) ? PatternScore.HALF_OPEN_FOUR * 0.8f : 
+                                     PatternScore.CLOSED_FOUR * 0.7f;
+        }
+        else if (count == 3)  // 깨진 3
+        {
+            return (openEnds == 2) ? PatternScore.OPEN_THREE * 0.7f : 
+                   (openEnds == 1) ? PatternScore.HALF_OPEN_THREE * 0.7f : 
+                                     PatternScore.CLOSED_THREE * 0.6f;
+        }
+        
+        return 0;
+    }
+    
+    #endregion
 }
