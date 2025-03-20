@@ -1,30 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ReplayController : MonoBehaviour
 {
-    void Awake()
+    [SerializeField] private TMP_Text playerANicknameText;  
+    [SerializeField] private TMP_Text playerBNicknameText;
+    [SerializeField] private Image playerAImage;
+    [SerializeField] private Image playerBImage;
+    void Start()
     {
-        //TODO: 리플레이매니저 데이터로 화면 초기화
+        InitReplayUI();
+        //TODO: 프로필 이미지 불러오기
     }
     
     public void OnclickExitButton()
     {
-        
+        //TODO: 메인씬으로 다시 넘어갈 때 호출해야하는 함수 등등이 있을지....
+        SceneManager.LoadScene("Main-Jay");
     }
 
     public void OnclickFirstButton()
     {
-        
+        ReplayManager.Instance.ReplayFirst();
     }
 
     public void OnclickUndoButton()
     {
-        Move targetMove = ReplayManager.Instance.PopMove();
+        Move targetMove = ReplayManager.Instance.PopPlacedMove();
         if (targetMove != null)
         {
-            GameManager.Instance.ReplayUndo(targetMove);
+            ReplayManager.Instance.ReplayUndo(targetMove);
         }
     }
 
@@ -33,14 +42,19 @@ public class ReplayController : MonoBehaviour
         Move nextMove = ReplayManager.Instance.GetNextMove();
         if (nextMove != null)
         {
-            GameManager.Instance.ReplayNext(nextMove);
+            ReplayManager.Instance.ReplayNext(nextMove);
         }
     }
 
     public void OnClickFinishButton()
     {
-        
+        ReplayManager.Instance.ReplayFinish();
     }
-    
-    
+
+    public void InitReplayUI()
+    {
+        playerANicknameText.text = ReplayManager.Instance.GetPlayerANickname();
+        playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
+    }
+
 }
