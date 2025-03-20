@@ -212,7 +212,6 @@ public class GameLogic : MonoBehaviour
         
         //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
         ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
-
         
         switch (gameType)
         {
@@ -229,6 +228,7 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
+    
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
@@ -327,7 +327,6 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         SetState(null);
-        
     }
     
     //승리 확인 함수
@@ -391,25 +390,49 @@ public class GameLogic : MonoBehaviour
 
     public bool CheckGameDraw(Enums.PlayerType[,] board)
     {
-        List<(int, int)> validMoves = new List<(int, int)>();
+        if (CheckIsFull(board)) return true; // 빈 칸이 없으면 무승부
+        bool playerAHasChance = CheckFiveChance(board, Enums.PlayerType.PlayerA);
+        bool playerBHasChance = CheckFiveChance(board, Enums.PlayerType.PlayerB);
+        return !(playerAHasChance || playerBHasChance); // 둘 다 기회가 없으면 무승부
+    }
+
+    private bool CheckFiveChance(Enums.PlayerType[,] board, Enums.PlayerType player)
+    {
+        var tempBoard = (Enums.PlayerType[,])board.Clone();
         int size = board.GetLength(0);
         for (int row = 0; row < size; row++)
         {
             for (int col = 0; col < size; col++)
             {
-                if (board[row, col] == Enums.PlayerType.None)
+                if (tempBoard[row, col] != Enums.PlayerType.None) continue;
+                tempBoard[row, col] = player;
+                foreach (var dir in _directions)
                 {
-                    validMoves.Add((row, col));
+                    var (count, _) = CountStones(tempBoard, row, col, dir, player);
+
+                    // 자기 자신 포함하여 5개 이상일 시 true 반환
+                    if (count + 1 >= WIN_COUNT) 
+                        return true;
                 }
             }
         }
-
-        if (validMoves.Count == 0) return true;   
-        
         return false;
     }
 
-#region Renju Rule Detector
+    private static bool CheckIsFull(Enums.PlayerType[,] board)
+    {
+        int size = board.GetLength(0);
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                if (board[row, col] == Enums.PlayerType.None) return false;
+            }
+        }
+        return true;
+    }
+
+    #region Renju Rule Detector
     // 금수 위치 업데이트 및 표시
     private void UpdateForbiddenMoves()
     {
