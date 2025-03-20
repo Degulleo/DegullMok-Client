@@ -19,6 +19,12 @@ public class AdManager : MonoBehaviour
     // 보상형 전면 광고 로드
     public void LoadRewardedInterstitialAd()
     {
+        if (rewardedInterstitialAd != null)
+        {
+            rewardedInterstitialAd.Destroy();  // 기존 광고 객체 해제
+            rewardedInterstitialAd = null;
+        }
+        
         AdRequest request = new AdRequest();
 
         RewardedInterstitialAd.Load(adUnitId, request,
