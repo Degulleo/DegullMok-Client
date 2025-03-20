@@ -387,7 +387,7 @@ public class GameLogic : MonoBehaviour
     {
         return _board;
     }
-
+    //무승부 확인
     public bool CheckGameDraw(Enums.PlayerType[,] board)
     {
         if (CheckIsFull(board)) return true; // 빈 칸이 없으면 무승부
@@ -396,6 +396,7 @@ public class GameLogic : MonoBehaviour
         return !(playerAHasChance || playerBHasChance); // 둘 다 기회가 없으면 무승부
     }
 
+    //연속되는 5개가 만들어질 기회가 있는지 판단
     private bool CheckFiveChance(Enums.PlayerType[,] board, Enums.PlayerType player)
     {
         var tempBoard = (Enums.PlayerType[,])board.Clone();
@@ -411,14 +412,13 @@ public class GameLogic : MonoBehaviour
                     var (count, _) = CountStones(tempBoard, row, col, dir, player);
 
                     // 자기 자신 포함하여 5개 이상일 시 true 반환
-                    if (count + 1 >= WIN_COUNT) 
-                        return true;
+                    if (count + 1 >= WIN_COUNT) return true;
                 }
             }
         }
         return false;
     }
-
+    //보드가 꽉 찼는지 확인
     private static bool CheckIsFull(Enums.PlayerType[,] board)
     {
         int size = board.GetLength(0);
