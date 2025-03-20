@@ -31,7 +31,7 @@ public static class MiniMaxAIController
     public static void SetLevel(int level)
     {
         _playerLevel = level;
-        // 레벨에 따른 실수률? 설정
+        // 레벨에 따른 실수율? 설정
         _mistakeMove = GetMistakeProbability(_playerLevel);
     }
     
@@ -99,8 +99,8 @@ public static class MiniMaxAIController
     private static float DoMinimax(Enums.PlayerType[,] board, int depth, bool isMaximizing, float alpha, float beta,
         int recentRow, int recentCol)
     {
-        if (CheckGameWin(Enums.PlayerType.PlayerA, board, recentRow, recentCol)) return -100 + depth;
-        if (CheckGameWin(Enums.PlayerType.PlayerB, board, recentRow, recentCol)) return 100 - depth;
+        if (CheckGameWin(Enums.PlayerType.PlayerA, board, recentRow, recentCol, true)) return -100 + depth;
+        if (CheckGameWin(Enums.PlayerType.PlayerB, board, recentRow, recentCol, true)) return 100 - depth;
         if (depth == 0) return AIEvaluator.EvaluateBoard(board, _AIPlayerType);
 
         float bestScore = isMaximizing ? float.MinValue : float.MaxValue;
@@ -154,9 +154,8 @@ public static class MiniMaxAIController
         // score가 높은 순으로 정렬 -> 더 좋은 수 먼저 계산하도록 함
         validMoves.Sort((a, b) => b.Item3.CompareTo(a.Item3));  
         
-        // 상위 10-15개만 고려. 일단 15개
+        // 시간 단축을 위해 상위 10-15개만 고려. 일단 15개
         return validMoves.Take(15).ToList(); 
-        // return validMoves;
     }
     
     private static bool HasNearbyStones(Enums.PlayerType[,] board, int row, int col, int distance = 3)
@@ -249,8 +248,8 @@ public static class MiniMaxAIController
         _spatialStoneCache.Clear();
     }
     
-    // 캐시 부분 초기화 (현재 변경된 위치 N에서 반경 5칸만 초기화)
-    private static void ClearCachePartial(int centerRow, int centerCol, int radius = 5)
+    // 캐시 부분 초기화 (현재 변경된 위치 N에서 반경 4칸만 초기화)
+    private static void ClearCachePartial(int centerRow, int centerCol, int radius = 4)
     {
         // 캐시가 비어있으면 아무 작업도 하지 않음
         if (_spatialStoneCache.Count == 0) return;
@@ -274,7 +273,7 @@ public static class MiniMaxAIController
     // 최근에 둔 돌 위치 기반으로 게임 승리를 판별하는 함수
     // !!!!!!MinimaxAIController 밖의 cs파일은 호출 시 맨 마지막을 false로 지정해야 합니다.!!!!!!
     public static bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, 
-                                            int row, int col, bool isSavedCache = true)
+                                            int row, int col, bool isSavedCache)
     {
         foreach (var dir in _directions)
         {
