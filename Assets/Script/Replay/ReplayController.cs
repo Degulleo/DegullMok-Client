@@ -11,6 +11,8 @@ public class ReplayController : MonoBehaviour
     [SerializeField] private TMP_Text playerBNicknameText;
     [SerializeField] private Image playerAImage;
     [SerializeField] private Image playerBImage;
+    [SerializeField] private GameObject[] userAProfileImages;
+    [SerializeField] private GameObject[] userBProfileImages;
     void Start()
     {
         InitReplayUI();
@@ -56,5 +58,4 @@ public class ReplayController : MonoBehaviour
         playerANicknameText.text = ReplayManager.Instance.GetPlayerANickname();
         playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
     }
-
 }

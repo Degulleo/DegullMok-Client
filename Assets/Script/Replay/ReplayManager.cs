@@ -12,7 +12,11 @@ public class ReplayRecord
     public string playerA;
     public string playerB;
     public List<Move> moves = new List<Move>();
+    //TODO: winnerPlayerType삭제
     public string winnerPlayerType;
+    public string gameResult;   //무승부를 반영하기위해 승자가 아닌 게임 결과를 저장.
+    public string playerAPofileImageIndex;
+    public string playerBPofileImageIndex;
 }
 [Serializable]
 public class Move
@@ -91,11 +95,13 @@ public class ReplayManager : Singleton<ReplayManager>
     ///<summary>
     /// 게임 시작에 호출해서 기보 데이터 초기화
     /// </summary>
-    public void InitReplayData(string playerANickname="", string playerBNickname="")
+    public void InitReplayData(string playerANickname="", string playerBNickname="", int playerAProfileIndex=0, int playerBProfileIndex=0)
     {
         _recordingReplayData = new ReplayRecord();
         _recordingReplayData.playerA = playerANickname;
         _recordingReplayData.playerB = playerBNickname;
+        _recordingReplayData.playerAPofileImageIndex = playerBNickname.ToString();
+        _recordingReplayData.playerBPofileImageIndex = playerAProfileIndex.ToString();
     }
     
     ///<summary>
@@ -106,8 +112,7 @@ public class ReplayManager : Singleton<ReplayManager>
         string stoneColor = stoneType.ToString();
         _recordingReplayData.moves.Add(new Move(stoneColor, row, col));
     }
-
-
+    
     /// <summary>
     /// 게임 종료 후 호출하여 리플레이 데이터를 저장합니다.
     /// </summary>
@@ -123,6 +128,27 @@ public class ReplayManager : Singleton<ReplayManager>
             string json = JsonUtility.ToJson(_recordingReplayData, true);
 
 
+            string path = Path.Combine(Application.persistentDataPath, $"{time}.json");
+            File.WriteAllText(path, json);
+
+            //최신 데이터 10개만 유지되도록 저장
+            RecordCountChecker();
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"An error occurred while saving replay data:{e.Message}");
+        }
+    }
+    public void SaveReplayDataResult(Enums.GameResult gameResultType)
+    {
+        try
+        {
+            string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
+            _recordingReplayData.gameDate = time;
+            _recordingReplayData.gameResult = gameResultType.ToString();
+            
+            // Json데이터로 변환해서 저장
+            string json = JsonUtility.ToJson(_recordingReplayData, true);
             string path = Path.Combine(Application.persistentDataPath, $"{time}.json");
             File.WriteAllText(path, json);
 
