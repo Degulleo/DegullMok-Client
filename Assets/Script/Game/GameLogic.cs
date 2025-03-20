@@ -233,12 +233,6 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
-
-    public Enums.PlayerType[,] GetBoard()
-    {
-        return _board;
-    }
-
     
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
@@ -339,6 +333,7 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         SetState(null);
+        //TODO: 게임 종료 후 행동 구현
     }
     
     //승리 확인 함수
