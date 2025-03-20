@@ -141,7 +141,7 @@ public class PanelManager : MonoBehaviour
         if (_canvas != null)
         {
             var replayPanelObject = GetPanel("Replay Panel");
-            replayPanelObject.GetComponent<ReplayPanelController>().Show();
+            replayPanelObject.GetComponent<ReplayPanelItemsController>().Show();
         }
     }
     
