@@ -25,6 +25,11 @@ public struct ScoreInfo
     public string email;
     public string nickname;
     public int score;
+    public float winRate;
+    public int win;
+    public int lose;
+    public int totalGames;
+    public int profileImageIndex;
 }
 
 [Serializable]
