@@ -133,7 +133,7 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
             }
             else
             {
-                linePattern[centerIndex + i] = Space; // 범위 밖은 빈칸으로 처리
+                linePattern[centerIndex + i] = White; // 범위 밖은 백돌로 처리
             }
         }
 
@@ -149,7 +149,7 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
             }
             else
             {
-                linePattern[centerIndex - i] = Space; // 범위 밖은 빈칸으로 처리
+                linePattern[centerIndex - i] = White; // 범위 밖은 백돌로 처리
             }
         }
 
@@ -178,7 +178,7 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
                 }
             }
 
-            // 정확히 4개의 돌이 있고, 1개의 빈칸이 있으면 4로 판정
+            // 4개의 돌이 있고, 1개의 빈칸이 있으면 4로 판정
             // (현재 위치는 흑으로 이미 설정되어 있음)
             if (stoneCount == 4)
             {

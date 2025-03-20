@@ -18,13 +18,13 @@ public class RenjuDoubleThreeDetector: ForbiddenDetectorBase
         // 쌍삼 검사
         bool isDoubleThree = CheckDoubleThree(board, row, col);
 
-        // 쌍삼으로 판정된 경우 4-3 상황인지 추가 검사
+        // 쌍삼으로 판정된 경우
         if (isDoubleThree)
         {
             // 4가 만들어지는지 확인
             bool hasFour = CheckForFour(board, row, col);
 
-            // 4-3 상황이면 금수에서 제외
+            // 4-3 상황
             if (hasFour)
             {
                 isDoubleThree = false;
@@ -36,6 +36,8 @@ public class RenjuDoubleThreeDetector: ForbiddenDetectorBase
 
         return isDoubleThree;
     }
+
+
 
     /// <summary>
     /// 쌍삼(3-3) 여부를 검사합니다.
@@ -56,6 +58,7 @@ public class RenjuDoubleThreeDetector: ForbiddenDetectorBase
                 openThreeCount++;
 
                 // 이미 열린 3이 2개 이상 발견되면 쌍삼으로 판정
+                // TODO : 44를 만들 수 있는가??
                 if (openThreeCount >= 2)
                 {
                     return true;
@@ -119,9 +122,11 @@ public class RenjuDoubleThreeDetector: ForbiddenDetectorBase
     /// </summary>
     private bool CheckForOpenThree(Enums.PlayerType[] linePattern, int centerIndex)
     {
+
         // 둘다 아니면 열린 3이 아님
         return CheckConsecutiveOpenThree(linePattern, centerIndex) || // 연속된 열린 3 확인
                 CheckGappedOpenThree(linePattern, centerIndex); // 한 칸 떨어진 열린 3 확인
+            // TODO : 한칸 떨어진 열린 3, 여기서 장목이 되는지 체크해서 배제 해야함
     }
 
     /// <summary>
