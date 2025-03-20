@@ -118,12 +118,17 @@ public class PanelManager : MonoBehaviour
         }
     }
     
-    public void OpenRankingPanel(List<RankingItem> rankingItems)
+    public void OpenRankingPanel()
     {
         if (_canvas != null)
         {
-            var settingsPanelObject = GetPanel("Ranking Panel");
-            settingsPanelObject.GetComponent<RankingPanelController>().Show(rankingItems);
+            var settingsPanelObject = GetPanel("LeaderboardPanel");
+            var leaderboardController = settingsPanelObject.GetComponent<LeaderBoardController>();
+
+            if (leaderboardController != null)
+            {
+                leaderboardController.OnClickLeaderboardButton();  // 이 메서드를 호출하여 데이터를 로드하고 Show()가 실행되도록 합니다.
+            }
         }
     }
     
@@ -153,24 +158,6 @@ public class PanelManager : MonoBehaviour
                 Debug.Log("확인 버튼을 누르셨습니다.");
         });
         return;
-    }
-    
-    //랭킹 패널 생성
-    public void OnRankingPanelClick()
-    {
-        List<RankingItem> rankingItems = new List<RankingItem>();       //테스트 데이터 리스트 생성
-        for (int i = 0; i < 30; i++)
-        {
-            RankingItem rankingItem = new RankingItem
-            {
-                ProfileSpriteIndex = Random.Range(0, 2),
-                Name = i.ToString(),
-                WinRate = Random.Range(0f, 1f)
-            };
-            rankingItems.Add(rankingItem);
-        }
-        
-        OpenRankingPanel(rankingItems);
     }
     
     //상점 패널 생성
