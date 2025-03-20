@@ -86,6 +86,11 @@ public class AIState: BasePlayerState
     {
         gameLogic.fioTimer.StartTimer();
         //TODO: AI이식
+        OmokAI.Instance.StartBestMoveSearch(gameLogic.GetBoard(), (bestMove) =>
+        {
+            if(bestMove.HasValue)
+                HandleMove(gameLogic, bestMove.Value.Item1, bestMove.Value.Item2);
+        });
     }
 
     public override void OnExit(GameLogic gameLogic)
@@ -210,7 +215,7 @@ public class GameLogic : MonoBehaviour
         {
             case Enums.GameType.SinglePlay:
                 firstPlayerState = new PlayerState(true);
-                secondPlayerState = new PlayerState(false);
+                secondPlayerState = new AIState();
                 SetState(firstPlayerState);
                 break;
             case Enums.GameType.MultiPlay:
@@ -221,6 +226,12 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
+
+    public Enums.PlayerType[,] GetBoard()
+    {
+        return _board;
+    }
+    
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
@@ -282,24 +293,6 @@ public class GameLogic : MonoBehaviour
                 ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.Black, row, col);      //기보 데이터 저장
                 break;
             case Enums.PlayerType.PlayerB:
-                /*
-                // AI 테스트 시작
-                OmokAI.Instance.StartBestMoveSearch(_board, (bestMove) => 
-                {
-                    if (bestMove != null)
-                    {
-                        // 타이머 제대로 30초로 clear안되는 문제. 아마 스레드가 언제 끝나는 지 몰라서 그러는 듯
-                        stoneController.SetStoneType(Enums.StoneType.White, bestMove.Value.Item1, bestMove.Value.Item2);
-                        stoneController.SetStoneState(Enums.StoneState.LastPositioned, bestMove.Value.Item1, bestMove.Value.Item2);
-                        _board[bestMove.Value.Item1, bestMove.Value.Item2] = Enums.PlayerType.PlayerB;
-                        LastNSelectedSetting(bestMove.Value.Item1, bestMove.Value.Item2);
-                        
-                        ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, bestMove.Value.Item1, bestMove.Value.Item2);
-                    }
-                });
-                // AI 테스트 끝
-                */
-                
                 stoneController.SetStoneType(Enums.StoneType.White, row, col);
                 stoneController.SetStoneState(Enums.StoneState.LastPositioned, row, col);
                 _board[row, col] = Enums.PlayerType.PlayerB;
