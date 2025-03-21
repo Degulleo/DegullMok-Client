@@ -69,9 +69,6 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 forbiddenMoves.Add(new Vector2Int(pos.x, pos.y));
             }
         }
-
-
-        Debug.Log(DebugBoard(board));
         return forbiddenMoves;
     }
 

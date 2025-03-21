@@ -25,17 +25,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23766695982208470}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6113787613246818512}
+  m_Father: {fileID: 540353529445133032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.00012207031, y: -0.00012207031}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 3413.3333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3385207238430958496
 CanvasRenderer:
@@ -208,7 +208,6 @@ GameObject:
   - component: {fileID: 2704399793730691091}
   - component: {fileID: 4320824635642948795}
   - component: {fileID: 1366478885981645499}
-  - component: {fileID: 3077068655643976656}
   m_Layer: 5
   m_Name: '[Canvas] Game UI'
   m_TagString: Untagged
@@ -228,9 +227,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4532012953686283018}
-  - {fileID: 4044003808430543235}
-  - {fileID: 8942070830740152784}
+  - {fileID: 540353529445133032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -301,18 +298,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3077068655643976656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 626368541760032086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35a536dce57360441898a57e5d5a1335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &638907547342607085
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,12 +503,12 @@ RectTransform:
   - {fileID: 4020956126151567600}
   - {fileID: 3928015243027423495}
   - {fileID: 5290633878409985}
-  m_Father: {fileID: 6113787613246818512}
+  m_Father: {fileID: 540353529445133032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 350}
+  m_AnchoredPosition: {x: 0, y: 1706.6667}
+  m_SizeDelta: {x: 1920, y: 350}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3625391796739244380
 CanvasRenderer:
@@ -670,12 +655,12 @@ RectTransform:
   m_Children:
   - {fileID: 451599240785790819}
   - {fileID: 6209444297678801107}
-  m_Father: {fileID: 6113787613246818512}
+  m_Father: {fileID: 540353529445133032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 0, y: 500}
+  m_AnchoredPosition: {x: 0, y: -1606.6667}
+  m_SizeDelta: {x: 1920, y: 500}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &870318249725167959
 CanvasRenderer:
@@ -836,7 +821,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3077068655643976656}
+      - m_Target: {fileID: 8132279047060667277}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
         m_MethodName: OnClickRetryButton
         m_Mode: 1
@@ -1192,6 +1177,67 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3791069783579554366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540353529445133032}
+  - component: {fileID: 8132279047060667277}
+  - component: {fileID: 8937297938790164307}
+  m_Layer: 0
+  m_Name: Game Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &540353529445133032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791069783579554366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4532012953686283018}
+  - {fileID: 4044003808430543235}
+  - {fileID: 8942070830740152784}
+  m_Father: {fileID: 6113787613246818512}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8132279047060667277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791069783579554366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a536dce57360441898a57e5d5a1335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRectTransform: {fileID: 0}
+--- !u!225 &8937297938790164307
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791069783579554366}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3856590192762510114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,7 +1359,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3077068655643976656}
+      - m_Target: {fileID: 8132279047060667277}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
         m_MethodName: OnClickConfirmButton
         m_Mode: 1

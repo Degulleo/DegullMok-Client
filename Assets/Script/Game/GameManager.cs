@@ -73,6 +73,7 @@ public class GameManager : Singleton<GameManager>
             var fioTimer = FindObjectOfType<FioTimer>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
+        InitPanels();
     }
     //임시 재시작 재대결
     public void RetryGame()
