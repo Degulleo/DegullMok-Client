@@ -217,14 +217,14 @@ public class GameLogic : MonoBehaviour
                 {
                     GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
                         () =>{});
-                    var gameResult = currentTurn == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+                    var gameResult = currentTurn == Enums.PlayerType.PlayerA? Enums.GameResult.Lose:Enums.GameResult.Win;
                     EndGame(gameResult);
                 }
                 else if (currentTurn == Enums.PlayerType.PlayerB)
                 {
                     GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
                         () =>{});
-                    var gameResult = currentTurn == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+                    var gameResult = currentTurn == Enums.PlayerType.PlayerB? Enums.GameResult.Win:Enums.GameResult.Lose;
                     EndGame(gameResult);
                 }
             };
