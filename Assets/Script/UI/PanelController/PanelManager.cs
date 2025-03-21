@@ -208,10 +208,11 @@ public class PanelManager : MonoBehaviour
     {
         NetworkManager.Instance.DeductCoins((i) =>
         {
+            //Todo: 감소된 코인 값으로 확장할 기능 추가
             
-        }, (s) =>
+        }, (failMessage) =>
         {
-            
+            Debug.Log(failMessage);
         });
         
         _coinsPanel.RemoveCoins((() =>
