@@ -315,165 +315,6 @@ public static class AIEvaluator
         return fourThreeCount;
     }
     
-    #endregion
-    
-    #region Evaluate Move Position
-    // 이동 평가 함수
-    public static float EvaluateMove(Enums.PlayerType[,] board, int row, int col, Enums.PlayerType AIPlayer)
-    {
-        float score = 0;
-        Enums.PlayerType opponentPlayer = (AIPlayer == Enums.PlayerType.PlayerA) ? 
-                                      Enums.PlayerType.PlayerB : Enums.PlayerType.PlayerA;
-        
-        // 복합 패턴 감지를 위한 위치 저장 리스트
-        List<(int[] dir, int count, int openEnds)> aiPatterns = new List<(int[], int, int)>();
-        List<(int[] dir, int count, int openEnds)> opponentPatterns = new List<(int[], int, int)>();
-        
-        // AI 관점에서 평가
-        board[row, col] = AIPlayer;
-        
-        foreach (var dir in Directions)
-        {
-            // 평가를 위한 가상 보드이기에 캐시 데이터에 저장X
-            var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, AIPlayer, false);
-            aiPatterns.Add((dir, count, openEnds));
-            
-            if (count >= 4) 
-            {
-                score += PatternScore.FIVE_IN_A_ROW / 10;
-            }
-            else if (count == 3)
-            {
-                score += (openEnds == 2) ? PatternScore.OPEN_THREE / 3 : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 5 : 
-                                           PatternScore.CLOSED_THREE / 5;
-            }
-            else if (count == 2)
-            {
-                score += (openEnds == 2) ? PatternScore.OPEN_TWO / 2 : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3 : 
-                                           PatternScore.CLOSED_TWO / 5;
-            }
-            else if (count == 1)
-            {
-                score += (openEnds == 2) ? PatternScore.OPEN_ONE : 
-                                           PatternScore.CLOSED_ONE;
-            }
-            
-            // 깨진 패턴 평가
-            var (isBroken, brokenCount, brokenOpenEnds) = DetectBrokenPattern(board, row, col, dir, AIPlayer);
-        
-            if (isBroken)
-            {
-                float brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds);
-                score = Math.Max(score, brokenScore);
-            }
-        }
-        
-        // AI 복합 패턴 점수 계산 (새로 추가)
-        score += EvaluateComplexMovePatterns(aiPatterns, true);
-        
-        // 상대 관점에서 평가 (방어 가치)
-        board[row, col] = opponentPlayer;
-        
-        foreach (var dir in Directions)
-        {
-            var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, opponentPlayer, false);
-            opponentPatterns.Add((dir, count, openEnds));
-            
-            // 상대 패턴 차단에 대한 가치 (약간 낮은 가중치)
-            if (count >= 4)
-            {
-                score += PatternScore.FIVE_IN_A_ROW / 12.5f; 
-            }
-            else if (count == 3)
-            {
-                score += (openEnds == 2) ? PatternScore.OPEN_THREE / 3.75f : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 6.25f : 
-                                           PatternScore.CLOSED_THREE / 6.25f;
-            }
-            else if (count == 2)
-            {
-                score += (openEnds == 2) ? PatternScore.OPEN_TWO / 2.5f : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3.75f : 
-                                           PatternScore.CLOSED_TWO / 5f;
-            }
-            else if (count == 1)
-            {
-                score += (openEnds == 2) ? PatternScore.OPEN_ONE / 1.25f : 
-                                           PatternScore.CLOSED_ONE;
-            }
-        }
-        
-        score += EvaluateComplexMovePatterns(opponentPatterns, false);
-        
-        // 원래 상태로 복원
-        board[row, col] = Enums.PlayerType.None;
-        
-        // 중앙에 가까울수록 추가 점수
-        int size = board.GetLength(0);
-        float centerDistance = Math.Max(
-            Math.Abs(row - (size - 1) / 2.0f), 
-            Math.Abs(col - (size - 1) / 2.0f)
-        );
-        float centerBonus = 1.0f - (centerDistance / ((size - 1) / 2.0f)) * 0.3f; // 30% 가중치
-        
-        return score * centerBonus;
-    }
-    
-    // 복합 패턴 평가를 위한 새로운 함수
-    private static float EvaluateComplexMovePatterns(List<(int[] dir, int count, int openEnds)> patterns, bool isAI)
-    {
-        float score = 0;
-    
-        // 열린 3 패턴 및 4 패턴 찾기
-        var openThrees = patterns.Where(p => p.count == 3 && p.openEnds == 2).ToList();
-        var fours = patterns.Where(p => p.count == 4 && p.openEnds >= 1).ToList();
-    
-        // 3-3 패턴 감지
-        if (openThrees.Count >= 2)
-        {
-            for (int i = 0; i < openThrees.Count; i++)
-            {
-                for (int j = i + 1; j < openThrees.Count; j++)
-                {
-                    if (!AreParallelDirections(openThrees[i].dir, openThrees[j].dir))
-                    {
-                        float threeThreeScore = PatternScore.DOUBLE_THREE / 4; // 복합 패턴 가중치
-                        score += isAI ? threeThreeScore : threeThreeScore;
-                        break;
-                    }
-                }
-            }
-        }
-    
-        // 4-4 패턴 감지
-        if (fours.Count >= 2)
-        {
-            for (int i = 0; i < fours.Count; i++)
-            {
-                for (int j = i + 1; j < fours.Count; j++)
-                {
-                    if (!AreParallelDirections(fours[i].dir, fours[j].dir))
-                    {
-                        float fourFourScore = PatternScore.DOUBLE_FOUR / 4;
-                        score += isAI ? fourFourScore : fourFourScore;
-                        break;
-                    }
-                }
-            }
-        }
-    
-        // 4-3 패턴 감지
-        if (fours.Count > 0 && openThrees.Count > 0)
-        {
-            float fourThreeScore = PatternScore.FOUR_THREE / 4;
-            score += isAI ? fourThreeScore : fourThreeScore;
-        }
-    
-        return score;
-    }
-    
     // 깨진 패턴 (3-빈칸-1) 감지
     private static (bool isDetected, int count, int openEnds) DetectBrokenPattern(
         Enums.PlayerType[,] board, int row, int col, int[] dir, Enums.PlayerType player)
@@ -552,7 +393,7 @@ public static class AIEvaluator
         
         return (isDetected, totalStones, openEnds);
     }
-
+    
     // 깨진 패턴 점수 계산 함수
     private static float EvaluateBrokenPattern(int count, int openEnds)
     {
@@ -563,17 +404,195 @@ public static class AIEvaluator
         else if (count == 4)  // 깨진 4
         {
             return (openEnds == 2) ? PatternScore.OPEN_FOUR * 0.8f : 
-                   (openEnds == 1) ? PatternScore.HALF_OPEN_FOUR * 0.8f : 
-                                     PatternScore.CLOSED_FOUR * 0.7f;
+                (openEnds == 1) ? PatternScore.HALF_OPEN_FOUR * 0.8f : 
+                PatternScore.CLOSED_FOUR * 0.7f;
         }
         else if (count == 3)  // 깨진 3
         {
             return (openEnds == 2) ? PatternScore.OPEN_THREE * 0.7f : 
-                   (openEnds == 1) ? PatternScore.HALF_OPEN_THREE * 0.7f : 
-                                     PatternScore.CLOSED_THREE * 0.6f;
+                (openEnds == 1) ? PatternScore.HALF_OPEN_THREE * 0.7f : 
+                PatternScore.CLOSED_THREE * 0.6f;
         }
         
         return 0;
+    }
+    
+    #endregion
+    
+    #region Evaluate Move Position
+    // 이동 평가 함수
+    public static float EvaluateMove(Enums.PlayerType[,] board, int row, int col, Enums.PlayerType AIPlayer)
+    {
+        float score = 0;
+        Enums.PlayerType opponentPlayer = (AIPlayer == Enums.PlayerType.PlayerA) ? 
+                                      Enums.PlayerType.PlayerB : Enums.PlayerType.PlayerA;
+        
+        // 복합 패턴 감지를 위한 위치 저장 리스트
+        List<(int[] dir, int count, int openEnds)> aiPatterns = new List<(int[], int, int)>();
+        List<(int[] dir, int count, int openEnds)> opponentPatterns = new List<(int[], int, int)>();
+        
+        board[row, col] = AIPlayer;
+        
+        foreach (var dir in Directions)
+        {
+            float directionScore = 0;
+            
+            var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, AIPlayer, false);
+            aiPatterns.Add((dir, count, openEnds));
+            
+            float normalScore = 0;
+            if (count >= 4) 
+            {
+                normalScore = PatternScore.FIVE_IN_A_ROW / 10;
+            }
+            else if (count == 3)
+            {
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 3 : 
+                         (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 5 : 
+                                           PatternScore.CLOSED_THREE / 5;
+            }
+            else if (count == 2)
+            {
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_TWO / 2 : 
+                         (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3 : 
+                                           PatternScore.CLOSED_TWO / 5;
+            }
+            else if (count == 1)
+            {
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_ONE : 
+                                           PatternScore.CLOSED_ONE;
+            }
+            
+            // 깨진 패턴 평가
+            var (isBroken, brokenCount, brokenOpenEnds) = DetectBrokenPattern(board, row, col, dir, AIPlayer);
+            float brokenScore = 0;
+            
+            if (isBroken)
+            {
+                brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds);
+            }
+            
+            directionScore = Math.Max(normalScore, brokenScore);
+            
+            score += directionScore; // 공격 점수 누적
+        }
+        
+        // AI 복합 패턴 점수 계산
+        score += EvaluateComplexMovePatterns(aiPatterns, true);
+        
+        // 상대 관점에서 평가 (방어 가치)
+        board[row, col] = opponentPlayer;
+        
+        foreach (var dir in Directions)
+        {
+            float directionScore = 0;
+            
+            var (count, openEnds) = MiniMaxAIController.CountStones(board, row, col, dir, opponentPlayer, false);
+            opponentPatterns.Add((dir, count, openEnds));
+            
+            float normalScore = 0;
+            // 상대 패턴 차단에 대한 가치 (약간 낮은 가중치) AI는 공격지향적으로
+            if (count >= 4)
+            {
+                normalScore = PatternScore.FIVE_IN_A_ROW / 12.5f; 
+            }
+            else if (count == 3)
+            {
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 3.75f : 
+                         (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 6.25f : 
+                                           PatternScore.CLOSED_THREE / 6.25f;
+            }
+            else if (count == 2)
+            {
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_TWO / 2.5f : 
+                         (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3.75f : 
+                                           PatternScore.CLOSED_TWO / 5f;
+            }
+            else if (count == 1)
+            {
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_ONE / 1.25f : 
+                                           PatternScore.CLOSED_ONE;
+            }
+            
+            var (isBroken, brokenCount, brokenOpenEnds) = DetectBrokenPattern(board, row, col, dir, opponentPlayer);
+            float brokenScore = 0;
+            
+            if (isBroken)
+            {
+                // 깨진 패턴은 일반 패턴보다 좀 더 높은 가중치 할당
+                brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds) * 0.9f;
+            }
+            
+            directionScore = Math.Max(normalScore, brokenScore);
+            
+            score += directionScore; // 방어 점수 누적
+        }
+        
+        score += EvaluateComplexMovePatterns(opponentPatterns, false);
+        
+        board[row, col] = Enums.PlayerType.None; // 복원
+        
+        int size = board.GetLength(0);
+        float centerDistance = Math.Max(
+            Math.Abs(row - (size - 1) / 2.0f), // 중앙 위치 계산
+            Math.Abs(col - (size - 1) / 2.0f)
+        );
+        float centerBonus = 1.0f - (centerDistance / ((size - 1) / 2.0f)) * 0.3f; // 중앙과 가장자리의 점수 차이를 30%로 설정
+        
+        return score * centerBonus;
+    }
+    
+    // 복합 패턴 평가를 위한 새로운 함수
+    private static float EvaluateComplexMovePatterns(List<(int[] dir, int count, int openEnds)> patterns, bool isAI)
+    {
+        float score = 0;
+    
+        // 열린 3 패턴 및 4 패턴 찾기
+        var openThrees = patterns.Where(p => p.count == 3 && p.openEnds == 2).ToList();
+        var fours = patterns.Where(p => p.count == 4 && p.openEnds >= 1).ToList();
+    
+        // 3-3 패턴 감지
+        if (openThrees.Count >= 2)
+        {
+            for (int i = 0; i < openThrees.Count; i++)
+            {
+                for (int j = i + 1; j < openThrees.Count; j++)
+                {
+                    if (!AreParallelDirections(openThrees[i].dir, openThrees[j].dir))
+                    {
+                        float threeThreeScore = PatternScore.DOUBLE_THREE / 4; // 복합 패턴 가중치
+                        score += isAI ? threeThreeScore : threeThreeScore;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        // 4-4 패턴 감지
+        if (fours.Count >= 2)
+        {
+            for (int i = 0; i < fours.Count; i++)
+            {
+                for (int j = i + 1; j < fours.Count; j++)
+                {
+                    if (!AreParallelDirections(fours[i].dir, fours[j].dir))
+                    {
+                        float fourFourScore = PatternScore.DOUBLE_FOUR / 4;
+                        score += isAI ? fourFourScore : fourFourScore;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        // 4-3 패턴 감지
+        if (fours.Count > 0 && openThrees.Count > 0)
+        {
+            float fourThreeScore = PatternScore.FOUR_THREE / 4;
+            score += isAI ? fourThreeScore : fourThreeScore;
+        }
+    
+        return score;
     }
     
     #endregion
