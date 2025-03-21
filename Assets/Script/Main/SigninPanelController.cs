@@ -43,8 +43,13 @@ public class SigninPanelController : MonoBehaviour
     [SerializeField] private TMP_InputField emailInputField;
     [SerializeField] private TMP_InputField passwordInputField;
 
-    [SerializeField] private MainPanelManager mainPanel;
+    private MainPanelManager mainPanel;
 
+    private void Awake()
+    {
+        if (mainPanel == null) mainPanel = FindObjectOfType<MainPanelManager>();
+    }
+    
     public void OnClickSigninButton()
     {
         string email = emailInputField.text;
@@ -60,13 +65,13 @@ public class SigninPanelController : MonoBehaviour
         
         NetworkManager.Instance.Signin(signinData, (signinResult) =>
         {
-            Destroy(gameObject);
-            
             // 유저 정보 저장
             UserManager.Instance.SetUserInfo(signinResult);
             
             // 메인 패널 정보 갱신
             mainPanel.UpdateMainPanelUI(GameManager.Instance.panelManager.OpenMainPanel);
+            
+            Destroy(gameObject);
         }, result =>
         {
             if (result == 0)
