@@ -12,12 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 90d8e06582d54504c8033aab27b15564
   - enabled: 1
-    path: Assets/JAY/Main-Jay.unity
-    guid: aa6a3e598ecaa6e4aa2ad0f1d81bea93
-  - enabled: 1
-    path: Assets/LYC/GameCopyLYC.unity
-    guid: c7eedd59cc78a7648a2168fd25540b88
-  - enabled: 1
     path: Assets/Scenes/Replay.unity
     guid: 393dbf55b04641847ae9b882a54856af
   m_configObjects: {}
