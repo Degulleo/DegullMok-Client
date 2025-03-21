@@ -527,7 +527,7 @@ public static class AIEvaluator
             
             score += directionScore; // 방어 점수 누적
         }
-        
+
         score += EvaluateComplexMovePatterns(opponentPatterns, false);
         
         board[row, col] = Enums.PlayerType.None; // 복원
@@ -561,7 +561,7 @@ public static class AIEvaluator
                     if (!AreParallelDirections(openThrees[i].dir, openThrees[j].dir))
                     {
                         float threeThreeScore = PatternScore.DOUBLE_THREE / 4; // 복합 패턴 가중치
-                        score += isAI ? threeThreeScore : threeThreeScore;
+                        score += isAI ? threeThreeScore : threeThreeScore * 1.1f;
                         break;
                     }
                 }
@@ -578,7 +578,7 @@ public static class AIEvaluator
                     if (!AreParallelDirections(fours[i].dir, fours[j].dir))
                     {
                         float fourFourScore = PatternScore.DOUBLE_FOUR / 4;
-                        score += isAI ? fourFourScore : fourFourScore;
+                        score += isAI ? fourFourScore : fourFourScore * 1.2f;
                         break;
                     }
                 }
@@ -589,7 +589,7 @@ public static class AIEvaluator
         if (fours.Count > 0 && openThrees.Count > 0)
         {
             float fourThreeScore = PatternScore.FOUR_THREE / 4;
-            score += isAI ? fourThreeScore : fourThreeScore;
+            score += isAI ? fourThreeScore : fourThreeScore * 1.2f;
         }
     
         return score;
