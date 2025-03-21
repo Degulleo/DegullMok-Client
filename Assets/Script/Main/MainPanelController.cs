@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -82,5 +83,43 @@ public class MainPanelController : MonoBehaviour
     public void OnClickGameStart()
     {
         GameManager.Instance.ChangeToGameScene(Enums.GameType.SinglePlay);
+    }
+    
+    //상점 패널 생성
+    public void OnShopButtonClick()
+    {
+        List<ShopItem> shopItems = new List<ShopItem>();       //상점 데이터 리스트 생성
+        for (int i = 0; i < 5; i++)
+        {
+            if (i == 0)     //광고 항목
+            {
+                ShopItem shopItem = new ShopItem
+                {
+                    name = "광고) 코인500개 ",
+                    price = 0
+                };
+                shopItems.Add(shopItem);
+            }
+            else
+            {
+                ShopItem shopItem = new ShopItem
+                {
+                    name = i*1000+"개 ",
+                    price = i * 1000
+                };
+                shopItems.Add(shopItem);
+            }
+        }
+        GameManager.Instance.panelManager.OpenShopPanel(shopItems);
+    }
+
+    public void OpenReplayButtonClick()
+    {
+        GameManager.Instance.panelManager.OpenReplayPanel();
+    }
+    
+    public void OpenSettingButtonClick()
+    {
+        GameManager.Instance.panelManager.OpenSettingsPanel();
     }
 }
