@@ -24,17 +24,23 @@ public abstract class BasePlayerState
         }
         else
         {
-            if (gameLogic.CheckGameDraw(gameLogic.GetBoard()))
+            if (gameLogic.TotalStoneCounter >= Constants.MinCountForDrawCheck)
             {
-                GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
-                gameLogic.EndGame();
+                if (gameLogic.CheckGameDraw())
+                {
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
+                    gameLogic.EndGame();
+                }
+                else
+                {
+                    HandleNextTurn(gameLogic);
+                }
             }
             else
             {
                 HandleNextTurn(gameLogic);
             }
         }
-        
     }
 }
 
@@ -145,7 +151,7 @@ public class GameLogic : MonoBehaviour
     public Enums.PlayerType currentTurn;
     public Enums.GameType gameType;
     //총 착수된 돌 카운터
-    private int _totalStoneCounter = 0;
+    public int _totalStoneCounter;
     public int TotalStoneCounter{get{return _totalStoneCounter;}}
     
     public BasePlayerState firstPlayerState;
@@ -154,9 +160,6 @@ public class GameLogic : MonoBehaviour
     //타이머
     public FioTimer fioTimer;
     
-    private const int WIN_COUNT = 5;
-    //무승부 확인을 위한 최소 착수 수
-    private const int MinCountForDrawCheck = 150;
     //선택된 좌표
     public int selectedRow;
     public int selectedCol;
@@ -186,6 +189,7 @@ public class GameLogic : MonoBehaviour
         _board = new Enums.PlayerType[15, 15];
         this.stoneController = stoneController;
         this.gameType = gameType;
+        _totalStoneCounter = 0;
         
         selectedRow = -1;
         selectedCol = -1;
@@ -354,7 +358,7 @@ public class GameLogic : MonoBehaviour
             var (count, _) = CountStones(_board, row, col, dir, player);
 
             // 자기 자신 포함하여 5개 이상일 시 true 반환
-            if (count + 1 >= WIN_COUNT) 
+            if (count + 1 >= Constants.WIN_COUNT) 
                 return true;
         }
 
@@ -405,12 +409,11 @@ public class GameLogic : MonoBehaviour
         return _board;
     }
     //무승부 확인
-    public bool CheckGameDraw(Enums.PlayerType[,] board)
+    public bool CheckGameDraw()
     {
-        if (_totalStoneCounter < MinCountForDrawCheck) return false; //최소 착수 수보다 작으면 false 리턴
-        if (CheckIsFull(board)) return true; // 빈 칸이 없으면 무승부
-        bool playerAHasChance = CheckFiveChance(board, Enums.PlayerType.PlayerA);
-        bool playerBHasChance = CheckFiveChance(board, Enums.PlayerType.PlayerB);
+        if (CheckIsFull(_board)) return true; // 빈 칸이 없으면 무승부
+        bool playerAHasChance = CheckFiveChance(_board, Enums.PlayerType.PlayerA);
+        bool playerBHasChance = CheckFiveChance(_board, Enums.PlayerType.PlayerB);
         return !(playerAHasChance || playerBHasChance); // 둘 다 기회가 없으면 무승부
     }
 
@@ -430,7 +433,7 @@ public class GameLogic : MonoBehaviour
                     var (count, _) = CountStones(tempBoard, row, col, dir, player);
 
                     // 자기 자신 포함하여 5개 이상일 시 true 반환
-                    if (count + 1 >= WIN_COUNT) return true;
+                    if (count + 1 >= Constants.WIN_COUNT) return true;
                 }
             }
         }

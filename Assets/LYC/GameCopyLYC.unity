@@ -6020,6 +6020,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9726acf6f82a3644ba31eda5ef496991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &820078853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 820078855}
+  - component: {fileID: 820078854}
+  m_Layer: 0
+  m_Name: OmokAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &820078854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820078853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576baa0fe98d40608bf48109ba5ed788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &820078855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820078853}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540, y: 1760, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &831992430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17550,3 +17594,4 @@ SceneRoots:
   - {fileID: 307507522}
   - {fileID: 1632066875}
   - {fileID: 1118625358}
+  - {fileID: 820078855}
