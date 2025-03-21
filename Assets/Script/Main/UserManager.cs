@@ -28,7 +28,7 @@ public class CoinsPurchaseResult
     public string result;      
     public string message;     
     public int purchased;      // 충전된 코인량
-    public int currentCoins;   // 현재 보유 코인량
+    public int currentCoins;
 }
 /// <summary>
 /// 광고 시청 응답 클래스
@@ -38,7 +38,7 @@ public class CoinsAdResult
     public string result;      
     public string message;     
     public int recharged;      // 충전된 코인량
-    public int currentCoins;   // 현재 보유 코인량
+    public int currentCoins;
 }
 
 /// <summary>
@@ -56,6 +56,17 @@ public class PurchaseData
         this.paymentId = paymentId;
         this.paymentType = paymentType;
     }
+}
+
+/// <summary>
+/// 코인 차감 응답 데이터 클래스
+/// </summary>
+public class DeductCoinsResult
+{
+    public string result;
+    public string message;
+    public int deducted;
+    public int remainingCoins;
 }
 
 

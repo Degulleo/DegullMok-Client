@@ -38,4 +38,12 @@ public class MainPanelButtonController : MonoBehaviour
     {
         GameManager.Instance.panelManager.OpenReplayPanel();
     }
+
+    /// <summary>
+    /// 코인 제거 테스트 코드
+    /// </summary>
+    public void RemovecoinsTest()
+    {
+        GameManager.Instance.panelManager.CoinsPanelUIRemove();
+    }
 }

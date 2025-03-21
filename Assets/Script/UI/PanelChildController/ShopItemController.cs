@@ -34,15 +34,21 @@ public class ShopItemController : MonoBehaviour
         {
             
             NetworkManager.Instance.PurchaseCoins(
+                
                 _shopItem.price,            // 충전할 코인 개수
                 _shopItem.name, // 결제 ID
                 "GooglePay",     // 결제 방식 (GooglePay, PayPal 등)
                 (coins) => {
-                    GameManager.Instance.panelManager.UpdateCoinsPanelUI(coins,shopPanel);
+                    
+                    GameManager.Instance.panelManager.CoinsPanelUIAdd(coins,shopPanel);
+                    
                 },
                 () => {
+                    
                     Debug.LogError("결제 후 코인 충전 실패");
+                    
                 }
+                
             );
         }
     }

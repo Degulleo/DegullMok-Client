@@ -326,7 +326,7 @@ public class NetworkManager : Singleton<NetworkManager>
 
     private IEnumerator WatchAdForCoinsCoroutine(Action<int> success, Action failure)
     {
-        string jsonString = "{\"adCompleted\": true}";  //테스트를 위해 ture로 설정
+        string jsonString = "{\"adCompleted\": true}";  //광고가 끝난 후 함수가 호출되기 때문에 true 고정
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
 
         using (UnityWebRequest www =
@@ -385,7 +385,7 @@ public class NetworkManager : Singleton<NetworkManager>
     /// <param name="paymentType">결제타입(카드,구글페이)</param>
     /// <param name="success"></param>
     /// <param name="failure"></param>
-        public void PurchaseCoins(int amount, string paymentId, string paymentType, Action<int> success, Action failure)
+    public void PurchaseCoins(int amount, string paymentId, string paymentType, Action<int> success, Action failure)
     {
         StartCoroutine(PurchaseCoinsCoroutine(amount, paymentId, paymentType, success, failure));
     }
@@ -395,10 +395,10 @@ public class NetworkManager : Singleton<NetworkManager>
         string url = Constants.ServerURL + "/coins/purchase"; // 서버 엔드포인트
         PurchaseData purchaseData = new PurchaseData(amount, paymentId, paymentType);
         string jsonString = JsonUtility.ToJson(purchaseData);
-
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
+        
         using (UnityWebRequest www = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST))
         {
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
@@ -441,6 +441,67 @@ public class NetworkManager : Singleton<NetworkManager>
                 {
                     Debug.LogError("결제 후 코인 충전 실패: " + purchaseResult.result);
                     failure?.Invoke();
+                }
+            }
+        }
+    }
+    
+    public void DeductCoins(Action<int> success, Action<string> failure)
+    {
+        StartCoroutine(DeductCoinsCoroutine(success, failure));
+    }
+
+    private IEnumerator DeductCoinsCoroutine(Action<int> success, Action<string> failure)
+    {
+        string DeductCoinsUrl = Constants.ServerURL + "/coins/deduct";
+        
+        using (UnityWebRequest www = new UnityWebRequest(DeductCoinsUrl, UnityWebRequest.kHttpVerbPOST))
+        {
+            www.downloadHandler = new DownloadHandlerBuffer();
+            string sid = PlayerPrefs.GetString("sid", "");
+
+            if (!string.IsNullOrEmpty(sid))
+            {
+                www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                failure?.Invoke("LOGIN_REQUIRED");
+                yield break;
+            }
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || 
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("코인 차감 실패: " + www.error);
+
+                if (www.responseCode == 400)
+                {
+                    failure?.Invoke("INSUFFICIENT_COINS");
+                }
+                else
+                {
+                    failure?.Invoke("ERROR");
+                }
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                var deductResult = JsonUtility.FromJson<DeductCoinsResult>(result);
+
+                if (deductResult.result == "SUCCESS")
+                {
+                    Debug.Log("코인 차감 완료: " + deductResult.deducted);
+                    UserManager.Instance.SetCoinsInfo();
+                    success?.Invoke(deductResult.deducted);
+                }
+                else
+                {
+                    Debug.LogError("코인 차감 실패: " + deductResult.result);
+                    failure?.Invoke(deductResult.result);
                 }
             }
         }

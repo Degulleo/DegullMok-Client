@@ -1648,7 +1648,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1899561816919013120}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5873276942444222861}
+        m_TargetAssemblyTypeName: MainPanelButtonController, Assembly-CSharp
+        m_MethodName: RemovecoinsTest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4880640143325961548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,7 +1726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: test1
+  m_text: kjm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
