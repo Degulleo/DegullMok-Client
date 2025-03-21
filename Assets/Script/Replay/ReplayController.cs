@@ -13,7 +13,7 @@ public class ReplayController : MonoBehaviour
     [SerializeField] private GameObject[] userBProfileImages;
     void Start()
     {
-        InitReplayUI();
+        // InitReplayUI();
         //TODO: 프로필 이미지 불러오기
     }
     

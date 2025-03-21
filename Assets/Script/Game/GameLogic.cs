@@ -12,10 +12,10 @@ public abstract class BasePlayerState
 
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
-        
         gameLogic.fioTimer.PauseTimer();
         
         gameLogic.SetNewBoardValue(playerType, row, col);
+        gameLogic.CountStoneCounter();
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
@@ -24,10 +24,23 @@ public abstract class BasePlayerState
         }
         else
         {
-            //TODO: 무승부 확인
-            HandleNextTurn(gameLogic);
+            if (gameLogic.TotalStoneCounter >= Constants.MinCountForDrawCheck)
+            {
+                if (gameLogic.CheckGameDraw())
+                {
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
+                    gameLogic.EndGame();
+                }
+                else
+                {
+                    HandleNextTurn(gameLogic);
+                }
+            }
+            else
+            {
+                HandleNextTurn(gameLogic);
+            }
         }
-        
     }
 }
 
@@ -85,7 +98,11 @@ public class AIState: BasePlayerState
     public override void OnEnter(GameLogic gameLogic)
     {
         gameLogic.fioTimer.StartTimer();
-        //TODO: AI이식
+        OmokAI.Instance.StartBestMoveSearch(gameLogic.GetBoard(), (bestMove) =>
+        {
+            if(bestMove.HasValue)
+                HandleMove(gameLogic, bestMove.Value.Item1, bestMove.Value.Item2);
+        });
     }
 
     public override void OnExit(GameLogic gameLogic)
@@ -132,17 +149,23 @@ public class GameLogic : MonoBehaviour
     public StoneController stoneController;
     public Enums.PlayerType currentTurn;
     public Enums.GameType gameType;
+    //총 착수된 돌 카운터
+    public int _totalStoneCounter;
+    public int TotalStoneCounter{get{return _totalStoneCounter;}}
+    
     public BasePlayerState firstPlayerState;
     public BasePlayerState secondPlayerState;
     private BasePlayerState _currentPlayerState;
+    //타이머
     public FioTimer fioTimer;
     
-    private const int WIN_COUNT = 5;
     //선택된 좌표
     public int selectedRow;
     public int selectedCol;
     //마지막 배치된 좌표
-
+    private int _lastRow;
+    private int _lastCol;
+    
 #region Renju Members
     // 렌주룰 금수 검사기
     private RenjuForbiddenMoveDetector _forbiddenDetector;
@@ -151,9 +174,6 @@ public class GameLogic : MonoBehaviour
     private List<Vector2Int> _forbiddenMoves = new List<Vector2Int>();
 #endregion
 
-    private int _lastRow;
-    private int _lastCol;
-    
     private static int[][] _directions = new int[][]
     {
         new int[] {1, 0}, // 수직
@@ -168,6 +188,7 @@ public class GameLogic : MonoBehaviour
         _board = new Enums.PlayerType[15, 15];
         this.stoneController = stoneController;
         this.gameType = gameType;
+        _totalStoneCounter = 0;
         
         selectedRow = -1;
         selectedCol = -1;
@@ -204,13 +225,12 @@ public class GameLogic : MonoBehaviour
         
         //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기, 프로필정보도 넘겨줘야 합니다.
         ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
-
         
         switch (gameType)
         {
             case Enums.GameType.SinglePlay:
                 firstPlayerState = new PlayerState(true);
-                secondPlayerState = new PlayerState(false);
+                secondPlayerState = new AIState();
                 SetState(firstPlayerState);
                 break;
             case Enums.GameType.MultiPlay:
@@ -221,6 +241,12 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
+    //돌 카운터 증가 함수
+    public void CountStoneCounter()
+    {
+        _totalStoneCounter++;
+    }
+    
     //착수 버튼 클릭시 호출되는 함수
     public void OnConfirm()
     {
@@ -288,6 +314,7 @@ public class GameLogic : MonoBehaviour
                 LastNSelectedSetting(row, col);
                 
                 ReplayManager.Instance.RecordStonePlaced(Enums.StoneType.White, row, col);
+                
                 break;
         }
     }
@@ -319,7 +346,7 @@ public class GameLogic : MonoBehaviour
     public void EndGame()
     {
         SetState(null);
-        
+        //TODO: 게임 종료 후 행동 구현
     }
     
     //승리 확인 함수
@@ -330,7 +357,7 @@ public class GameLogic : MonoBehaviour
             var (count, _) = CountStones(_board, row, col, dir, player);
 
             // 자기 자신 포함하여 5개 이상일 시 true 반환
-            if (count + 1 >= WIN_COUNT) 
+            if (count + 1 >= Constants.WIN_COUNT) 
                 return true;
         }
 
@@ -376,7 +403,56 @@ public class GameLogic : MonoBehaviour
         return (count, openEnds);
     }
 
-#region Renju Rule Detector
+    public Enums.PlayerType[,] GetBoard()
+    {
+        return _board;
+    }
+    //무승부 확인
+    public bool CheckGameDraw()
+    {
+        if (CheckIsFull(_board)) return true; // 빈 칸이 없으면 무승부
+        bool playerAHasChance = CheckFiveChance(_board, Enums.PlayerType.PlayerA);
+        bool playerBHasChance = CheckFiveChance(_board, Enums.PlayerType.PlayerB);
+        return !(playerAHasChance || playerBHasChance); // 둘 다 기회가 없으면 무승부
+    }
+
+    //연속되는 5개가 만들어질 기회가 있는지 판단
+    private bool CheckFiveChance(Enums.PlayerType[,] board, Enums.PlayerType player)
+    {
+        var tempBoard = (Enums.PlayerType[,])board.Clone();
+        int size = board.GetLength(0);
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                if (tempBoard[row, col] != Enums.PlayerType.None) continue;
+                tempBoard[row, col] = player;
+                foreach (var dir in _directions)
+                {
+                    var (count, _) = CountStones(tempBoard, row, col, dir, player);
+
+                    // 자기 자신 포함하여 5개 이상일 시 true 반환
+                    if (count + 1 >= Constants.WIN_COUNT) return true;
+                }
+            }
+        }
+        return false;
+    }
+    //보드가 꽉 찼는지 확인
+    private static bool CheckIsFull(Enums.PlayerType[,] board)
+    {
+        int size = board.GetLength(0);
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                if (board[row, col] == Enums.PlayerType.None) return false;
+            }
+        }
+        return true;
+    }
+
+    #region Renju Rule Detector
     // 금수 위치 업데이트 및 표시
     private void UpdateForbiddenMoves()
     {

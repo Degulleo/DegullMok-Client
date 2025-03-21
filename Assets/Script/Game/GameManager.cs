@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class GameManager : Singleton<GameManager>
 {
     private Enums.GameType _gameType;
@@ -51,7 +50,6 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            Debug.Log("착수 위치를 선택 해주세요");
             //TODO: 착수할 위치를 선택하라는 동작
         }
     }

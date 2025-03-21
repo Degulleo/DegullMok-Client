@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     [Header("Sound")]
@@ -22,7 +23,7 @@ public class AudioManager : MonoBehaviour
             // 배경음악이 설정되면 재생
             audioSource.clip = mainBgm; // 음악 클립 설정
             audioSource.loop = true; // 반복 재생
-            audioSource.volume = 0.4f; // 볼륨
+            audioSource.volume = 0.2f; // 볼륨
             audioSource.Play(); // 음악 시작
         }
     }

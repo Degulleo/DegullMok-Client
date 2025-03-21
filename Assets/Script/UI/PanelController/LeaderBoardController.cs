@@ -25,36 +25,13 @@ public class LeaderBoardController : MonoBehaviour
         if (isLeaderboardLoaded) return;  // 이미 리더보드가 로드되었으면 중복 호출 방지
 
         leaderboardPanel.SetActive(true);
-        StartCoroutine(GetLeaderboardData());
+        NetworkManager.Instance.GetLeaderboardData((leaderboardItems) =>
+        {
+            Show(leaderboardItems);
+        }, () => { });
         isLeaderboardLoaded = true;
     }
-
-    private IEnumerator GetLeaderboardData()
-    {
-        string url = Constants.ServerURL + "/leaderboard";  // 서버의 리더보드 데이터 URL
-
-        UnityWebRequest www = UnityWebRequest.Get(url);  // GET 요청으로 데이터 받기
-        yield return www.SendWebRequest();  // 요청 전송 대기
-
-        // 요청이 실패했을 때
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.LogError("Error: " + www.error);
-        }
-        else
-        {
-            // 성공적으로 데이터를 받아온 경우
-            string jsonResponse = www.downloadHandler.text;  // 응답으로 받은 JSON 데이터
-
-            // JSON을 ScoreInfo 리스트로 파싱
-            ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
-            List<ScoreInfo> leaderboardItems = wrapper.scoreInfos;
-
-            // Show 메서드를 통해 데이터를 표시
-            Show(leaderboardItems);
-        }
-    }
-
+    
     public void Show(List<ScoreInfo> leaderboardItems)
     {
         // 기존 셀 삭제 (리스트가 갱신될 때마다)
@@ -106,7 +83,7 @@ public class LeaderBoardController : MonoBehaviour
         if (!string.IsNullOrEmpty(savedData))
         {
             // 저장된 JSON 데이터를 파싱하여 리더보드 리스트로 변환
-            leaderboard = JsonUtility.FromJson<ScoreListWrapper>(savedData).scoreInfos;
+            leaderboard = JsonUtility.FromJson<ScoreListWrapper>(savedData).leaderboardDatas;
         }
 
         return leaderboard;
