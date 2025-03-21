@@ -39,8 +39,8 @@ public class MainPanelButtonController : MonoBehaviour
         GameManager.Instance.panelManager.OpenReplayPanel();
     }
     
-    public void OpenRankingPanelClick()
-    {
-        GameManager.Instance.panelManager.OnRankingPanelClick();
-    }
+    //public void OpenRankingPanelClick()
+    //{
+        //GameManager.Instance.panelManager.OnRankingPanelClick();
+    //}
 }
