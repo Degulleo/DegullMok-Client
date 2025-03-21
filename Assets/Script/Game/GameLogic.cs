@@ -227,7 +227,7 @@ public class GameLogic : MonoBehaviour
             };
         }
         
-        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기
+        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기, 프로필정보도 넘겨줘야 합니다.
         ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
         
         switch (gameType)
