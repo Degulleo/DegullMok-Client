@@ -23,9 +23,9 @@ public class ScoreCellController : MonoBehaviour
         winText.text = item.win.ToString();
         loseText.text = item.lose.ToString();
       
-        if (profileImage != null && item.profileImageIndex != null)
+        if (profileImage != null && item.imageIndex != null)
         {
-            profileImage.sprite = profileSprites[item.profileImageIndex];  // 프로필 이미지 (Sprite 할당)
+            profileImage.sprite = profileSprites[item.imageIndex];  // 프로필 이미지 (Sprite 할당)
         }
     }
 }

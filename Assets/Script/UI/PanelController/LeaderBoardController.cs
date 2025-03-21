@@ -31,7 +31,7 @@ public class LeaderBoardController : MonoBehaviour
 
     private IEnumerator GetLeaderboardData()
     {
-        string url = Constants.ServerURL + "/leaderboard";  // 서버의 리더보드 데이터 URL
+        string url = Constants.ServerURL + "/leaderboard/";  // 서버의 리더보드 데이터 URL
 
         UnityWebRequest www = UnityWebRequest.Get(url);  // GET 요청으로 데이터 받기
         yield return www.SendWebRequest();  // 요청 전송 대기
@@ -48,7 +48,7 @@ public class LeaderBoardController : MonoBehaviour
 
             // JSON을 ScoreInfo 리스트로 파싱
             ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
-            List<ScoreInfo> leaderboardItems = wrapper.scoreInfos;
+            List<ScoreInfo> leaderboardItems = wrapper.leaderboardDatas;
 
             // Show 메서드를 통해 데이터를 표시
             Show(leaderboardItems);
@@ -106,7 +106,7 @@ public class LeaderBoardController : MonoBehaviour
         if (!string.IsNullOrEmpty(savedData))
         {
             // 저장된 JSON 데이터를 파싱하여 리더보드 리스트로 변환
-            leaderboard = JsonUtility.FromJson<ScoreListWrapper>(savedData).scoreInfos;
+            leaderboard = JsonUtility.FromJson<ScoreListWrapper>(savedData).leaderboardDatas;
         }
 
         return leaderboard;
