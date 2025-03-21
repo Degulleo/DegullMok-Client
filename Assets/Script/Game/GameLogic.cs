@@ -98,7 +98,6 @@ public class AIState: BasePlayerState
     public override void OnEnter(GameLogic gameLogic)
     {
         gameLogic.fioTimer.StartTimer();
-        //TODO: AI이식
         OmokAI.Instance.StartBestMoveSearch(gameLogic.GetBoard(), (bestMove) =>
         {
             if(bestMove.HasValue)
