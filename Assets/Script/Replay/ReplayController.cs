@@ -9,8 +9,6 @@ public class ReplayController : MonoBehaviour
 {
     [SerializeField] private TMP_Text playerANicknameText;  
     [SerializeField] private TMP_Text playerBNicknameText;
-    [SerializeField] private Image playerAImage;
-    [SerializeField] private Image playerBImage;
     [SerializeField] private GameObject[] userAProfileImages;
     [SerializeField] private GameObject[] userBProfileImages;
     void Start()
@@ -57,5 +55,22 @@ public class ReplayController : MonoBehaviour
     {
         playerANicknameText.text = ReplayManager.Instance.GetPlayerANickname();
         playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
+        
+        //TODO: ReplayManager에서 프로필 인덱스 가져와서 SetUserProfileImages호출하기
+    }
+
+    private void SetUserProfileImages(int imageIndex,GameObject[] profileImages)
+    { 
+        if (imageIndex < 0 || imageIndex >= profileImages.Length)
+        {
+            return;
+        }
+
+        // 모든 프로필 이미지 비활성화 후, 선택한 이미지만 활성화
+        foreach (var img in profileImages)
+        {
+            img.SetActive(false);
+        }
+        profileImages[imageIndex].SetActive(true);
     }
 }
