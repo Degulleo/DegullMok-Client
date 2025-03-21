@@ -30,12 +30,9 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
     /// </summary>
     private bool CheckDoubleFour(Enums.PlayerType[,] board, int row, int col)
     {
-        // 각각 두개의 라인에서 쌍사를 형성하는 경우
-        if (FindDoubleLineFour(board, row, col)) return true;
-
-        //  true : 일직선으로 쌍사가 만들어지는 특수 패턴
         //  false : 모든 경우에도 쌍사가 만들어지지 않음
-        return FindSingleLineDoubleFour(board, row, col);
+        return FindDoubleLineFour(board, row, col) ||       // 각각 두개의 라인에서 쌍사를 형성하는 경우
+                FindSingleLineDoubleFour(board, row, col);  // 일직선으로 쌍사가 만들어지는 특수 패턴
     }
 
     private bool FindDoubleLineFour(Enums.PlayerType[,] board, int row, int col)
@@ -136,7 +133,7 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
             }
             else
             {
-                linePattern[centerIndex + i] = Space; // 범위 밖은 빈칸으로 처리
+                linePattern[centerIndex + i] = White; // 범위 밖은 백돌로 처리
             }
         }
 
@@ -152,7 +149,7 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
             }
             else
             {
-                linePattern[centerIndex - i] = Space; // 범위 밖은 빈칸으로 처리
+                linePattern[centerIndex - i] = White; // 범위 밖은 백돌로 처리
             }
         }
 
@@ -181,7 +178,7 @@ public class RenjuDoubleFourDetector: ForbiddenDetectorBase
                 }
             }
 
-            // 정확히 4개의 돌이 있고, 1개의 빈칸이 있으면 4로 판정
+            // 4개의 돌이 있고, 1개의 빈칸이 있으면 4로 판정
             // (현재 위치는 흑으로 이미 설정되어 있음)
             if (stoneCount == 4)
             {
