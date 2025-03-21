@@ -189,11 +189,11 @@ public class PanelManager : MonoBehaviour
     }
     
     //코인 패널 코인 갱신
-    public void UpdateCoinsPanelUI(int coinsChanged, CanvasGroup shopPanel)
+    public void UpdateCoinsPanelUI(int coinsChanged)
     {
         if (_coinsPanel != null)
         {
-            _coinsPanel.AddCoins(coinsChanged, shopPanel, () =>
+            _coinsPanel.AddCoins(coinsChanged, () =>
             {
                 
             });
@@ -202,6 +202,22 @@ public class PanelManager : MonoBehaviour
         {
             Debug.Log("코인 패널이 null 입니다.");
         }
+    }
+
+    public void RemoveCoinsPanelUI(Action onComplete)
+    {
+        NetworkManager.Instance.DeductCoins((i) =>
+        {
+            
+        }, (s) =>
+        {
+            
+        });
+        
+        _coinsPanel.RemoveCoins((() =>
+        {
+            onComplete?.Invoke();
+        }));
     }
 
    

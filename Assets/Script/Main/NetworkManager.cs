@@ -446,6 +446,72 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
     
+    /// <summary>
+    /// 코인 제거 함수
+    /// </summary>
+    /// <param name="success"></param>
+    /// <param name="failure"></param>
+    public void DeductCoins(Action<int> success, Action<string> failure)
+    {
+        StartCoroutine(DeductCoinsCoroutine(success, failure));
+    }
+
+    private IEnumerator DeductCoinsCoroutine(Action<int> success, Action<string> failure)
+    {
+        string DeductCoinsUrl = Constants.ServerURL + "/coins/deduct";
+        
+        using (UnityWebRequest www = new UnityWebRequest(DeductCoinsUrl, UnityWebRequest.kHttpVerbPOST))
+        {
+            www.downloadHandler = new DownloadHandlerBuffer();
+            string sid = PlayerPrefs.GetString("sid", "");
+
+            if (!string.IsNullOrEmpty(sid))
+            {
+                www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                failure?.Invoke("LOGIN_REQUIRED");
+                yield break;
+            }
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || 
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("코인 차감 실패: " + www.error);
+
+                if (www.responseCode == 400)
+                {
+                    failure?.Invoke("INSUFFICIENT_COINS");
+                }
+                else
+                {
+                    failure?.Invoke("ERROR");
+                }
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                var deductResult = JsonUtility.FromJson<DeductCoinsResult>(result);
+
+                if (deductResult.result == "SUCCESS")
+                {
+                    Debug.Log("코인 차감 완료: " + deductResult.deducted);
+                    UserManager.Instance.SetCoinsInfo();
+                    success?.Invoke(deductResult.deducted);
+                }
+                else
+                {
+                    Debug.LogError("코인 차감 실패: " + deductResult.result);
+                    failure?.Invoke(deductResult.result);
+                }
+            }
+        }
+    }
+    
     public void GetLeaderboardData(Action<List<ScoreInfo>> success, Action failure)
     {
         StartCoroutine(GetLeaderboardDataCoroutine(success, failure));
