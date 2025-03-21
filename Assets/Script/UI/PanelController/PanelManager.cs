@@ -202,7 +202,7 @@ public class PanelManager : MonoBehaviour
     }
     
     //코인 패널 코인 갱신
-    public void CoinsPanelUIAdd(int coinsChanged, CanvasGroup shopPanel)
+    public void AddPanelUICoins(int coinsChanged, CanvasGroup shopPanel)
     {
         if (_coinsPanel != null)
         {
@@ -220,7 +220,7 @@ public class PanelManager : MonoBehaviour
     /// <summary>
     /// 코인 제거 테스트 코드
     /// </summary>
-    public void CoinsPanelUIRemove()
+    public void RemovePanelUICoins()
     {
         NetworkManager.Instance.DeductCoins((i) =>
         {

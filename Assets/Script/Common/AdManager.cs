@@ -72,7 +72,7 @@ public class AdManager : MonoBehaviour
         NetworkManager.Instance.WatchAdForCoins((coinsAdded) =>
         {
             // UI 업데이트
-            GameManager.Instance.panelManager.CoinsPanelUIAdd(coinsAdded, shopPanel);
+            GameManager.Instance.panelManager.AddPanelUICoins(coinsAdded, shopPanel);
         }, () =>
         {
             Debug.Log("광고 시청 후 코인 추가 실패");

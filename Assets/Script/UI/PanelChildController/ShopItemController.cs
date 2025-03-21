@@ -40,7 +40,7 @@ public class ShopItemController : MonoBehaviour
                 "GooglePay",     // 결제 방식 (GooglePay, PayPal 등)
                 (coins) => {
                     
-                    GameManager.Instance.panelManager.CoinsPanelUIAdd(coins,shopPanel);
+                    GameManager.Instance.panelManager.AddPanelUICoins(coins,shopPanel);
                     
                 },
                 () => {

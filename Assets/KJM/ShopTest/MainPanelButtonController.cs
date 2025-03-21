@@ -42,8 +42,8 @@ public class MainPanelButtonController : MonoBehaviour
     /// <summary>
     /// 코인 제거 테스트 코드
     /// </summary>
-    public void RemovecoinsTest()
+    public void RemoveCoinsTest()
     {
-        GameManager.Instance.panelManager.CoinsPanelUIRemove();
+        GameManager.Instance.panelManager.RemovePanelUICoins();
     }
 }

@@ -1651,7 +1651,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5873276942444222861}
         m_TargetAssemblyTypeName: MainPanelButtonController, Assembly-CSharp
-        m_MethodName: RemovecoinsTest
+        m_MethodName: RemoveCoinsTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
