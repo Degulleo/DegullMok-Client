@@ -19,6 +19,7 @@ public class PanelManager : MonoBehaviour
     
     private void Awake()
     {
+        SetCanvas();
         // Prefabs 폴더에서 모든 패널 프리팹 로드
         GameObject[] prefabs = Resources.LoadAll<GameObject>("Prefabs/Panels");
 
@@ -30,7 +31,7 @@ public class PanelManager : MonoBehaviour
         Debug.Log($"총 {panelPrefabs.Count}개의 패널이 로드됨.");
     }
     
-    void Start()
+    void SetCanvas()
     {
         if (_canvas == null)
         {
@@ -114,7 +115,6 @@ public class PanelManager : MonoBehaviour
         if (_canvas != null)
         {
             var settingsPanelObject = GetPanel("Setting Panel");
-            settingsPanelObject.GetComponent<PanelController>().Show();
         }
     }
     

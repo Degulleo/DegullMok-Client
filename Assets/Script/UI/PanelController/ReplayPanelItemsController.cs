@@ -29,8 +29,4 @@ public class ReplayPanelItemsController : ScrollPanelController
             replayCell.SetReplayRecord(replayRecord);
         }
     }
-    public virtual void Show()
-    {
-        base.Show();
-    }
 }
