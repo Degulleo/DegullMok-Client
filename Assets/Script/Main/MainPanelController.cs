@@ -82,7 +82,12 @@ public class MainPanelController : MonoBehaviour
     //대국 시작 버튼 클릭
     public void OnClickGameStart()
     {
-        GameManager.Instance.ChangeToGameScene(Enums.GameType.SinglePlay);
+        //코인 차감 후 게임 씬 로드
+        GameManager.Instance.panelManager.RemoveCoinsPanelUI((() => 
+        {
+            GameManager.Instance.ChangeToGameScene(Enums.GameType.SinglePlay);
+            //Todo: 게임 타입에 따라 다른 Scene 호출
+        }));
     }
     
     //상점 패널 생성
