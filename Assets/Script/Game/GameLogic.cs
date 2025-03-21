@@ -59,6 +59,10 @@ public class PlayerState : BasePlayerState
         gameLogic.fioTimer.StartTimer();
         
         //TODO: 첫번째 플레이어면 렌주 룰 확인
+        #region Renju Turn Set
+        // 턴이 변경될 때마다 금수 위치 업데이트
+        gameLogic.UpdateForbiddenMoves();
+        #endregion
         
         gameLogic.currentTurn = _playerType;
         gameLogic.stoneController.OnStoneClickedDelegate = (row, col) =>
@@ -273,12 +277,6 @@ public class GameLogic : MonoBehaviour
 
     public void SetStoneSelectedState(int row, int col)
     {
-
-#region Renju Turn Set
-        // 턴이 변경될 때마다 금수 위치 업데이트
-        UpdateForbiddenMoves();
-#endregion
-
         if (_board[row, col] != Enums.PlayerType.None) return;
         
         if (stoneController.GetStoneState(row, col) != Enums.StoneState.None && currentTurn == Enums.PlayerType.PlayerA) return;
@@ -454,20 +452,20 @@ public class GameLogic : MonoBehaviour
 
     #region Renju Rule Detector
     // 금수 위치 업데이트 및 표시
-    private void UpdateForbiddenMoves()
+    public void UpdateForbiddenMoves()
     {
         ClearForbiddenMarks();
 
         if (currentTurn == Enums.PlayerType.PlayerA)
         {
-            _forbiddenMoves = _forbiddenDetector.RenjuForbiddenMove(_board);
+            var cloneBoard = (Enums.PlayerType[,])_board.Clone();
+            _forbiddenMoves = _forbiddenDetector.RenjuForbiddenMove(cloneBoard);
 
             foreach (var pos in _forbiddenMoves)
             {
                 SetStoneNewState(Enums.StoneState.Blocked, pos.x, pos.y);
             }
         }
-
     }
 
     // 이전에 표시된 금수 마크 제거

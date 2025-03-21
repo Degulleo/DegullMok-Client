@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class GameManager : Singleton<GameManager>
 {
     private Enums.GameType _gameType;
@@ -31,10 +30,10 @@ public class GameManager : Singleton<GameManager>
 
         //게임 씬에서 확인하기 위한 임시 코드
         // _canvas = canvas.GetComponent<Canvas>();
-        _stoneController = GameObject.FindObjectOfType<StoneController>();
-        _stoneController.InitStones();
-        var fioTimer = FindObjectOfType<FioTimer>();
-        _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
+        // _stoneController = GameObject.FindObjectOfType<StoneController>();
+        // _stoneController.InitStones();
+        // var fioTimer = FindObjectOfType<FioTimer>();
+        // _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
     }
 
     private void InitPanels()
@@ -74,6 +73,7 @@ public class GameManager : Singleton<GameManager>
             var fioTimer = FindObjectOfType<FioTimer>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
+        InitPanels();
     }
     //임시 재시작 재대결
     public void RetryGame()

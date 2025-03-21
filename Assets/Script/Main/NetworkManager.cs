@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
@@ -47,7 +48,6 @@ public class NetworkManager : Singleton<NetworkManager>
             else
             {
                 var result = www.downloadHandler.text;
-                success?.Invoke();
                 
                 // 회원가입 성공 팝업 표시
                 GameManager.Instance.panelManager.OpenConfirmPanel("회원 가입이 완료 되었습니다.", () =>
@@ -385,7 +385,7 @@ public class NetworkManager : Singleton<NetworkManager>
     /// <param name="paymentType">결제타입(카드,구글페이)</param>
     /// <param name="success"></param>
     /// <param name="failure"></param>
-        public void PurchaseCoins(int amount, string paymentId, string paymentType, Action<int> success, Action failure)
+    public void PurchaseCoins(int amount, string paymentId, string paymentType, Action<int> success, Action failure)
     {
         StartCoroutine(PurchaseCoinsCoroutine(amount, paymentId, paymentType, success, failure));
     }
@@ -395,10 +395,10 @@ public class NetworkManager : Singleton<NetworkManager>
         string url = Constants.ServerURL + "/coins/purchase"; // 서버 엔드포인트
         PurchaseData purchaseData = new PurchaseData(amount, paymentId, paymentType);
         string jsonString = JsonUtility.ToJson(purchaseData);
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
 
         using (UnityWebRequest www = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST))
         {
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
@@ -443,6 +443,38 @@ public class NetworkManager : Singleton<NetworkManager>
                     failure?.Invoke();
                 }
             }
+        }
+    }
+    
+    public void GetLeaderboardData(Action<List<ScoreInfo>> success, Action failure)
+    {
+        StartCoroutine(GetLeaderboardDataCoroutine(success, failure));
+    }
+    
+    private IEnumerator GetLeaderboardDataCoroutine(Action<List<ScoreInfo>> success, Action failure)
+    {
+        string url = Constants.ServerURL + "/leaderboard/";  // 서버의 리더보드 데이터 URL
+
+        UnityWebRequest www = UnityWebRequest.Get(url);  // GET 요청으로 데이터 받기
+        yield return www.SendWebRequest();  // 요청 전송 대기
+
+        // 요청이 실패했을 때
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error: " + www.error);
+            failure?.Invoke();
+        }
+        else
+        {
+            // 성공적으로 데이터를 받아온 경우
+            string jsonResponse = www.downloadHandler.text;  // 응답으로 받은 JSON 데이터
+
+            // JSON을 ScoreInfo 리스트로 파싱
+            ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
+            List<ScoreInfo> leaderboardItems = wrapper.leaderboardDatas;
+
+            // Show 메서드를 통해 데이터를 표시
+            success?.Invoke(leaderboardItems);
         }
     }
 }
