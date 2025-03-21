@@ -29,7 +29,7 @@ public struct ScoreInfo
     public int win;
     public int lose;
     public int totalGames;
-    public int profileImageIndex;
+    public int imageIndex;
 }
 
 [Serializable]
