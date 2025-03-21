@@ -20,6 +20,7 @@ public class CoinsPanelController : MonoBehaviour
     private AudioSource _audioSource;
     private int _coinsCount;
     private RectTransform _coinsRect;
+    private CanvasGroup _canvasGroup;   //중복 클릭 방지 부모 캔버스 그룹
     
     // 1. 코인 추가 연출
     // 2. 코인 감소 연출
@@ -30,6 +31,7 @@ public class CoinsPanelController : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _coinsColor = coinsRemoveImageObject.GetComponent<Image>().color;
         _coinsRect = GetComponent<RectTransform>();
+        _canvasGroup = GetComponentInParent<CanvasGroup>();
     }
 
     private void Start()
@@ -94,11 +96,10 @@ public class CoinsPanelController : MonoBehaviour
     /// 코인 추가 함수
     /// </summary>
     /// <param name="coinsCount"> 추가할 코인 수량</param>
-    /// <param name="shopPanel">상점 패널 캔버스 그룹</param>
     /// <param name="action">애니메이션 종료 후 동작 EX) 코인 수량 변경</param>
-    public void AddCoins(int coinsCount, CanvasGroup shopPanel,Action action)
+    public void AddCoins(int coinsCount, Action action)
     {
-        shopPanel.blocksRaycasts = false;   //코인 중복 추가 방지 코드
+        _canvasGroup.blocksRaycasts = false;
         
         Sequence sequence = DOTween.Sequence();
         // i += a  반복 횟수 조절, 100개 단위로 상승 차감 시 100으로 설정
@@ -120,7 +121,7 @@ public class CoinsPanelController : MonoBehaviour
         }
         sequence.OnComplete(() =>
         {
-            shopPanel.blocksRaycasts = true;    //구매 후 클릭 활성화
+            _canvasGroup.blocksRaycasts = true;
         });
     }
 
