@@ -19,7 +19,6 @@ public class PanelManager : MonoBehaviour
     
     private void Awake()
     {
-        SetCanvas();
         // Prefabs 폴더에서 모든 패널 프리팹 로드
         GameObject[] prefabs = Resources.LoadAll<GameObject>("Prefabs/Panels");
 
@@ -30,8 +29,8 @@ public class PanelManager : MonoBehaviour
 
         Debug.Log($"총 {panelPrefabs.Count}개의 패널이 로드됨.");
     }
-
-    private void SetCanvas()
+    
+    void Start()
     {
         if (_canvas == null)
         {
@@ -119,12 +118,17 @@ public class PanelManager : MonoBehaviour
         }
     }
     
-    public void OpenRankingPanel(List<RankingItem> rankingItems)
+    public void OpenRankingPanel()
     {
         if (_canvas != null)
         {
-            var settingsPanelObject = GetPanel("Ranking Panel");
-            settingsPanelObject.GetComponent<RankingPanelController>().Show(rankingItems);
+            var settingsPanelObject = GetPanel("LeaderboardPanel");
+            var leaderboardController = settingsPanelObject.GetComponent<LeaderBoardController>();
+
+            if (leaderboardController != null)
+            {
+                leaderboardController.OnClickLeaderboardButton();  // 이 메서드를 호출하여 데이터를 로드하고 Show()가 실행되도록 합니다.
+            }
         }
     }
     
@@ -142,7 +146,7 @@ public class PanelManager : MonoBehaviour
         if (_canvas != null)
         {
             var replayPanelObject = GetPanel("Replay Panel");
-            replayPanelObject.GetComponent<ReplayPanelController>().Show();
+            replayPanelObject.GetComponent<ReplayPanelItemsController>().Show();
         }
     }
     
@@ -156,37 +160,18 @@ public class PanelManager : MonoBehaviour
         return;
     }
     
-    //랭킹 패널 생성
-    public void OnRankingPanelClick()
-    {
-        List<RankingItem> rankingItems = new List<RankingItem>();       //테스트 데이터 리스트 생성
-        for (int i = 0; i < 30; i++)
-        {
-            RankingItem rankingItem = new RankingItem
-            {
-                ProfileSpriteIndex = Random.Range(0, 2),
-                Name = i.ToString(),
-                WinRate = Random.Range(0f, 1f)
-            };
-            rankingItems.Add(rankingItem);
-        }
-        
-        OpenRankingPanel(rankingItems);
-    }
-    
     //상점 패널 생성
     public void OnShopPanelClick()
     {
-        
-        List<ShopItem> shopItems = new List<ShopItem>();       //테스트 데이터 리스트 생성
-        for (int i = 0; i < 10; i++)
+        List<ShopItem> shopItems = new List<ShopItem>();       //상점 데이터 리스트 생성
+        for (int i = 0; i < 5; i++)
         {
             if (i == 0)     //광고 항목
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    Name = "코인10개",
-                    Price = "광고"
+                    name = "광고) 코인500개 ",
+                    price = 0
                 };
                 shopItems.Add(shopItem);
             }
@@ -194,21 +179,21 @@ public class PanelManager : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    Name = "코인"+i+"개",
-                    Price = (i * 1000)+ "원"
+                    name = i*1000+"개 ",
+                    price = i * 1000
                 };
                 shopItems.Add(shopItem);
             }
         }
- 
-        OpenShopPanel(shopItems);
+        GameManager.Instance.panelManager.OpenShopPanel(shopItems);
     }
     
-    public void UpdateCoinsPanelUI(int coinsChanged)
+    //코인 패널 코인 갱신
+    public void UpdateCoinsPanelUI(int coinsChanged, CanvasGroup shopPanel)
     {
         if (_coinsPanel != null)
         {
-            _coinsPanel.AddCoins(coinsChanged, () =>
+            _coinsPanel.AddCoins(coinsChanged, shopPanel, () =>
             {
                 
             });

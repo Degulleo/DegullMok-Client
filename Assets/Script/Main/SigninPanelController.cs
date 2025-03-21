@@ -25,6 +25,11 @@ public struct ScoreInfo
     public string email;
     public string nickname;
     public int score;
+    public float winRate;
+    public int win;
+    public int lose;
+    public int totalGames;
+    public int imageIndex;
 }
 
 [Serializable]
@@ -55,14 +60,13 @@ public class SigninPanelController : MonoBehaviour
         
         NetworkManager.Instance.Signin(signinData, (signinResult) =>
         {
-            if (mainPanel == null) mainPanel = FindObjectOfType<MainPanelManager>();
+            Destroy(gameObject);
             
             // 유저 정보 저장
             UserManager.Instance.SetUserInfo(signinResult);
             
             // 메인 패널 정보 갱신
             mainPanel.UpdateMainPanelUI(GameManager.Instance.panelManager.OpenMainPanel);
-            Destroy(gameObject);
         }, result =>
         {
             if (result == 0)

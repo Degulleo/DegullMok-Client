@@ -8,10 +8,10 @@ public class CoinUITestScript : MonoBehaviour
 
     public void OnClickAddCoin()
     {
-        coinsPanelController.AddCoins(100, () =>
-        {
-            Debug.Log("Add coin 후 동작");
-        });
+        // coinsPanelController.AddCoins(100, () =>
+        // {
+        //     Debug.Log("Add coin 후 동작");
+        // });
     }
 
     public void OnClickRemoveCoin()

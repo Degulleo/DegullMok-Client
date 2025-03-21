@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3015309825845733259}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7488082087611091670}
+        m_TargetAssemblyTypeName: MainPanelController, Assembly-CSharp
+        m_MethodName: OnLeaderboardButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &683375887058748135
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +387,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6468719718473664808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
+        m_MethodName: OpenSettingsPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1637449823560643887
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2720476515686469179}
   - component: {fileID: 7796730417217941349}
-  - component: {fileID: 8890768496808647529}
+  - component: {fileID: 5873276942444222861}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -444,7 +468,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &8890768496808647529
+--- !u!114 &5873276942444222861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -453,7 +477,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1637449823560643887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9598d78723880e4f8026beb096f28c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 93bfed50167472f489a27f0518070ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2440131775796007731
@@ -845,7 +869,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890768496808647529}
+      - m_Target: {fileID: 5873276942444222861}
         m_TargetAssemblyTypeName: MainPanelButtonController, Assembly-CSharp
         m_MethodName: OnShopPanelClick
         m_Mode: 1
@@ -1093,7 +1117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "16\uAE09"
+  m_text: "18\uAE09"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -1283,9 +1307,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890768496808647529}
-        m_TargetAssemblyTypeName: MainPanelButtonController, Assembly-CSharp
-        m_MethodName: OpenReplayPanelClick
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
+        m_MethodName: OpenReplayPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1690,7 +1714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD14C\uC2A4\uD2B801"
+  m_text: "\uBC15\uC77C\uD658"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -1934,6 +1958,7 @@ MonoBehaviour:
   profileImages:
   - {fileID: 4381601883819518242}
   - {fileID: 6837262359343561592}
+  rankingButton: {fileID: 202560210887412943}
 --- !u!1 &9186617826613474881
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,8 +16,8 @@ public class MainPanelButtonController : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    Name = "코인500개 ",
-                    Price = "광고"
+                    name = "광고) 코인500개 ",
+                    price = 0
                 };
                 shopItems.Add(shopItem);
             }
@@ -25,13 +25,12 @@ public class MainPanelButtonController : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    Name = "코인"+i*1000+"개 ",
-                    Price = (i * 1000)+ "원"
+                    name = i*1000+"개 ",
+                    price = i * 1000
                 };
                 shopItems.Add(shopItem);
             }
         }
- 
         GameManager.Instance.panelManager.OpenShopPanel(shopItems);
     }
 
@@ -39,4 +38,9 @@ public class MainPanelButtonController : MonoBehaviour
     {
         GameManager.Instance.panelManager.OpenReplayPanel();
     }
+    
+    //public void OpenRankingPanelClick()
+    //{
+        //GameManager.Instance.panelManager.OnRankingPanelClick();
+    //}
 }
