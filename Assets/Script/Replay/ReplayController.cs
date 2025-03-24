@@ -18,16 +18,19 @@ public class ReplayController : MonoBehaviour
     
     public void OnclickExitButton()
     {
+        ReplayManager.Instance.StopReplayFinish();
         SceneManager.LoadScene("Main");
     }
 
     public void OnclickFirstButton()
     {
+        ReplayManager.Instance.StopReplayFinish();
         ReplayManager.Instance.ReplayFirst();
     }
 
     public void OnclickUndoButton()
     {
+        ReplayManager.Instance.StopReplayFinish();
         Move targetMove = ReplayManager.Instance.PopPlacedMove();
         if (targetMove != null)
         {
@@ -37,6 +40,7 @@ public class ReplayController : MonoBehaviour
 
     public void OnclickNextButton()
     {
+        ReplayManager.Instance.StopReplayFinish();
         Move nextMove = ReplayManager.Instance.GetNextMove();
         if (nextMove != null)
         {

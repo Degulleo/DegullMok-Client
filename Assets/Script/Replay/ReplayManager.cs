@@ -34,6 +34,7 @@ public class Move
 public class ReplayManager : Singleton<ReplayManager>
 {
     private ReplayRecord _recordingReplayData;
+    private Coroutine finishCoroutine;
 
     #region 기보 시작 후 데이터를 컨트롤하기
     
@@ -225,7 +226,16 @@ public class ReplayManager : Singleton<ReplayManager>
     
     public void ReplayFinish()
     {
-        StartCoroutine(IReplayFinish());
+        finishCoroutine = StartCoroutine(IReplayFinish());
+    }
+
+    public void StopReplayFinish()
+    {
+        if (finishCoroutine != null)
+        {
+            StopCoroutine(finishCoroutine);
+            finishCoroutine = null;
+        }
     }
 
     private IEnumerator IReplayFinish()
