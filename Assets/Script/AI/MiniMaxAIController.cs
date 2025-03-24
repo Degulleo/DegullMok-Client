@@ -10,7 +10,7 @@ public static class MiniMaxAIController
     
     private static int[][] _directions = AIConstants.Directions;
 
-    private static int _playerLevel = 1; // 급수 설정
+    private static int _playerRating = 1; // 급수 설정
     private static float _mistakeMove;
     
     private static Enums.PlayerType _AIPlayerType = Enums.PlayerType.PlayerB;
@@ -28,11 +28,11 @@ public static class MiniMaxAIController
     }
     
     // 급수 설정 -> 실수 넣을 때 계산
-    public static void SetLevel(int level)
+    public static void SetRating(int level)
     {
-        _playerLevel = level;
+        _playerRating = level;
         // 레벨에 따른 실수율? 설정
-        _mistakeMove = GetMistakeProbability(_playerLevel);
+        _mistakeMove = GetMistakeProbability(_playerRating);
     }
     
     // 실수 확률 계산 함수
@@ -51,6 +51,7 @@ public static class MiniMaxAIController
         float bestScore = float.MinValue;
         (int row, int col)? bestMove = null;
         (int row, int col)? secondBestMove = null;
+        List<(int row, int col)>? fiveInARowMoves = null;
         List<(int row, int col, float score)> validMoves = GetValidMoves(board);
         
         // 보드에 놓을 수 있는 자리가 있는지 확인
@@ -59,9 +60,17 @@ public static class MiniMaxAIController
             return null;
         }
         
-        // 5연승 가능한 자리를 먼저 찾아서 우선적으로 설정
-        List<(int row, int col)> fiveInARowMoves = GetFiveInARowCandidateMoves(board);
-        if (fiveInARowMoves.Count > 0)
+        // 즉시 승리 가능한 자리를 먼저 찾아서 우선적으로 설정
+        fiveInARowMoves = GetFiveInARowCandidateMoves(board, _AIPlayerType);
+        if (fiveInARowMoves != null & fiveInARowMoves.Count > 0)
+        {
+            bestMove = fiveInARowMoves[0]; 
+            return bestMove;
+        }
+        
+        // 즉시 패배 가능한 자리를 먼저 찾아서 우선적으로 설정
+        fiveInARowMoves = GetFiveInARowCandidateMoves(board, _AIPlayerType);
+        if (fiveInARowMoves != null & fiveInARowMoves.Count > 0)
         {
             bestMove = fiveInARowMoves[0]; 
             return bestMove;
@@ -136,6 +145,8 @@ public static class MiniMaxAIController
     private static List<(int row, int col, float score)> GetValidMoves(Enums.PlayerType[,] board)
     {
         List<(int, int, float)> validMoves = new List<(int, int, float)>();
+        List<(int, int, float)> allMoves = new List<(int, int, float)>();
+
         int size = board.GetLength(0);
 
         for (int row = 0; row < size; row++)
@@ -146,16 +157,26 @@ public static class MiniMaxAIController
                 {
                     // 보드 전체가 아닌 해당 돌에 대해서만 Score 계산
                     float score = AIEvaluator.EvaluateMove(board, row, col, _AIPlayerType);
-                    validMoves.Add((row, col, score));
+                    allMoves.Add((row, col, score));
                 }
             }
         }
 
         // score가 높은 순으로 정렬 -> 더 좋은 수 먼저 계산하도록 함
-        validMoves.Sort((a, b) => b.Item3.CompareTo(a.Item3));  
-        
-        // 시간 단축을 위해 상위 10-15개만 고려.
-        return validMoves.Take(10).ToList(); 
+        allMoves.Sort((a, b) => b.Item3.CompareTo(a.Item3)); 
+    
+        int topCount = Math.Min(8, allMoves.Count); // 상위 8개 (또는 가능한 최대)
+        validMoves.AddRange(allMoves.Take(topCount));
+    
+        // 중간 범위의 점수를 가진 수도 일부 포함 (전략적 게임을 위해서)
+        if (allMoves.Count > topCount + 10) // 10개 이상의 후보가 있을 때만
+        {
+            var middleIndex = allMoves.Count / 2;
+            var middleMoves = allMoves.Skip(middleIndex - 1).Take(2); // 중간 부분에서 2개 선택
+            validMoves.AddRange(middleMoves);
+        }
+    
+        return validMoves;
     }
     
     private static bool HasNearbyStones(Enums.PlayerType[,] board, int row, int col, int distance = 3)
@@ -286,7 +307,7 @@ public static class MiniMaxAIController
     }
 
     // 5목이 될 수 있는 위치 찾기
-    private static List<(int row, int col)> GetFiveInARowCandidateMoves(Enums.PlayerType[,] board)
+    private static List<(int row, int col)> GetFiveInARowCandidateMoves(Enums.PlayerType[,] board, Enums.PlayerType currentPlayer)
     {
         List<(int row, int col)> fiveInARowMoves = new List<(int, int)>();
         int size = board.GetLength(0);
@@ -299,7 +320,7 @@ public static class MiniMaxAIController
 
                 foreach (var dir in _directions)
                 {
-                    var (count, openEnds) = CountStones(board, row, col, dir, _AIPlayerType);
+                    var (count, openEnds) = CountStones(board, row, col, dir, currentPlayer, false);
 
                     if (count == 4 && openEnds > 0)
                     {

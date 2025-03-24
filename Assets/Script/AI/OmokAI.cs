@@ -11,6 +11,16 @@ public class OmokAI : MonoBehaviour
         Instance = this;
     }
 
+    public void SetAIPlayerType(Enums.PlayerType AIPlayerType)
+    {
+        MiniMaxAIController.SetAIPlayerType(AIPlayerType);
+    }
+
+    public void SetRating(int level)
+    {
+        MiniMaxAIController.SetRating(level);
+    }
+
     public async void StartBestMoveSearch(Enums.PlayerType[,] board, Action<(int, int)?> callback)
     {
         (int row, int col)? bestMove = await Task.Run(() => MiniMaxAIController.GetBestMove(board));
