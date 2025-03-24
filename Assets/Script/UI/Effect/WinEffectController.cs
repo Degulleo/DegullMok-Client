@@ -4,63 +4,26 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class WinEffectController : MonoBehaviour
+public class WinEffectController : EffectController
 {
     [SerializeField] private GameObject haloEffectImg;
     [SerializeField] private GameObject characterImg;
     [SerializeField] private GameObject[] shineEffectImg;
     [SerializeField] private GameObject[] circleEffectImg;
-    [SerializeField] private TextMeshProUGUI bannerText;
-    
-    [SerializeField] private string fullText = "승리했습니다!"; // 원하는 문구를 인스펙터에서 설정 가능
-    [SerializeField] private float interval = 0.1f; // 글자 추가 속도 조정 가능
 
-    private int currentLength = 0;
-    private CancellationTokenSource cancellationTokenSource;
-    
-    private void Start()
+    protected override string fullText => "승리했습니다!";
+
+
+    protected override void ShowEffect()
     {
-        ShowWinEffect();
-    }
-    
-    private void ShowWinEffect()
-    {
-        // 패널 활성화
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
         
-        ShowPanel(); // 패널 크기 확대 효과
-        StartCoroutine(AnimateLoadingText()); // 텍스트 타이핑 효과
-        RotateHaloObject(); // 돌아가는 광선 효과
-        ScaleUpSparkles(); // 반짝이 효과
-        Invoke(nameof(PopupObject), 0.3f); // 0.3초 후에 배너 효과 실행
-    }
-
-    // 패널 크기 및 페이드 변화
-    private void ShowPanel()
-    {
-        CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-        {
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();  // CanvasGroup이 없다면 추가
-        }
-        
-        canvasGroup.alpha = 0f;
-        canvasGroup.DOFade(1f, 1f);
-        transform.DOScale(Vector3.zero, 0f);
-        transform.DOScale(Vector3.one, 1f);
-    }
-
-    // 글자 하나씩 나타나는 타이핑 효과
-    private IEnumerator AnimateLoadingText()
-    {
-        yield return new WaitForSeconds(1f);
-        while (currentLength != fullText.Length)
-        {
-            currentLength = (currentLength + 1) % (fullText.Length + 1); // 글자 하나씩 추가
-            bannerText.text = fullText.Substring(0, currentLength); // 부분 문자열 표시
-            yield return new WaitForSeconds(interval);
-        }
+        ShowPanel();
+        StartCoroutine(AnimateLoadingText());
+        RotateHaloObject();
+        ScaleUpSparkles();
+        Invoke(nameof(PopupObject), 0.3f);
     }
 
     private void RotateHaloObject()
@@ -128,15 +91,5 @@ public class WinEffectController : MonoBehaviour
             effect.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InOutBounce).SetDelay(0.3f);
             yield return new WaitForSeconds(0.3f);
         }
-    }
-
-    public void HideWinEffect()
-    {
-        // 코루틴 취소 및 패널 숨기기
-        if (cancellationTokenSource != null)
-        {
-            cancellationTokenSource.Cancel();
-        }
-        gameObject.SetActive(false);
     }
 }

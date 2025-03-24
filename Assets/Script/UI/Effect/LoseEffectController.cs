@@ -1,57 +1,101 @@
 ﻿using System.Collections;
 using System.Threading;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class LoseEffectController : MonoBehaviour
+public class LoseEffectController : EffectController
 {
-    [SerializeField] private TextMeshProUGUI bannerText;
     [SerializeField] private GameObject characterOpenEyes;
     [SerializeField] private GameObject characterCloseEyes;
-    
-    [SerializeField] private string fullText = "패배했습니다"; // 원하는 문구를 인스펙터에서 설정 가능
-    [SerializeField] private float interval = 0.1f; // 글자 추가 속도 조정 가능
+    [SerializeField] private GameObject depressedEffect;
 
-    private int currentLength = 0;
-    private CancellationTokenSource cancellationTokenSource;
+    protected override string fullText => "패배했습니다";
 
-    private void Start()
+    protected override void ShowEffect()
     {
-        ShowWinEffect();
-    }
-    
-    private void ShowWinEffect()
-    {
-        // 패널 활성화
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
-        
-        StartCoroutine(AnimateLoadingText()); // 텍스트 타이핑 효과
-        StartCoroutine(AnimateCharacterEyes()); // 텍스트 타이핑 효과
+
+        ShowPanel();
+        StartCoroutine(AnimateLoadingText());
+        PopupDepressedEffect();
+        Invoke(nameof(PopupBanner), 0.3f); // 0.3초 후에 배너 효과 실행
     }
-    
-    // 글자 하나씩 나타나는 타이핑 효과
-    private IEnumerator AnimateLoadingText()
+
+    protected override void ShowPanel()
     {
-        yield return new WaitForSeconds(1f);
-        while (currentLength != fullText.Length)
-        {
-            currentLength = (currentLength + 1) % (fullText.Length + 1); // 글자 하나씩 추가
-            bannerText.text = fullText.Substring(0, currentLength); // 부분 문자열 표시
-            yield return new WaitForSeconds(interval);
-        }
+        CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.DOFade(1f, 1f);
+        bannerObj.transform.DOScale(Vector3.zero, 0f);
+        bannerObj.transform.DOScale(Vector3.one, 1f);
     }
 
     private IEnumerator AnimateCharacterEyes()
     {
         while (!cancellationTokenSource.IsCancellationRequested)
         {
-            characterOpenEyes.SetActive(true);
-            characterCloseEyes.SetActive(false);
-            yield return new WaitForSeconds(2f);
             characterOpenEyes.SetActive(false);
             characterCloseEyes.SetActive(true);
             yield return new WaitForSeconds(0.2f);
+            characterOpenEyes.SetActive(true);
+            characterCloseEyes.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+            characterOpenEyes.SetActive(false);
+            characterCloseEyes.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+            characterOpenEyes.SetActive(true);
+            characterCloseEyes.SetActive(false);
+            yield return new WaitForSeconds(2f);
+        }
+    }
+    
+    private void PopupBanner()
+    {
+        characterCloseEyes.SetActive(true);
+        characterOpenEyes.SetActive(false);
+        // 초기 크기 및 위치 설정
+        characterCloseEyes.transform.localScale = Vector3.zero;
+        characterCloseEyes.transform.localPosition = new Vector3(0f, -100f, 0f);
+
+        // 크기 확대 + 위치 이동
+        characterCloseEyes.transform.DOScale(Vector3.one * 1.5f, 0.5f)
+            .SetEase(Ease.OutElastic); // 더 부드러운 탄성 효과
+
+        characterCloseEyes.transform.DOLocalMoveY(120f, 0.5f)
+            .SetEase(Ease.OutExpo) // 감속 곡선 적용
+            .OnComplete(() =>
+            {
+                characterCloseEyes.transform.DOLocalMoveY(80f, 0.3f).SetEase(Ease.InOutSine); // 너무 급격한 반동 대신 부드러운 조정
+            });
+
+        // 크기 자연스럽게 원래대로 줄이기
+        characterCloseEyes.transform.DOScale(Vector3.one * 1.4f, 0.3f)
+            .SetEase(Ease.InOutQuad)
+            .SetDelay(0.5f); // 위의 애니메이션이 끝난 후 실행
+
+        // 회전 흔들림 효과 (좀 더 부드럽게)
+        characterCloseEyes.transform.DOShakeRotation(0.5f, new Vector3(0, 0, 8f), 10, 90)
+            .SetDelay(0.2f) // 살짝 더 길게 흔들도록 설정
+            .OnComplete(() =>
+        {
+            // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
+            StartCoroutine(AnimateCharacterEyes());
+        });
+    }
+
+    private void PopupDepressedEffect()
+    {
+        depressedEffect.SetActive(true);
+        RectTransform rectTransform = depressedEffect.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            // 초기 위치 설정
+            rectTransform.anchoredPosition = new Vector2(0f, 500f);
+            // 밑으로 내려오는 효과 설정
+            rectTransform.DOAnchorPosY(150f, 1f).SetEase(Ease.OutExpo);
         }
     }
 }
