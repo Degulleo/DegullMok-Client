@@ -22,6 +22,8 @@ public class LeaderBoardController : MonoBehaviour
 
     public void OnClickLeaderboardButton()
     {
+        GameManager.Instance.audioManager.PlayClickSound();
+
         if (isLeaderboardLoaded) return;  // 이미 리더보드가 로드되었으면 중복 호출 방지
 
         leaderboardPanel.SetActive(true);
@@ -69,6 +71,8 @@ public class LeaderBoardController : MonoBehaviour
     // BackButton 클릭 시 호출되는 메소드
     public void OnBackButtonClicked()
     {
+        GameManager.Instance.audioManager.PlayCloseSound();
+
         leaderboardPanel.SetActive(false);  // LeaderboardPanel 숨기기
         MainPanel.SetActive(true);        // SignInPanel 보이게 하기
     }
