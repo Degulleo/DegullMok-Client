@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -218,15 +217,9 @@ public class ReplayManager : Singleton<ReplayManager>
 
     public void ReplayFirst()
     {
-        StartCoroutine(IReplayFirst());
-    }
-
-    private IEnumerator IReplayFirst()
-    {
         while (_placedStoneStack.Count > 0)
         {
             ReplayUndo(_placedStoneStack.Pop());
-            yield return new WaitForSeconds(0.1f);
         }
     }
     
