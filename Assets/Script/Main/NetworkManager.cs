@@ -164,10 +164,10 @@ public class NetworkManager : Singleton<NetworkManager>
                 if (www.responseCode == 403)
                 {
                     Debug.Log("로그인이 필요합니다.");
-                    GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () =>
-                    {
-                        failure?.Invoke();
-                    });
+                    // GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () =>
+                    // {
+                    // });
+                    failure?.Invoke();
                 }
             }
             else

@@ -349,7 +349,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a98355720bed2234fb32d55fc1b0cce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  widthUnit: 15
+  widthUnit: 15.75
 --- !u!1001 &1657305406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -509,12 +509,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8659565962730658229}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &11155083782466663
 GameObject:
@@ -1109,12 +1109,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8769921639295186397}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &118043709224571002
 Transform:
@@ -1285,12 +1285,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8807261653936536274}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &157246709482135440
 Transform:
@@ -1322,12 +1322,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8826829126370050231}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &173891457155542947
 SpriteRenderer:
@@ -2250,12 +2250,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8949856873080059568}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &308485732107236077
 BoxCollider2D:
@@ -2452,12 +2452,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9040531337010928803}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &386764969000328874
 MonoBehaviour:
@@ -2474,12 +2474,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9042189816511924881}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &388594455879926876
 SpriteRenderer:
@@ -2548,12 +2548,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9033456075236836286}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &398417524303142135
 SpriteRenderer:
@@ -2805,12 +2805,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9084208745725908753}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &456048981567994110
 GameObject:
@@ -2955,12 +2955,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9129837673724835025}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &474112298995294858
 GameObject:
@@ -3046,12 +3046,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9116598157478310120}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &481657989175042611
 GameObject:
@@ -3087,12 +3087,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9150410233500018997}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &507407204105947814
 Transform:
@@ -3225,12 +3225,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9154594242243597384}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &517786060097303163
 GameObject:
@@ -3279,12 +3279,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 9184387129307979942}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &536000347285913616
 Transform:
@@ -3744,12 +3744,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8095258357106974348}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &616316528590224105
 GameObject:
@@ -3835,12 +3835,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8108891683095574644}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &627912820143536720
 GameObject:
@@ -3953,12 +3953,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8152720070723694313}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &650612945945788749
 GameObject:
@@ -4013,12 +4013,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8143763719329042168}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &661773395850862351
 BoxCollider2D:
@@ -4269,12 +4269,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8167593257344398802}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &684803888288625885
 Transform:
@@ -4307,12 +4307,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8179075654422964242}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &696400979109337877
 GameObject:
@@ -4434,12 +4434,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8217098600329287293}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &736861538017692665
 Transform:
@@ -4502,12 +4502,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8253792675360387942}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &769441238938584687
 BoxCollider2D:
@@ -4586,12 +4586,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8286578048587242212}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &784363963081159543
 SpriteRenderer:
@@ -5308,12 +5308,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8366762403403442444}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &886767346135585695
 SpriteRenderer:
@@ -5577,12 +5577,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8428756128789582664}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &926458405734302133
 MonoBehaviour:
@@ -5599,12 +5599,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8428818794947450254}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &931619530848664953
 SpriteRenderer:
@@ -5673,12 +5673,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8440631192179056817}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &938113439184174658
 MonoBehaviour:
@@ -5695,12 +5695,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8441582128601950841}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &943729343073807069
 GameObject:
@@ -6089,12 +6089,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8513551219522924025}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &1010223041450915005
 GameObject:
@@ -6635,12 +6635,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 8589344466701205432}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &1096551349154137905
 GameObject:
@@ -6778,12 +6778,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7506512504611751635}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &1159985187887785299
 BoxCollider2D:
@@ -7503,12 +7503,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7601072618193353669}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1255581569233265136
 SpriteRenderer:
@@ -7577,12 +7577,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7589677110537901823}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &1269491597326272774
 MonoBehaviour:
@@ -7599,12 +7599,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7619102014604352829}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1270060938614539650
 SpriteRenderer:
@@ -8116,12 +8116,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7706740663905176183}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &1356326206487271535
 MonoBehaviour:
@@ -8138,12 +8138,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7705936537597725780}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &1368729740185908475
 GameObject:
@@ -8318,12 +8318,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7757250753137226096}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1411083565687873378
 SpriteRenderer:
@@ -8529,12 +8529,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7775015812797458477}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &1425577105405593976
 Transform:
@@ -8654,12 +8654,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7799866699678400126}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &1453530601024146039
 MonoBehaviour:
@@ -8676,12 +8676,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7784935308796698188}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &1455912487388559496
 GameObject:
@@ -8916,12 +8916,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7853096973653531253}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &1504559786694017536
 BoxCollider2D:
@@ -9669,12 +9669,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7943139727990930410}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &1597426054847426786
 Transform:
@@ -9706,12 +9706,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7929137729508061835}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1607495372991529713
 SpriteRenderer:
@@ -11059,12 +11059,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6956889397374158489}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &1785045520109746457
 Transform:
@@ -11096,12 +11096,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6983248632835105453}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &1790185229623771971
 MonoBehaviour:
@@ -11118,12 +11118,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6987999961672390520}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1800945049576618956
 SpriteRenderer:
@@ -11289,12 +11289,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7013259688244815962}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &1845140946509091642
 BoxCollider2D:
@@ -11676,12 +11676,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7074624962417657941}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1877132036532628981
 SpriteRenderer:
@@ -12039,12 +12039,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7119623467251388670}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1956338532776654219
 SpriteRenderer:
@@ -12168,12 +12168,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7158718189382423969}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &1981243101438196409
 SpriteRenderer:
@@ -12304,12 +12304,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7188080321050442016}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2022325853012700177
 Transform:
@@ -12394,12 +12394,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7209070870290265203}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &2032284014168583574
 MonoBehaviour:
@@ -12416,12 +12416,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7212022774786980269}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &2033250244161910064
 MonoBehaviour:
@@ -12438,12 +12438,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7211900556987752715}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2035008646945250936
 Transform:
@@ -12475,12 +12475,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7240133142977246114}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &2050831838377925398
 MonoBehaviour:
@@ -12497,12 +12497,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7229504162107395885}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2052561352409347504
 Transform:
@@ -12587,12 +12587,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7248083554432061781}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &2079569631354858529
 GameObject:
@@ -12626,12 +12626,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7287743565727785898}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &2101536412121561576
 GameObject:
@@ -12941,12 +12941,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7350665296355243625}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &2174587166368113810
 BoxCollider2D:
@@ -13069,12 +13069,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7369433062630474916}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2190895327683817395
 Transform:
@@ -13552,12 +13552,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7449009785851064285}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2253264498284420388
 Transform:
@@ -13726,12 +13726,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7465727301484164965}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &2288367227735731257
 BoxCollider2D:
@@ -13808,12 +13808,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 7490651649346951400}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &2296103317614185479
 SpriteRenderer:
@@ -13998,12 +13998,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6355333484375330237}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &2317407799056983331
 GameObject:
@@ -14069,12 +14069,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6378976201152923765}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2358428972978942022
 Transform:
@@ -14192,12 +14192,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6422328223175007946}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &2381640733067630392
 MonoBehaviour:
@@ -14214,12 +14214,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6426380119074767619}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2383738268603101165
 Transform:
@@ -14466,12 +14466,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6487847095607514965}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2469614743545111947
 Transform:
@@ -14518,12 +14518,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6520987640893504632}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2477394719747880760
 Transform:
@@ -14626,12 +14626,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6537504456914281831}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2493905204344954845
 Transform:
@@ -15315,12 +15315,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6636560396560324115}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2620869097944060941
 Transform:
@@ -15615,12 +15615,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6714273673401990627}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2671435109548273709
 Transform:
@@ -15752,12 +15752,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6750742396635809240}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &2717469519592905424
 GameObject:
@@ -16048,12 +16048,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6798528946590907884}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &2778351490374573106
 SpriteRenderer:
@@ -16417,12 +16417,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6879921388592323941}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &2837547349582935731
 Transform:
@@ -16454,12 +16454,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6865114410316593021}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &2847374969608576263
 BoxCollider2D:
@@ -16590,12 +16590,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6908915095470784103}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &2870078121894304163
 BoxCollider2D:
@@ -16817,12 +16817,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5829627260355507076}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &2938632652876380073
 SpriteRenderer:
@@ -17558,12 +17558,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5875319509332248608}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &3018397602716559237
 GameObject:
@@ -17963,12 +17963,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5960518206803145620}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3073065919461221865
 SpriteRenderer:
@@ -18054,12 +18054,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5973474488695355423}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &3084248586846058991
 BoxCollider2D:
@@ -18337,12 +18337,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6012903019508034854}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3125864349794102674
 Transform:
@@ -18681,12 +18681,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6069204517270858094}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3184064935831359688
 SpriteRenderer:
@@ -18755,12 +18755,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6060647430792812406}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3198056907189527896
 SpriteRenderer:
@@ -18881,12 +18881,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6079750254349930491}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3208670890761853330
 Transform:
@@ -19032,12 +19032,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6092519903192164664}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3228492667794752287
 SpriteRenderer:
@@ -19106,12 +19106,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6119691904909433008}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3231231006820637242
 Transform:
@@ -19431,12 +19431,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6133146977247128040}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &3262985982840407423
 BoxCollider2D:
@@ -19745,12 +19745,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6161129629384208181}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &3293464485981997863
 MonoBehaviour:
@@ -19767,12 +19767,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6167366928946896668}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &3303660806963987849
 BoxCollider2D:
@@ -19834,12 +19834,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6187333601320222378}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &3317956522928078329
 GameObject:
@@ -19873,12 +19873,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6199650042365274958}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3348553921929375577
 SpriteRenderer:
@@ -20133,12 +20133,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 6287058162648648393}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &3434264030694698608
 GameObject:
@@ -20336,12 +20336,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5212010475889874907}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &3511285626358827224
 BoxCollider2D:
@@ -20579,12 +20579,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5274552433832076112}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &3541092529147761357
 GameObject:
@@ -20824,12 +20824,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5331042006173252718}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3602785198180491273
 SpriteRenderer:
@@ -21071,12 +21071,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5358304728321186777}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &3642961695019139566
 GameObject:
@@ -21404,12 +21404,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5386883513714190907}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &3666960132924669268
 MonoBehaviour:
@@ -21426,12 +21426,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5386859152107841903}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &3677016826493586581
 GameObject:
@@ -21465,12 +21465,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5417710931149813828}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3679450749173944858
 Transform:
@@ -22626,12 +22626,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5537537609394398723}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3830222923287006694
 SpriteRenderer:
@@ -22771,12 +22771,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5581141206397157386}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3843456564829010347
 SpriteRenderer:
@@ -22845,12 +22845,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5569298742531915066}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &3854882741306829852
 BoxCollider2D:
@@ -22912,12 +22912,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5597023182757683037}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &3860902532924045506
 MonoBehaviour:
@@ -22934,12 +22934,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5599928643500027129}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3862874960949335845
 Transform:
@@ -23069,12 +23069,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5615764842187368928}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3887326419324452765
 SpriteRenderer:
@@ -23188,12 +23188,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5637788368064910699}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3901276208265650781
 Transform:
@@ -23226,12 +23226,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5650400902500475003}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &3914385923336263789
 MonoBehaviour:
@@ -23248,12 +23248,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5652279532371184726}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &3926233345207866161
 Transform:
@@ -23353,12 +23353,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5687996273227189579}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &3952880974169273921
 SpriteRenderer:
@@ -23458,12 +23458,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5726619682926009427}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &3990828763590842000
 BoxCollider2D:
@@ -23864,12 +23864,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4642263796840194278}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &4064558384391900616
 MonoBehaviour:
@@ -23886,12 +23886,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4632631007987538419}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &4083613529279722094
 SpriteRenderer:
@@ -23991,12 +23991,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4666306493767032116}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &4102441934736602129
 Transform:
@@ -24190,12 +24190,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4725288610350372549}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &4172160148016825344
 MonoBehaviour:
@@ -24212,12 +24212,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4738950671529201723}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &4183440953337974686
 GameObject:
@@ -24916,12 +24916,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4867821437765339208}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &4324364424261268007
 Transform:
@@ -24954,12 +24954,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4908616797950291850}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &4344887909740391021
 BoxCollider2D:
@@ -25036,12 +25036,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4920548911145279172}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &4360822852006655262
 SpriteRenderer:
@@ -25110,12 +25110,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4951948730200679471}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &4372097632662395188
 GameObject:
@@ -25253,12 +25253,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4964155914883247331}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &4380024731040979824
 Transform:
@@ -25398,12 +25398,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4988031949760371556}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &4405856438660125659
 Transform:
@@ -25703,12 +25703,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5035964205403469437}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &4451415389124672776
 GameObject:
@@ -26158,12 +26158,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5098999806136333088}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &4531397766238941974
 BoxCollider2D:
@@ -26356,12 +26356,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5134305334467390363}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &4572623922360943353
 BoxCollider2D:
@@ -26475,12 +26475,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 5158257334533676478}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &4597085036855477372
 SpriteRenderer:
@@ -26594,12 +26594,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4050210172706497199}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &4623693942299178516
 BoxCollider2D:
@@ -27729,12 +27729,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4220970408093436540}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &4806037631325271662
 GameObject:
@@ -27768,12 +27768,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4244559388399021988}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &4815192480385107942
 GameObject:
@@ -27874,12 +27874,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4238957744855874543}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &4837943521167685310
 GameObject:
@@ -28292,12 +28292,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4372776440296730175}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &4943074186961439303
 MonoBehaviour:
@@ -28314,12 +28314,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4376105495588511356}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &4946815293563232549
 MonoBehaviour:
@@ -28336,12 +28336,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4360822852006655262}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &4948877461612263261
 Transform:
@@ -28965,12 +28965,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4464498075943766716}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5035964205403469437
 SpriteRenderer:
@@ -29209,12 +29209,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4512782619114470281}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &5090738971064186515
 Transform:
@@ -29380,12 +29380,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4525001531987796520}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5112301484016148619
 SpriteRenderer:
@@ -29604,12 +29604,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4565510458569102279}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &5150561747735057393
 BoxCollider2D:
@@ -30016,12 +30016,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3531849585602439177}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5274552433832076112
 SpriteRenderer:
@@ -30107,12 +30107,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3561372084307295488}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &5284489243545092021
 Transform:
@@ -30145,12 +30145,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3564752576854859488}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5294907697330432043
 GameObject:
@@ -30248,12 +30248,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3602785198180491273}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5323227259016306993
 GameObject:
@@ -30630,12 +30630,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3643644936592464284}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &5384444963868788725
 MonoBehaviour:
@@ -30652,12 +30652,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3646573336206971854}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5386859152107841903
 SpriteRenderer:
@@ -31194,12 +31194,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3728471563631459851}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &5452373138846077373
 MonoBehaviour:
@@ -31216,12 +31216,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3713472365078775174}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5457176188358814119
 SpriteRenderer:
@@ -31579,12 +31579,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3754898670012713294}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5494056319979967799
 SpriteRenderer:
@@ -32018,12 +32018,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3802861891347057869}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5544399469521346364
 GameObject:
@@ -32123,12 +32123,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3830222923287006694}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &5566684456497519628
 Transform:
@@ -32257,12 +32257,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3841147995459108472}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &5581141206397157386
 SpriteRenderer:
@@ -32331,12 +32331,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3843456564829010347}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5587499460000602256
 GameObject:
@@ -33054,12 +33054,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3952880974169273921}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5697499908158577749
 GameObject:
@@ -33323,12 +33323,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 4014077657719220732}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &5749372250219228295
 BoxCollider2D:
@@ -33674,12 +33674,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2938632652876380073}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5836042928547687542
 GameObject:
@@ -33780,12 +33780,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2970218824910935361}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &5849845865449088220
 GameObject:
@@ -34280,12 +34280,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3067598891053631074}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &5958454799963893109
 Transform:
@@ -34629,12 +34629,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3112208095209136965}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &5994793301484240778
 Transform:
@@ -34686,12 +34686,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3131200687921797438}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6005155382280652103
 SpriteRenderer:
@@ -34971,12 +34971,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3168310820215120478}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &6043221102139713835
 GameObject:
@@ -35041,12 +35041,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3184064935831359688}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6060647430792812406
 SpriteRenderer:
@@ -35272,12 +35272,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3198056907189527896}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6079750254349930491
 SpriteRenderer:
@@ -35519,12 +35519,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3212675934030672605}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6107560602155927951
 SpriteRenderer:
@@ -35612,12 +35612,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3238446189069477294}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6119691904909433008
 SpriteRenderer:
@@ -35686,12 +35686,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3228492667794752287}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6121724848860901890
 SpriteRenderer:
@@ -35760,12 +35760,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 3252493870403990175}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6133146977247128040
 SpriteRenderer:
@@ -37914,12 +37914,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2429699076117294210}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &6473933445654517687
 GameObject:
@@ -38246,12 +38246,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2518556382020093477}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &6550426612726823253
 GameObject:
@@ -38300,12 +38300,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2512693898177419571}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &6557470282709501366
 BoxCollider2D:
@@ -39098,12 +39098,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2682421360201929667}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &6711812658730818792
 GameObject:
@@ -39221,12 +39221,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2718640828741541182}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6744493312145274854
 SpriteRenderer:
@@ -39543,12 +39543,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2720279995195873160}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &6773269182315049457
 GameObject:
@@ -39614,12 +39614,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2754753415524892118}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &6795929655335464265
 MonoBehaviour:
@@ -39636,12 +39636,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2769046402857007474}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &6798276531704733366
 BoxCollider2D:
@@ -40300,12 +40300,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1739075800676692971}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &6924372509261279585
 Transform:
@@ -40373,12 +40373,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1761662190935699523}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &6951633488668672233
 Transform:
@@ -40544,12 +40544,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1800945049576618956}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &6983248632835105453
 SpriteRenderer:
@@ -40995,12 +40995,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1849808890471309997}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7037208566581277265
 GameObject:
@@ -41036,12 +41036,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1866064820174569278}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &7055033879905239097
 Transform:
@@ -41213,12 +41213,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1877132036532628981}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7089537721588320059
 GameObject:
@@ -41545,12 +41545,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1956338532776654219}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7140463161434682671
 GameObject:
@@ -42049,12 +42049,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2024824771573999340}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &7229504162107395885
 SpriteRenderer:
@@ -42392,12 +42392,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2055941768412233850}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7256952547474861104
 GameObject:
@@ -43253,12 +43253,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2195742375956532456}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7378762904773247450
 GameObject:
@@ -43292,12 +43292,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2212142420581885375}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7392802914397550436
 GameObject:
@@ -43484,12 +43484,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2250650404384338028}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7429467019640549823
 GameObject:
@@ -43523,12 +43523,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2234678195585070912}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7438528923653837230
 GameObject:
@@ -43801,12 +43801,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2275617785101059139}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &7474848330509948600
 BoxCollider2D:
@@ -43982,12 +43982,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 2296103317614185479}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &7495482066902498796
 BoxCollider2D:
@@ -44137,12 +44137,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1182957345886480296}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &7514999947550934675
 MonoBehaviour:
@@ -44159,12 +44159,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1182471607345943208}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &7526032418894380791
 Transform:
@@ -44213,12 +44213,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1201020525892828636}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7533732382299499399
 GameObject:
@@ -44445,12 +44445,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1229774051895340333}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7581006935786081054
 GameObject:
@@ -44503,12 +44503,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1232679712980223681}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7585526765212775006
 GameObject:
@@ -44680,12 +44680,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1270060938614539650}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &7608071302017279490
 BoxCollider2D:
@@ -44834,12 +44834,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1290012278454475260}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &7626906528526341170
 Transform:
@@ -45393,12 +45393,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1372693364588875118}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7728965218806552007
 GameObject:
@@ -45722,12 +45722,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1411083565687873378}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &7775015812797458477
 SpriteRenderer:
@@ -45796,12 +45796,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1429048881387295275}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &7782392503095684736
 GameObject:
@@ -46074,12 +46074,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1482879778539025861}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &7836491011902987214
 Transform:
@@ -46181,12 +46181,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1498829147141457065}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &7853096973653531253
 SpriteRenderer:
@@ -46338,12 +46338,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1533580093233932121}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &7888666059040716522
 MonoBehaviour:
@@ -46360,12 +46360,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1538107879918150353}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!61 &7892418297281814191
 BoxCollider2D:
@@ -46524,12 +46524,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1576662370118125116}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &7910901522348002251
 Transform:
@@ -46732,12 +46732,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1592341519900242737}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &7943139727990930410
 SpriteRenderer:
@@ -46852,12 +46852,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1634814117662985306}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &7969192893393640265
 MonoBehaviour:
@@ -46874,12 +46874,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1637654113921978226}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &7977833262943242962
 MonoBehaviour:
@@ -46896,12 +46896,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1627112412203867881}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &7984033886605717563
 MonoBehaviour:
@@ -46918,12 +46918,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1652437949710459904}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &7997449343134482052
 Transform:
@@ -46971,12 +46971,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1669587552213139645}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8006484973480773829
 Transform:
@@ -47596,12 +47596,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 618724559931228126}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8123542010414348053
 Transform:
@@ -48061,12 +48061,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 675394466886597143}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &8179075654422964242
 SpriteRenderer:
@@ -48865,12 +48865,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 784363963081159543}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &8281230038136622040
 GameObject:
@@ -49039,12 +49039,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 798451509322098366}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8302793492294082488
 Transform:
@@ -49461,12 +49461,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 872324441284959680}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &8378459083710644583
 SpriteRenderer:
@@ -49535,12 +49535,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 886767346135585695}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8401870905186879799
 Transform:
@@ -50146,12 +50146,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 971703278965390057}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8459532193191460628
 Transform:
@@ -50245,12 +50245,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1006509870903683921}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8498362115496762705
 Transform:
@@ -50587,12 +50587,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 1062136906782409727}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8551104229379195118
 Transform:
@@ -51223,12 +51223,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 12385818505922629}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &8659465906916413394
 Transform:
@@ -51953,12 +51953,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 147198081816913886}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &8805161002151628761
 GameObject:
@@ -52079,12 +52079,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 178561461670756517}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &8826829126370050231
 SpriteRenderer:
@@ -52250,12 +52250,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 225876620995319034}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!114 &8866365026574651344
 MonoBehaviour:
@@ -52272,12 +52272,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 227984902805560299}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!1 &8882447496184238637
 GameObject:
@@ -53359,12 +53359,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 432002463675650620}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &9076416161727586533
 Transform:
@@ -53534,12 +53534,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 477859650253767813}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!212 &9116598157478310120
 SpriteRenderer:
@@ -54498,12 +54498,12 @@ MonoBehaviour:
   stoneMarkerSpriteRenderer: {fileID: 571302636765941944}
   stoneTypeSprites:
   - {fileID: 0}
-  - {fileID: 21300000, guid: 083b0d43f3b8eee488eff59d7b1f3427, type: 3}
-  - {fileID: 21300000, guid: 1874ff4312c00ce43a8482ceee14b0ed, type: 3}
+  - {fileID: 21300000, guid: acd351ad6253dfd43b23e90a6dc301b7, type: 3}
+  - {fileID: 21300000, guid: cb880fb980d2fe04994478dbc5014497, type: 3}
   stoneStateSprites:
   - {fileID: 0}
   - {fileID: 21300000, guid: 4ee0394bd289571428ac0c487e6145f4, type: 3}
-  - {fileID: 21300000, guid: b8e2ea457ecda71489a0735075b34094, type: 3}
+  - {fileID: 21300000, guid: 672567fc09d574c4a9d9394c0505f31d, type: 3}
   - {fileID: 21300000, guid: 50876e5322c536b4eaae5ea62d0201f2, type: 3}
 --- !u!4 &9212746503299600789
 Transform:
