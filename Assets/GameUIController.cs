@@ -1,11 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameUIController : MonoBehaviour
 {
     [SerializeField] private GameObject retryButton;
+    [SerializeField] private TMP_Text playerANameText;
+    [SerializeField] private TMP_Text playerBNameText;
+    [SerializeField] private Image indicatorA;
+    [SerializeField] private Image indicatorB;
+    [SerializeField] private Image profileImageA;
+    [SerializeField] private Image profileImageB;
+    [SerializeField] private Sprite[] profileImageSprites;  //0. 기본 드래곤 1. 기본 호랑이 2.아이보리 드래곤 3. 아이보리 호랑이
+    [SerializeField] private Sprite[] indicatorSprites; //0. active 1. inactive
+    
+    private Sprite _originalSpriteA;
+    private Sprite _originalSpriteB;
+    
     public void OnClickConfirmButton()
     {
         GameManager.Instance.OnClickConfirmButton();
@@ -31,8 +46,67 @@ public class GameUIController : MonoBehaviour
         GameManager.Instance.panelManager.OpenSettingsPanel();
     }
 
-    public void GameOver()
+    public void InitUI()
     {
-        retryButton.SetActive(true);
+        if (UserManager.Instance == null) return;
+        retryButton.SetActive(false);
+        playerANameText.text = UserManager.Instance.Nickname;
     }
+
+    public void InitPlayersName(string playerNameA, string playerNameB)
+    {
+        playerANameText.text = playerNameA;
+        playerBNameText.text = playerNameB;
+    }
+
+    public void InitProfileImages(int profileImageIndexA, int profileImageIndexB)
+    {
+        profileImageA.sprite = profileImageIndexA == 0 ? profileImageSprites[0] : profileImageSprites[profileImageIndexA];
+        profileImageB.sprite = profileImageIndexB == 0 ? profileImageSprites[0] : profileImageSprites[profileImageIndexB];
+        _originalSpriteA = profileImageA.sprite;
+        _originalSpriteB = profileImageB.sprite;
+    }
+
+    public void SetTurnIndicator(bool isFirstPlayer)
+    {
+        if (isFirstPlayer)
+        {
+            if (_originalSpriteA == profileImageSprites[0])
+            {
+                profileImageA.sprite = profileImageSprites[2];
+            }
+            else if (_originalSpriteA == profileImageSprites[1])
+            {
+                profileImageA.sprite = profileImageSprites[3];
+            }
+            profileImageB.sprite = _originalSpriteB;
+            indicatorA.sprite = indicatorSprites[0];
+            indicatorB.sprite = indicatorSprites[1];
+            
+            profileImageA.transform.DOScale(1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                profileImageA.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            });
+        }
+        else
+        {
+            if (_originalSpriteB == profileImageSprites[0])
+            {
+                profileImageB.sprite = profileImageSprites[2];
+            }
+            else if (_originalSpriteB == profileImageSprites[1])
+            {
+                profileImageB.sprite = profileImageSprites[3];
+            }
+            profileImageA.sprite = _originalSpriteA;
+            indicatorA.sprite = indicatorSprites[1];
+            indicatorB.sprite = indicatorSprites[0];
+            
+            profileImageB.transform.DOScale(1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                profileImageB.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            });
+        }
+    }
+    
 }
