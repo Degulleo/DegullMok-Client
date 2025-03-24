@@ -4,12 +4,14 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
+    private GameObject _omokBoardImage;
     
     [SerializeField] private GameObject panelManagerPrefab;
     [SerializeField] private GameObject audioManagerPrefab;
@@ -50,7 +52,11 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            //TODO: 착수할 위치를 선택하라는 동작
+            if (_stoneController != null && _omokBoardImage != null)
+            {
+                _stoneController.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
+                _omokBoardImage.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
+            }
         }
     }
     
@@ -58,6 +64,12 @@ public class GameManager : Singleton<GameManager>
     {
         _gameType = gameType;
         SceneManager.LoadScene("Game");
+    }
+
+    public void ChangeToMainScene()
+    {
+        _gameType = Enums.GameType.None;
+        SceneManager.LoadScene("Main");
     }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -71,6 +83,7 @@ public class GameManager : Singleton<GameManager>
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             var fioTimer = FindObjectOfType<FioTimer>();
+            _omokBoardImage = GameObject.FindObjectOfType<SpriteRenderer>().gameObject;
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
         }
         InitPanels();
