@@ -99,7 +99,7 @@ public class ReplayManager : Singleton<ReplayManager>
         _recordingReplayData.playerA = playerANickname;
         _recordingReplayData.playerB = playerBNickname;
         _recordingReplayData.playerAPofileImageIndex = playerAProfileIndex;
-        _recordingReplayData.playerBPofileImageIndex = playerAProfileIndex;
+        _recordingReplayData.playerBPofileImageIndex = playerBProfileIndex;
     }
     
     ///<summary>
