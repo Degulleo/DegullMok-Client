@@ -11,10 +11,10 @@ public class ReplayRecord
     public string gameDate;
     public string playerA;
     public string playerB;
-    public List<Move> moves = new List<Move>();
-    public string gameResult;   //무승부를 반영하기위해 승자가 아닌 게임 결과를 저장.
+    public Enums.GameResult gameResult;  
     public int playerAPofileImageIndex;
     public int playerBPofileImageIndex;
+    public List<Move> moves = new List<Move>();
 }
 [Serializable]
 public class Move
@@ -120,7 +120,7 @@ public class ReplayManager : Singleton<ReplayManager>
         {
             string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
             _recordingReplayData.gameDate = time;
-            _recordingReplayData.gameResult = gameResultType.ToString();
+            _recordingReplayData.gameResult = gameResultType;
             
             // Json데이터로 변환해서 저장
             string json = JsonUtility.ToJson(_recordingReplayData, true);

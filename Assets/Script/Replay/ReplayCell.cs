@@ -33,7 +33,7 @@ public class ReplayCell : MonoBehaviour
             winImage.gameObject.SetActive(false);
         }
     }
-
+//TODO: 무승부 이미지 제작해서 에디터에 추가해주세요
     public void SetWinImage(Enums.GameResult gameResult)
     {
         switch(gameResult)
