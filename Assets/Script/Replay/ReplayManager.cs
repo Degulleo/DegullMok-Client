@@ -224,27 +224,33 @@ public class ReplayManager : Singleton<ReplayManager>
         }
     }
     
-    public void ReplayFinish()
+    public void ReplayFinish(Action onFinishEnd)
     {
-        finishCoroutine = StartCoroutine(IReplayFinish());
+        finishCoroutine = StartCoroutine(IReplayFinish(onFinishEnd));
     }
 
-    public void StopReplayFinish()
+    /// <summary>
+    /// 끝 버튼을 중간에 멈춰야 할 때 사용
+    /// </summary>
+    /// <param name="onFinishStop">마지막 장면까지 가는 도중에 멈출경우 해야할 일 전달</param>
+    public void StopReplayFinish(Action onFinishStop)
     {
         if (finishCoroutine != null)
         {
             StopCoroutine(finishCoroutine);
             finishCoroutine = null;
         }
+        onFinishStop?.Invoke();
     }
 
-    private IEnumerator IReplayFinish()
+    private IEnumerator IReplayFinish(Action onFinishEnd)
     {
         while(_placedStoneStack.Count < _selectedReplayRecord.moves.Count)
         {
             ReplayNext(GetNextMove());
             yield return new WaitForSeconds(0.1f);
         }
+        onFinishEnd?.Invoke();
     }
     public string GetPlayerANickname()
     {

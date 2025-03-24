@@ -19668,6 +19668,7 @@ MonoBehaviour:
   userBProfileImages:
   - {fileID: 2288075173090734880}
   - {fileID: 7536757830621973007}
+  replayFinishButton: {fileID: 609484620077371465}
 --- !u!1 &8676936482266105011
 GameObject:
   m_ObjectHideFlags: 0
