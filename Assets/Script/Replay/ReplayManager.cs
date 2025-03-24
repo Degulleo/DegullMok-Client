@@ -100,7 +100,7 @@ public class ReplayManager : Singleton<ReplayManager>
         _recordingReplayData = new ReplayRecord();
         _recordingReplayData.playerA = playerANickname;
         _recordingReplayData.playerB = playerBNickname;
-        _recordingReplayData.playerAPofileImageIndex = playerBNickname.ToString();
+        _recordingReplayData.playerAPofileImageIndex = playerAProfileIndex.ToString();
         _recordingReplayData.playerBPofileImageIndex = playerAProfileIndex.ToString();
     }
     
