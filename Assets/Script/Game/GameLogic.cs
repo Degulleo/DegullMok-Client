@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class BasePlayerState
 {
@@ -19,9 +20,11 @@ public abstract class BasePlayerState
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
-            var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
-            gameLogic.EndGame(gameResult);
+            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win", () =>
+            {
+                var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+                gameLogic.EndGame(gameResult);
+            });
         }
         else
         {
@@ -29,8 +32,10 @@ public abstract class BasePlayerState
             {
                 if (gameLogic.CheckGameDraw())
                 {
-                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
-                    gameLogic.EndGame(Enums.GameResult.Draw);
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw", () =>
+                    {
+                        gameLogic.EndGame(Enums.GameResult.Draw);
+                    });
                 }
                 else
                 {
@@ -347,6 +352,7 @@ public class GameLogic : MonoBehaviour
         SetState(null);
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
+        SceneManager.LoadScene("Main");
     }
     
     //승리 확인 함수
