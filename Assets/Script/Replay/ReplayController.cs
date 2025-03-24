@@ -9,18 +9,16 @@ public class ReplayController : MonoBehaviour
 {
     [SerializeField] private TMP_Text playerANicknameText;  
     [SerializeField] private TMP_Text playerBNicknameText;
-    [SerializeField] private Image playerAImage;
-    [SerializeField] private Image playerBImage;
+    [SerializeField] private GameObject[] userAProfileImages;
+    [SerializeField] private GameObject[] userBProfileImages;
     void Start()
     {
         InitReplayUI();
-        //TODO: 프로필 이미지 불러오기
     }
     
     public void OnclickExitButton()
     {
-        //TODO: 메인씬으로 다시 넘어갈 때 호출해야하는 함수 등등이 있을지....
-        SceneManager.LoadScene("Main-Jay");
+        SceneManager.LoadScene("Main");
     }
 
     public void OnclickFirstButton()
@@ -53,8 +51,30 @@ public class ReplayController : MonoBehaviour
 
     public void InitReplayUI()
     {
+        //유저 닉네임 설정
+        //TODO: 유니티 에디터에서 폰트 설정바꾸기
         playerANicknameText.text = ReplayManager.Instance.GetPlayerANickname();
         playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
+        
+        //프로필 이미지 설정
+        int playerAProgileIndex = ReplayManager.Instance.GetPlayerAProfileIndex();
+        int playerBProgileIndex = ReplayManager.Instance.GetPlayerBProfileIndex();
+        SetUserProfileImages(playerAProgileIndex, userAProfileImages);
+        SetUserProfileImages(playerBProgileIndex, userBProfileImages);
     }
 
+    private void SetUserProfileImages(int imageIndex,GameObject[] profileImages)
+    { 
+        if (imageIndex < 0 || imageIndex >= profileImages.Length)
+        {
+            return;
+        }
+
+        // 모든 프로필 이미지 비활성화 후, 선택한 이미지만 활성화
+        foreach (var img in profileImages)
+        {
+            img.SetActive(false);
+        }
+        profileImages[imageIndex].SetActive(true);
+    }
 }

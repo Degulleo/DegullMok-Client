@@ -10,7 +10,7 @@ public class ReplayCell : MonoBehaviour
 {
     [SerializeField] private Image winImage;
     [SerializeField] private Image loseImage;
-    //TODO: TextMeshProUGI 수정하기
+    [SerializeField] private Image drawImage;
     [SerializeField] private TMP_Text playerNicknameText;
     [SerializeField] private TMP_Text recordDateText;
     
@@ -19,7 +19,7 @@ public class ReplayCell : MonoBehaviour
     private string _opponentNickname;
     
     
-    //유저가 이겼을 경우 '승'(파랑)이미지 졌을 경우'패'(빨강)이미지
+    //TODO:승, 패 외에 무승부 반영하기. bool => int
     public void SetWinImage(bool isWin)
     {
         if (isWin == true)
@@ -31,6 +31,28 @@ public class ReplayCell : MonoBehaviour
         {
             loseImage.gameObject.SetActive(true);
             winImage.gameObject.SetActive(false);
+        }
+    }
+//TODO: 무승부 이미지 제작해서 에디터에 추가해주세요
+    public void SetWinImage(Enums.GameResult gameResult)
+    {
+        switch(gameResult)
+        {
+            case Enums.GameResult.Win:
+                winImage.gameObject.SetActive(true);
+                loseImage.gameObject.SetActive(false);
+                drawImage.gameObject.SetActive(false);
+                break;
+            case Enums.GameResult.Lose:
+                winImage.gameObject.SetActive(false);
+                loseImage.gameObject.SetActive(true);
+                drawImage.gameObject.SetActive(false);
+                break;
+            case Enums.GameResult.Draw:
+                winImage.gameObject.SetActive(false);
+                loseImage.gameObject.SetActive(false);
+                drawImage.gameObject.SetActive(true);
+                break;
         }
     }
     
@@ -79,15 +101,12 @@ public class ReplayCell : MonoBehaviour
     {
         _storedReplayRecord = record;
     }
-
     
-    //TODO: storedReplayRecord를 가지고 게임 씬으로 전환
     public void OnClickReplayButton()
     {
-        //TODO: 확인 패널 띄우고 밑의 내용 콜백 함수로 옮기기
-        // GameManager.Instance.OpenConfirmPanel($"{_opponentNickname}님 과의 대결을 다시 보시겠습니까?", () => { });
-        ReplayManager.Instance.SetReplayData(_storedReplayRecord);
-        SceneManager.LoadScene("Replay");
+        GameManager.Instance.panelManager.OpenConfirmPanel($"{_opponentNickname}님 과의 대결을 다시 보시겠습니까?", 
+            () => {
+                ReplayManager.Instance.SetReplayData(_storedReplayRecord);
+                SceneManager.LoadScene("Replay"); });
     }
-    
 }

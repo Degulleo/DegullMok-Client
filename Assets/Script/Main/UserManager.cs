@@ -58,6 +58,17 @@ public class PurchaseData
     }
 }
 
+/// <summary>
+/// 코인 차감 응답 데이터 클래스
+/// </summary>
+public class DeductCoinsResult
+{
+    public string result;
+    public string message;
+    public int deducted;
+    public int remainingCoins;
+}
+
 
 
 public class UserManager : Singleton<UserManager>

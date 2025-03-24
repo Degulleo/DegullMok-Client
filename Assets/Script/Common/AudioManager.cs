@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
-    [Header("Sound")]
+    [Header("BGM")]
     [SerializeField] private AudioClip mainBgm;
+    [Header("SFX")]
+    [SerializeField] private AudioClip clickSound;
+    [SerializeField] private AudioClip closeSound;
+
     private AudioSource audioSource;
+
+    [HideInInspector] public float sfxVolume;
 
     private void Start()
     {
         PlayMainBGM();
+        sfxVolume = 1.0f;   //테스트 코드
     }
     
     // 배경음악 시작
@@ -22,7 +30,7 @@ public class AudioManager : MonoBehaviour
             // 배경음악이 설정되면 재생
             audioSource.clip = mainBgm; // 음악 클립 설정
             audioSource.loop = true; // 반복 재생
-            audioSource.volume = 0.4f; // 볼륨
+            audioSource.volume = 0.1f; // 볼륨
             audioSource.Play(); // 음악 시작
         }
     }
@@ -34,5 +42,15 @@ public class AudioManager : MonoBehaviour
         {
             audioSource.Stop(); // 배경음악 멈추기
         }
+    }
+
+    public void PlayClickSound()
+    {
+        audioSource.PlayOneShot(clickSound, sfxVolume);
+    }
+
+    public void PlayCloseSound()
+    {
+        audioSource.PlayOneShot(closeSound, sfxVolume);
     }
 }

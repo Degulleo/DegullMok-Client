@@ -24,6 +24,8 @@ public class PanelController : MonoBehaviour
     /// </summary>
     public void Show()
     {
+        GameManager.Instance.audioManager.PlayClickSound();
+            
         if (backGroundCanvasGroup == null)
         {
             backGroundCanvasGroup = GetComponent<CanvasGroup>();
@@ -42,6 +44,8 @@ public class PanelController : MonoBehaviour
     /// </summary>
     public void Hide(PanelControllerHideDelegate hideDelegate = null)
     {
+        GameManager.Instance.audioManager.PlayCloseSound();
+        
         backGroundCanvasGroup.alpha = 1;
         panelRectTransform.localScale = Vector3.one;
         
