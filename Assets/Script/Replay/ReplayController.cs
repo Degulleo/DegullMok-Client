@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ReplayController : MonoBehaviour
@@ -11,6 +12,7 @@ public class ReplayController : MonoBehaviour
     [SerializeField] private TMP_Text playerBNicknameText;
     [SerializeField] private GameObject[] userAProfileImages;
     [SerializeField] private GameObject[] userBProfileImages;
+    [SerializeField] private Button replayFinishButton;
     void Start()
     {
         InitReplayUI();
@@ -18,16 +20,26 @@ public class ReplayController : MonoBehaviour
     
     public void OnclickExitButton()
     {
+        ReplayManager.Instance.StopReplayFinish(() => { });;
         SceneManager.LoadScene("Main");
     }
 
     public void OnclickFirstButton()
     {
+        ReplayManager.Instance.StopReplayFinish(() =>
+        {
+            replayFinishButton.interactable = true;
+        });;
         ReplayManager.Instance.ReplayFirst();
     }
 
     public void OnclickUndoButton()
     {
+        ReplayManager.Instance.StopReplayFinish(() =>
+        {
+            replayFinishButton.interactable = true;
+        });;
+        
         Move targetMove = ReplayManager.Instance.PopPlacedMove();
         if (targetMove != null)
         {
@@ -37,6 +49,10 @@ public class ReplayController : MonoBehaviour
 
     public void OnclickNextButton()
     {
+        ReplayManager.Instance.StopReplayFinish(() =>
+        {
+            replayFinishButton.interactable = true;
+        });;
         Move nextMove = ReplayManager.Instance.GetNextMove();
         if (nextMove != null)
         {
@@ -44,9 +60,17 @@ public class ReplayController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 끝 버튼 눌렸을 때 중복 클릭 방지
+    /// </summary>
     public void OnClickFinishButton()
     {
-        ReplayManager.Instance.ReplayFinish();
+        replayFinishButton.interactable = false;
+        //실행이 끝난 후 끝버튼 다시 활성화
+        ReplayManager.Instance.ReplayFinish(() =>
+        {
+            replayFinishButton.interactable = true;
+        });
     }
 
     public void InitReplayUI()
