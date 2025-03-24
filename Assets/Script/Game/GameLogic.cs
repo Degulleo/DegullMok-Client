@@ -20,7 +20,8 @@ public abstract class BasePlayerState
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
             GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
-            gameLogic.EndGame();
+            var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+            gameLogic.EndGame(gameResult);
         }
         else
         {
@@ -29,7 +30,7 @@ public abstract class BasePlayerState
                 if (gameLogic.CheckGameDraw())
                 {
                     GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
-                    gameLogic.EndGame();
+                    gameLogic.EndGame(Enums.GameResult.Draw);
                 }
                 else
                 {
@@ -216,13 +217,13 @@ public class GameLogic : MonoBehaviour
                 {
                     GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
                         () =>{});
-                    EndGame();
+                    EndGame(Enums.GameResult.Lose);
                 }
                 else if (currentTurn == Enums.PlayerType.PlayerB)
                 {
                     GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
                         () =>{});
-                    EndGame();
+                    EndGame(Enums.GameResult.Win);
                 }
             };
         }
@@ -341,9 +342,10 @@ public class GameLogic : MonoBehaviour
         selectedCol = -1;
     }
     //게임 끝
-    public void EndGame()
+    public void EndGame(Enums.GameResult result)
     {
         SetState(null);
+        ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
     }
     
