@@ -19,8 +19,7 @@ public class ReplayController : MonoBehaviour
     
     public void OnclickExitButton()
     {
-        //TODO: 메인씬으로 다시 넘어갈 때 호출해야하는 함수 등등이 있을지....
-        SceneManager.LoadScene("Main-Jay");
+        SceneManager.LoadScene("Main");
     }
 
     public void OnclickFirstButton()
@@ -57,6 +56,8 @@ public class ReplayController : MonoBehaviour
         playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
         
         //TODO: ReplayManager에서 프로필 인덱스 가져와서 SetUserProfileImages호출하기
+        int playerAProgileIndex = ReplayManager.Instance.GetPlayerAProfileIndex();
+        int playerBProgileIndex = ReplayManager.Instance.GetPlayerBProfileIndex();
     }
 
     private void SetUserProfileImages(int imageIndex,GameObject[] profileImages)

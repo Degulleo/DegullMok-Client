@@ -35,7 +35,8 @@ public class ReplayPanelItemsController : ScrollPanelController
             string opponentNickname = myPlayerType==Enums.PlayerType.PlayerA ? replayRecord.playerB : replayRecord.playerA;
             
             replayCell.SetMyPlayerType(myPlayerType);
-            replayCell.SetWinImage(myPlayerType.ToString().Equals(replayRecord.winnerPlayerType));
+            replayCell.SetWinImage(Enums.GameResult.Win.ToString() == replayRecord.gameResult);
+            
             replayCell.SetOpponentPlayerNickname(opponentNickname);
             replayCell.SetRecordDate(replayRecord.gameDate);
             replayCell.SetReplayRecord(replayRecord);
