@@ -9,48 +9,85 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip closeSound;
 
-    private AudioSource audioSource;
+    private AudioSource bgmAudioSource;  // AudioSource for BGM
+    private AudioSource sfxAudioSource;  // AudioSource for SFX
 
-    [HideInInspector] public float sfxVolume;
+    [HideInInspector] public float sfxVolume = 1.0f;  // SFX volume, default to 1
 
-    private void Start()
+    private static AudioManager instance;
+
+    public static AudioManager Instance
     {
-        PlayMainBGM();
-        sfxVolume = 1.0f;   //테스트 코드
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<AudioManager>();
+                
+                if (instance == null)
+                {
+                    GameObject audioManagerObj = new GameObject("AudioManager");
+                    instance = audioManagerObj.AddComponent<AudioManager>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        // Ensure AudioManager persists across scenes
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);  // Avoid multiple instances
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);  // This makes AudioManager persist through scene changes
+
+        // Create separate AudioSource components for BGM and SFX
+        bgmAudioSource = gameObject.AddComponent<AudioSource>();
+        sfxAudioSource = gameObject.AddComponent<AudioSource>();
     }
     
-    // 배경음악 시작
+    
+    // Start is called before the first frame update
+    private void Start()
+    {
+        // Optional: Automatically play BGM at the start
+        PlayMainBGM();
+    }
+
+    // Play the main BGM if it is not already playing
     public void PlayMainBGM()
     {
-        // AudioSource 컴포넌트 가져오기
-        audioSource = GetComponent<AudioSource>();
-
-        if (audioSource != null && mainBgm != null)
+        if (bgmAudioSource != null && mainBgm != null && !bgmAudioSource.isPlaying)
         {
-            // 배경음악이 설정되면 재생
-            audioSource.clip = mainBgm; // 음악 클립 설정
-            audioSource.loop = true; // 반복 재생
-            audioSource.volume = 0.1f; // 볼륨
-            audioSource.Play(); // 음악 시작
+            bgmAudioSource.clip = mainBgm;
+            bgmAudioSource.loop = true;  // Loop the BGM
+            bgmAudioSource.volume = 0.1f;  // Set volume for BGM
+            bgmAudioSource.Play();  // Play the BGM
         }
     }
 
-    // 배경음악 멈추기
+    // Stop the BGM if it's currently playing
     public void StopMainBGM()
     {
-        if (audioSource != null)
+        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
-            audioSource.Stop(); // 배경음악 멈추기
+            bgmAudioSource.Stop();  // Stop the BGM if it's playing
         }
     }
 
+    // Play Click Sound (SFX)
     public void PlayClickSound()
     {
-        audioSource.PlayOneShot(clickSound, sfxVolume);
+        sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
     }
 
+    // Play Close Sound (SFX)
     public void PlayCloseSound()
     {
-        audioSource.PlayOneShot(closeSound, sfxVolume);
+        sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
     }
 }
