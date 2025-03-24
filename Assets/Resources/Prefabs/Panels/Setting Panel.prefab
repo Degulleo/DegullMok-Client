@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleImage: {fileID: 6756679498073114696}
-  clickSound: {fileID: 8300000, guid: 6296b07572c34d4439bb8bb660025449, type: 3}
+  clickSound: {fileID: 8300000, guid: cff2e6cf7f46a074d86955b3b6fd499a, type: 3}
 --- !u!82 &6428684691423417346
 AudioSource:
   m_ObjectHideFlags: 0
@@ -994,7 +994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleImage: {fileID: 1822478720763898751}
-  clickSound: {fileID: 8300000, guid: 6296b07572c34d4439bb8bb660025449, type: 3}
+  clickSound: {fileID: 8300000, guid: cff2e6cf7f46a074d86955b3b6fd499a, type: 3}
 --- !u!82 &9145795730378986889
 AudioSource:
   m_ObjectHideFlags: 0
