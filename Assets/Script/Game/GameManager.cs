@@ -38,8 +38,14 @@ public class GameManager : Singleton<GameManager>
 
     private void InitPanels()
     {
-        panelManager = Instantiate(panelManagerPrefab).GetComponent<PanelManager>();
-        audioManager = Instantiate(audioManagerPrefab).GetComponent<AudioManager>();
+        if (panelManager == null)
+        {
+            panelManager = Instantiate(panelManagerPrefab).GetComponent<PanelManager>();
+        }
+        if (audioManager == null)
+        {
+            audioManager = Instantiate(audioManagerPrefab).GetComponent<AudioManager>();
+        }
     }
     
     public void OnClickConfirmButton()

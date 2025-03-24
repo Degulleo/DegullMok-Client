@@ -42,7 +42,7 @@ public class MainPanelManager : MonoBehaviour
             
             UpdateMainPanelUI(GameManager.Instance.panelManager.OpenMainPanel);
             // ScoreData.SetScore(userInfo.score);
-            GameManager.Instance.panelManager.OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
+            // GameManager.Instance.panelManager.OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
             
             loadingPanelController.StopLoading();
         }, () =>
