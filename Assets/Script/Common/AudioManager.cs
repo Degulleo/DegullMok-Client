@@ -1,93 +1,89 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(AudioSource))]
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
     [Header("BGM")]
     [SerializeField] private AudioClip mainBgm;
+    [SerializeField] private AudioClip gameBgm;
     [Header("SFX")]
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip closeSound;
 
-    private AudioSource bgmAudioSource;  // AudioSource for BGM
-    private AudioSource sfxAudioSource;  // AudioSource for SFX
+    private AudioSource bgmAudioSource;  // BGM을 위한 AudioSource
+    private AudioSource sfxAudioSource;  // SFX를 위한 AudioSource
 
-    [HideInInspector] public float sfxVolume = 1.0f;  // SFX volume, default to 1
-
-    private static AudioManager instance;
-
-    public static AudioManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<AudioManager>();
-                
-                if (instance == null)
-                {
-                    GameObject audioManagerObj = new GameObject("AudioManager");
-                    instance = audioManagerObj.AddComponent<AudioManager>();
-                }
-            }
-            return instance;
-        }
-    }
+    [HideInInspector] public float sfxVolume = 1.0f;  // SFX 볼륨 (기본값 1)
 
     private void Awake()
     {
-        // Ensure AudioManager persists across scenes
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);  // Avoid multiple instances
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(gameObject);  // This makes AudioManager persist through scene changes
+        base.Awake();  // 부모 클래스의 Awake 호출
 
-        // Create separate AudioSource components for BGM and SFX
+        // BGM과 SFX를 위한 별도의 AudioSource 생성
         bgmAudioSource = gameObject.AddComponent<AudioSource>();
         sfxAudioSource = gameObject.AddComponent<AudioSource>();
     }
-    
-    
-    // Start is called before the first frame update
+
+    // 시작 시 BGM을 자동으로 재생
     private void Start()
     {
-        // Optional: Automatically play BGM at the start
-        PlayMainBGM();
+        PlayMainBGM();  // 기본 BGM을 재생
     }
 
-    // Play the main BGM if it is not already playing
+    // 메인 BGM을 재생하는 함수
     public void PlayMainBGM()
     {
         if (bgmAudioSource != null && mainBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = mainBgm;
-            bgmAudioSource.loop = true;  // Loop the BGM
-            bgmAudioSource.volume = 0.1f;  // Set volume for BGM
-            bgmAudioSource.Play();  // Play the BGM
+            bgmAudioSource.loop = true;  // BGM을 반복 재생
+            bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
+            bgmAudioSource.Play();  // BGM 재생
         }
     }
 
-    // Stop the BGM if it's currently playing
+    // BGM을 멈추는 함수
     public void StopMainBGM()
     {
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
-            bgmAudioSource.Stop();  // Stop the BGM if it's playing
+            bgmAudioSource.Stop();  // BGM을 멈춤
         }
     }
 
-    // Play Click Sound (SFX)
+    // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
     {
         sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
     }
 
-    // Play Close Sound (SFX)
+    // 닫기 사운드(SFX) 재생
     public void PlayCloseSound()
     {
         sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
+    }
+
+    // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 씬 이름에 따라 BGM을 다르게 설정
+        Debug.Log($"Scene {scene.name} loaded.");
+
+        if (scene.name == "MainMenu")
+        {
+            // MainMenu 씬이 로드되면 메인 메뉴 BGM 재생
+            PlayMainBGM();
+        }
+        else if (scene.name == "GameScene")
+        {
+            // GameScene 씬이 로드되면 게임용 BGM 재생
+            if (gameBgm != null)
+            {
+                bgmAudioSource.clip = gameBgm;
+                bgmAudioSource.loop = true;
+                bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
+                bgmAudioSource.Play();
+            }
+        }
     }
 }
