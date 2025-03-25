@@ -165,8 +165,7 @@ public class CoinsPanelController : MonoBehaviour
             {
                 //감소된 코인 적용
                 _coinsCount -= 100;
-                
-                // GameManager.Instance.CoinsCount--;
+
                 action?.Invoke();
             }));   // 텍스트 떨어지는 연출
     }
