@@ -233,18 +233,23 @@ public class GameLogic : MonoBehaviour
             };
         }
         
-        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기, 프로필정보도 넘겨줘야 합니다.
-        ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
-        
         switch (gameType)
         {
             case Enums.GameType.SinglePlay:
                 firstPlayerState = new PlayerState(true);
                 secondPlayerState = new AIState();
+                
+                //유저 이름 사진 초기화
+                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
+                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
+                
+                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI", UserManager.Instance.imageIndex, 1);
+                
                 SetState(firstPlayerState);
                 break;
             case Enums.GameType.MultiPlay:
                 //TODO: 멀티 구현 필요
+                ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
                 break;
             case Enums.GameType.Replay:
                 //TODO: 리플레이 구현
@@ -273,6 +278,8 @@ public class GameLogic : MonoBehaviour
         _currentPlayerState?.OnExit(this);
         _currentPlayerState = state;
         _currentPlayerState?.OnEnter(this);
+        //턴 표시
+        GameManager.Instance.SetTurnIndicator(_currentPlayerState == firstPlayerState);
     }
     
     //스톤의 상태변경 명령함수
