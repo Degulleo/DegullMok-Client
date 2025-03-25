@@ -21,11 +21,9 @@ public abstract class BasePlayerState
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win", () =>
-            {
-                var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
-                gameLogic.EndGame(gameResult);
-            });
+            var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+            GameManager.Instance.panelManager.OpenEffectPanel(gameResult);
+            gameLogic.EndGame(gameResult);
         }
         else
         {
@@ -33,10 +31,8 @@ public abstract class BasePlayerState
             {
                 if (gameLogic.CheckGameDraw())
                 {
-                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw", () =>
-                    {
-                        gameLogic.EndGame(Enums.GameResult.Draw);
-                    });
+                    GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
+                    gameLogic.EndGame(Enums.GameResult.Draw);
                 }
                 else
                 {
@@ -369,7 +365,7 @@ public class GameLogic : MonoBehaviour
         SetState(null);
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
-        SceneManager.LoadScene("Main");
+        // SceneManager.LoadScene("Main");
     }
     
     //승리 확인 함수
