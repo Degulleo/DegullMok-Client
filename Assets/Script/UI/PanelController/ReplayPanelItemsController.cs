@@ -27,7 +27,6 @@ public class ReplayPanelItemsController : ScrollPanelController
         records = ReplayManager.Instance.LoadReplayDatas();
         foreach (var replayRecord in records)
         {
-            Debug.Log($"{replayRecord.gameDate}의 결과는 {replayRecord.gameResult}");
             var replayCellButtonObject = Instantiate(scrollItemPrefab, content.transform);
             ReplayCell replayCell = replayCellButtonObject.GetComponent<ReplayCell>();
             
