@@ -14,6 +14,7 @@ public class PanelManager : MonoBehaviour
     private Canvas _canvas;
     private CoinsPanelController _coinsPanel;
     private LoadingPanelController loadingPanelController;
+    private GameObject loadingPanelObject;
     
     private Dictionary<string, GameObject> panelPrefabs = new Dictionary<string, GameObject>();
     
@@ -71,17 +72,35 @@ public class PanelManager : MonoBehaviour
 
     public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false)
     {
+        SetCanvas();
         if (_canvas != null)
         {
-            var loadingPanelObject = GetPanel("Loading Panel");
+            if (loadingPanelObject != null && loadingPanelObject.activeSelf)
+            {
+                // 기존 로딩 패널이 활성화되어 있으면 먼저 닫기
+                CloseLoadingPanel();
+            }
             
-        
+            loadingPanelObject = GetPanel("Loading Panel");
+            
             // 로딩 화면이 생성된 후, 원하는 애니메이션 활성화
             loadingPanelController = loadingPanelObject.GetComponent<LoadingPanelController>();
             if (loadingPanelController != null)
             {
                 loadingPanelController.StartLoading(rotateImage, animatedText, flipImage);
             }
+        }
+    }
+
+    public void CloseLoadingPanel()
+    {
+        if (loadingPanelObject != null && loadingPanelObject.activeSelf && loadingPanelController != null)
+        {
+            loadingPanelController.StopLoading();
+        }
+        else
+        {
+            Debug.Log("로딩 패널이 이미 닫혔거나 비활성화 상태입니다.");
         }
     }
     

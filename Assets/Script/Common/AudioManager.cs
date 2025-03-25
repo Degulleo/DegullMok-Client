@@ -46,11 +46,17 @@ public class AudioManager : MonoBehaviour
 
     public void PlayClickSound()
     {
-        audioSource.PlayOneShot(clickSound, sfxVolume);
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound, sfxVolume);
+        }
     }
 
     public void PlayCloseSound()
     {
-        audioSource.PlayOneShot(closeSound, sfxVolume);
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(closeSound, sfxVolume);
+        }
     }
 }
