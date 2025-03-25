@@ -122,6 +122,7 @@ public class CoinsPanelController : MonoBehaviour
         }
         sequence.OnComplete(() =>
         {
+            _coinsCount += coinsCount;  //추가된 코인 적용
             _canvasGroup.blocksRaycasts = true;    //구매 후 클릭 활성화
         });
     }
@@ -162,8 +163,9 @@ public class CoinsPanelController : MonoBehaviour
         coinsRemoveImageObject.GetComponent<Image>().DOFade(0f, 1f)
             .OnComplete( ()=>ChangeTextAnimation(false, ()=>
             {
-                // TODO: 코인 수량 감소
-                // GameManager.Instance.CoinsCount--;
+                //감소된 코인 적용
+                _coinsCount -= 100;
+
                 action?.Invoke();
             }));   // 텍스트 떨어지는 연출
     }

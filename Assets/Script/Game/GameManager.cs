@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
+    private GameObject _omokBoardImage;
+    private GameUIController _gameUIController;
     
     [SerializeField] private GameObject panelManagerPrefab;
     [SerializeField] private GameObject audioManagerPrefab;
@@ -22,24 +25,17 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         InitPanels();
     }
-    
-    private void Start()
-    {
-        //게임 씬에서 확인하기 위한 임시 코드
-        _gameType = Enums.GameType.SinglePlay;
-
-        //게임 씬에서 확인하기 위한 임시 코드
-        // _canvas = canvas.GetComponent<Canvas>();
-        // _stoneController = GameObject.FindObjectOfType<StoneController>();
-        // _stoneController.InitStones();
-        // var fioTimer = FindObjectOfType<FioTimer>();
-        // _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
-    }
 
     private void InitPanels()
     {
-        panelManager = Instantiate(panelManagerPrefab).GetComponent<PanelManager>();
-        audioManager = Instantiate(audioManagerPrefab).GetComponent<AudioManager>();
+        if (panelManager == null)
+        {
+            panelManager = Instantiate(panelManagerPrefab).GetComponent<PanelManager>();
+        }
+        if (audioManager == null)
+        {
+            audioManager = Instantiate(audioManagerPrefab).GetComponent<AudioManager>();
+        }
     }
     
     public void OnClickConfirmButton()
@@ -50,7 +46,11 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            //TODO: 착수할 위치를 선택하라는 동작
+            if (_stoneController != null && _omokBoardImage != null)
+            {
+                _stoneController.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
+                _omokBoardImage.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
+            }
         }
     }
     
@@ -60,18 +60,23 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("Game");
     }
 
+    public void ChangeToMainScene()
+    {
+        _gameType = Enums.GameType.None;
+        SceneManager.LoadScene("Main");
+    }
+
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Game")
         {
-            if (_gameType == Enums.GameType.Replay)
-            {
-                //TODO: 리플레이를 위한 초기화
-            }
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             var fioTimer = FindObjectOfType<FioTimer>();
+            _omokBoardImage = GameObject.FindObjectOfType<SpriteRenderer>().gameObject;
+            _gameUIController = GameObject.FindObjectOfType<GameUIController>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
+            
         }
         InitPanels();
     }
@@ -82,5 +87,22 @@ public class GameManager : Singleton<GameManager>
         _stoneController.InitStones();
         _gameLogic.SetState(_gameLogic.firstPlayerState);
     }
+    //유저 이름 Game UI에 초기화
+    public void InitPlayersName(string playerNameA, string playerNameB)
+    {
+        if (_gameUIController == null) return;
+        _gameUIController.InitPlayersName(playerNameA, playerNameB);
+    }
+    //유저 프로필 이미지 Game UI에 초기화
+    public void InitProfileImages(int profileImageIndexA, int profileImageIndexB)
+    {
+        if (_gameUIController == null) return;
+        _gameUIController.InitProfileImages(profileImageIndexA, profileImageIndexB);
+    }
     
+    public void SetTurnIndicator(bool isFirstPlayer)
+    {
+        if (_gameUIController == null) return;
+        _gameUIController.SetTurnIndicator(isFirstPlayer);
+    }
 }

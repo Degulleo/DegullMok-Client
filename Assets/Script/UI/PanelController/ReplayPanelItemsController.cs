@@ -25,7 +25,6 @@ public class ReplayPanelItemsController : ScrollPanelController
         
         // ReplayManager에서 가져온 기보 데이터들을 패널 셀에 초기화
         records = ReplayManager.Instance.LoadReplayDatas();
-        
         foreach (var replayRecord in records)
         {
             var replayCellButtonObject = Instantiate(scrollItemPrefab, content.transform);
@@ -35,7 +34,8 @@ public class ReplayPanelItemsController : ScrollPanelController
             string opponentNickname = myPlayerType==Enums.PlayerType.PlayerA ? replayRecord.playerB : replayRecord.playerA;
             
             replayCell.SetMyPlayerType(myPlayerType);
-            replayCell.SetWinImage(myPlayerType.ToString().Equals(replayRecord.winnerPlayerType));
+            replayCell.SetWinImage(replayRecord.gameResult);
+            
             replayCell.SetOpponentPlayerNickname(opponentNickname);
             replayCell.SetRecordDate(replayRecord.gameDate);
             replayCell.SetReplayRecord(replayRecord);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class BasePlayerState
 {
@@ -19,9 +20,11 @@ public abstract class BasePlayerState
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win",() =>{});
-            var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
-            gameLogic.EndGame(gameResult);
+            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win", () =>
+            {
+                var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+                gameLogic.EndGame(gameResult);
+            });
         }
         else
         {
@@ -29,8 +32,10 @@ public abstract class BasePlayerState
             {
                 if (gameLogic.CheckGameDraw())
                 {
-                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw",() =>{});
-                    gameLogic.EndGame(Enums.GameResult.Draw);
+                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw", () =>
+                    {
+                        gameLogic.EndGame(Enums.GameResult.Draw);
+                    });
                 }
                 else
                 {
@@ -220,9 +225,6 @@ public class GameLogic : MonoBehaviour
             };
         }
         
-        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기, 프로필정보도 넘겨줘야 합니다.
-        ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
-        
         switch (gameType)
         {
             case Enums.GameType.SinglePlay:
@@ -230,10 +232,18 @@ public class GameLogic : MonoBehaviour
                 secondPlayerState = new AIState();
                 // AI 난이도 설정(급수 설정)
                 OmokAI.Instance.SetRating(UserManager.Instance.Rating);
+                
+                //유저 이름 사진 초기화
+                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
+                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
+                
+                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI", UserManager.Instance.imageIndex, 1);
+                
                 SetState(firstPlayerState);
                 break;
             case Enums.GameType.MultiPlay:
                 //TODO: 멀티 구현 필요
+                ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
                 break;
             case Enums.GameType.Replay:
                 //TODO: 리플레이 구현
@@ -262,6 +272,8 @@ public class GameLogic : MonoBehaviour
         _currentPlayerState?.OnExit(this);
         _currentPlayerState = state;
         _currentPlayerState?.OnEnter(this);
+        //턴 표시
+        GameManager.Instance.SetTurnIndicator(_currentPlayerState == firstPlayerState);
     }
     
     //스톤의 상태변경 명령함수
@@ -341,6 +353,7 @@ public class GameLogic : MonoBehaviour
         SetState(null);
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
+        SceneManager.LoadScene("Main");
     }
     
     //승리 확인 함수

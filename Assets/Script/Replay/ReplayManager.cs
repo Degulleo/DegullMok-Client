@@ -11,12 +11,10 @@ public class ReplayRecord
     public string gameDate;
     public string playerA;
     public string playerB;
+    public Enums.GameResult gameResult;  
+    public int playerAPofileImageIndex;
+    public int playerBPofileImageIndex;
     public List<Move> moves = new List<Move>();
-    //TODO: winnerPlayerType삭제
-    public string winnerPlayerType;
-    public string gameResult;   //무승부를 반영하기위해 승자가 아닌 게임 결과를 저장.
-    public string playerAPofileImageIndex;
-    public string playerBPofileImageIndex;
 }
 [Serializable]
 public class Move
@@ -36,6 +34,7 @@ public class Move
 public class ReplayManager : Singleton<ReplayManager>
 {
     private ReplayRecord _recordingReplayData;
+    private Coroutine finishCoroutine;
 
     #region 기보 시작 후 데이터를 컨트롤하기
     
@@ -100,8 +99,8 @@ public class ReplayManager : Singleton<ReplayManager>
         _recordingReplayData = new ReplayRecord();
         _recordingReplayData.playerA = playerANickname;
         _recordingReplayData.playerB = playerBNickname;
-        _recordingReplayData.playerAPofileImageIndex = playerBNickname.ToString();
-        _recordingReplayData.playerBPofileImageIndex = playerAProfileIndex.ToString();
+        _recordingReplayData.playerAPofileImageIndex = playerAProfileIndex;
+        _recordingReplayData.playerBPofileImageIndex = playerBProfileIndex;
     }
     
     ///<summary>
@@ -116,36 +115,13 @@ public class ReplayManager : Singleton<ReplayManager>
     /// <summary>
     /// 게임 종료 후 호출하여 리플레이 데이터를 저장합니다.
     /// </summary>
-    public void SaveReplayData(Enums.PlayerType winnerPlayerType)
-    {
-        try
-        {
-            string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
-            _recordingReplayData.gameDate = time;
-            _recordingReplayData.winnerPlayerType = winnerPlayerType.ToString();
-
-
-            string json = JsonUtility.ToJson(_recordingReplayData, true);
-
-
-            string path = Path.Combine(Application.persistentDataPath, $"{time}.json");
-            File.WriteAllText(path, json);
-
-            //최신 데이터 10개만 유지되도록 저장
-            RecordCountChecker();
-        }
-        catch(Exception e)
-        {
-            Debug.LogError($"An error occurred while saving replay data:{e.Message}");
-        }
-    }
     public void SaveReplayDataResult(Enums.GameResult gameResultType)
     {
         try
         {
             string time = DateTime.Now.ToString(("yyyy-MM-dd HH_mm_ss"));
             _recordingReplayData.gameDate = time;
-            _recordingReplayData.gameResult = gameResultType.ToString();
+            _recordingReplayData.gameResult = gameResultType;
             
             // Json데이터로 변환해서 저장
             string json = JsonUtility.ToJson(_recordingReplayData, true);
@@ -248,14 +224,34 @@ public class ReplayManager : Singleton<ReplayManager>
         }
     }
     
-    public void ReplayFinish()
+    public void ReplayFinish(Action onFinishEnd)
+    {
+        finishCoroutine = StartCoroutine(IReplayFinish(onFinishEnd));
+    }
+
+    /// <summary>
+    /// 끝 버튼을 중간에 멈춰야 할 때 사용
+    /// </summary>
+    /// <param name="onFinishStop">마지막 장면까지 가는 도중에 멈출경우 해야할 일 전달</param>
+    public void StopReplayFinish(Action onFinishStop)
+    {
+        if (finishCoroutine != null)
+        {
+            StopCoroutine(finishCoroutine);
+            finishCoroutine = null;
+        }
+        onFinishStop?.Invoke();
+    }
+
+    private IEnumerator IReplayFinish(Action onFinishEnd)
     {
         while(_placedStoneStack.Count < _selectedReplayRecord.moves.Count)
         {
             ReplayNext(GetNextMove());
+            yield return new WaitForSeconds(0.1f);
         }
+        onFinishEnd?.Invoke();
     }
-
     public string GetPlayerANickname()
     {
         return _selectedReplayRecord.playerA;
@@ -265,8 +261,16 @@ public class ReplayManager : Singleton<ReplayManager>
     {
         return _selectedReplayRecord.playerB;
     }
-    
-    
+
+    public int GetPlayerAProfileIndex()
+    {
+        return _selectedReplayRecord.playerAPofileImageIndex;
+    }
+
+    public int GetPlayerBProfileIndex()
+    {
+        return _selectedReplayRecord.playerBPofileImageIndex;
+    }
     #endregion
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
