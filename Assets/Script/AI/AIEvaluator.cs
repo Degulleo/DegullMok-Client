@@ -315,8 +315,8 @@ public static class AIEvaluator
         return fourThreeCount;
     }
     
-    // 깨진 패턴 (3-빈칸-1) 감지
-    private static (bool isDetected, int count, int openEnds) DetectBrokenPattern(
+    // 깨진 패턴 (ex. 3-빈칸-1) 감지
+    public static (bool isDetected, int count, int openEnds) DetectBrokenPattern(
         Enums.PlayerType[,] board, int row, int col, int[] dir, Enums.PlayerType player)
     {
         int size = board.GetLength(0);
@@ -403,15 +403,15 @@ public static class AIEvaluator
         }
         else if (count == 4)  // 깨진 4
         {
-            return (openEnds == 2) ? PatternScore.OPEN_FOUR * 0.8f : 
-                (openEnds == 1) ? PatternScore.HALF_OPEN_FOUR * 0.8f : 
-                PatternScore.CLOSED_FOUR * 0.7f;
+            return (openEnds == 2) ? PatternScore.OPEN_FOUR * 0.9f : 
+                (openEnds == 1) ? PatternScore.HALF_OPEN_FOUR * 0.9f : 
+                PatternScore.CLOSED_FOUR * 0.8f;
         }
         else if (count == 3)  // 깨진 3
         {
-            return (openEnds == 2) ? PatternScore.OPEN_THREE * 0.7f : 
-                (openEnds == 1) ? PatternScore.HALF_OPEN_THREE * 0.7f : 
-                PatternScore.CLOSED_THREE * 0.6f;
+            return (openEnds == 2) ? PatternScore.OPEN_THREE * 0.9f : 
+                (openEnds == 1) ? PatternScore.HALF_OPEN_THREE * 0.9f : 
+                PatternScore.CLOSED_THREE * 0.8f;
         }
         
         return 0;
@@ -443,24 +443,24 @@ public static class AIEvaluator
             float normalScore = 0;
             if (count >= 4) 
             {
-                normalScore = PatternScore.FIVE_IN_A_ROW / 10;
+                normalScore = PatternScore.FIVE_IN_A_ROW / 9;
             }
             else if (count == 3)
             {
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 3 : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 5 : 
-                                           PatternScore.CLOSED_THREE / 5;
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 2.5f : 
+                    (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 3.5f : 
+                    PatternScore.CLOSED_THREE / 4.5f;
             }
             else if (count == 2)
             {
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_TWO / 2 : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3 : 
-                                           PatternScore.CLOSED_TWO / 5;
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_TWO / 3.0f : 
+                    (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 4.0f : 
+                    PatternScore.CLOSED_TWO / 5.0f;
             }
             else if (count == 1)
             {
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_ONE : 
-                                           PatternScore.CLOSED_ONE;
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_ONE / 4.0f : 
+                    PatternScore.CLOSED_ONE / 5.0f;
             }
             
             // 깨진 패턴 평가
@@ -469,7 +469,7 @@ public static class AIEvaluator
             
             if (isBroken)
             {
-                brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds);
+                brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds) * 1.5f;
             }
             
             directionScore = Math.Max(normalScore, brokenScore);
@@ -491,27 +491,28 @@ public static class AIEvaluator
             opponentPatterns.Add((dir, count, openEnds));
             
             float normalScore = 0;
-            // 상대 패턴 차단에 대한 가치 (약간 낮은 가중치) AI는 공격지향적으로
+
             if (count >= 4)
             {
-                normalScore = PatternScore.FIVE_IN_A_ROW / 12.5f; 
+                normalScore = PatternScore.FIVE_IN_A_ROW / 8.5f;
             }
             else if (count == 3)
             {
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 3.75f : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 6.25f : 
-                                           PatternScore.CLOSED_THREE / 6.25f;
+                // 일관된 분모 사용 (방어 가중치는 유지)
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 1.3f : 
+                    (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 3.2f : 
+                    PatternScore.CLOSED_THREE / 4.2f;
             }
             else if (count == 2)
             {
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_TWO / 2.5f : 
-                         (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3.75f : 
-                                           PatternScore.CLOSED_TWO / 5f;
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_TWO / 2.7f : 
+                    (openEnds == 1) ? PatternScore.HALF_OPEN_TWO / 3.7f : 
+                    PatternScore.CLOSED_TWO / 4.7f;
             }
             else if (count == 1)
             {
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_ONE / 1.25f : 
-                                           PatternScore.CLOSED_ONE;
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_ONE / 3.7f : 
+                    PatternScore.CLOSED_ONE / 4.7f;
             }
             
             var (isBroken, brokenCount, brokenOpenEnds) = DetectBrokenPattern(board, row, col, dir, opponentPlayer);
@@ -520,7 +521,7 @@ public static class AIEvaluator
             if (isBroken)
             {
                 // 깨진 패턴은 일반 패턴보다 좀 더 높은 가중치 할당
-                brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds) * 0.9f;
+                brokenScore = EvaluateBrokenPattern(brokenCount, brokenOpenEnds) * 1.2f;
             }
             
             directionScore = Math.Max(normalScore, brokenScore);
@@ -561,7 +562,7 @@ public static class AIEvaluator
                     if (!AreParallelDirections(openThrees[i].dir, openThrees[j].dir))
                     {
                         float threeThreeScore = PatternScore.DOUBLE_THREE / 4; // 복합 패턴 가중치
-                        score += isAI ? threeThreeScore : threeThreeScore * 1.1f;
+                        score += isAI ? threeThreeScore * 1.1f : threeThreeScore * 1.3f;
                         break;
                     }
                 }
@@ -578,7 +579,7 @@ public static class AIEvaluator
                     if (!AreParallelDirections(fours[i].dir, fours[j].dir))
                     {
                         float fourFourScore = PatternScore.DOUBLE_FOUR / 4;
-                        score += isAI ? fourFourScore : fourFourScore * 1.2f;
+                        score += isAI ? fourFourScore * 1.2f : fourFourScore * 1.5f;
                         break;
                     }
                 }
@@ -589,7 +590,7 @@ public static class AIEvaluator
         if (fours.Count > 0 && openThrees.Count > 0)
         {
             float fourThreeScore = PatternScore.FOUR_THREE / 4;
-            score += isAI ? fourThreeScore : fourThreeScore * 1.2f;
+            score += isAI ? fourThreeScore * 1.1f : fourThreeScore * 1.4f;
         }
     
         return score;

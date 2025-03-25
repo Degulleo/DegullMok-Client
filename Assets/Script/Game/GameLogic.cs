@@ -184,14 +184,6 @@ public class GameLogic : MonoBehaviour
     private List<Vector2Int> _forbiddenMoves = new List<Vector2Int>();
 #endregion
 
-    private static int[][] _directions = new int[][]
-    {
-        new int[] {1, 0}, // 수직
-        new int[] {0, 1}, // 수평
-        new int[] {1, 1}, // 대각선 ↘ ↖
-        new int[] {1, -1} // 대각선 ↙ ↗
-    };
-    
     public GameLogic(StoneController stoneController, Enums.GameType gameType, FioTimer fioTimer = null)
     {
         //보드 초기화
@@ -233,18 +225,25 @@ public class GameLogic : MonoBehaviour
             };
         }
         
-        //TODO: 기보 매니저에게 플레이어 닉네임 넘겨주기, 프로필정보도 넘겨줘야 합니다.
-        ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
-        
         switch (gameType)
         {
             case Enums.GameType.SinglePlay:
                 firstPlayerState = new PlayerState(true);
                 secondPlayerState = new AIState();
+                // AI 난이도 설정(급수 설정)
+                OmokAI.Instance.SetRating(UserManager.Instance.Rating);
+                
+                //유저 이름 사진 초기화
+                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
+                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
+                
+                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI", UserManager.Instance.imageIndex, 1);
+                
                 SetState(firstPlayerState);
                 break;
             case Enums.GameType.MultiPlay:
                 //TODO: 멀티 구현 필요
+                ReplayManager.Instance.InitReplayData("PlayerA","nicknameB");
                 break;
             case Enums.GameType.Replay:
                 //TODO: 리플레이 구현
@@ -273,6 +272,8 @@ public class GameLogic : MonoBehaviour
         _currentPlayerState?.OnExit(this);
         _currentPlayerState = state;
         _currentPlayerState?.OnEnter(this);
+        //턴 표시
+        GameManager.Instance.SetTurnIndicator(_currentPlayerState == firstPlayerState);
     }
     
     //스톤의 상태변경 명령함수
@@ -358,17 +359,9 @@ public class GameLogic : MonoBehaviour
     //승리 확인 함수
     public bool CheckGameWin(Enums.PlayerType player, int row, int col)
     {
-        foreach (var dir in _directions)
-        {
-            var (count, _) = CountStones(_board, row, col, dir, player);
-
-            // 자기 자신 포함하여 5개 이상일 시 true 반환
-            if (count + 1 >= Constants.WIN_COUNT) 
-                return true;
-        }
-
-        return false;
+        return OmokAI.Instance.CheckGameWin(player, _board, row, col);
     }
+    
     // 특정 방향으로 같은 돌 개수와 열린 끝 개수를 계산하는 함수
     private (int count, int openEnds) CountStones(
         Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player)
@@ -433,7 +426,7 @@ public class GameLogic : MonoBehaviour
             {
                 if (tempBoard[row, col] != Enums.PlayerType.None) continue;
                 tempBoard[row, col] = player;
-                foreach (var dir in _directions)
+                foreach (var dir in AIConstants.Directions)
                 {
                     var (count, _) = CountStones(tempBoard, row, col, dir, player);
 
