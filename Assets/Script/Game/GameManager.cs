@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
-    private GameObject _omokBoardImage;
+    private GameObject _camera;
     private GameUIController _gameUIController;
     
     [SerializeField] private GameObject panelManagerPrefab;
@@ -46,10 +46,12 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            if (_stoneController != null && _omokBoardImage != null)
+            if (_camera != null)
             {
-                _stoneController.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
-                _omokBoardImage.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
+                _camera.transform.DOShakePosition(0.5f, 0.5f).OnComplete(() =>
+                {
+                    _camera.transform.position = new Vector3(0,0,-10);
+                });
             }
         }
     }
@@ -73,7 +75,7 @@ public class GameManager : Singleton<GameManager>
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             var fioTimer = FindObjectOfType<FioTimer>();
-            _omokBoardImage = GameObject.FindObjectOfType<SpriteRenderer>().gameObject;
+            _camera = GameObject.FindObjectOfType<Camera>().gameObject;
             _gameUIController = GameObject.FindObjectOfType<GameUIController>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
             

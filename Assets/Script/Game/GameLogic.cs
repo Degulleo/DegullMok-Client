@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public abstract class BasePlayerState
 {
@@ -233,11 +234,15 @@ public class GameLogic : MonoBehaviour
                 // AI 난이도 설정(급수 설정)
                 OmokAI.Instance.SetRating(UserManager.Instance.Rating);
                 
-                //유저 이름 사진 초기화
-                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
-                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
+                //AI닉네임 랜덤생성
+                var aiName = RandomAINickname();
+                var imageIndex = UnityEngine.Random.Range(0, 2);
                 
-                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI", UserManager.Instance.imageIndex, 1);
+                //유저 이름 사진 초기화
+                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
+                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, imageIndex);
+                
+                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,aiName, UserManager.Instance.imageIndex, imageIndex);
                 
                 SetState(firstPlayerState);
                 break;
@@ -250,6 +255,17 @@ public class GameLogic : MonoBehaviour
                 break;
         }
     }
+    
+    //AI닉네임 랜덤 생성
+    private string RandomAINickname()
+    {
+        string[] AI_NAMIES = { "이세돌",  "신사동호랭이","진짜인간임","종로3가짱돌","마스터김춘배","62세황순자","고준일 강사님"};
+        
+        var index = UnityEngine.Random.Range(0, AI_NAMIES.Length);
+        
+        return AI_NAMIES[index];
+    }
+    
     //돌 카운터 증가 함수
     public void CountStoneCounter()
     {
