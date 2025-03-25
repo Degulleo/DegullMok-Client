@@ -15,7 +15,7 @@ public class AudioManager : Singleton<AudioManager>
 
     [HideInInspector] public float sfxVolume = 1.0f;  // SFX 볼륨 (기본값 1)
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();  // 부모 클래스의 Awake 호출
 
@@ -50,6 +50,26 @@ public class AudioManager : Singleton<AudioManager>
             bgmAudioSource.Stop();  // BGM을 멈춤
         }
     }
+    
+    public void PlayGameBGM()
+    {
+        if (bgmAudioSource != null && gameBgm != null && !bgmAudioSource.isPlaying)
+        {
+            bgmAudioSource.clip = gameBgm;
+            bgmAudioSource.loop = true;  // BGM을 반복 재생
+            bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
+            bgmAudioSource.Play();  // 게임 BGM 재생
+        }
+    }
+    
+    public void StopGameBGM()
+    {
+        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
+        {
+            bgmAudioSource.Stop();  // 게임용 BGM을 멈춤
+            Debug.Log("Game BGM stopped.");
+        }
+    }
 
     // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
@@ -71,21 +91,15 @@ public class AudioManager : Singleton<AudioManager>
 
         if (scene.name == "Main")
         {
-            // MainMenu 씬이 로드되면 메인 메뉴 BGM 재생
+            StopGameBGM();
+            
             PlayMainBGM();
         }
         else if (scene.name == "Game")
         {
             StopMainBGM();
-            // GameScene 씬이 로드되면 MainBGM을 멈추고 게임용 BGM 재생
-            // GameScene 씬이 로드되면 게임용 BGM 재생
-            if (gameBgm != null)
-            {
-                bgmAudioSource.clip = gameBgm;
-                bgmAudioSource.loop = true;
-                bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
-                bgmAudioSource.Play();
-            }
+            
+            PlayGameBGM();
         }
     }
 }
