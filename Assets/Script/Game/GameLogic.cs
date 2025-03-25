@@ -243,7 +243,7 @@ public class GameLogic : MonoBehaviour
                 GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
                 GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
                 
-                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI");
+                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI", UserManager.Instance.imageIndex, 1);
                 
                 SetState(firstPlayerState);
                 break;
