@@ -71,42 +71,37 @@ public class GameUIController : MonoBehaviour
     {
         if (isFirstPlayer)
         {
-            if (_originalSpriteA == profileImageSprites[0])
-            {
-                profileImageA.sprite = profileImageSprites[2];
-            }
-            else if (_originalSpriteA == profileImageSprites[1])
-            {
-                profileImageA.sprite = profileImageSprites[3];
-            }
+            SetPlayerTurn(profileImageA, _originalSpriteA);
             profileImageB.sprite = _originalSpriteB;
             indicatorA.sprite = indicatorSprites[0];
             indicatorB.sprite = indicatorSprites[1];
             
-            profileImageA.transform.DOScale(1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-            {
-                profileImageA.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            });
         }
         else
         {
-            if (_originalSpriteB == profileImageSprites[0])
-            {
-                profileImageB.sprite = profileImageSprites[2];
-            }
-            else if (_originalSpriteB == profileImageSprites[1])
-            {
-                profileImageB.sprite = profileImageSprites[3];
-            }
+            SetPlayerTurn(profileImageB, _originalSpriteB);
             profileImageA.sprite = _originalSpriteA;
             indicatorA.sprite = indicatorSprites[1];
             indicatorB.sprite = indicatorSprites[0];
             
-            profileImageB.transform.DOScale(1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-            {
-                profileImageB.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            });
         }
+    }
+
+    private void SetPlayerTurn(Image profileImage, Sprite _originalSprite)
+    {
+        if (_originalSprite == profileImageSprites[0])
+        {
+            profileImage.sprite = profileImageSprites[2];
+        }
+        else if (_originalSprite == profileImageSprites[1])
+        {
+            profileImage.sprite = profileImageSprites[3];
+        }
+        
+        profileImage.transform.DOScale(1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            profileImage.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+        });
     }
     
 }
