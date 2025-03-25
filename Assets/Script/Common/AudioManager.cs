@@ -69,13 +69,15 @@ public class AudioManager : Singleton<AudioManager>
         // 씬 이름에 따라 BGM을 다르게 설정
         Debug.Log($"Scene {scene.name} loaded.");
 
-        if (scene.name == "MainMenu")
+        if (scene.name == "Main")
         {
             // MainMenu 씬이 로드되면 메인 메뉴 BGM 재생
             PlayMainBGM();
         }
-        else if (scene.name == "GameScene")
+        else if (scene.name == "Game")
         {
+            StopMainBGM();
+            // GameScene 씬이 로드되면 MainBGM을 멈추고 게임용 BGM 재생
             // GameScene 씬이 로드되면 게임용 BGM 재생
             if (gameBgm != null)
             {

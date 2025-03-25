@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainBgm: {fileID: 8300000, guid: 1d9c7fb20aa822c48933d00b6bd6a757, type: 3}
+  gameBgm: {fileID: 8300000, guid: af872c2922acc554e91fb388b39f64ff, type: 3}
   clickSound: {fileID: 8300000, guid: cff2e6cf7f46a074d86955b3b6fd499a, type: 3}
   closeSound: {fileID: 8300000, guid: e7c0f32158a3e5b46bc3b59035aba898, type: 3}
   sfxVolume: 0
