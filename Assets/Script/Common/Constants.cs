@@ -7,4 +7,5 @@
     public const int WIN_COUNT = 5;
     //무승부 확인을 위한 최소 착수 수
     public const int MinCountForDrawCheck = 150;
+    public const int RAING_POINTS = 10;
 }

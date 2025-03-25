@@ -188,6 +188,16 @@ public class PanelManager : MonoBehaviour
         GameManager.Instance.panelManager.OpenShopPanel(shopItems);
     }
     
+    //승급 패널 생성
+    public void OpenRatingPanel()
+    {
+        if (_canvas != null)
+        {
+            var replayPanelObject = GetPanel("Rating Panel");
+            replayPanelObject.GetComponent<RatingPanelController>().Show();
+        }
+    }
+    
     //코인 패널 코인 갱신
     public void UpdateCoinsPanelUI(int coinsChanged)
     {
@@ -203,7 +213,7 @@ public class PanelManager : MonoBehaviour
             Debug.Log("코인 패널이 null 입니다.");
         }
     }
-
+    
     public void RemoveCoinsPanelUI(Action onComplete)
     {
         NetworkManager.Instance.DeductCoins((i) =>
