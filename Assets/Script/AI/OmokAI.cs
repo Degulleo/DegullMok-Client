@@ -1,8 +1,8 @@
 ﻿using System;
-using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
-public class OmokAI : MonoBehaviour
+public class OmokAI : Singleton<OmokAI>
 {
     public static OmokAI Instance;
 
@@ -10,7 +10,8 @@ public class OmokAI : MonoBehaviour
     {
         Instance = this;
     }
-
+    
+    // AI가 Player B가 아닌 경우 해당 메서드로 설정. 기본값은 PlayerB
     public void SetAIPlayerType(Enums.PlayerType AIPlayerType)
     {
         MiniMaxAIController.SetAIPlayerType(AIPlayerType);
@@ -33,4 +34,6 @@ public class OmokAI : MonoBehaviour
         bool isWin = MiniMaxAIController.CheckGameWin(player, board, row, col, false);
         return isWin;
     }
+    
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode) { }
 }

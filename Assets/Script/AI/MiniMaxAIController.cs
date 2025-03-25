@@ -10,12 +10,16 @@ public static class MiniMaxAIController
     
     private static int[][] _directions = AIConstants.Directions;
 
-    private static int _playerRating = 1; // 급수 설정
-    private static float _mistakeMove;
+    private static int _playerRating = 18; // 급수. 기본값 18(최하)
     
     private static Enums.PlayerType _AIPlayerType = Enums.PlayerType.PlayerB;
     
-    private static System.Random _random = new System.Random(); // 랜덤 실수용 Random 함수
+    // 실수 관련 변수
+    private static float _baselineMistakeProb; // 기본 실수 확률
+    private static float _mistakeSeverity; // 실수의 심각도 (높을수록 더 나쁜 수를 둘 확률 증가)
+    private static int _consecutiveGoodMoves = 0; // 연속으로 좋은 수를 둔 횟수
+    private static int _turnsPlayed = 0; // 진행된 턴 수
+    private static System.Random _random = new System.Random();
     
     // 중복 계산을 방지하기 위한 캐싱 데이터. 위치 기반 (그리드 기반 해시맵)
     private static Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>> 
@@ -31,15 +35,14 @@ public static class MiniMaxAIController
     public static void SetRating(int level)
     {
         _playerRating = level;
-        // 레벨에 따른 실수율? 설정
-        _mistakeMove = GetMistakeProbability(_playerRating);
+        GetMistakeProbability(_playerRating);
     }
     
     // 실수 확률 계산 함수
-    private static float GetMistakeProbability(int level)
+    private static void GetMistakeProbability(int level)
     {
-        // 레벨이 1일 때 실수 확률 0%, 레벨이 18일 때 실수 확률 50%
-        return (level - 1) / 17f * 0.5f;
+        _baselineMistakeProb = Math.Max(0.01f, (level - 1) / 17f * 0.34f); //1급 1%, 18급 35%
+        _mistakeSeverity = 1f - ((level - 1) / 17f); // 레벨이 낮을수록 심각한 실수를 함
     }
     
     // return 값이 null 일 경우 == 보드에 칸 꽉 참
@@ -50,7 +53,6 @@ public static class MiniMaxAIController
         
         float bestScore = float.MinValue;
         (int row, int col)? bestMove = null;
-        (int row, int col)? secondBestMove = null;
         List<(int row, int col)>? fiveInARowMoves = null;
         List<(int row, int col, float score)> validMoves = GetValidMoves(board);
         
@@ -65,14 +67,17 @@ public static class MiniMaxAIController
         if (fiveInARowMoves != null & fiveInARowMoves.Count > 0)
         {
             bestMove = fiveInARowMoves[0]; 
+            _turnsPlayed++;
             return bestMove;
         }
         
         // 즉시 패배 가능한 자리를 먼저 찾아서 우선적으로 설정
-        fiveInARowMoves = GetFiveInARowCandidateMoves(board, _AIPlayerType);
+        // var oppositePlayer = _AIPlayerType == Enums.PlayerType.PlayerB ? Enums.PlayerType.PlayerA : Enums.PlayerType.PlayerB;
+        fiveInARowMoves = GetFiveInARowCandidateMoves(board, Enums.PlayerType.PlayerA);
         if (fiveInARowMoves != null & fiveInARowMoves.Count > 0)
         {
             bestMove = fiveInARowMoves[0]; 
+            _turnsPlayed++;
             return bestMove;
         }
         
@@ -85,26 +90,82 @@ public static class MiniMaxAIController
             if (score > bestScore)
             {
                 bestScore = score;
-
-                if (bestMove != null)
-                {
-                    secondBestMove = bestMove;
-                }
-                
                 bestMove = (row, col);
             }
         }
 
         // 랜덤 실수
-        if (secondBestMove != null && _random.NextDouble() < _mistakeMove)
+        float currentMistakeProb = CalculateDynamicMistakeProb(board, validMoves); // 실수 확률 동적 조정
+    
+        // 실수 확률에 따라 실수 여부 결정
+        if (_random.NextDouble() < currentMistakeProb)
         {
-            Debug.Log("AI Mistake");
-            return secondBestMove;
-        }
+            int moveIndex = SelectMistakeMove(validMoves);
+            _consecutiveGoodMoves = 0; // 실수했으므로 연속 카운터 리셋
         
+            var mistakeMove = (validMoves[moveIndex].row, validMoves[moveIndex].col);
+        
+            // Debug.Log($"AI Mistake: 최적 점수 {validMoves[0].score}대신 {validMoves[moveIndex].score} 선택 (실수 확률: {currentMistakeProb:P2})");
+            _turnsPlayed++;
+            return mistakeMove;
+        }
+    
+        // 실수X
+        _consecutiveGoodMoves++;
+        _turnsPlayed++;
         return bestMove;
     }
 
+    #region Mistake Code
+    
+    // 동적 실수 확률 계산 (게임 상황에 따라 조정)
+    private static float CalculateDynamicMistakeProb(Enums.PlayerType[,] board, List<(int row, int col, float score)> validMoves)
+    {
+        float mistakeProb = _baselineMistakeProb;
+    
+        // 1. 턴 수에 따라 조정
+        if (_turnsPlayed < 5) // 초반에는 실수 확률 감소
+        {
+            mistakeProb *= 0.5f;
+        }
+    
+        // 2. 연속적인 좋은 수에 따른 조정 (집중력 저하 효과)
+        if (_consecutiveGoodMoves > 3)
+        {
+            // 연속으로 좋은 수를 두면 집중력이 저하되어 실수 확률 증가
+            mistakeProb += (_consecutiveGoodMoves - 3) * 0.03f;
+        }
+    
+        // 3. 게임 후반 집중력 향상 (마지막 몇 수는 집중)
+        if (_turnsPlayed > 78) {
+            mistakeProb *= 0.7f; // 종반에는 더 집중
+        }
+    
+        return Math.Min(mistakeProb, 0.8f); // 최대 80%로 제한
+    }
+
+    // 실수 선택(경미 ~ 심각)
+    private static int SelectMistakeMove(List<(int row, int col, float score)> moves)
+    {
+        int moveCount = moves.Count;
+    
+        // _mistakeSeverity가 높을수록(레벨이 낮을수록) 더 심각한 실수를 할 확률 증가
+        float severityFactor = (float)Math.Pow(_random.NextDouble(), 1 / _mistakeSeverity);
+    
+        // 상위 수들 중에서는 약간 안 좋은 수를, 하위 수들 중에서는 매우 안 좋은 수를 선택
+        int mistakeIndex = Math.Min(1 + (int)(severityFactor * (moveCount - 1)), moveCount - 1);
+    
+        // 가끔 완전히 랜덤한 수 선택 (매우 낮은 확률)
+        if (_random.NextDouble() < 0.05 * _mistakeSeverity)
+        {
+            mistakeIndex = _random.Next(1, moveCount);
+        }
+    
+        return mistakeIndex;
+    }
+    
+    #endregion
+    
     private static float DoMinimax(Enums.PlayerType[,] board, int depth, bool isMaximizing, float alpha, float beta,
         int recentRow, int recentCol)
     {
@@ -322,10 +383,19 @@ public static class MiniMaxAIController
                 {
                     var (count, openEnds) = CountStones(board, row, col, dir, currentPlayer, false);
 
-                    if (count == 4 && openEnds > 0)
+                    if (count + 1 == WIN_COUNT && openEnds > 0) // 일반 패턴 (연속 4돌)
                     {
-                        fiveInARowMoves.Add((row, col));
-                        break;  // 하나 나오면 바로 break (시간 단축)
+                        return new List<(int row, int col)> { (row, col) };  // 하나 나오면 바로 return (시간 단축)
+                    }
+                    
+                    if (count >= 2) // 깨진 패턴 평가
+                    {
+                        var (isBroken, brokenCount, _) = AIEvaluator.DetectBrokenPattern(board, row, col, dir, currentPlayer);
+                    
+                        if (isBroken && brokenCount + 1 >= WIN_COUNT)  // 자기 자신 포함
+                        {
+                            return new List<(int row, int col)> { (row, col) };
+                        }
                     }
                 }
             }

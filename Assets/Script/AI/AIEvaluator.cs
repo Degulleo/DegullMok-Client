@@ -315,8 +315,8 @@ public static class AIEvaluator
         return fourThreeCount;
     }
     
-    // 깨진 패턴 (3-빈칸-1) 감지
-    private static (bool isDetected, int count, int openEnds) DetectBrokenPattern(
+    // 깨진 패턴 (ex. 3-빈칸-1) 감지
+    public static (bool isDetected, int count, int openEnds) DetectBrokenPattern(
         Enums.PlayerType[,] board, int row, int col, int[] dir, Enums.PlayerType player)
     {
         int size = board.GetLength(0);
