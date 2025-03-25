@@ -44,7 +44,7 @@ public class PanelController : MonoBehaviour
     /// </summary>
     public void Hide(PanelControllerHideDelegate hideDelegate = null)
     {
-        GameManager.Instance.audioManager.PlayCloseSound();
+        // GameManager.Instance.audioManager.PlayCloseSound();
         
         backGroundCanvasGroup.alpha = 1;
         panelRectTransform.localScale = Vector3.one;
