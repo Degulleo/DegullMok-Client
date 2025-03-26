@@ -22,6 +22,7 @@ public class RatingPointsController : MonoBehaviour
     public void InitRatingPoints(int oldScore,Enums.GameResult gameResult, int defaultRequiredScore)
     {
         // TODO: [인덱스계산 ㅇㅖ외처리 ] 계산한 값 절대값이 defaultRequiredScore보다 큰 경우 return. 근데 이런 값이 나온다는게 이미 계산 오류가 어디서 생긴 것이겠죠..?
+        // 그런건 아니고 18급에서 강등 안됨 1급에서 승급 안됨 계산을 해야되네예.... 근데 이건 rating panel controller에서 걸러서 보내면 될듯.! 
         _oldScore = oldScore;
         Sequence sequence = DOTween.Sequence();
         if (_oldScore == 0)
@@ -117,7 +118,6 @@ public class RatingPointsController : MonoBehaviour
             }
         }
         
-        //TODO: 무승부인 경우 남은 승리 수 계산
         if (gameResult == Enums.GameResult.Draw)
         {
             _newRequiredScore = defaultRequiredScore-oldScore;
@@ -128,11 +128,23 @@ public class RatingPointsController : MonoBehaviour
 
     private void SetScoreCountText(int scoreCount,int defaultRequiredScore)
     {
-        if (scoreCount == 0 || scoreCount >= defaultRequiredScore * 2)
+        // 남은 승리수가 0인 경우 승급
+        if (scoreCount == 0)
+        {
             scoreCountText.text = "";
+        }
+        else if (scoreCount < 0)
+        {
+            scoreCountText.text = "더 이상 승급 할 수 없습니다.";
+        }
+        else if (scoreCount >= defaultRequiredScore * 2)
+        {
+            scoreCountText.text = "더이상 강등 될 수 없습니다.";
+        }
         else
+        {
             scoreCountText.text = $"{scoreCount} 게임을 승리하면 승급하게 됩니다.";
-        //강등되는 경우에도 텍스트 처리
+        }
     }
     
     //승급, 강등시 패널을 초기화해서 띄워주는 함수 추가

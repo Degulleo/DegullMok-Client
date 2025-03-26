@@ -70,7 +70,20 @@ public class RatingPanelController : PanelController
         NetworkManager.Instance.GetInfo((userInfo) =>
             {
                 _oldScore = userInfo.score;
-                _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+                // TODO: oldscore가 더이상 강등될 수 없는 상태, 더이상 승급할 수 없는 상태임을 체크해서 더이상 ~할 수 없습니다. 처리하기
+                if (_myRating == 1 && userInfo.score >= requiredScore )
+                {
+                    
+                }
+                else if (_myRating == 18 && userInfo.score <= requiredScore*2)
+                {
+                    
+                }
+                else
+                {
+                    _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+                    
+                }
             }, () =>
             { });
 
