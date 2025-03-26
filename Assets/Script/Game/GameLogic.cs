@@ -452,12 +452,15 @@ public class GameLogic : MonoBehaviour
         {
             // 스레드 확인 로그: 추후 디버깅 시 필요할 수 있을 것 같아 남겨둡니다
             // Debug.Log($"[UnityMainThreadDispatcher] 실행 스레드: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
-            // UI 업데이트
-            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
-            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
-       
-            // 리플레이 데이터 업데이트
-            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, "PlayerAI", UserManager.Instance.imageIndex, 1);
+            //AI닉네임 랜덤생성
+            var aiName = RandomAINickname();
+            var imageIndex = UnityEngine.Random.Range(0, 2);
+                
+            //유저 이름 사진 초기화
+            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
+            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, imageIndex);
+            // 리플레이 데이터 업데이트  
+            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,aiName, UserManager.Instance.imageIndex, imageIndex);
 
             // 로딩 패널 열려있으면 닫기
             GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -576,7 +579,6 @@ public class GameLogic : MonoBehaviour
         SetState(null);
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
-        SceneManager.LoadScene("Main");
     }
     
     //승리 확인 함수
