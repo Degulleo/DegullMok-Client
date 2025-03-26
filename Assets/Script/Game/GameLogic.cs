@@ -20,7 +20,6 @@ public abstract class BasePlayerState
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
         gameLogic.fioTimer.PauseTimer();
-        
         gameLogic.SetNewBoardValue(playerType, row, col);
         gameLogic.CountStoneCounter();
         
@@ -32,6 +31,13 @@ public abstract class BasePlayerState
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
             var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+            if (gameLogic.gameType == Enums.GameType.MultiPlay)
+            {
+                if (gameLogic.firstPlayerState.GetType() != typeof(PlayerState))
+                {
+                    gameResult = gameResult == Enums.GameResult.Win ? Enums.GameResult.Lose : Enums.GameResult.Win;
+                }
+            }
             GameManager.Instance.panelManager.OpenEffectPanel(gameResult);
             gameLogic.EndGame(gameResult);
         }
@@ -354,7 +360,8 @@ public class GameLogic : MonoBehaviour
                         {
                             Debug.Log("해당 플레이어가 후공 입니다");
                             firstPlayerState = new MultiPlayerState(true, _multiplayManager);
-                            secondPlayerState = new PlayerState(false, _multiplayManager, _roomId);
+                            secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData.roomId);
+                            
                             UnityMainThreadDispatcher.Instance().Enqueue(() =>
                             {
                                 GameManager.Instance.InitPlayersName(joinRoomData.opponentNickname, UserManager.Instance.Nickname);
@@ -363,10 +370,6 @@ public class GameLogic : MonoBehaviour
                                 // 리플레이 데이터 업데이트
                                 ReplayManager.Instance.InitReplayData(joinRoomData.opponentNickname, UserManager.Instance.Nickname, joinRoomData.opponentImageIndex, UserManager.Instance.imageIndex);
                             });
-                        
-                            Debug.Log("해당 플레이어가 후공 입니다");
-                            firstPlayerState = new MultiPlayerState(true, _multiplayManager);
-                            secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData.roomId);
                         }
                         
                         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
