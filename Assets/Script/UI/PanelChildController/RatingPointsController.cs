@@ -10,7 +10,7 @@ public class RatingPointsController : MonoBehaviour
     [SerializeField] GameObject[] minusImages;
     [SerializeField] GameObject[] plusImage;
     [SerializeField] TMP_Text scoreCountText;
-    [SerializeField] private float flipDuration = 0.3f;
+    [SerializeField] private float flipDuration = 1f;
     
     private Color32 _minusColor = new Color32(255, 0, 0, 255);
     private Color32 _plusColor = new Color32(34, 87, 255, 255);
@@ -30,14 +30,22 @@ public class RatingPointsController : MonoBehaviour
             for (int i = 0; i < oldScore; i++)
             {
                 plusImage[i].GetComponent<Image>().color = _plusColor;
+                plusImage[i].GetComponent<Transform>().DOFlip();
             }
         }
         else if (oldScore < 0)
         {
             for (int i = oldScore; i < 0; i++)
             {
-                minusImages[minusImages.Length+i].GetComponent<Image>().color = _minusColor;
+                minusImages[minusImages.Length+i].GetComponent<Image>().DOColor(_minusColor, flipDuration);
+                plusImage[minusImages.Length+i].GetComponent<Transform>().DOFlip();
             }
         }
     }
+
+    public int CalculateNewRequiredScore(bool isWin)
+    {
+        return 0;
+    }
+    
 }

@@ -189,12 +189,12 @@ public class PanelManager : MonoBehaviour
     }
     
     //승급 패널 생성
-    public void OpenRatingPanel()
+    public void OpenRatingPanel(Enums.GameResult gameResult)
     {
         if (_canvas != null)
         {
             var replayPanelObject = GetPanel("Rating Panel");
-            replayPanelObject.GetComponent<RatingPanelController>().Show();
+            replayPanelObject.GetComponent<RatingPanelController>().Show(gameResult);
         }
     }
     
