@@ -299,6 +299,7 @@ public class GameLogic : MonoBehaviour
         
         switch (gameType)
         {
+            // TODO: 현재 싱글 플레이로 바로 넘어가지 않기 때문에 미사용 중
             case Enums.GameType.SinglePlay:
                 firstPlayerState = new PlayerState(true);
                 secondPlayerState = new AIState();
@@ -330,6 +331,8 @@ public class GameLogic : MonoBehaviour
                     case Constants.MultiplayManagerState.JoinRoom:
                         Debug.Log("## Join Room");
                         var joinRoomData = data as JoinRoomData;
+                        
+                        // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
                         if (joinRoomData == null)
                         {
                             Debug.Log("Join Room 응답값이 null 입니다");
@@ -367,6 +370,8 @@ public class GameLogic : MonoBehaviour
                     case Constants.MultiplayManagerState.StartGame:
                         Debug.Log("## Start Game");
                         var startGameData = data as StartGameData;
+                        
+                        // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
                         if (startGameData == null)
                         {
                             Debug.Log("Start Game 응답값이 null 입니다");
