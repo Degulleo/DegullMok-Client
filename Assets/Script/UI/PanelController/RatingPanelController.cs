@@ -70,13 +70,38 @@ public class RatingPanelController : PanelController
         NetworkManager.Instance.GetInfo((userInfo) =>
             {
                 _oldScore = userInfo.score;
-                // TODO: oldscore가 더이상 강등될 수 없는 상태, 더이상 승급할 수 없는 상태임을 체크해서 더이상 ~할 수 없습니다. 처리하기
-                if (_myRating == 1 && userInfo.score >= requiredScore )
+                // 1급이고 이미 10승 이상인 경우
+                //TODO: IF문 줄일 수 있을 것 같은데 머리가 안돕니다. ..
+                if (_myRating == 1 && userInfo.score >= 10 )
                 {
-                    
+                    // 10승에서 패배한 경우 점수 잃는 애니메이션
+                    if (gameResult == Enums.GameResult.Lose && userInfo.score == 10)
+                    {
+                        _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+                    }
+                    else
+                    {
+                        if(gameResult == Enums.GameResult.Lose)
+                            _ratingPointsController.SetRatingUpLimit(_oldScore-1);
+                        else
+                            _ratingPointsController.SetRatingUpLimit(_oldScore+1);
+                    }
                 }
-                else if (_myRating == 18 && userInfo.score <= requiredScore*2)
+                // 18급이고 이미 3패 이상인 경우
+                else if (_myRating == 18 && userInfo.score <= -3)
                 {
+                    //3승에서 승리한 경우 점수 얻는 애니메이션
+                    if (gameResult == Enums.GameResult.Win && userInfo.score == -3)
+                    {
+                        _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+                    }
+                    else
+                    {
+                        if(gameResult == Enums.GameResult.Lose)
+                            _ratingPointsController.SetRatingDownLimit(_oldScore-1);
+                        else
+                            _ratingPointsController.SetRatingDownLimit(_oldScore+1);
+                    }
                     
                 }
                 else

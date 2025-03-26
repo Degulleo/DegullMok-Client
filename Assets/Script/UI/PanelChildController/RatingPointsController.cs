@@ -146,6 +146,24 @@ public class RatingPointsController : MonoBehaviour
             scoreCountText.text = $"{scoreCount} 게임을 승리하면 승급하게 됩니다.";
         }
     }
+
+    public void SetRatingUpLimit(int winCount)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            plusImage[i].GetComponent<Image>().color = _plusColor;
+            scoreCountText.text = $"더 이상 승급 할 수 없습니다.\n누적 {winCount} 승 하셨습니다.";
+        }
+    }
+
+    public void SetRatingDownLimit(int loseCount)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            minusImages[i].GetComponent<Image>().color = _minusColor;
+            scoreCountText.text = $"더 이상 강등 될 수 없습니다.\n누적 {loseCount*-1} 패 하셨습니다.";
+        }
+    }
     
     //승급, 강등시 패널을 초기화해서 띄워주는 함수 추가
 }
