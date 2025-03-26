@@ -101,7 +101,7 @@ public class AudioManager : Singleton<AudioManager>
     // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
         }
@@ -110,7 +110,7 @@ public class AudioManager : Singleton<AudioManager>
     // 닫기 사운드(SFX) 재생
     public void PlayCloseSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
         }
@@ -118,7 +118,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayCoinsAddSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(coinsAddSound, sfxVolume);
         }
@@ -126,7 +126,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayCoinsEmptySound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(coinsEmptySound, sfxVolume);
         }
@@ -134,7 +134,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayCoinsRemoveSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(coinsRemoveSound, sfxVolume);
         }
@@ -142,7 +142,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayLoseSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(loseSound, sfxVolume);
         }
@@ -150,7 +150,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayWinSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(winSound, sfxVolume);
         }
@@ -158,7 +158,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayStoneSound()
     {
-        if (isPlaySFX)
+        if (isPlaySFX && sfxAudioSource!=null)
         {
             sfxAudioSource.PlayOneShot(stoneSound, sfxVolume);
         }
