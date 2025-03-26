@@ -102,7 +102,7 @@ public class AudioManager : Singleton<AudioManager>
     public void PlayClickSound()
     {
 
-        if (sfxAudioSource != null)
+        if (isPlaySFX && sfxAudioSource != null)
         {
             sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
         }
@@ -111,7 +111,7 @@ public class AudioManager : Singleton<AudioManager>
     // 닫기 사운드(SFX) 재생
     public void PlayCloseSound()
     {
-        if (sfxAudioSource != null)
+        if (isPlaySFX && sfxAudioSource != null)
         {
             sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
         }
