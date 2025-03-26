@@ -12,6 +12,10 @@ public abstract class BasePlayerState
     public abstract void OnExit(GameLogic gameLogic);
     public abstract void HandleMove(GameLogic gameLogic, int row, int col);
     public abstract void HandleNextTurn(GameLogic gameLogic);
+    
+    protected string _roomId;
+    protected bool _isMultiplay;
+    protected MultiplayManager _multiplayManager;
 
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
@@ -19,6 +23,12 @@ public abstract class BasePlayerState
         
         gameLogic.SetNewBoardValue(playerType, row, col);
         gameLogic.CountStoneCounter();
+        
+        if (_isMultiplay)
+        {
+            Debug.Log("row: " + row + "col: " + col);
+            _multiplayManager.SendPlayerMove(_roomId, new Vector2Int(row, col));
+        }
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
@@ -52,10 +62,6 @@ public class PlayerState : BasePlayerState
 {
     private Enums.PlayerType _playerType;
     private bool _isFirstPlayer;
-    
-    private MultiplayManager _multiplayManager;
-    private string _roomId;
-    private bool _isMultiplay;
     
     public PlayerState(bool isFirstPlayer)
     {
@@ -108,11 +114,6 @@ public class PlayerState : BasePlayerState
     public override void HandleMove(GameLogic gameLogic, int row, int col)
     {
         gameLogic.SetStoneSelectedState(row, col);
-        if (_isMultiplay)
-        {
-            Debug.Log("row: " + row + "col: " + col);
-            _multiplayManager.SendPlayerMove(_roomId, new Vector2Int(row, col));
-        }
     }
 
     public override void HandleNextTurn(GameLogic gameLogic)
