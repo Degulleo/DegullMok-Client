@@ -297,24 +297,24 @@ public class GameLogic : MonoBehaviour
         switch (gameType)
         {
             // TODO: 현재 싱글 플레이로 바로 넘어가지 않기 때문에 미사용 중
-            case Enums.GameType.SinglePlay:
-                firstPlayerState = new PlayerState(true);
-                secondPlayerState = new AIState();
-                // AI 난이도 설정(급수 설정)
-                OmokAI.Instance.SetRating(UserManager.Instance.Rating);
-                
-                //AI닉네임 랜덤생성
-                var aiName = RandomAINickname();
-                var imageIndex = UnityEngine.Random.Range(0, 2);
-                
-                //유저 이름 사진 초기화
-                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
-                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, imageIndex);
-                
-                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,aiName, UserManager.Instance.imageIndex, imageIndex);
-                
-                SetState(firstPlayerState);
-                break;
+            // case Enums.GameType.SinglePlay:
+            //     firstPlayerState = new PlayerState(true);
+            //     secondPlayerState = new AIState();
+            //     // AI 난이도 설정(급수 설정)
+            //     OmokAI.Instance.SetRating(UserManager.Instance.Rating);
+            //     
+            //     //AI닉네임 랜덤생성
+            //     var aiName = RandomAINickname();
+            //     var imageIndex = UnityEngine.Random.Range(0, 2);
+            //     
+            //     //유저 이름 사진 초기화
+            //     GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
+            //     GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, imageIndex);
+            //     
+            //     ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,aiName, UserManager.Instance.imageIndex, imageIndex);
+            //     
+            //     SetState(firstPlayerState);
+            //     break;
             case Enums.GameType.MultiPlay:
                 // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
