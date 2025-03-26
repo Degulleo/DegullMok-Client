@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 8635639988778983738}
   - component: {fileID: 4545556044007292713}
   - component: {fileID: 3229800624310508893}
+  - component: {fileID: 6984539173991577744}
   m_Layer: 5
   m_Name: Lose Effect Panel
   m_TagString: Untagged
@@ -499,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -542,8 +543,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bannerObj: {fileID: 7291411618834705046}
   bannerText: {fileID: 5108301403921453943}
+  interval: 0.1
   characterOpenEyes: {fileID: 1632927645355555415}
   characterCloseEyes: {fileID: 3881260292094838299}
   depressedEffect: {fileID: 155037671892554820}
-  fullText: "\uD328\uBC30\uD588\uC2B5\uB2C8\uB2E4"
-  interval: 0.1
+--- !u!61 &6984539173991577744
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8383435151006156655}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

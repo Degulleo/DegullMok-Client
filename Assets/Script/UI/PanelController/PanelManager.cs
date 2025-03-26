@@ -14,8 +14,10 @@ public class PanelManager : MonoBehaviour
     private Canvas _canvas;
     private CoinsPanelController _coinsPanel;
     private LoadingPanelController loadingPanelController;
+    private GameObject loadingPanelObject;
     
     private Dictionary<string, GameObject> panelPrefabs = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> effectPanelPrefabs = new Dictionary<string, GameObject>();
     
     private void Awake()
     {
@@ -26,6 +28,13 @@ public class PanelManager : MonoBehaviour
         foreach (GameObject prefab in prefabs)
         {
             panelPrefabs[prefab.name] = prefab;
+        }
+        
+        //게임결과 이펙트 패널
+        GameObject[] effectPrefabs = Resources.LoadAll<GameObject>("Prefabs/Effects");
+        foreach (GameObject effect in effectPrefabs)
+        {
+            effectPanelPrefabs[effect.name] = effect;
         }
 
         Debug.Log($"총 {panelPrefabs.Count}개의 패널이 로드됨.");
@@ -52,6 +61,56 @@ public class PanelManager : MonoBehaviour
 
         return null;
     }
+
+    #region 게임결과 이펙트 패널 관련
+
+    public GameObject GetEffectPanel(string panelName)
+    {
+        if (effectPanelPrefabs.TryGetValue(panelName, out GameObject prefab))
+        {
+            return Instantiate(prefab, _canvas.transform);
+        }
+        else
+        {
+            Debug.LogError($"패널 '{panelName}'을 찾을 수 없습니다.");
+        }
+
+        return null;
+    }
+
+    public void OpenEffectPanel(Enums.GameResult gameResult)
+    {
+        switch (gameResult)
+        {
+            case Enums.GameResult.Win:
+                if (_canvas != null)
+                {
+                    var winEffectPanelObject = GetEffectPanel("Win Effect Panel");
+                    winEffectPanelObject.GetComponent<WinEffectController>().ShowEffect(OnEffectPanelEnded);
+                }
+                break;
+            case Enums.GameResult.Lose:
+                if (_canvas != null)
+                {
+                    var loseEffectPanelObject = GetEffectPanel("Lose Effect Panel");
+                    loseEffectPanelObject.GetComponent<LoseEffectController>().ShowEffect(OnEffectPanelEnded);
+                }
+                break;
+            case Enums.GameResult.Draw:
+                if (_canvas != null)
+                {
+                    var drawEffectPanelObject = GetEffectPanel("Draw Effect Panel");
+                    drawEffectPanelObject.GetComponent<DrawEffectController>().ShowEffect(OnEffectPanelEnded);
+                }
+                break;
+        }
+    }
+
+    private void OnEffectPanelEnded()
+    {
+        OpenRatingPanel();
+    }
+    #endregion
     
     public void OpenMainPanel()
     {
@@ -71,17 +130,35 @@ public class PanelManager : MonoBehaviour
 
     public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false)
     {
+        SetCanvas();
         if (_canvas != null)
         {
-            var loadingPanelObject = GetPanel("Loading Panel");
+            if (loadingPanelObject != null && loadingPanelObject.activeSelf)
+            {
+                // 기존 로딩 패널이 활성화되어 있으면 먼저 닫기
+                CloseLoadingPanel();
+            }
             
-        
+            loadingPanelObject = GetPanel("Loading Panel");
+            
             // 로딩 화면이 생성된 후, 원하는 애니메이션 활성화
             loadingPanelController = loadingPanelObject.GetComponent<LoadingPanelController>();
             if (loadingPanelController != null)
             {
                 loadingPanelController.StartLoading(rotateImage, animatedText, flipImage);
             }
+        }
+    }
+
+    public void CloseLoadingPanel()
+    {
+        if (loadingPanelObject != null && loadingPanelObject.activeSelf && loadingPanelController != null)
+        {
+            loadingPanelController.StopLoading();
+        }
+        else
+        {
+            Debug.Log("로딩 패널이 이미 닫혔거나 비활성화 상태입니다.");
         }
     }
     
@@ -188,6 +265,16 @@ public class PanelManager : MonoBehaviour
         GameManager.Instance.panelManager.OpenShopPanel(shopItems);
     }
     
+    //승급 패널 생성
+    public void OpenRatingPanel()
+    {
+        if (_canvas != null)
+        {
+            var replayPanelObject = GetPanel("Rating Panel");
+            replayPanelObject.GetComponent<RatingPanelController>().Show();
+        }
+    }
+    
     //코인 패널 코인 갱신
     public void UpdateCoinsPanelUI(int coinsChanged)
     {
@@ -203,7 +290,7 @@ public class PanelManager : MonoBehaviour
             Debug.Log("코인 패널이 null 입니다.");
         }
     }
-
+    
     public void RemoveCoinsPanelUI(Action onComplete)
     {
         NetworkManager.Instance.DeductCoins((i) =>

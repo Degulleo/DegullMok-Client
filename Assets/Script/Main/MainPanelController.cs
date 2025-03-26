@@ -85,8 +85,7 @@ public class MainPanelController : MonoBehaviour
         //코인 차감 후 게임 씬 로드
         GameManager.Instance.panelManager.RemoveCoinsPanelUI((() => 
         {
-            GameManager.Instance.ChangeToGameScene(Enums.GameType.SinglePlay);
-            //Todo: 게임 타입에 따라 다른 Scene 호출
+            GameManager.Instance.ChangeToGameScene(Enums.GameType.MultiPlay);
         }));
     }
     

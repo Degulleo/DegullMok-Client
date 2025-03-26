@@ -3,9 +3,11 @@ using System.Threading;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CanvasGroup))]
-public abstract class EffectController : MonoBehaviour
+public abstract class EffectController : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] protected GameObject bannerObj;
     [SerializeField] protected TextMeshProUGUI bannerText;
@@ -14,14 +16,17 @@ public abstract class EffectController : MonoBehaviour
 
     protected CancellationTokenSource cancellationTokenSource;
     protected int currentLength = 0;
+    
+    public delegate void OnEffectPanelEnded();
+    protected OnEffectPanelEnded onEffectPanelEnded;
 
-    protected virtual void Start()
-    {
-        ShowEffect();
-    }
+    // protected virtual void Start()
+    // {
+    //     ShowEffect();
+    // }
 
     // 효과를 실행하는 메서드 (자식이 구현해야 함)
-    protected abstract void ShowEffect();
+    public abstract void ShowEffect(OnEffectPanelEnded onEffectPanelEnded);
 
     // 공통 UI 애니메이션 (패널 표시)
     protected virtual void ShowPanel()
@@ -59,7 +64,13 @@ public abstract class EffectController : MonoBehaviour
             cancellationTokenSource.Dispose();
             cancellationTokenSource = null;
         }
-
+        
+        onEffectPanelEnded?.Invoke();
         gameObject.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        HideEffect();
     }
 }

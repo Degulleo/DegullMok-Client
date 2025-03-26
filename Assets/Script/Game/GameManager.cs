@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     private Enums.GameType _gameType;
     private GameLogic _gameLogic;
     private StoneController _stoneController;
-    private GameObject _omokBoardImage;
+    private GameObject _camera;
     private GameUIController _gameUIController;
     
     [SerializeField] private GameObject panelManagerPrefab;
@@ -46,14 +46,17 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            if (_stoneController != null && _omokBoardImage != null)
+            if (_camera != null)
             {
-                _stoneController.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
-                _omokBoardImage.GetComponent<Transform>().DOShakePosition(0.5f, 0.5f);
+                _camera.transform.DOShakePosition(0.5f, 0.5f).OnComplete(() =>
+                {
+                    _camera.transform.position = new Vector3(0,0,-10);
+                });
             }
         }
     }
     
+    // 멀티 플레이를 위한 코드
     public void ChangeToGameScene(Enums.GameType gameType)
     {
         _gameType = gameType;
@@ -63,6 +66,8 @@ public class GameManager : Singleton<GameManager>
     public void ChangeToMainScene()
     {
         _gameType = Enums.GameType.None;
+        // TODO: 추후 혹시 모를 존재하는 socket 통신 종료 필요 - _gameLogic?.Dispose에서 LeaveRoom 호출하긴 하는데 서버에서 이미 해당 방을 삭제했을 경우 동작 확인 필요
+        // _gameLogic?.Dispose();
         SceneManager.LoadScene("Main");
     }
 
@@ -73,7 +78,7 @@ public class GameManager : Singleton<GameManager>
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             var fioTimer = FindObjectOfType<FioTimer>();
-            _omokBoardImage = GameObject.FindObjectOfType<SpriteRenderer>().gameObject;
+            _camera = GameObject.FindObjectOfType<Camera>().gameObject;
             _gameUIController = GameObject.FindObjectOfType<GameUIController>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
             
