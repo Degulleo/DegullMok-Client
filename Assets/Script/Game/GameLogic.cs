@@ -20,7 +20,6 @@ public abstract class BasePlayerState
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
         gameLogic.fioTimer.PauseTimer();
-        
         gameLogic.SetNewBoardValue(playerType, row, col);
         gameLogic.CountStoneCounter();
         
@@ -32,6 +31,13 @@ public abstract class BasePlayerState
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
             var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+            if (gameLogic.gameType == Enums.GameType.MultiPlay)
+            {
+                if (gameLogic.firstPlayerState.GetType() != typeof(PlayerState))
+                {
+                    gameResult = gameResult == Enums.GameResult.Win ? Enums.GameResult.Lose : Enums.GameResult.Win;
+                }
+            }
             GameManager.Instance.panelManager.OpenEffectPanel(gameResult);
             gameLogic.EndGame(gameResult);
         }
@@ -341,23 +347,34 @@ public class GameLogic : MonoBehaviour
                             Debug.Log("해당 플레이어가 선공 입니다");
                             firstPlayerState = new PlayerState(true, _multiplayManager, joinRoomData.roomId);
                             secondPlayerState = new MultiPlayerState(false, _multiplayManager);   
+                            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                            {
+                                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, joinRoomData.opponentNickname);
+                                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, joinRoomData.opponentImageIndex);
+                                
+                                // 리플레이 데이터 업데이트
+                                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, joinRoomData.opponentNickname, UserManager.Instance.imageIndex, joinRoomData.opponentImageIndex);
+                            });
                         }
                         else
                         {
                             Debug.Log("해당 플레이어가 후공 입니다");
                             firstPlayerState = new MultiPlayerState(true, _multiplayManager);
                             secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData.roomId);
+                            
+                            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                            {
+                                GameManager.Instance.InitPlayersName(joinRoomData.opponentNickname, UserManager.Instance.Nickname);
+                                GameManager.Instance.InitProfileImages(joinRoomData.opponentImageIndex, UserManager.Instance.imageIndex);
+                                
+                                // 리플레이 데이터 업데이트
+                                ReplayManager.Instance.InitReplayData(joinRoomData.opponentNickname, UserManager.Instance.Nickname, joinRoomData.opponentImageIndex, UserManager.Instance.imageIndex);
+                            });
                         }
                         
                         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, joinRoomData.opponentNickname);
-                            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, joinRoomData.opponentImageIndex);
-       
-                            // 리플레이 데이터 업데이트
-                            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, joinRoomData.opponentNickname, UserManager.Instance.imageIndex, joinRoomData.opponentImageIndex);
-
                             // 로딩 패널 열려있으면 닫기
                             GameManager.Instance.panelManager.CloseLoadingPanel();
                             
@@ -386,24 +403,34 @@ public class GameLogic : MonoBehaviour
                         {
                             Debug.Log("해당 플레이어가 선공 입니다");
                             firstPlayerState = new PlayerState(true, _multiplayManager, _roomId);
-                            secondPlayerState = new MultiPlayerState(false, _multiplayManager);   
+                            secondPlayerState = new MultiPlayerState(false, _multiplayManager);
+                            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                            {
+                                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, startGameData.opponentNickname);
+                                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, startGameData.opponentImageIndex);
+                                
+                                // 리플레이 데이터 업데이트
+                                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, startGameData.opponentNickname, UserManager.Instance.imageIndex, startGameData.opponentImageIndex);
+                            });
                         }
                         else
                         {
                             Debug.Log("해당 플레이어가 후공 입니다");
                             firstPlayerState = new MultiPlayerState(true, _multiplayManager);
                             secondPlayerState = new PlayerState(false, _multiplayManager, _roomId);
+                            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                            {
+                                GameManager.Instance.InitPlayersName(startGameData.opponentNickname, UserManager.Instance.Nickname);
+                                GameManager.Instance.InitProfileImages(startGameData.opponentImageIndex, UserManager.Instance.imageIndex);
+                                
+                                // 리플레이 데이터 업데이트
+                                ReplayManager.Instance.InitReplayData(startGameData.opponentNickname, UserManager.Instance.Nickname, startGameData.opponentImageIndex, UserManager.Instance.imageIndex);
+                            });
                         }
                         
                         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, startGameData.opponentNickname);
-                            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, startGameData.opponentImageIndex);
-       
-                            // 리플레이 데이터 업데이트
-                            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, startGameData.opponentNickname, UserManager.Instance.imageIndex, startGameData.opponentImageIndex);
-
                             // 로딩 패널 열려있으면 닫기
                             GameManager.Instance.panelManager.CloseLoadingPanel();
                             
