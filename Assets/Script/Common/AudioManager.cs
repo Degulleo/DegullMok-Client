@@ -76,13 +76,19 @@ public class AudioManager : Singleton<AudioManager>
     // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
     {
-        sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
+        }
     }
 
     // 닫기 사운드(SFX) 재생
     public void PlayCloseSound()
     {
-        sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
+        }
     }
 
     // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드

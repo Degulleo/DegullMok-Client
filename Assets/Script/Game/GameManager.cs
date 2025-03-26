@@ -56,6 +56,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
     
+    // 멀티 플레이를 위한 코드
     public void ChangeToGameScene(Enums.GameType gameType)
     {
         _gameType = gameType;
@@ -65,6 +66,8 @@ public class GameManager : Singleton<GameManager>
     public void ChangeToMainScene()
     {
         _gameType = Enums.GameType.None;
+        // TODO: 추후 혹시 모를 존재하는 socket 통신 종료 필요 - _gameLogic?.Dispose에서 LeaveRoom 호출하긴 하는데 서버에서 이미 해당 방을 삭제했을 경우 동작 확인 필요
+        // _gameLogic?.Dispose();
         SceneManager.LoadScene("Main");
     }
 
