@@ -114,7 +114,6 @@ public class MultiplayManager : IDisposable
     {
         var data = response.GetValue<CreateRoomData>();
         _roomId = data.roomId;
-        Debug.Log("roomId CreateRoom할 때 저장? " + _roomId);
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.CreateRoom, data.roomId);
     }
     
@@ -123,7 +122,6 @@ public class MultiplayManager : IDisposable
         var data = response.GetValue<JoinRoomData>();
         Debug.Log($"룸에 참여: 룸 ID - {data.roomId}, 상대방 등급 - {data.opponentRating}, 상대방 이름 - {data.opponentNickname}, 흑/백 여부 - {data.isBlack}, 상대방 이미지 인덱스 - {data.opponentImageIndex}");
         _roomId = data.roomId;
-        Debug.Log("roomId JoinRoom할 때 저장? " + _roomId);
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.JoinRoom, data);
     }
 

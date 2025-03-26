@@ -42,9 +42,7 @@ public class GameUIController : MonoBehaviour
     {
         GameManager.Instance.panelManager.OpenConfirmPanel("항복 하시겠습니까?", () =>
         {
-            //TODO: 서버에 항복 전달 및 기타 등등
             _multiplayManager.RequestSurrender();
-            // GameManager.Instance.ChangeToMainScene();
         });
     }
 
