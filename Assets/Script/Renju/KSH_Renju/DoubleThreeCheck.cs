@@ -59,9 +59,6 @@ public class DoubleThreeCheck : ForbiddenDetectorBase
         // 패턴 추출
         Enums.PlayerType[] linePattern = ExtractLinePattern(board, row, col, dir1, dir2);
         int centerIndex = 5; // 중앙 인덱스 (현재 위치)
-
-        // 연속된 3 또는 한 칸 떨어진 3 확인
-        int threePatternCount = 0;
         
         // 연속된 3개 돌 패턴 검사 (●●●)
         for (int start = centerIndex - 2; start <= centerIndex; start++)

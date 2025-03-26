@@ -6,12 +6,9 @@ using UnityEngine;
 public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
 {
     // 렌주 룰 금수 감지기 생성
-    /*private RenjuOverlineDetector _overlineDetactor = new();
-    private RenjuDoubleFourDetector _doubleFourDetactor = new();
-    private RenjuDoubleThreeDetector _doubleThreeDetector = new();*/
-    
-    // 임시 테스트
     private RenjuOverlineDetector _overlineDetactor = new();
+    /*private RenjuDoubleFourDetector _doubleFourDetactor = new();
+    private RenjuDoubleThreeDetector _doubleThreeDetector = new();*/
     private DoubleFourCheck _doubleFourDetactor = new(); // DoubleFourCheck
     private DoubleThreeCheck _doubleThreeDetector = new(); // DoubleThreeCheck
 
@@ -36,7 +33,7 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 if (_overlineDetactor.IsOverline(board, row, col))
                 {
                     forbiddenCount++;
-                    Debug.Log("장목 금수 좌표 X축 : " + row + ", Y축 : " + col);
+                    // Debug.Log("장목 금수 좌표 X축 : " + row + ", Y축 : " + col);
                     forbiddenMoves.Add(new Vector2Int(row, col));
                     continue;
                 }
@@ -45,7 +42,7 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 if (_doubleFourDetactor.IsDoubleFour(board, row, col))
                 {
                     forbiddenCount++;
-                    Debug.Log("사사 금수 좌표 X축 : " + row + ", Y축 : " + col);
+                    // Debug.Log("사사 금수 좌표 X축 : " + row + ", Y축 : " + col);
                     forbiddenMoves.Add(new Vector2Int(row, col));
                     continue;
                 }
@@ -56,10 +53,6 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 if (_doubleThreeDetector.IsDoubleThree(board, row, col))
                 {
                     tempForbiddenMoves.Add(new Vector2Int(row, col));
-                    /*if (HasWinningPotential(board, row, col))
-                    {
-                        tempForbiddenMoves.Add(new Vector2Int(row, col));
-                    }*/
                     
                     // if (!SimulateDoubleFour(tempBoard))
                     // {
@@ -75,7 +68,7 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
             board[pos.x, pos.y] = Black;
             if (!SimulateDoubleFour(board) && !SimulateOverline(board))
             {
-                Debug.Log("X: "+pos.x + "Y: "+ pos.y); 
+                // Debug.Log("X: "+pos.x + "Y: "+ pos.y); 
                 forbiddenMoves.Add(new Vector2Int(pos.x, pos.y));
             }
             board[pos.x, pos.y] = Space;
@@ -178,13 +171,13 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
         }
         return false;
     }
-
+/*
     /// <summary>
     /// 보드 상태를 시각적으로 출력하는 디버깅 함수
     /// </summary>
     /// <param name="board">현재 보드 상태</param>
     /// <returns>보드의 시각적 표현 문자열</returns>
-    private string DebugBoard(Enums.PlayerType[,] board)
+     private string DebugBoard(Enums.PlayerType[,] board)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -204,6 +197,6 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
         }
 
         return sb.ToString();
-    }
+    }*/
 }
 
