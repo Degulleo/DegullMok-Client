@@ -22,14 +22,12 @@ public class SettingsPanelController : PanelController
     // SFX On/Off 시 호출되는 함수
     public void OnSFXToggleValueChanged(bool value)
     {
-        Debug.Log("SFX : " + value);
         UserManager.IsPlaySFX = value; // UserManager에 값 저장
     }
 
     // BGM On/Off 시 호출되는 함수
     public void OnBGMToggleValueChanged(bool value)
     {
-        Debug.Log("BGM : " + value);
         UserManager.IsPlayBGM = value; // UserManager에 값 저장
 
         // BGM을 끄는 경우

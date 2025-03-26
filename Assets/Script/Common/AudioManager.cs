@@ -70,7 +70,6 @@ public class AudioManager : Singleton<AudioManager>
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
             bgmAudioSource.Stop();  // 게임용 BGM을 멈춤
-            Debug.Log("Game BGM stopped.");
         }
     }
 
@@ -89,9 +88,6 @@ public class AudioManager : Singleton<AudioManager>
     // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 씬 이름에 따라 BGM을 다르게 설정
-        Debug.Log($"Scene {scene.name} loaded.");
-
         if (scene.name == "Main")
         {
             StopGameBGM();
