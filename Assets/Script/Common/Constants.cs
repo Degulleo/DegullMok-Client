@@ -9,5 +9,13 @@
     public const int MinCountForDrawCheck = 150;
     public const int RAING_POINTS = 10;
     
-    public string[] AI_NAMIES = { "이세돌",  "신사동호랭이","진짜인간임","종로3가짱돌","마스터김춘배","62세황순자","고준일 강사님"};
+    public enum MultiplayManagerState
+    {
+        CreateRoom,     // 방 생성
+        JoinRoom,       // 생성된 방에 참여
+        StartGame,      // 생성한 방에 다른 유저가 참여해서 게임 시작
+        SwitchAI,       // 15초 후 매칭 실패 시 AI 플레이로 전환 알림
+        ExitRoom,       // 자신이 방을 빠져 나왔을 때
+        EndGame         // 상대방이 접속을 끊거나 방을 나갔을 때
+    };
 }
