@@ -446,16 +446,16 @@ public class GameLogic : MonoBehaviour
         secondPlayerState = new AIState();
         // AI 난이도 설정(급수 설정)
         OmokAI.Instance.SetRating(UserManager.Instance.Rating);
-        
-        //AI닉네임 랜덤생성
-        var aiName = RandomAINickname();
-        var imageIndex = UnityEngine.Random.Range(0, 2);
 
         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             // 스레드 확인 로그: 추후 디버깅 시 필요할 수 있을 것 같아 남겨둡니다
             // Debug.Log($"[UnityMainThreadDispatcher] 실행 스레드: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
+            
+            //AI닉네임 랜덤생성
+            var aiName = RandomAINickname();
+            var imageIndex = UnityEngine.Random.Range(0, 2);
             
             //유저 이름 사진 초기화
             GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
