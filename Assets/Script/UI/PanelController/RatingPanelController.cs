@@ -20,8 +20,7 @@ public class RatingPanelController : PanelController
         
     public void Show(Enums.GameResult gameResult)
     {
-        InitRatingPanel(gameResult);
-        base.Show();
+        base.Show(InitRatingPanel(gameResult));
     }
 
     public void OnClickConfirmButton()
@@ -39,7 +38,7 @@ public class RatingPanelController : PanelController
     /// 텍스트 초기화, 승급포인트 계산
     /// </summary>
     /// <param name="isWin"></param>
-    public void InitRatingPanel(Enums.GameResult gameResult)
+    public PanelControllerShowDelegate InitRatingPanel(Enums.GameResult gameResult)
     {
         _gameResult = gameResult; 
         _myRating= UserManager.Instance.Rating;
@@ -66,16 +65,25 @@ public class RatingPanelController : PanelController
 
         string win = _gameResult == Enums.GameResult.Win ? "승리" : "패배";
         string get = _gameResult == Enums.GameResult.Win  ? "얻었습니다." : "잃었습니다.";
-
-        getPointsText.text = $"게임에서 {win}했습니다.\n{Constants.RAING_POINTS} 승급 포인트를 {get}";
         
-        //게임 승패 이전의 rating과 score로 패널 초기화
+        // 게임 전 스코어로 초기화
         NetworkManager.Instance.GetInfo((userInfo) =>
+            {
+                _oldScore = userInfo.score;
+                _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+            }, () =>
+            { });
+
+        if(_gameResult == Enums.GameResult.Draw)
         {
-            _oldScore = userInfo.score;
-            _ratingPointsController.InitRatingPoints(_oldScore,requiredScore);
-        }, () =>
-        { });
+            getPointsText.text = "무승부입니다.";
+        }
+        else
+        {
+            getPointsText.text = $"게임에서 {win}했습니다.\n{Constants.RAING_POINTS} 승급 포인트를 {get}";
+        }
+
+        return null;
     }
     
 

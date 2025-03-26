@@ -12,7 +12,8 @@ public class PanelController : MonoBehaviour
     private CanvasGroup backGroundCanvasGroup;                     // 배경 페이드 효과를 위한 변수
     
     public delegate void PanelControllerHideDelegate();
-    
+
+    public delegate void PanelControllerShowDelegate();
     private void Awake()
     {
         backGroundCanvasGroup = GetComponent<CanvasGroup>();
@@ -22,7 +23,7 @@ public class PanelController : MonoBehaviour
     /// Panel 표시 함수
     /// 알파값과 크기를 0으로 줄였다가 1로 페이드
     /// </summary>
-    public void Show()
+    public void Show(PanelControllerShowDelegate showDelegate = null)
     {
         GameManager.Instance.audioManager.PlayClickSound();
             
@@ -35,7 +36,10 @@ public class PanelController : MonoBehaviour
         panelRectTransform.localScale = Vector3.zero;
         
         backGroundCanvasGroup.DOFade(1, 0.3f).SetEase(Ease.Linear);
-        panelRectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+        panelRectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack).OnComplete(() =>
+        {
+            showDelegate?.Invoke();
+        });
     }
 
     /// <summary>
