@@ -86,21 +86,30 @@ public class PanelManager : MonoBehaviour
                 if (_canvas != null)
                 {
                     var winEffectPanelObject = GetEffectPanel("Win Effect Panel");
+                    winEffectPanelObject.GetComponent<WinEffectController>().ShowEffect(OnEffectPanelEnded);
                 }
                 break;
             case Enums.GameResult.Lose:
                 if (_canvas != null)
                 {
-                    var winEffectPanelObject = GetEffectPanel("Lose Effect Panel");
+                    var loseEffectPanelObject = GetEffectPanel("Lose Effect Panel");
+                    loseEffectPanelObject.GetComponent<LoseEffectController>().ShowEffect(OnEffectPanelEnded);
                 }
                 break;
             case Enums.GameResult.Draw:
                 if (_canvas != null)
                 {
-                    var winEffectPanelObject = GetEffectPanel("Draw Effect Panel");
+                    var drawEffectPanelObject = GetEffectPanel("Draw Effect Panel");
+                    drawEffectPanelObject.GetComponent<DrawEffectController>().ShowEffect(OnEffectPanelEnded);
                 }
                 break;
         }
+    }
+
+    private void OnEffectPanelEnded()
+    {
+        //Todo: 승급패널 오픈
+        OpenRatingPanel();
     }
     #endregion
     

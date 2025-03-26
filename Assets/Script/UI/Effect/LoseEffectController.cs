@@ -12,10 +12,11 @@ public class LoseEffectController : EffectController
 
     protected override string fullText => "패배했습니다";
 
-    protected override void ShowEffect()
+    public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
+        onEffectPanelEnded = onEffectPanelEnd;
 
         ShowPanel();
         StartCoroutine(AnimateLoadingText());
