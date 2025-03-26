@@ -25,8 +25,7 @@ public class DoubleFourCheck : ForbiddenDetectorBase
         // 임시로 돌 배치
         board[row, col] = Black;
         
-        // 실제 열린 4 개수 카운트
-        int realOpenFourCount = 0;
+        List<int> openFourDirections = new List<int>();
         
         // 4개의 방향 검사
         for (int i = 0; i < 4; i++)
@@ -37,19 +36,16 @@ public class DoubleFourCheck : ForbiddenDetectorBase
             // 이 방향에서 실제 열린 4가 있는지 확인
             if (HasRealOpenFour(board, row, col, dir1, dir2))
             {
-                realOpenFourCount++;
-                if (realOpenFourCount >= 2)
+                if (HasRealOpenFour(board, row, col, dir1, dir2))
                 {
-                    // 원래 상태로 되돌리기
-                    board[row, col] = Space;
-                    return true; // 실제 열린 4가 2개 이상이면 쌍사
+                    openFourDirections.Add(i);
                 }
             }
         }
 
         // 원래 상태로 되돌림
         board[row, col] = Space;
-        return false;
+        return openFourDirections.Count >= 2;
     }
     
     // 특정 방향에 대해 열린 4 검사

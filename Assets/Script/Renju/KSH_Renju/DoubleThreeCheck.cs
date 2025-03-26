@@ -25,36 +25,30 @@ public class DoubleThreeCheck : ForbiddenDetectorBase
         // 임시로 돌 배치
         board[row, col] = Black;
         
-        // 실제 열린 3 개수 카운트
-        int realOpenThreeCount = 0;
+        List<int> openThreeDirections = new List<int>(); // 열린 3 저장용
         
         // 4개의 방향 검사
         for (int i = 0; i < 4; i++)
         {
             int dir1 = DirectionPairs[i, 0];
             int dir2 = DirectionPairs[i, 1];
-
+            
             // 이 방향에서 실제 열린 3이 있는지 확인
             if (HasRealOpenThree(board, row, col, dir1, dir2))
             {
-                realOpenThreeCount++;
-                if (realOpenThreeCount >= 2)
-                {
-                    // 원래 상태로 되돌리기
-                    board[row, col] = Space;
-                    return true; // 실제 열린 3이 2개 이상이면 삼삼
-                }
+                openThreeDirections.Add(i);
             }
         }
 
         // 원래 상태로 되돌림
         board[row, col] = Space;
-        return false;
+        
+        return openThreeDirections.Count >= 2; 
     }
     
     // 특정 방향에 대해 열린 3 검사
     private bool HasRealOpenThree(Enums.PlayerType[,] board, int row, int col, 
-        int dir1, int dir2) // ref OpenThreeInfo threeInfo
+        int dir1, int dir2)
     {
         // 패턴 추출
         Enums.PlayerType[] linePattern = ExtractLinePattern(board, row, col, dir1, dir2);
