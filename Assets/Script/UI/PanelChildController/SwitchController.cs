@@ -6,11 +6,9 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 [RequireComponent(typeof(Image))]
-[RequireComponent(typeof(AudioSource))]
 public class SwitchController : MonoBehaviour
 {
     [SerializeField] private Image handleImage;
-    [SerializeField] private AudioClip clickSound;
     
     //스위치에 상태 변경 시 호출할 콜백 함수
     public delegate void OnSwitchChangedDelegate(bool isOn);
@@ -56,8 +54,7 @@ public class SwitchController : MonoBehaviour
         }
         
         // 효과음 재생
-        if (clickSound != null) 
-            _audioSource.PlayOneShot(clickSound);
+        AudioManager.Instance.PlayClickSound();
         
         //이벤트 호출
         OnSwitchChanged?.Invoke(isOn);

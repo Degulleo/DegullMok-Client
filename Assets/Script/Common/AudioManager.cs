@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
 
 public class AudioManager : Singleton<AudioManager>
 {
@@ -9,11 +10,20 @@ public class AudioManager : Singleton<AudioManager>
     [Header("SFX")]
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip closeSound;
+    [SerializeField] private AudioClip coinsAddSound;
+    [SerializeField] private AudioClip coinsEmptySound;
+    [SerializeField] private AudioClip coinsRemoveSound;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+    [SerializeField] private AudioClip stoneSound;
 
-    private AudioSource bgmAudioSource;  // BGM을 위한 AudioSource
+    [HideInInspector] public AudioSource bgmAudioSource;  // BGM을 위한 AudioSource
     private AudioSource sfxAudioSource;  // SFX를 위한 AudioSource
 
-    [HideInInspector] public float sfxVolume = 1.0f;  // SFX 볼륨 (기본값 1)
+    public float sfxVolume = 1.0f;  // SFX 볼륨 (기본값 1)
+
+    [HideInInspector]public bool isPlayBGM;
+    [HideInInspector]public bool isPlaySFX;
 
     private void Awake()
     {
@@ -27,10 +37,9 @@ public class AudioManager : Singleton<AudioManager>
     // 시작 시 BGM을 자동으로 재생
     private void Start()
     {
-        if (UserManager.IsPlayBGM) // UserManager의 BGM 설정값에 따라 BGM을 재생
-        {
-            PlayMainBGM();  // 기본 BGM을 재생
-        }
+        isPlayBGM = UserManager.IsPlayBGM;
+        isPlaySFX = UserManager.IsPlaySFX;
+        PlayBGM();
     }
 
     // 메인 BGM을 재생하는 함수
@@ -44,15 +53,6 @@ public class AudioManager : Singleton<AudioManager>
             bgmAudioSource.Play();  // BGM 재생
         }
     }
-
-    // BGM을 멈추는 함수
-    public void StopMainBGM()
-    {
-        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
-        {
-            bgmAudioSource.Stop();  // BGM을 멈춤
-        }
-    }
     
     public void PlayGameBGM()
     {
@@ -64,47 +64,103 @@ public class AudioManager : Singleton<AudioManager>
             bgmAudioSource.Play();  // 게임 BGM 재생
         }
     }
+
+    public void PlayBGM()
+    {
+        if (isPlayBGM)
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+        
+            if (currentScene.name == "Main")
+            {
+                StopBGM();
+                PlayMainBGM();
+            }
+            else if (currentScene.name == "Game")
+            {
+                StopBGM();
+                PlayGameBGM();
+            }
+        }
+    }
     
-    public void StopGameBGM()
+    public void StopBGM()
     {
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
             bgmAudioSource.Stop();  // 게임용 BGM을 멈춤
         }
     }
+    
+    // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayBGM();
+    }
 
     // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
     {
-        sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
+        if (isPlaySFX)
+        {
+            sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
+        }
     }
 
     // 닫기 사운드(SFX) 재생
     public void PlayCloseSound()
     {
-        sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
+        if (isPlaySFX)
+        {
+            sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
+        }
     }
 
-    // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드
-    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void PlayCoinsAddSound()
     {
-        if (scene.name == "Main")
+        if (isPlaySFX)
         {
-            StopGameBGM();
-            
-            if (UserManager.IsPlayBGM) // BGM 설정값에 따라 메인 BGM을 재생
-            {
-                PlayMainBGM();
-            }
+            sfxAudioSource.PlayOneShot(coinsAddSound, sfxVolume);
         }
-        else if (scene.name == "Game")
+    }
+
+    public void PlayCoinsEmptySound()
+    {
+        if (isPlaySFX)
         {
-            StopMainBGM();
-            
-            if (UserManager.IsPlayBGM) // BGM 설정값에 따라 게임 BGM을 재생
-            {
-                PlayGameBGM();
-            }
+            sfxAudioSource.PlayOneShot(coinsEmptySound, sfxVolume);
+        }
+    }
+
+    public void PlayCoinsRemoveSound()
+    {
+        if (isPlaySFX)
+        {
+            sfxAudioSource.PlayOneShot(coinsRemoveSound, sfxVolume);
+        }
+    }
+
+    public void PlayLoseSound()
+    {
+        if (isPlaySFX)
+        {
+            sfxAudioSource.PlayOneShot(loseSound, sfxVolume);
+        }
+    }
+
+    public void PlayWinSound()
+    {
+        if (isPlaySFX)
+        {
+            sfxAudioSource.PlayOneShot(winSound, sfxVolume);
+        }
+    }
+
+    public void PlayStoneSound()
+    {
+        if (isPlaySFX)
+        {
+            sfxAudioSource.PlayOneShot(stoneSound, sfxVolume);
         }
     }
 }
