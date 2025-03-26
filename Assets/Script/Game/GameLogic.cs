@@ -235,7 +235,7 @@ public class GameLogic : MonoBehaviour
     private int _lastRow;
     private int _lastCol;
     
-    private MultiplayManager _multiplayManager;
+    public MultiplayManager _multiplayManager;
     private string _roomId;
     
 #region Renju Members
@@ -418,6 +418,22 @@ public class GameLogic : MonoBehaviour
                     case Constants.MultiplayManagerState.EndGame:
                         Debug.Log("## End Game");
                         // TODO: End Room 처리
+                        break;
+                    case Constants.MultiplayManagerState.DoSurrender:
+                        Debug.Log("상대방의 항복 요청 들어옴");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
+                            EndGame(Enums.GameResult.Win);
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.SurrenderConfirmed:
+                        Debug.Log("항복 요청 전송 완료");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Lose);
+                            EndGame(Enums.GameResult.Lose);
+                        });
                         break;
                 }
                 ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
