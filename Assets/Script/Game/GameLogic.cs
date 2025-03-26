@@ -12,6 +12,10 @@ public abstract class BasePlayerState
     public abstract void OnExit(GameLogic gameLogic);
     public abstract void HandleMove(GameLogic gameLogic, int row, int col);
     public abstract void HandleNextTurn(GameLogic gameLogic);
+    
+    protected string _roomId;
+    protected bool _isMultiplay;
+    protected MultiplayManager _multiplayManager;
 
     public void ProcessMove(GameLogic gameLogic, Enums.PlayerType playerType, int row, int col)
     {
@@ -19,6 +23,11 @@ public abstract class BasePlayerState
         
         gameLogic.SetNewBoardValue(playerType, row, col);
         gameLogic.CountStoneCounter();
+        
+        if (_isMultiplay)
+        {
+            _multiplayManager.SendPlayerMove(_roomId, new Vector2Int(row, col));
+        }
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
@@ -53,10 +62,6 @@ public class PlayerState : BasePlayerState
     private Enums.PlayerType _playerType;
     private bool _isFirstPlayer;
     
-    private MultiplayManager _multiplayManager;
-    private string _roomId;
-    private bool _isMultiplay;
-    
     public PlayerState(bool isFirstPlayer)
     {
         _isFirstPlayer = isFirstPlayer;
@@ -64,17 +69,10 @@ public class PlayerState : BasePlayerState
         _isMultiplay = false;
     }
     
-    public PlayerState(bool isFirstPlayer, MultiplayManager multiplayManager, JoinRoomData data)
-        : this(isFirstPlayer)
-    {
-        _multiplayManager = multiplayManager;
-        _roomId = data.roomId;
-        _isMultiplay = true;
-    }
-    
     public PlayerState(bool isFirstPlayer, MultiplayManager multiplayManager, string roomId)
         : this(isFirstPlayer)
     {
+        _isFirstPlayer = isFirstPlayer;
         _multiplayManager = multiplayManager;
         _roomId = roomId;
         _isMultiplay = true;
@@ -108,11 +106,6 @@ public class PlayerState : BasePlayerState
     public override void HandleMove(GameLogic gameLogic, int row, int col)
     {
         gameLogic.SetStoneSelectedState(row, col);
-        if (_isMultiplay)
-        {
-            Debug.Log("row: " + row + "col: " + col);
-            _multiplayManager.SendPlayerMove(_roomId, new Vector2Int(row, col));
-        }
     }
 
     public override void HandleNextTurn(GameLogic gameLogic)
@@ -340,13 +333,21 @@ public class GameLogic : MonoBehaviour
                             return;
                         }
 
-                        // TODO: 선공, 후공 처리
-                        if (joinRoomData.isBlack)
-                        {
-                        }
+                        // 선공, 후공 처리
+                        bool isFirstPlayer = joinRoomData.isBlack;
 
-                        firstPlayerState = new MultiPlayerState(true, _multiplayManager);
-                        secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData);
+                        if (isFirstPlayer)
+                        {
+                            Debug.Log("해당 플레이어가 선공 입니다");
+                            firstPlayerState = new PlayerState(true, _multiplayManager, joinRoomData.roomId);
+                            secondPlayerState = new MultiPlayerState(false, _multiplayManager);   
+                        }
+                        else
+                        {
+                            Debug.Log("해당 플레이어가 후공 입니다");
+                            firstPlayerState = new MultiPlayerState(true, _multiplayManager);
+                            secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData.roomId);
+                        }
                         
                         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
@@ -378,13 +379,21 @@ public class GameLogic : MonoBehaviour
                             Debug.Log("Start Game 응답값이 null 입니다");
                             return;
                         }
-                        
-                        // TODO: 선공, 후공 처리
-                        if (startGameData.isBlack)
+                        // 선공, 후공 처리
+                        isFirstPlayer = startGameData.isBlack;
+
+                        if (isFirstPlayer)
                         {
+                            Debug.Log("해당 플레이어가 선공 입니다");
+                            firstPlayerState = new PlayerState(true, _multiplayManager, _roomId);
+                            secondPlayerState = new MultiPlayerState(false, _multiplayManager);   
                         }
-                        firstPlayerState = new PlayerState(true, _multiplayManager, _roomId);
-                        secondPlayerState = new MultiPlayerState(false, _multiplayManager);   
+                        else
+                        {
+                            Debug.Log("해당 플레이어가 후공 입니다");
+                            firstPlayerState = new MultiPlayerState(true, _multiplayManager);
+                            secondPlayerState = new PlayerState(false, _multiplayManager, _roomId);
+                        }
                         
                         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
