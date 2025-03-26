@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -542,8 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bannerObj: {fileID: 7291411618834705046}
   bannerText: {fileID: 5108301403921453943}
+  interval: 0.1
   characterOpenEyes: {fileID: 1632927645355555415}
   characterCloseEyes: {fileID: 3881260292094838299}
   depressedEffect: {fileID: 155037671892554820}
-  fullText: "\uD328\uBC30\uD588\uC2B5\uB2C8\uB2E4"
-  interval: 0.1

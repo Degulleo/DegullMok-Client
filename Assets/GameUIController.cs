@@ -17,6 +17,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Image profileImageB;
     [SerializeField] private Sprite[] profileImageSprites;  //0. 기본 드래곤 1. 기본 호랑이 2.아이보리 드래곤 3. 아이보리 호랑이
     [SerializeField] private Sprite[] indicatorSprites; //0. active 1. inactive
+
     
     private Sprite _originalSpriteA;
     private Sprite _originalSpriteB;
@@ -45,14 +46,7 @@ public class GameUIController : MonoBehaviour
     {
         GameManager.Instance.panelManager.OpenSettingsPanel();
     }
-
-    public void InitUI()
-    {
-        if (UserManager.Instance == null) return;
-        retryButton.SetActive(false);
-        playerANameText.text = UserManager.Instance.Nickname;
-    }
-
+    
     public void InitPlayersName(string playerNameA, string playerNameB)
     {
         playerANameText.text = playerNameA;

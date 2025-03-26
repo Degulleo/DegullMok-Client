@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -866,6 +866,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b132148519758c42824252ec9a2d3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bannerObj: {fileID: 0}
+  bannerText: {fileID: 5108301403921453943}
+  interval: 0.1
   haloEffectImg: {fileID: 376994097320605198}
   characterImg: {fileID: 3881260292094838299}
   shineEffectImg:
@@ -875,9 +878,6 @@ MonoBehaviour:
   circleEffectImg:
   - {fileID: 1661063685800461951}
   - {fileID: 5812078995592861983}
-  bannerText: {fileID: 5108301403921453943}
-  fullText: "\uC2B9\uB9AC\uD588\uC2B5\uB2C8\uB2E4!"
-  interval: 0.1
 --- !u!225 &4545556044007292713
 CanvasGroup:
   m_ObjectHideFlags: 0

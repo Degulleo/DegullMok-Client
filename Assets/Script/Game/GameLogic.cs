@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PimDeWitte.UnityMainThreadDispatcher;
+using Random = UnityEngine.Random;
 
 public abstract class BasePlayerState
 {
@@ -21,11 +22,9 @@ public abstract class BasePlayerState
         
         if (gameLogic.CheckGameWin(playerType, row, col))
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {playerType} Win", () =>
-            {
-                var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
-                gameLogic.EndGame(gameResult);
-            });
+            var gameResult = playerType == Enums.PlayerType.PlayerA? Enums.GameResult.Win:Enums.GameResult.Lose;
+            GameManager.Instance.panelManager.OpenEffectPanel(gameResult);
+            gameLogic.EndGame(gameResult);
         }
         else
         {
@@ -33,10 +32,8 @@ public abstract class BasePlayerState
             {
                 if (gameLogic.CheckGameDraw())
                 {
-                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: Draw", () =>
-                    {
-                        gameLogic.EndGame(Enums.GameResult.Draw);
-                    });
+                    GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
+                    gameLogic.EndGame(Enums.GameResult.Draw);
                 }
                 else
                 {
@@ -300,20 +297,24 @@ public class GameLogic : MonoBehaviour
         switch (gameType)
         {
             // TODO: 현재 싱글 플레이로 바로 넘어가지 않기 때문에 미사용 중
-            case Enums.GameType.SinglePlay:
-                firstPlayerState = new PlayerState(true);
-                secondPlayerState = new AIState();
-                // AI 난이도 설정(급수 설정)
-                OmokAI.Instance.SetRating(UserManager.Instance.Rating);
-                
-                //유저 이름 사진 초기화
-                GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
-                GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
-                
-                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"PlayerAI", UserManager.Instance.imageIndex, 1);
-                
-                SetState(firstPlayerState);
-                break;
+            // case Enums.GameType.SinglePlay:
+            //     firstPlayerState = new PlayerState(true);
+            //     secondPlayerState = new AIState();
+            //     // AI 난이도 설정(급수 설정)
+            //     OmokAI.Instance.SetRating(UserManager.Instance.Rating);
+            //     
+            //     //AI닉네임 랜덤생성
+            //     var aiName = RandomAINickname();
+            //     var imageIndex = UnityEngine.Random.Range(0, 2);
+            //     
+            //     //유저 이름 사진 초기화
+            //     GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
+            //     GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, imageIndex);
+            //     
+            //     ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,aiName, UserManager.Instance.imageIndex, imageIndex);
+            //     
+            //     SetState(firstPlayerState);
+            //     break;
             case Enums.GameType.MultiPlay:
                 // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
@@ -421,6 +422,17 @@ public class GameLogic : MonoBehaviour
         }
     }
     
+    //AI닉네임 랜덤 생성
+    private string RandomAINickname()
+    {
+        string[] AI_NAMIES = { "이세돌",  "신사동호랭이","진짜인간임","종로3가짱돌","마스터김춘배","62세황순자","고준일 강사님"};
+        
+        var index = UnityEngine.Random.Range(0, AI_NAMIES.Length);
+        
+        return AI_NAMIES[index];
+    }
+    
+    
     public void SwitchToSinglePlayer()
     {
         _multiplayManager?.Dispose();
@@ -434,18 +446,22 @@ public class GameLogic : MonoBehaviour
         secondPlayerState = new AIState();
         // AI 난이도 설정(급수 설정)
         OmokAI.Instance.SetRating(UserManager.Instance.Rating);
+        
+        //AI닉네임 랜덤생성
+        var aiName = RandomAINickname();
+        var imageIndex = UnityEngine.Random.Range(0, 2);
 
         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             // 스레드 확인 로그: 추후 디버깅 시 필요할 수 있을 것 같아 남겨둡니다
             // Debug.Log($"[UnityMainThreadDispatcher] 실행 스레드: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
-            // UI 업데이트
-            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, "AIPlayer");
-            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, 1);
-       
-            // 리플레이 데이터 업데이트
-            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, "PlayerAI", UserManager.Instance.imageIndex, 1);
+            
+            //유저 이름 사진 초기화
+            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, aiName);
+            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, imageIndex);
+            // 리플레이 데이터 업데이트  
+            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,aiName, UserManager.Instance.imageIndex, imageIndex);
 
             // 로딩 패널 열려있으면 닫기
             GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -564,7 +580,6 @@ public class GameLogic : MonoBehaviour
         SetState(null);
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
-        SceneManager.LoadScene("Main");
     }
     
     //승리 확인 함수
