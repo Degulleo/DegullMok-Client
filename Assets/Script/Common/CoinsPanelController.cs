@@ -6,16 +6,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class CoinsPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject coinsRemoveImageObject;
     [SerializeField] private TMP_Text coinsCountText;
     
-    [SerializeField] private AudioClip coinsRemoveAudioClip;
-    [SerializeField] private AudioClip coinsAddAudioClip;
-    [SerializeField] private AudioClip coinsEmptyAudioClip;
-
     private Color _coinsColor;
     private AudioSource _audioSource;
     private int _coinsCount;
@@ -110,19 +105,17 @@ public class CoinsPanelController : MonoBehaviour
             {
                 ChangeTextAnimation(true, ()=>
                 {
-                    // TODO : 코인 수량 업데이트
+                    _coinsCount += 500;
                     action?.Invoke();
                 });
                 
                 // 효과음 재생
-                // TODO : if (UserInformation.IsPlaySFX)
-                _audioSource.PlayOneShot(coinsAddAudioClip);
+                AudioManager.Instance.PlayCoinsAddSound();
             });
             sequence.AppendInterval(0.5f);
         }
         sequence.OnComplete(() =>
         {
-            _coinsCount += coinsCount;  //추가된 코인 적용
             _canvasGroup.blocksRaycasts = true;    //구매 후 클릭 활성화
         });
     }
@@ -130,8 +123,7 @@ public class CoinsPanelController : MonoBehaviour
     public void EmptyCoins()
     {
         // 효과음 재생
-        // TODO: if (UserInformation.IsPlaySFX)
-        _audioSource.PlayOneShot(coinsEmptyAudioClip);
+        AudioManager.Instance.PlayCoinsEmptySound();
         
         GetComponent<RectTransform>().DOPunchPosition(new Vector3(20f, 0, 0), 1f, 7);
     }
@@ -151,8 +143,7 @@ public class CoinsPanelController : MonoBehaviour
         }
 
         // 효과음 재생
-        // TODO: if (UserInformation.IsPlaySFX)
-        _audioSource.PlayOneShot(coinsRemoveAudioClip);
+        AudioManager.Instance.PlayCoinsRemoveSound();
         
         // 코인 사라지는 연출
         coinsRemoveImageObject.SetActive(true);
