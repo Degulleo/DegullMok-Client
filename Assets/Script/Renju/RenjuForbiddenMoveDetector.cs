@@ -77,74 +77,13 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
         return forbiddenMoves;
     }
     
-    private bool HasWinningPotential(Enums.PlayerType[,] board, int row, int col)
-    {
-        // 모든 방향에 대해 5개 연속 돌을 만들 수 있는지 확인
-        for (int dirPair = 0; dirPair < 4; dirPair++)
-        {
-            int dir1 = DirectionPairs[dirPair, 0];
-            int dir2 = DirectionPairs[dirPair, 1];
-        
-            if (CanFormFiveInDirection(board, row, col, dir1, dir2))
-            {
-                return true;
-            }
-        }
-    
-        return false;
-    }
-
-    private bool CanFormFiveInDirection(Enums.PlayerType[,] board, int row, int col, int dir1, int dir2)
-    {
-        // 해당 방향으로 5개 연속 돌을 놓을 가능성 확인
-        // 현재 위치에 흑돌 임시 배치
-        board[row, col] = Black;
-    
-        // 양방향으로 연속된 돌 또는 빈 공간 개수 세기
-        int length = 1; // 현재 위치 포함
-    
-        // dir1 방향 확인
-        for (int i = 1; i < 5; i++)
-        {
-            int newRow = row + Directions[dir1, 0] * i;
-            int newCol = col + Directions[dir1, 1] * i;
-        
-            if (!IsInBounds(newRow, newCol) || board[newRow, newCol] == White)
-            {
-                break;
-            }
-        
-            length++;
-        }
-    
-        // dir2 방향 확인
-        for (int i = 1; i < 5; i++)
-        {
-            int newRow = row + Directions[dir2, 0] * i;
-            int newCol = col + Directions[dir2, 1] * i;
-        
-            if (!IsInBounds(newRow, newCol) || board[newRow, newCol] == White)
-            {
-                break;
-            }
-        
-            length++;
-        }
-    
-        // 원래 상태로 복원
-        board[row, col] = Space;
-    
-        // 5개 이상 연속 가능하면 승리 가능성 있음
-        return length >= 5;
-    }
-    
     private bool SimulateDoubleFour(Enums.PlayerType[,] board)
     {
         for (int row = 0; row < BoardSize; row++)
         {
             for (int col = 0; col < BoardSize; col++)
             {
-                if (board[row, col] != Space)
+                if (board[row, col] != Space) // 보드 초기화 방지용
                     continue;
                 
                 if (_doubleFourDetactor.IsDoubleFour(board, row, col))
@@ -160,7 +99,7 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
         {
             for (int col = 0; col < BoardSize; col++)
             {
-                if (board[row, col] != Space)
+                if (board[row, col] != Space) // 보드 초기화 방지용
                     continue;
                 
                 if (_overlineDetactor.IsOverline(board, row, col))
