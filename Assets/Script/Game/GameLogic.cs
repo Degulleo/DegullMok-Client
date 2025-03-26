@@ -69,15 +69,6 @@ public class PlayerState : BasePlayerState
         _isMultiplay = false;
     }
     
-    public PlayerState(bool isFirstPlayer, MultiplayManager multiplayManager, JoinRoomData data)
-        : this(isFirstPlayer)
-    {
-        _isFirstPlayer = isFirstPlayer;
-        _multiplayManager = multiplayManager;
-        _roomId = data.roomId;
-        _isMultiplay = true;
-    }
-    
     public PlayerState(bool isFirstPlayer, MultiplayManager multiplayManager, string roomId)
         : this(isFirstPlayer)
     {
@@ -355,7 +346,7 @@ public class GameLogic : MonoBehaviour
                         {
                             Debug.Log("해당 플레이어가 후공 입니다");
                             firstPlayerState = new MultiPlayerState(true, _multiplayManager);
-                            secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData);
+                            secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData.roomId);
                         }
                         
                         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
