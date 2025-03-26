@@ -120,6 +120,7 @@ public class LoadingPanelController : MonoBehaviour
         {
             cancellationTokenSource.Cancel();
         }
-        gameObject.SetActive(false);
+        
+        if (gameObject.activeSelf) gameObject.SetActive(false);
     }
 }
