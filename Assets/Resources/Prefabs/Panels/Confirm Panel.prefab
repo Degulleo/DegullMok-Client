@@ -505,6 +505,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelRectTransform: {fileID: 1049729465715420315}
   messageText: {fileID: 773857893073654059}
+  closeButton: {fileID: 2317228258542092256}
+  confirmButton: {fileID: 8913073875457554875}
 --- !u!1 &8611399693750823341
 GameObject:
   m_ObjectHideFlags: 0

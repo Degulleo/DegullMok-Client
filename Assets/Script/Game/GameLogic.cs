@@ -295,7 +295,7 @@ public class GameLogic : MonoBehaviour
                 {
                     // TODO: 컨펌 패널 OK 버튼 삭제?
                     GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 응답을 기다리는 중입니다",
-                        () => { } );
+                        () => { }, false, false );
                 }
             };
         }

@@ -50,6 +50,11 @@ public class GameUIController : MonoBehaviour
     {
         GameManager.Instance.panelManager.OpenSettingsPanel();
     }
+
+    public void OnClickInGameMenuButton()
+    {
+        
+    }
     
     public void InitPlayersName(string playerNameA, string playerNameB)
     {

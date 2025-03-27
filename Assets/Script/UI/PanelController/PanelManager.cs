@@ -177,13 +177,13 @@ public class PanelManager : MonoBehaviour
             var signupPanelObject = GetPanel("Signup Panel");
         }
     }
-    public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
+    public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick, bool isClose = false, bool isConfirm = true)
     {
         if (_canvas != null)
         {
             var confirmPanelObject = GetPanel("Confirm Panel");
             confirmPanelObject.GetComponent<ConfirmPanelController>()
-                .Show(message, onConfirmButtonClick);
+                .Show(message, onConfirmButtonClick, isClose, isConfirm);
         }
     }
     
