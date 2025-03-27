@@ -109,6 +109,7 @@ public class ReplayManager : Singleton<ReplayManager>
     public void RecordStonePlaced(Enums.StoneType stoneType,int row, int col)
     {
         string stoneColor = stoneType.ToString();
+        if (_recordingReplayData == null) return;
         _recordingReplayData.moves.Add(new Move(stoneColor, row, col));
     }
     
