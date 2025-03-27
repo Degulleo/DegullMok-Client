@@ -53,7 +53,7 @@ public class GameUIController : MonoBehaviour
 
     public void OnClickInGameMenuButton()
     {
-        
+        GameManager.Instance.panelManager.OpenInGameMenuPanel();
     }
     
     public void InitPlayersName(string playerNameA, string playerNameB)

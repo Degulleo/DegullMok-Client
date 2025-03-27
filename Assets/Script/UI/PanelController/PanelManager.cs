@@ -308,5 +308,12 @@ public class PanelManager : MonoBehaviour
         }));
     }
 
-   
+    public void OpenInGameMenuPanel()
+    {
+        if (_canvas != null)
+        {
+            var replayPanelObject = GetPanel("InGameMenu Panel");
+            replayPanelObject.GetComponent<InGameMenuPanelController>().Show();
+        }
+    }
 }

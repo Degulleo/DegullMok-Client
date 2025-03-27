@@ -17,6 +17,11 @@ public class InGameMenuPanelController : PanelController
         this.onInGameMenuButtonClick = onInGameMenuButtonClick;
         base.Show();
     }
+
+    public void OnClickDrawRegisterButton()
+    {
+        // GameManager.Instance.lManager.
+    }
     
     /// <summary>
     /// Confirm 버튼 클릭시 호출되는 함수
