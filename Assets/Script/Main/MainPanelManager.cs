@@ -26,7 +26,7 @@ public class MainPanelManager : MonoBehaviour
             _userManager = userManagerObj.AddComponent<UserManager>();
         }
         // 로딩 화면 추가(자동 로그인 응답 전까지)
-        GameManager.Instance.panelManager.OpenLoadingPanel(false, false, true);
+        GameManager.Instance.panelManager.OpenLoadingPanel(false, true, true);
   
         // 자동 로그인
         TryAutoSignin();

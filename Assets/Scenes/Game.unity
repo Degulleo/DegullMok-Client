@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 626368541760032086, guid: 269b81c4cdffc44428d200c3788621fd, type: 3}
       propertyPath: m_Name
-      value: '[Canvas] Game UI'
+      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 1516328599079970136, guid: 269b81c4cdffc44428d200c3788621fd, type: 3}
       propertyPath: m_Sprite
