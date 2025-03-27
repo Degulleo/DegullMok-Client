@@ -21,6 +21,19 @@ public class CoinsInfoResult
 }
 
 /// <summary>
+/// 점수 업데이트 응답 클래스
+/// </summary>
+public class ScoreInfoResult
+{
+    public string message;
+    public int rating;
+    public int score;
+    public int win;
+    public int lose;
+    public int isAdvancement;
+}
+
+/// <summary>
 /// 코인 구매 응답 클래스 
 /// </summary>
 public class CoinsPurchaseResult

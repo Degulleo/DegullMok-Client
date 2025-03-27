@@ -21,6 +21,24 @@ public class RatingPanelController : PanelController
     public void Show(Enums.GameResult gameResult)
     {
         base.Show(InitRatingPanel(gameResult));
+        UpdateGameResult(gameResult);
+    }
+
+    private void UpdateGameResult(Enums.GameResult gameResult)
+    {
+        switch (gameResult)
+        {
+            case (Enums.GameResult.Win):
+                NetworkManager.Instance.UpdateScore(1 , () =>
+                {
+                    //유저 인포 업데이트
+                    //결과화면 띄우기
+                },() => { });
+                break;
+            case (Enums.GameResult.Lose):
+                NetworkManager.Instance.UpdateScore(-1, () => { }, () => { });
+                break;
+        }
     }
 
     public void OnClickConfirmButton()
@@ -102,7 +120,6 @@ public class RatingPanelController : PanelController
                         else
                             _ratingPointsController.SetRatingDownLimit(_oldScore+1);
                     }
-                    
                 }
                 else
                 {
@@ -120,9 +137,6 @@ public class RatingPanelController : PanelController
         {
             getPointsText.text = $"게임에서 {win}했습니다.\n{Constants.RAING_POINTS} 승급 포인트를 {get}";
         }
-
         return null;
     }
-    
-
 }
