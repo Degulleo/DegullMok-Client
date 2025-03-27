@@ -227,6 +227,7 @@ public class NetworkManager : Singleton<NetworkManager>
             }
         }
     }
+
     
     public void GetLeaderboard(Action<List<ScoreInfo>> success, Action failure)
     {
@@ -521,4 +522,54 @@ public class NetworkManager : Singleton<NetworkManager>
             }
         }
     }
+
+    public void UpdateScore(int isWin, Action<ScoreInfoResult> success, Action failure)
+    {
+        StartCoroutine(UpdateScoreCoroutine(isWin, success, failure));
+    }
+    public IEnumerator UpdateScoreCoroutine(int isWin, Action<ScoreInfoResult> success, Action failure)
+    {
+        string jsonString = "{\"isWin\": "+isWin.ToString() + "}";
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
+
+        using (UnityWebRequest www =
+               new UnityWebRequest(Constants.ServerURL + "/users/score-update", UnityWebRequest.kHttpVerbPOST))
+        {
+            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+            
+            string sid = PlayerPrefs.GetString("sid", "");
+            if (!string.IsNullOrEmpty(sid))
+            {
+                www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
+                {
+                    failure?.Invoke();
+                });
+                yield break; // 더 이상 진행하지 않고 종료
+            }
+        
+            yield return www.SendWebRequest();
+            
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Error: " + www.error);
+                failure?.Invoke();
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                var scoreResultInfo = JsonUtility.FromJson<ScoreInfoResult>(result);
+                
+                success?.Invoke(scoreResultInfo);
+            }
+        }
+    }
+    
 }

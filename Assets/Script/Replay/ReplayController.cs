@@ -76,7 +76,6 @@ public class ReplayController : MonoBehaviour
     public void InitReplayUI()
     {
         //유저 닉네임 설정
-        //TODO: 유니티 에디터에서 폰트 설정바꾸기
         playerANicknameText.text = ReplayManager.Instance.GetPlayerANickname();
         playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
         
