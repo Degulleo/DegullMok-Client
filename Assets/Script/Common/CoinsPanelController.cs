@@ -53,7 +53,7 @@ public class CoinsPanelController : MonoBehaviour
         _coinsRect.sizeDelta = new Vector2(100 + textLength * 30f, 100f);
     }
 
-    private void ChangeTextAnimation(int coinAdd,bool isAdd, Action action)
+    private void ChangeTextAnimation(int coinAdd, bool isAdd, Action action)
     {
         float duration = 0.2f;
         float yPos = 40f;
