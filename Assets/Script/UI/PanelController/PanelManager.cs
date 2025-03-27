@@ -77,9 +77,10 @@ public class PanelManager : MonoBehaviour
 
         return null;
     }
-
+    private Enums.GameResult _gameResult = Enums.GameResult.None;
     public void OpenEffectPanel(Enums.GameResult gameResult)
     {
+        _gameResult = gameResult;
         switch (gameResult)
         {
             case Enums.GameResult.Win:
@@ -106,9 +107,37 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 강등, 승급 이펙트 패널 오픈
+    /// </summary>
+    /// <param name="ratingUpDown"></param>
+    public void OpenRatingEffectPanel(int ratingUpDown)
+    {
+        switch (ratingUpDown)
+        {
+            case -1:
+                if (_canvas != null)
+                {
+                    var drawEffectPanelObject = GetEffectPanel("Rating Down Effect Panel");
+                    drawEffectPanelObject.GetComponent<RatingDownEffectController>().ShowEffect(null);
+                }
+                break;
+            case 1:
+                if (_canvas != null)
+                {
+                    var drawEffectPanelObject = GetEffectPanel("Rating Up Effect Panel");
+                    drawEffectPanelObject.GetComponent<RatingUpEffectController>().ShowEffect(null);
+                }
+                break;
+        }
+    }
+    
+    // 이 함수는 Win, Lose EffectPanelEnded여서 Rating UP, Down Effect 와는 상관없습니다.
     private void OnEffectPanelEnded()
     {
-        OpenRatingPanel();
+        if (_gameResult == Enums.GameResult.None)
+            return;
+        OpenRatingPanel(_gameResult);
     }
     #endregion
     
@@ -277,13 +306,13 @@ public class PanelManager : MonoBehaviour
         OpenShopPanel(shopItems);
     }
     
-    //승급 패널 생성
-    public void OpenRatingPanel()
+    //Rating Panel 생성
+    public void OpenRatingPanel(Enums.GameResult gameResult)
     {
         if (_canvas != null)
         {
             var replayPanelObject = GetPanel("Rating Panel");
-            replayPanelObject.GetComponent<RatingPanelController>().Show();
+            replayPanelObject.GetComponent<RatingPanelController>().Show(gameResult);
         }
     }
     

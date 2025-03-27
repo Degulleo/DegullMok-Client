@@ -21,6 +21,19 @@ public class CoinsInfoResult
 }
 
 /// <summary>
+/// 점수 업데이트 응답 클래스
+/// </summary>
+public class ScoreInfoResult
+{
+    public string message;
+    public int rating;
+    public int score;
+    public int win;
+    public int lose;
+    public int isAdvancement;
+}
+
+/// <summary>
 /// 코인 구매 응답 클래스 
 /// </summary>
 public class CoinsPurchaseResult
@@ -180,7 +193,42 @@ public class UserManager : Singleton<UserManager>
         PlayerPrefs.SetString("UserInfo", json);
         PlayerPrefs.Save();
     }
-    
+        
+    /// <summary>
+    /// UpdateScore 호출 시 : rating관련 정보만 반영
+    /// </summary>
+    /// <param name="signinResult"></param>
+    public void UpdateUserScoreInfo(ScoreInfoResult scoreInfoResult)
+    {
+        Rating = scoreInfoResult.rating;
+        Score = scoreInfoResult.score;
+        Win = scoreInfoResult.win;
+        Lose = scoreInfoResult.lose;
+        UpdateUserScoreInfoToPlayerPrefs();
+    }
+
+    private void UpdateUserScoreInfoToPlayerPrefs()
+    {
+        // UserInfoResult 객체를 JSON 문자열로 직렬화
+        UserInfoResult userInfo = new UserInfoResult
+        {
+            // id = UserId,
+            // email = Email,
+            // nickname = Nickname,
+            rating = Rating,
+            score = Score,
+            // imageIndex = imageIndex,
+            win = Win,
+            lose = Lose
+        };
+
+        string json = JsonUtility.ToJson(userInfo);
+
+        // PlayerPrefs에 저장
+        PlayerPrefs.SetString("UserInfo", json);
+        PlayerPrefs.Save();
+    }
+
     public void LoadUserInfoFromPlayerPrefs()
     {
         // PlayerPrefs에서 유저 정보 가져오기
