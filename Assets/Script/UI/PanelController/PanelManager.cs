@@ -108,7 +108,7 @@ public class PanelManager : MonoBehaviour
 
     private void OnEffectPanelEnded()
     {
-        OpenRatingPanel();
+        // OpenRatingPanel();
     }
     #endregion
     
