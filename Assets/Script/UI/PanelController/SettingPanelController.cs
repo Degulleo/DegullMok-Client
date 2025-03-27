@@ -33,15 +33,15 @@ public class SettingsPanelController : PanelController
         // BGM을 끄는 경우
         if (!value)
         {
-            GameManager.Instance.audioManager.StopMainBGM();  // BGM을 끄기
+           AudioManager.Instance.StopBGM();  // BGM을 끄기
         }
         // BGM을 켜는 경우
         else
         {
             // 이미 BGM이 재생 중인 경우 새로 시작하지 않도록 체크
-            if (!GameManager.Instance.audioManager.GetComponent<AudioSource>().isPlaying)
+            if (!AudioManager.Instance.bgmAudioSource.isPlaying)
             {
-                GameManager.Instance.audioManager.PlayMainBGM();  // BGM을 켜기
+                AudioManager.Instance.PlayBGM();  // BGM을 켜기
             }
         }
     }

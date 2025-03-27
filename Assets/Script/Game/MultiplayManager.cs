@@ -67,6 +67,8 @@ public class MultiplayManager : IDisposable
     private event Action<Constants.MultiplayManagerState, object> _onMultiplayStateChanged;
     public Action<MoveData> OnOpponentMove;
     
+    private string _roomId;
+    
     public MultiplayManager(Action<Constants.MultiplayManagerState, object> onMultiplayStateChanged)
     {
         _onMultiplayStateChanged = onMultiplayStateChanged;
@@ -86,6 +88,9 @@ public class MultiplayManager : IDisposable
             _socket.On("exitRoom", ExitRoom);
             _socket.On("endGame", EndGame);
             _socket.On("doOpponent", DoOpponent);
+            _socket.On("doSurrender", DoSurrender);
+            _socket.On("surrenderConfirmed", SurrenderConfirmed);
+            _socket.On("receiveTimeout", ReceiveTimeout);
 
             _socket.Connect();
         }
@@ -109,6 +114,7 @@ public class MultiplayManager : IDisposable
     private void CreateRoom(SocketIOResponse response)
     {
         var data = response.GetValue<CreateRoomData>();
+        _roomId = data.roomId;
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.CreateRoom, data.roomId);
     }
     
@@ -116,8 +122,7 @@ public class MultiplayManager : IDisposable
     {
         var data = response.GetValue<JoinRoomData>();
         Debug.Log($"룸에 참여: 룸 ID - {data.roomId}, 상대방 등급 - {data.opponentRating}, 상대방 이름 - {data.opponentNickname}, 흑/백 여부 - {data.isBlack}, 상대방 이미지 인덱스 - {data.opponentImageIndex}");
-    
-        // 필요한 데이터 사용
+        _roomId = data.roomId;
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.JoinRoom, data);
     }
 
@@ -180,7 +185,62 @@ public class MultiplayManager : IDisposable
 
     public void LeaveRoom(string roomId)
     {
-        _socket.Emit("leaveRoom", new { roomId });
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("LeaveRoom 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+
+        _socket.Emit("leaveRoom", new { roomId = _roomId });
+        _roomId = null; // 방 나가면 roomId 초기화
+    }
+    
+    public void RequestSurrender()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("LeaveRoom 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("requestSurrender",new { roomId = _roomId });
+    }
+    
+    private void DoSurrender(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+    
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DoSurrender, data.message);
+    }
+
+    private void SurrenderConfirmed(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+    
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.SurrenderConfirmed, data.message);
+    }
+
+    /// <summary>
+    /// 타임 아웃 요청
+    /// </summary>
+    public void SendTimeout()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("LeaveRoom 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("sendTimeout",new { roomId = _roomId });
+    }
+    
+    /// <summary>
+    /// 타임 아웃 수신
+    /// </summary>
+    /// <param name="response"></param>
+    private void ReceiveTimeout(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+    
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.ReceiveTimeout, data.message);
     }
 
     public void Dispose()

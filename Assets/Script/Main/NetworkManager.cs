@@ -228,56 +228,13 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
 
-    public void UpdateScore(int isWin, Action<ScoreInfoResult> success, Action failure)
+    
+    public void GetLeaderboard(Action<List<ScoreInfo>> success, Action failure)
     {
-        StartCoroutine(UpdateScoreCoroutine(isWin, success, failure));
-    }
-    public IEnumerator UpdateScoreCoroutine(int isWin, Action<ScoreInfoResult> success, Action failure)
-    {
-        string jsonString = "{\"isWin\": "+isWin.ToString() + "}";
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
-
-        using (UnityWebRequest www =
-               new UnityWebRequest(Constants.ServerURL + "/users/score-update", UnityWebRequest.kHttpVerbPOST))
-        {
-            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            www.SetRequestHeader("Content-Type", "application/json");
-            
-            string sid = PlayerPrefs.GetString("sid", "");
-            if (!string.IsNullOrEmpty(sid))
-            {
-                www.SetRequestHeader("Cookie", sid);
-            }
-            else
-            {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
-                GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
-                {
-                    failure?.Invoke();
-                });
-                yield break; // 더 이상 진행하지 않고 종료
-            }
-        
-            yield return www.SendWebRequest();
-            
-            if (www.result == UnityWebRequest.Result.ConnectionError ||
-                www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError("Error: " + www.error);
-                failure?.Invoke();
-            }
-            else
-            {
-                var result = www.downloadHandler.text;
-                var scoreResultInfo = JsonUtility.FromJson<ScoreInfoResult>(result);
-                
-                success?.Invoke(scoreResultInfo);
-            }
-        }
+        StartCoroutine(GetLeaderboardCoroutine(success, failure));
     }
     
-    public IEnumerator GetLeaderboard(Action<Scores> success, Action failure)
+    public IEnumerator GetLeaderboardCoroutine(Action<List<ScoreInfo>> success, Action failure)
     {
         using (UnityWebRequest www =
                new UnityWebRequest(Constants.ServerURL + "/leaderboard", UnityWebRequest.kHttpVerbGET))
@@ -305,10 +262,15 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                var result = www.downloadHandler.text;
-                var scores = JsonUtility.FromJson<Scores>(result);
-                
-                success?.Invoke(scores);
+                // 성공적으로 데이터를 받아온 경우
+                string jsonResponse = www.downloadHandler.text;  // 응답으로 받은 JSON 데이터
+
+                // JSON을 ScoreInfo 리스트로 파싱
+                ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
+                List<ScoreInfo> leaderboardItems = wrapper.leaderboardDatas;
+
+                // Show 메서드를 통해 데이터를 표시
+                success?.Invoke(leaderboardItems);
             }
         }
     }
@@ -560,36 +522,54 @@ public class NetworkManager : Singleton<NetworkManager>
             }
         }
     }
-    
-    public void GetLeaderboardData(Action<List<ScoreInfo>> success, Action failure)
+
+    public void UpdateScore(int isWin, Action<ScoreInfoResult> success, Action failure)
     {
-        StartCoroutine(GetLeaderboardDataCoroutine(success, failure));
+        StartCoroutine(UpdateScoreCoroutine(isWin, success, failure));
+    }
+    public IEnumerator UpdateScoreCoroutine(int isWin, Action<ScoreInfoResult> success, Action failure)
+    {
+        string jsonString = "{\"isWin\": "+isWin.ToString() + "}";
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
+
+        using (UnityWebRequest www =
+               new UnityWebRequest(Constants.ServerURL + "/users/score-update", UnityWebRequest.kHttpVerbPOST))
+        {
+            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+            
+            string sid = PlayerPrefs.GetString("sid", "");
+            if (!string.IsNullOrEmpty(sid))
+            {
+                www.SetRequestHeader("Cookie", sid);
+            }
+            else
+            {
+                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
+                GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
+                {
+                    failure?.Invoke();
+                });
+                yield break; // 더 이상 진행하지 않고 종료
+            }
+        
+            yield return www.SendWebRequest();
+            
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Error: " + www.error);
+                failure?.Invoke();
+            }
+            else
+            {
+                var result = www.downloadHandler.text;
+                var scoreResultInfo = JsonUtility.FromJson<ScoreInfoResult>(result);
+                
+                success?.Invoke(scoreResultInfo);
+            }
+        }
     }
     
-    private IEnumerator GetLeaderboardDataCoroutine(Action<List<ScoreInfo>> success, Action failure)
-    {
-        string url = Constants.ServerURL + "/leaderboard/";  // 서버의 리더보드 데이터 URL
-
-        UnityWebRequest www = UnityWebRequest.Get(url);  // GET 요청으로 데이터 받기
-        yield return www.SendWebRequest();  // 요청 전송 대기
-
-        // 요청이 실패했을 때
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.LogError("Error: " + www.error);
-            failure?.Invoke();
-        }
-        else
-        {
-            // 성공적으로 데이터를 받아온 경우
-            string jsonResponse = www.downloadHandler.text;  // 응답으로 받은 JSON 데이터
-
-            // JSON을 ScoreInfo 리스트로 파싱
-            ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
-            List<ScoreInfo> leaderboardItems = wrapper.leaderboardDatas;
-
-            // Show 메서드를 통해 데이터를 표시
-            success?.Invoke(leaderboardItems);
-        }
-    }
 }

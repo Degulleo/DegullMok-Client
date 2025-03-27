@@ -14,10 +14,11 @@ public class WinEffectController : EffectController
     protected override string fullText => "승리했습니다!";
 
 
-    protected override void ShowEffect()
+    public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
+        onEffectPanelEnded = onEffectPanelEnd;
         
         ShowPanel();
         StartCoroutine(AnimateLoadingText());
@@ -26,6 +27,16 @@ public class WinEffectController : EffectController
         Invoke(nameof(PopupObject), 0.3f);
     }
 
+    protected override void ShowPanel()
+    {
+        CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.DOFade(1f, 1f);
+        bannerObj.transform.DOScale(Vector3.zero, 0f);
+        bannerObj.transform.DOScale(Vector3.one, 1f);
+    }
+    
     private void RotateHaloObject()
     {
         // 무한 회전 효과

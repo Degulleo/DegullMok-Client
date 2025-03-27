@@ -17,10 +17,16 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Image profileImageB;
     [SerializeField] private Sprite[] profileImageSprites;  //0. 기본 드래곤 1. 기본 호랑이 2.아이보리 드래곤 3. 아이보리 호랑이
     [SerializeField] private Sprite[] indicatorSprites; //0. active 1. inactive
-
     
     private Sprite _originalSpriteA;
     private Sprite _originalSpriteB;
+    
+    private MultiplayManager _multiplayManager;
+
+    private void Start()
+    {
+        _multiplayManager = GameManager.Instance.GetMultiplayManager();
+    }
     
     public void OnClickConfirmButton()
     {
@@ -36,9 +42,7 @@ public class GameUIController : MonoBehaviour
     {
         GameManager.Instance.panelManager.OpenConfirmPanel("항복 하시겠습니까?", () =>
         {
-            //TODO: 서버에 항복 전달 및 기타 등등
-            
-            GameManager.Instance.ChangeToMainScene();
+            _multiplayManager.RequestSurrender();
         });
     }
 

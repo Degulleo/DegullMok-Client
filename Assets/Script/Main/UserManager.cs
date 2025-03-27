@@ -100,14 +100,22 @@ public class UserManager : Singleton<UserManager>
     public static bool IsPlaySFX
     {
         get { return PlayerPrefs.GetInt("IsPlaySFX", 1) == 1; }
-        set { PlayerPrefs.SetInt("IsPlaySFX", value ? 1 : 0); }
+        set
+        {
+            PlayerPrefs.SetInt("IsPlaySFX", value ? 1 : 0);
+            AudioManager.Instance.isPlaySFX = value;
+        }
     }
     
     // 배경음악 재생 여부
     public static bool IsPlayBGM
     {
         get { return PlayerPrefs.GetInt("IsPlayBGM", 1) == 1; }
-        set { PlayerPrefs.SetInt("IsPlayBGM", value ? 1 : 0); }
+        set
+        {
+            PlayerPrefs.SetInt("IsPlayBGM", value ? 1 : 0);
+            AudioManager.Instance.isPlayBGM = value;
+        }
     }
     
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)

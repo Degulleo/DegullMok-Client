@@ -12,10 +12,11 @@ public class DrawEffectController : EffectController
     [SerializeField] private float flipDuration = 0.3f;
     protected override string fullText => "무승부 입니다";
 
-    protected override void ShowEffect()
+    public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
+        onEffectPanelEnded = onEffectPanelEnd;
         
         ShowPanel();
         StartCoroutine(AnimateLoadingText());
