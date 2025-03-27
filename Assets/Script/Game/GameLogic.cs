@@ -522,6 +522,7 @@ public class GameLogic : MonoBehaviour
         // 기존 멀티플레이 상태 초기화
         _multiplayManager = null;
         _roomId = null;
+        gameType = Enums.GameType.SinglePlay;
 
         // 싱글 플레이 상태로 변경
         firstPlayerState = new PlayerState(true);
