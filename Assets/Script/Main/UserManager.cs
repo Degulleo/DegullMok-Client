@@ -43,6 +43,7 @@ public class CoinsPurchaseResult
     public int purchased;      // 충전된 코인량
     public int currentCoins;   // 현재 보유 코인량
 }
+
 /// <summary>
 /// 광고 시청 응답 클래스
 /// </summary>
@@ -81,8 +82,6 @@ public class DeductCoinsResult
     public int deducted;
     public int remainingCoins;
 }
-
-
 
 public class UserManager : Singleton<UserManager>
 {
