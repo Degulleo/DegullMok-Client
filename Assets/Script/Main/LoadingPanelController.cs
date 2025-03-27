@@ -16,8 +16,18 @@ public class LoadingPanelController : MonoBehaviour
     [SerializeField] private Sprite[] dragonSprites;
     [SerializeField] private Sprite[] tigerSprites;
     
-    [SerializeField] private string fullText = "불러오는 중..."; // 원하는 문구를 인스펙터에서 설정 가능
-    [SerializeField] private float interval = 0.4f; // 글자 추가 속도 조정 가능
+    private string fullText = "불러오는 중...";
+    private readonly string[] loadingMessages = {
+        "흑돌을 닦는 중...",
+        "백돌을 닦는 중...",
+        "알을 반짝반짝 닦는 중...",
+        "방석을 터는 중...",
+        "오목 룰북을 읽는 중...",
+        "한 수 깊이 생각하는 중...",
+        "흑돌과 백돌을 구분하는 중...",
+        "돌이 동글동글한지 확인하는 중..."
+    };
+    private float interval = 0.2f;
     [SerializeField] float flipDuration = 0.3f; // 회전 시간
     [SerializeField] float delayBetweenFlips = 1f; // 이미지 변경 주기
 
@@ -86,6 +96,7 @@ public class LoadingPanelController : MonoBehaviour
             if (currentLength == fullText.Length)
             {
                 yield return new WaitForSeconds(1f); // 1초 대기
+                fullText = loadingMessages[Random.Range(0, loadingMessages.Length)]; // 랜덤 메시지 선택
                 currentLength = 0; // 다시 처음부터 시작
             }
 
