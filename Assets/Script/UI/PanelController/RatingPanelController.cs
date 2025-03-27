@@ -22,7 +22,7 @@ public class RatingPanelController : PanelController
     {
         Hide();
     }
-
+//TODO: 미사용시 삭제
     public void OnClickRetryButton()
     {
         Hide(() => { });
@@ -44,6 +44,8 @@ public class RatingPanelController : PanelController
         yield return InitRatingPanel(gameResult);
         
         //유저 인포 업데이트와 승급 이펙트 띄우기
+        // TODO: 서버 업데이트를 승급패널보다 더 큰 로직에서 처리하는 것이 좋을 것 같습니다.
+        // 리팩토링 시 반영 부탁드립니다.
         switch (gameResult)
         {
             case (Enums.GameResult.Win):
@@ -113,7 +115,6 @@ public class RatingPanelController : PanelController
             {
                 _oldScore = userInfo.score;
                 // 1급이고 이미 10승 이상인 경우
-                //TODO: IF문 줄일 수 있을 것 같은데 머리가 안돕니다. ..
                 if (_myRating == 1 && userInfo.score >= 10 )
                 {
                     // 10승에서 패배한 경우 점수 잃는 애니메이션
@@ -162,56 +163,7 @@ public class RatingPanelController : PanelController
         {
             getPointsText.text = $"게임에서 {win}했습니다.\n{Constants.RAING_POINTS} 승급 포인트를 {get}";
         }
-        
+        // 애니메이션 실행 완료를 위한 wait
         yield return new WaitForSecondsRealtime(1.5f);
     }
-
-    // private IEnumerator RatingPointsAnimation(Enums.GameResult gameResult,int requiredScore)
-    // {
-    //     // 게임 전 스코어로 초기화
-    //     NetworkManager.Instance.GetInfo((userInfo) =>
-    //         {
-    //             _oldScore = userInfo.score;
-    //             // 1급이고 이미 10승 이상인 경우
-    //             //TODO: IF문 줄일 수 있을 것 같은데 머리가 안돕니다. ..
-    //             if (_myRating == 1 && userInfo.score >= 10 )
-    //             {
-    //                 // 10승에서 패배한 경우 점수 잃는 애니메이션
-    //                 if (gameResult == Enums.GameResult.Lose && userInfo.score == 10)
-    //                 {
-    //                     _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
-    //                 }
-    //                 else
-    //                 {
-    //                     if(gameResult == Enums.GameResult.Lose)
-    //                         _ratingPointsController.SetRatingUpLimit(_oldScore-1);
-    //                     else
-    //                         _ratingPointsController.SetRatingUpLimit(_oldScore+1);
-    //                 }
-    //             }
-    //             // 18급이고 이미 3패 이상인 경우
-    //             else if (_myRating == 18 && userInfo.score <= -3)
-    //             {
-    //                 //3승에서 승리한 경우 점수 얻는 애니메이션
-    //                 if (gameResult == Enums.GameResult.Win && userInfo.score == -3)
-    //                 {
-    //                     _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
-    //                 }
-    //                 else
-    //                 {
-    //                     if(gameResult == Enums.GameResult.Lose)
-    //                         _ratingPointsController.SetRatingDownLimit(_oldScore-1);
-    //                     else
-    //                         _ratingPointsController.SetRatingDownLimit(_oldScore+1);
-    //                 }
-    //             }
-    //             else
-    //             {
-    //                 _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
-    //                 
-    //             }
-    //
-    //         }, () =>
-    //         { });
-    // }
 }

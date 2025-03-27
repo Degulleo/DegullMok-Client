@@ -45,8 +45,6 @@ public class MainPanelManager : MonoBehaviour
             // GameManager.Instance.panelManager.OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
             
             loadingPanelController.StopLoading();
-            //TODO: 테스트용 승급패널 오픈
-            GameManager.Instance.panelManager.OpenRatingPanel(Enums.GameResult.Win);
         }, () =>
         {
             Debug.Log("자동 로그인 실패");
