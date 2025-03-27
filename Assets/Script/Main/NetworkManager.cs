@@ -228,11 +228,11 @@ public class NetworkManager : Singleton<NetworkManager>
         }
     }
 
-    public void UpdateScore(int isWin, Action success, Action failure)
+    public void UpdateScore(int isWin, Action<ScoreInfoResult> success, Action failure)
     {
         StartCoroutine(UpdateScoreCoroutine(isWin, success, failure));
     }
-    public IEnumerator UpdateScoreCoroutine(int isWin, Action success, Action failure)
+    public IEnumerator UpdateScoreCoroutine(int isWin, Action<ScoreInfoResult> success, Action failure)
     {
         string jsonString = "{\"isWin\": "+isWin.ToString() + "}";
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonString);
@@ -271,14 +271,8 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 var result = www.downloadHandler.text;
                 var scoreResultInfo = JsonUtility.FromJson<ScoreInfoResult>(result);
-                Debug.Log(scoreResultInfo.message);
-                Debug.Log(scoreResultInfo.rating);
-                Debug.Log(scoreResultInfo.score);
-                Debug.Log(scoreResultInfo.win);
-                Debug.Log(scoreResultInfo.lose);
-                Debug.Log(scoreResultInfo.isAdvancement);
                 
-                success?.Invoke();
+                success?.Invoke(scoreResultInfo);
             }
         }
     }

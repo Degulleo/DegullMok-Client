@@ -185,7 +185,43 @@ public class UserManager : Singleton<UserManager>
         PlayerPrefs.SetString("UserInfo", json);
         PlayerPrefs.Save();
     }
-    
+        
+    /// <summary>
+    /// UpdateScore 호출 시 : rating관련 정보만 반영
+    /// </summary>
+    /// <param name="signinResult"></param>
+    public void UpdateUserScoreInfo(ScoreInfoResult scoreInfoResult)
+    {
+        Rating = scoreInfoResult.rating;
+        Score = scoreInfoResult.score;
+        Win = scoreInfoResult.win;
+        Lose = scoreInfoResult.lose;
+        //TODO: user매니저에서 바로 프리팹에 업데이트 해도 될까요?
+        UpdateUserScoreInfoToPlayerPrefs();
+    }
+
+    private void UpdateUserScoreInfoToPlayerPrefs()
+    {
+        // UserInfoResult 객체를 JSON 문자열로 직렬화
+        UserInfoResult userInfo = new UserInfoResult
+        {
+            // id = UserId,
+            // email = Email,
+            // nickname = Nickname,
+            rating = Rating,
+            score = Score,
+            // imageIndex = imageIndex,
+            win = Win,
+            lose = Lose
+        };
+
+        string json = JsonUtility.ToJson(userInfo);
+
+        // PlayerPrefs에 저장
+        PlayerPrefs.SetString("UserInfo", json);
+        PlayerPrefs.Save();
+    }
+
     public void LoadUserInfoFromPlayerPrefs()
     {
         // PlayerPrefs에서 유저 정보 가져오기

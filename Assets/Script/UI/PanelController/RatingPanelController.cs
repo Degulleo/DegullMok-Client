@@ -17,30 +17,7 @@ public class RatingPanelController : PanelController
     private int _newScore;
     private int _myRating;
     private RatingPointsController _ratingPointsController;
-        
-    public void Show(Enums.GameResult gameResult)
-    {
-        base.Show(InitRatingPanel(gameResult));
-        UpdateGameResult(gameResult);
-    }
-
-    private void UpdateGameResult(Enums.GameResult gameResult)
-    {
-        switch (gameResult)
-        {
-            case (Enums.GameResult.Win):
-                NetworkManager.Instance.UpdateScore(1 , () =>
-                {
-                    //유저 인포 업데이트
-                    //결과화면 띄우기
-                },() => { });
-                break;
-            case (Enums.GameResult.Lose):
-                NetworkManager.Instance.UpdateScore(-1, () => { }, () => { });
-                break;
-        }
-    }
-
+      
     public void OnClickConfirmButton()
     {
         Hide();
@@ -49,14 +26,61 @@ public class RatingPanelController : PanelController
     public void OnClickRetryButton()
     {
         Hide(() => { });
+    }  
+    public void Show(Enums.GameResult gameResult)
+    {
+        base.Show(RatingPanelStart(gameResult));
     }
+
+    private PanelControllerShowDelegate RatingPanelStart(Enums.GameResult gameResult)
+    {
+        StartCoroutine(UpdateScore(gameResult));
+        return null;
+    }
+
+    private IEnumerator UpdateScore(Enums.GameResult gameResult)
+    {
+        //기존 점수로 애니메이션 보여줄 때까지 기다림
+        yield return InitRatingPanel(gameResult);
+        
+        //유저 인포 업데이트와 승급 이펙트 띄우기
+        switch (gameResult)
+        {
+            case (Enums.GameResult.Win):
+                NetworkManager.Instance.UpdateScore(1 , (scoreResultInfo) =>
+                {
+                    //유저 인포 업데이트
+                    UserManager.Instance.UpdateUserScoreInfo(scoreResultInfo);
+                    
+                    //결과화면 띄우기
+                    if (scoreResultInfo.isAdvancement == 1)
+                    {
+                        
+                    }
+                },() => { });
+                break;
+            case (Enums.GameResult.Lose):
+                NetworkManager.Instance.UpdateScore(-1, (scoreResultInfo) =>
+                {
+                    UserManager.Instance.UpdateUserScoreInfo(scoreResultInfo);
+                    
+                    if (scoreResultInfo.isAdvancement == -1)
+                    {
+                        
+                    }
+                    
+                }, () => { });
+                break;
+        }
+    }
+
     
     
     /// <summary>
     /// 텍스트 초기화, 승급포인트 계산
     /// </summary>
     /// <param name="isWin"></param>
-    public PanelControllerShowDelegate InitRatingPanel(Enums.GameResult gameResult)
+    private IEnumerator InitRatingPanel(Enums.GameResult gameResult)
     {
         _gameResult = gameResult; 
         _myRating= UserManager.Instance.Rating;
@@ -126,6 +150,7 @@ public class RatingPanelController : PanelController
                     _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
                     
                 }
+
             }, () =>
             { });
 
@@ -137,6 +162,56 @@ public class RatingPanelController : PanelController
         {
             getPointsText.text = $"게임에서 {win}했습니다.\n{Constants.RAING_POINTS} 승급 포인트를 {get}";
         }
-        return null;
+        
+        yield return new WaitForSecondsRealtime(1.5f);
     }
+
+    // private IEnumerator RatingPointsAnimation(Enums.GameResult gameResult,int requiredScore)
+    // {
+    //     // 게임 전 스코어로 초기화
+    //     NetworkManager.Instance.GetInfo((userInfo) =>
+    //         {
+    //             _oldScore = userInfo.score;
+    //             // 1급이고 이미 10승 이상인 경우
+    //             //TODO: IF문 줄일 수 있을 것 같은데 머리가 안돕니다. ..
+    //             if (_myRating == 1 && userInfo.score >= 10 )
+    //             {
+    //                 // 10승에서 패배한 경우 점수 잃는 애니메이션
+    //                 if (gameResult == Enums.GameResult.Lose && userInfo.score == 10)
+    //                 {
+    //                     _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+    //                 }
+    //                 else
+    //                 {
+    //                     if(gameResult == Enums.GameResult.Lose)
+    //                         _ratingPointsController.SetRatingUpLimit(_oldScore-1);
+    //                     else
+    //                         _ratingPointsController.SetRatingUpLimit(_oldScore+1);
+    //                 }
+    //             }
+    //             // 18급이고 이미 3패 이상인 경우
+    //             else if (_myRating == 18 && userInfo.score <= -3)
+    //             {
+    //                 //3승에서 승리한 경우 점수 얻는 애니메이션
+    //                 if (gameResult == Enums.GameResult.Win && userInfo.score == -3)
+    //                 {
+    //                     _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+    //                 }
+    //                 else
+    //                 {
+    //                     if(gameResult == Enums.GameResult.Lose)
+    //                         _ratingPointsController.SetRatingDownLimit(_oldScore-1);
+    //                     else
+    //                         _ratingPointsController.SetRatingDownLimit(_oldScore+1);
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 _ratingPointsController.InitRatingPoints(_oldScore,_gameResult,requiredScore);
+    //                 
+    //             }
+    //
+    //         }, () =>
+    //         { });
+    // }
 }
