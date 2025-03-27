@@ -22,7 +22,6 @@ public abstract class BasePlayerState
         gameLogic.fioTimer.PauseTimer();
         gameLogic.SetNewBoardValue(playerType, row, col);
         gameLogic.CountStoneCounter();
-        
         if (_isMultiplay)
         {
             _multiplayManager.SendPlayerMove(_roomId, new Vector2Int(row, col));
@@ -357,6 +356,7 @@ public class GameLogic : IDisposable
                             Debug.Log("Join Room 응답값이 null 입니다");
                             return;
                         }
+                        _roomId = joinRoomData.roomId;
 
                         // 선공, 후공 처리
                         isFirstPlayer = joinRoomData.isBlack;
@@ -366,7 +366,7 @@ public class GameLogic : IDisposable
                         if (isFirstPlayer)
                         {
                             Debug.Log("해당 플레이어가 선공 입니다");
-                            firstPlayerState = new PlayerState(true, _multiplayManager, joinRoomData.roomId);
+                            firstPlayerState = new PlayerState(true, _multiplayManager, _roomId);
                             secondPlayerState = new MultiPlayerState(false, _multiplayManager);
                             UnityMainThreadDispatcher.Instance().Enqueue(() =>
                             {
@@ -381,7 +381,7 @@ public class GameLogic : IDisposable
                         {
                             Debug.Log("해당 플레이어가 후공 입니다");
                             firstPlayerState = new MultiPlayerState(true, _multiplayManager);
-                            secondPlayerState = new PlayerState(false, _multiplayManager, joinRoomData.roomId);
+                            secondPlayerState = new PlayerState(false, _multiplayManager, _roomId);
                             
                             UnityMainThreadDispatcher.Instance().Enqueue(() =>
                             {
