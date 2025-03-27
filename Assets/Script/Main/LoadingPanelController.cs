@@ -28,13 +28,20 @@ public class LoadingPanelController : MonoBehaviour
     private CancellationTokenSource cancellationTokenSource;
     
     // 타 컴포넌트에서 애니메이션 효과 설정을 위해 호출(RotateImages와 FlipImages 혼용은 불가능: DORotate가 서로 충돌함)
+    /// <summary>
+    /// 로딩 패널 보이기
+    /// </summary>
+    /// <param name="animatedImage">캐릭터들이 좌우로 회전하는 효과</param>
+    /// <param name="animatedText">한글자씩 나타나는 효과</param>
+    /// <param name="animatedFlip">캐릭터들이 뒤집히면서 표정이 바뀌는 효과</param>
+    /// <param name="isBackgroundImage">배경 이미지 여부 설정</param>
     public void StartLoading(bool animatedImage, bool animatedText, bool animatedFlip, bool isBackgroundImage)
     {
         // 패널 활성화
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
         
-        // 배경 이미지 설정
+        // 배경 이미지 여부 설정
         imageBackground.SetActive(isBackgroundImage);
         simpleBackground.SetActive(!isBackgroundImage);
 
