@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "18\uAE09"
+  m_text: "1\uAE09"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -1527,6 +1527,7 @@ GameObject:
   - component: {fileID: 3789896065191799873}
   - component: {fileID: 1899561816919013120}
   - component: {fileID: 713532354933724924}
+  - component: {fileID: 6976376814499149807}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -1648,6 +1649,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6976376814499149807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808074897885991391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4330206548604932b038a7007dacf94b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableOneTimeClick: 1
 --- !u!1 &4880640143325961548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tester
+  m_text: ksh
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -1958,6 +1972,7 @@ MonoBehaviour:
   - {fileID: 4381601883819518242}
   - {fileID: 6837262359343561592}
   rankingButton: {fileID: 202560210887412943}
+  gameStartButton: {fileID: 713532354933724924}
 --- !u!1 &9186617826613474881
 GameObject:
   m_ObjectHideFlags: 0
