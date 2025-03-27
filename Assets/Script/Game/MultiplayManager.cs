@@ -91,12 +91,20 @@ public class MultiplayManager : IDisposable
             _socket.On("doSurrender", DoSurrender);
             _socket.On("surrenderConfirmed", SurrenderConfirmed);
             _socket.On("receiveTimeout", ReceiveTimeout);
+            // 무승부 관련
             _socket.On("receiveDrawRequest", ReceiveDrawRequest);
             _socket.On("drawRequestSent", DrawRequestSent);
             _socket.On("drawAccepted", DrawAccepted);
             _socket.On("drawConfirmed", DrawConfirmed);
             _socket.On("drawRejected", DrawRejected);
             _socket.On("drawRejectionConfirmed", DrawRejectionConfirmed);
+            // 재대결 관련
+            _socket.On("receiveRevengeRequest", ReceiveRevengeRequest);
+            _socket.On("revengeRequestSent", DrawRequestSent);
+            _socket.On("revengeAccepted", RevengeAccepted);
+            _socket.On("revengeConfirmed", RevengeConfirmed);
+            _socket.On("revengeRejected", RevengeRejected);
+            _socket.On("revengeRejectionConfirmed", RevengeRejectionConfirmed);
 
             _socket.Connect();
         }
@@ -249,6 +257,8 @@ public class MultiplayManager : IDisposable
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.ReceiveTimeout, data.message);
     }
 
+    #region 무승부
+
     public void RequestDraw()
     {
         if (string.IsNullOrEmpty(_roomId))
@@ -320,6 +330,84 @@ public class MultiplayManager : IDisposable
         
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawRejectionConfirmed, data.message);
     }
+
+    #endregion
+
+    #region 재대결
+
+    public void RequestRevengeRequest()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("requestDraw 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("requestRevenge",new { roomId = _roomId });
+    }
+    
+    private void ReceiveRevengeRequest(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.ReceiveRevengeRequest, data.message);
+    }
+    
+    private void RevengeRequestSent(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeRequestSent, data.message);
+    }
+
+    public void AcceptRevenge()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("acceptRevenge 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("acceptRevenge", new { roomId = _roomId });
+    }
+    
+    private void RevengeAccepted(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeAccepted, data.message);
+    }
+
+    private void RevengeConfirmed(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeConfirmed, data.message);
+    }
+
+    public void RejectRevenge()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("rejectRevenge 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("rejectRevenge", new { roomId = _roomId });
+    }
+    
+    private void RevengeRejected(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeRejected, data.message);
+    }
+
+    private void RevengeRejectionConfirmed(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeRejectionConfirmed, data.message);
+    }
+
+    #endregion
 
     public void Dispose()
     {

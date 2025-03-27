@@ -496,7 +496,7 @@ public class GameLogic : IDisposable
                         Debug.Log("무승부 요청 전송 완료");
                         break;
                     case Constants.MultiplayManagerState.DrawAccepted:
-                        Debug.Log("무승부 요청이 승락이 들어옴");
+                        Debug.Log("무승부 요청이 승낙이 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
                             GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
@@ -504,7 +504,7 @@ public class GameLogic : IDisposable
                         });
                         break;
                     case Constants.MultiplayManagerState.DrawConfirmed:
-                        Debug.Log("무승부 요청 승락 완료");
+                        Debug.Log("무승부 요청 승낙 완료");
                         break;
                     case Constants.MultiplayManagerState.DrawRejected:
                         Debug.Log("무승부 요청이 거부가 들어옴");
@@ -525,6 +525,35 @@ public class GameLogic : IDisposable
                             EndGame(Enums.GameResult.Win);
                         });
                         break;
+                    case Constants.MultiplayManagerState.RevengeRequestSent:
+                        Debug.Log("재대결 요청 전송 완료");
+                        break;
+                    case Constants.MultiplayManagerState.RevengeAccepted:
+                        Debug.Log("재대결 요청이 승낙이 들어옴");
+                        InitBoardForRevenge();
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.RevengeConfirmed:
+                        Debug.Log("재대결 요청 승낙 완료");
+                        InitBoardForRevenge();
+                        break;
+                    case Constants.MultiplayManagerState.RevengeRejected:
+                        Debug.Log("재대결 요청이 거부가 들어옴");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 거부하였습니다.", () => { });
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
+                        Debug.Log("재대결 요청 거부 완료");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 거부하였습니다.", () => { });
+                        });
+                        break;
                 }
                 ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
                 
@@ -536,7 +565,27 @@ public class GameLogic : IDisposable
                 break;
         }
     }
-    
+
+    private void InitBoardForRevenge()
+    {
+        //보드 초기화
+        _board = new Enums.PlayerType[15, 15];
+        _totalStoneCounter = 0;
+        RequestDrawChance = true;
+
+        selectedRow = -1;
+        selectedCol = -1;
+
+        // 금수 감지기 초기화
+        _forbiddenDetector.RenjuForbiddenMove(_board);
+
+        _lastRow = -1;
+        _lastCol = -1;
+        
+        //timer 초기화
+        fioTimer.InitTimer();
+    }
+
     //AI닉네임 랜덤 생성
     private string RandomAINickname()
     {
