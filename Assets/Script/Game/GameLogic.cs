@@ -526,10 +526,10 @@ public class GameLogic : IDisposable
                         });
                         break;
                     case Constants.MultiplayManagerState.RevengeRequestSent:
-                        Debug.Log("재대결 요청 전송 완료");
+                        Debug.Log("재대결 요청: 전송 완료");
                         break;
                     case Constants.MultiplayManagerState.RevengeAccepted:
-                        Debug.Log("재대결 요청이 승낙이 들어옴");
+                        Debug.Log("재대결 요청: 승낙이 들어옴");
                         InitBoardForRevenge();
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
@@ -537,18 +537,18 @@ public class GameLogic : IDisposable
                         });
                         break;
                     case Constants.MultiplayManagerState.RevengeConfirmed:
-                        Debug.Log("재대결 요청 승낙 완료");
+                        Debug.Log("재대결 요청: 승낙 완료");
                         InitBoardForRevenge();
                         break;
                     case Constants.MultiplayManagerState.RevengeRejected:
-                        Debug.Log("재대결 요청이 거부가 들어옴");
+                        Debug.Log("재대결 요청: 거부가 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
                             GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 거부하였습니다.", () => { });
                         });
                         break;
                     case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
-                        Debug.Log("재대결 요청 거부 완료");
+                        Debug.Log("재대결 요청: 거부 완료");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
                             GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 거부하였습니다.", () => { });
