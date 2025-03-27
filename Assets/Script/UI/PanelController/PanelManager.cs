@@ -264,7 +264,7 @@ public class PanelManager : MonoBehaviour
                 shopItems.Add(shopItem);
             }
         }
-        GameManager.Instance.panelManager.OpenShopPanel(shopItems);
+        OpenShopPanel(shopItems);
     }
     
     //승급 패널 생성
