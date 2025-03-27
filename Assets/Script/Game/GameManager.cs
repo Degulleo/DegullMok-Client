@@ -19,13 +19,22 @@ public class GameManager : Singleton<GameManager>
     
     [NonSerialized] public PanelManager panelManager;
     [NonSerialized] public AudioManager audioManager;
+    
+    private MultiplayManager _multiplayManager;
 
     protected override void Awake()
     {
         base.Awake();
         InitPanels();
     }
-
+    
+    public MultiplayManager GetMultiplayManager()
+    {
+        _multiplayManager = _gameLogic._multiplayManager;
+        if (_multiplayManager == null) Debug.Log("MultiplayManager가 null입니다");
+        return _multiplayManager;
+    }
+    
     private void InitPanels()
     {
         if (panelManager == null)
