@@ -462,6 +462,46 @@ public class GameLogic : MonoBehaviour
                             EndGame(Enums.GameResult.Lose);
                         });
                         break;
+                    case Constants.MultiplayManagerState.ReceiveDrawRequest:
+                        Debug.Log("상대방의 무승부 요청 들어옴");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승락하시겠습니까?", () =>
+                            {
+                                GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
+                                EndGame(Enums.GameResult.Draw);
+                                _multiplayManager.AcceptDraw();
+                            }, () =>
+                            {
+                                _multiplayManager.RejectDraw();
+                            });
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.DrawRequestSent:
+                        Debug.Log("무승부 요청 전송 완료");
+                        break;
+                    case Constants.MultiplayManagerState.DrawAccepted:
+                        Debug.Log("무승부 요청이 승락이 들어옴");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
+                            EndGame(Enums.GameResult.Draw);
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.DrawConfirmed:
+                        Debug.Log("무승부 요청 승락 완료");
+                        break;
+                    case Constants.MultiplayManagerState.DrawRejected:
+                        Debug.Log("무승부 요청이 거부가 들어옴");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청을 거부하였습니다.", () => { });
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.DrawRejectionConfirmed:
+                        Debug.Log("무승부 요청 거부 완료");
+                        
+                        break;
                 }
                 ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
                 

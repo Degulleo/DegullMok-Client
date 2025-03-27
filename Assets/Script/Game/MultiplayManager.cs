@@ -90,6 +90,12 @@ public class MultiplayManager : IDisposable
             _socket.On("doOpponent", DoOpponent);
             _socket.On("doSurrender", DoSurrender);
             _socket.On("surrenderConfirmed", SurrenderConfirmed);
+            _socket.On("receiveDrawRequest", ReceiveDrawRequest);
+            _socket.On("drawRequestSent", DrawRequestSent);
+            _socket.On("drawAccepted", DrawAccepted);
+            _socket.On("drawConfirmed", DrawConfirmed);
+            _socket.On("drawRejected", DrawRejected);
+            _socket.On("drawRejectionConfirmed", DrawRejectionConfirmed);
 
             _socket.Connect();
         }
@@ -216,6 +222,78 @@ public class MultiplayManager : IDisposable
         var data = response.GetValue<MessageData>();
     
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.SurrenderConfirmed, data.message);
+    }
+
+    public void RequestDraw()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("requestDraw 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("requestDraw",new { roomId = _roomId });
+    }
+    
+    private void ReceiveDrawRequest(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.ReceiveDrawRequest, data.message);
+    }
+    
+    private void DrawRequestSent(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawRequestSent, data.message);
+    }
+
+    public void AcceptDraw()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("acceptDraw 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("acceptDraw", new { roomId = _roomId });
+    }
+    
+    private void DrawAccepted(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawAccepted, data.message);
+    }
+
+    private void DrawConfirmed(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawConfirmed, data.message);
+    }
+
+    public void RejectDraw()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("rejectDraw 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("rejectDraw", new { roomId = _roomId });
+    }
+    
+    private void DrawRejected(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawRejected, data.message);
+    }
+
+    private void DrawRejectionConfirmed(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawRejectionConfirmed, data.message);
     }
 
     public void Dispose()

@@ -46,6 +46,14 @@ public class GameUIController : MonoBehaviour
         });
     }
 
+    public void OnClickDrawRequestButton()
+    {
+        GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
+        {
+            _multiplayManager.RequestDraw();
+        });
+    }
+
     public void OnClickSettingsButton()
     {
         GameManager.Instance.panelManager.OpenSettingsPanel();

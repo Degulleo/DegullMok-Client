@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 8635639988778983738}
   - component: {fileID: 4545556044007292713}
   - component: {fileID: 6152865991947934791}
-  - component: {fileID: 3813612584874639807}
+  - component: {fileID: -2390623514170132953}
   m_Layer: 5
   m_Name: Draw Effect Panel
   m_TagString: Untagged
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.74509805}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -625,7 +625,7 @@ MonoBehaviour:
   tigerOpenEyes: {fileID: 1508819185250841244}
   tigerCloseEyes: {fileID: 399504369641388738}
   flipDuration: 0.3
---- !u!61 &3813612584874639807
+--- !u!61 &-2390623514170132953
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
