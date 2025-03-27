@@ -19,7 +19,7 @@ public class AudioManager : Singleton<AudioManager>
     private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
 
     
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();  // 부모 클래스의 Awake 호출
 

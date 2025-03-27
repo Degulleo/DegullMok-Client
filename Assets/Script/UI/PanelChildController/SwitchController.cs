@@ -19,7 +19,6 @@ public class SwitchController : MonoBehaviour
     
     private RectTransform _handleRectTransform;
     private Image _backgroundImage;
-    private AudioSource _audioSource;
     
     private bool _isOn;
     
@@ -27,7 +26,6 @@ public class SwitchController : MonoBehaviour
     {
         _handleRectTransform = handleImage.GetComponent<RectTransform>();
         _backgroundImage = GetComponent<Image>();
-        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -35,7 +33,15 @@ public class SwitchController : MonoBehaviour
         //초기 상태는 false
         _handleRectTransform.anchoredPosition = new Vector2(-14, 0);
         _backgroundImage.color = OffColor;
-        _isOn = false;
+        
+        if (gameObject.name == "SFX Switch")
+        {
+            _isOn = UserManager.IsPlaySFX;
+        }
+        else if (gameObject.name == "BGM Switch")
+        {
+            _isOn = UserManager.IsPlayBGM;
+        }
     }
 
     //스위치 상태 변경 함수
