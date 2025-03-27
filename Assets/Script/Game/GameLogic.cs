@@ -217,7 +217,7 @@ public class MultiPlayerState: BasePlayerState
     }
 }
 
-public class GameLogic : MonoBehaviour
+public class GameLogic : IDisposable
 {
     private Enums.PlayerType[,] _board;
     public StoneController stoneController;
@@ -226,6 +226,12 @@ public class GameLogic : MonoBehaviour
     //총 착수된 돌 카운터
     public int _totalStoneCounter;
     public int TotalStoneCounter{get{return _totalStoneCounter;}}
+    //무승부 요청 가능 여부
+    private bool _requestDrawChance;
+    public bool RequestDrawChance{
+        get { return _requestDrawChance;}
+        set { _requestDrawChance = value;}
+    }
     
     public BasePlayerState firstPlayerState;
     public BasePlayerState secondPlayerState;
@@ -244,6 +250,7 @@ public class GameLogic : MonoBehaviour
     public MultiplayManager _multiplayManager;
     private string _roomId;
     
+    
 #region Renju Members
     // 렌주룰 금수 검사기
     private RenjuForbiddenMoveDetector _forbiddenDetector;
@@ -259,6 +266,7 @@ public class GameLogic : MonoBehaviour
         this.stoneController = stoneController;
         this.gameType = gameType;
         _totalStoneCounter = 0;
+        RequestDrawChance = true;
         
         selectedRow = -1;
         selectedCol = -1;
@@ -538,7 +546,6 @@ public class GameLogic : MonoBehaviour
         
         return AI_NAMIES[index];
     }
-    
     
     public void SwitchToSinglePlayer()
     {

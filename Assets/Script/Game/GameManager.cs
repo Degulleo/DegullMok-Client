@@ -90,13 +90,13 @@ public class GameManager : Singleton<GameManager>
             _camera = GameObject.FindObjectOfType<Camera>().gameObject;
             _gameUIController = GameObject.FindObjectOfType<GameUIController>();
             _gameLogic = new GameLogic(_stoneController, _gameType, fioTimer);
-            
         }
         InitPanels();
     }
     //임시 재시작 재대결
     public void RetryGame()
     {
+        if (_gameLogic == null) return;
         _gameLogic.ResetBoard();
         _stoneController.InitStones();
         _gameLogic.SetState(_gameLogic.firstPlayerState);
@@ -118,5 +118,17 @@ public class GameManager : Singleton<GameManager>
     {
         if (_gameUIController == null) return;
         _gameUIController.SetTurnIndicator(isFirstPlayer);
+    }
+
+    public bool GetRequestDrawChance()
+    {
+        if (_gameLogic == null){ return false;}
+        return _gameLogic.RequestDrawChance;
+    }
+
+    public void SetRequestDrawChanceFalse()
+    {
+        if (_gameLogic == null) return;
+        _gameLogic.RequestDrawChance = false;
     }
 }

@@ -48,10 +48,18 @@ public class GameUIController : MonoBehaviour
 
     public void OnClickDrawRequestButton()
     {
-        GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
+        if (GameManager.Instance.GetRequestDrawChance())
         {
-            _multiplayManager.RequestDraw();
-        });
+            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
+            {
+                _multiplayManager.RequestDraw();
+            });
+            GameManager.Instance.SetRequestDrawChanceFalse();
+        }
+        else
+        {
+            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청이 제한돼있습니다.",()=>{});
+        }
     }
 
     public void OnClickSettingsButton()
