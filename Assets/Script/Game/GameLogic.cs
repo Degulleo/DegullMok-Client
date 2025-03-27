@@ -177,7 +177,7 @@ public class MultiPlayerState: BasePlayerState
         gameLogic.UpdateForbiddenMoves();
         #endregion
         
-        // gameLogic.currentTurn = _playerType;
+        gameLogic.currentTurn = _playerType;
         // gameLogic.stoneController.OnStoneClickedDelegate = (row, col) =>
         // {
         //     HandleMove(gameLogic, row, col);
@@ -278,17 +278,24 @@ public class GameLogic : MonoBehaviour
             //timer 시간초과시 진행 함수
             this.fioTimer.OnTimeout = () =>
             {
-                if (currentTurn == Enums.PlayerType.PlayerA)
+                // 현재 턴의 플레이어가 로컬(유저)인지 확인
+                bool isCurrentPlayerLocal = (currentTurn == Enums.PlayerType.PlayerA && firstPlayerState is PlayerState) ||
+                                            (currentTurn == Enums.PlayerType.PlayerB && secondPlayerState is PlayerState);
+
+                if (isCurrentPlayerLocal) // 내가 타임 오버일 때
                 {
-                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
-                        () =>{});
+                    if (this.gameType == Enums.GameType.MultiPlay) // 멀티플레이인 경우
+                    {
+                        _multiplayManager?.SendTimeout();
+                    }
+                    GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Lose);
                     EndGame(Enums.GameResult.Lose);
                 }
-                else if (currentTurn == Enums.PlayerType.PlayerB)
+                else // 로컬에서 자신의 타이머 기준으로 상대방이 타임 오버일 때
                 {
-                    GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
-                        () =>{});
-                    EndGame(Enums.GameResult.Win);
+                    // TODO: 컨펌 패널 OK 버튼 삭제?
+                    GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 응답을 기다리는 중입니다",
+                        () => { } );
                 }
             };
         }
@@ -501,6 +508,14 @@ public class GameLogic : MonoBehaviour
                     case Constants.MultiplayManagerState.DrawRejectionConfirmed:
                         Debug.Log("무승부 요청 거부 완료");
                         
+                        break;
+                    case Constants.MultiplayManagerState.ReceiveTimeout:
+                        Debug.Log("상대방이 타임 아웃 됨");
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
+                            EndGame(Enums.GameResult.Win);
+                        });
                         break;
                 }
                 ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");

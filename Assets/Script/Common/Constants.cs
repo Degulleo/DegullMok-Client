@@ -19,11 +19,12 @@
         EndGame,        // 상대방이 접속을 끊거나 방을 나갔을 때
         DoSurrender,      // 상대방이 항복했을 때
         SurrenderConfirmed, // 항복 요청이 성공적으로 전송되었을 때
-        ReceiveDrawRequest,
+        ReceiveDrawRequest, 
         DrawRequestSent,
         DrawAccepted,
         DrawConfirmed,
         DrawRejected,
-        DrawRejectionConfirmed
+        DrawRejectionConfirmed,
+        ReceiveTimeout  // 상대방이 타임 아웃일 때
     };
 }

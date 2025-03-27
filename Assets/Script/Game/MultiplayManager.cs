@@ -90,6 +90,7 @@ public class MultiplayManager : IDisposable
             _socket.On("doOpponent", DoOpponent);
             _socket.On("doSurrender", DoSurrender);
             _socket.On("surrenderConfirmed", SurrenderConfirmed);
+            _socket.On("receiveTimeout", ReceiveTimeout);
             _socket.On("receiveDrawRequest", ReceiveDrawRequest);
             _socket.On("drawRequestSent", DrawRequestSent);
             _socket.On("drawAccepted", DrawAccepted);
@@ -222,6 +223,30 @@ public class MultiplayManager : IDisposable
         var data = response.GetValue<MessageData>();
     
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.SurrenderConfirmed, data.message);
+    }
+
+    /// <summary>
+    /// 타임 아웃 요청
+    /// </summary>
+    public void SendTimeout()
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("LeaveRoom 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+        _socket.Emit("sendTimeout",new { roomId = _roomId });
+    }
+    
+    /// <summary>
+    /// 타임 아웃 수신
+    /// </summary>
+    /// <param name="response"></param>
+    private void ReceiveTimeout(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+    
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.ReceiveTimeout, data.message);
     }
 
     public void RequestDraw()
