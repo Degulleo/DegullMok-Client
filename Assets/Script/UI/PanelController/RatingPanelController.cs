@@ -55,7 +55,7 @@ public class RatingPanelController : PanelController
                     //결과화면 띄우기
                     if (scoreResultInfo.isAdvancement == 1)
                     {
-                        
+                        GameManager.Instance.panelManager.OpenRatingEffectPanel(1);
                     }
                 },() => { });
                 break;
@@ -66,7 +66,7 @@ public class RatingPanelController : PanelController
                     
                     if (scoreResultInfo.isAdvancement == -1)
                     {
-                        
+                        GameManager.Instance.panelManager.OpenRatingEffectPanel(-1);
                     }
                     
                 }, () => { });

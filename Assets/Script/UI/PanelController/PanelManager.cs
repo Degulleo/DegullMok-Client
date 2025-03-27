@@ -106,6 +106,31 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 강등, 승급 이펙트 패널 오픈
+    /// </summary>
+    /// <param name="ratingUpDown"></param>
+    public void OpenRatingEffectPanel(int ratingUpDown)
+    {
+        switch (ratingUpDown)
+        {
+            case -1:
+                if (_canvas != null)
+                {
+                    var drawEffectPanelObject = GetEffectPanel("Rating Down Effect Panel");
+                    drawEffectPanelObject.GetComponent<RatingDownEffectController>().ShowEffect(OnEffectPanelEnded);
+                }
+                break;
+            case 1:
+                if (_canvas != null)
+                {
+                    var drawEffectPanelObject = GetEffectPanel("Rating Up Effect Panel");
+                    drawEffectPanelObject.GetComponent<RatingUpEffectController>().ShowEffect(OnEffectPanelEnded);
+                }
+                break;
+        }
+    }
+    //TODO: 인자로 RameResult받게 해주시면 될 것 같습니다.
     private void OnEffectPanelEnded()
     {
         // OpenRatingPanel();
