@@ -38,8 +38,6 @@ public class PanelManager : MonoBehaviour
         }
 
         Debug.Log($"총 {panelPrefabs.Count}개의 패널이 로드됨.");
-
-        OpenEffectPanel(Enums.GameResult.Win);
     }
     
     void SetCanvas()
