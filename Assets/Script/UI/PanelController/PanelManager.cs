@@ -216,6 +216,18 @@ public class PanelManager : MonoBehaviour
         }
     }
     
+    public void OpenDrawConfirmPanel(string message, 
+        DrawConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick, 
+        DrawConfirmPanelController.OnContradictButtonClick onContradictButtonClick)
+    {
+        if (_canvas != null)
+        {
+            var drawConfirmPanelObject = GetPanel("Draw Confirm Panel");
+            drawConfirmPanelObject.GetComponent<DrawConfirmPanelController>()
+                .Show(message, onConfirmButtonClick, onContradictButtonClick);
+        }
+    }
+    
     public void OpenSettingsPanel()
     {
         if (_canvas != null)
