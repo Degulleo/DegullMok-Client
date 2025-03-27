@@ -77,9 +77,10 @@ public class PanelManager : MonoBehaviour
 
         return null;
     }
-
+    private Enums.GameResult _gameResult = Enums.GameResult.None;
     public void OpenEffectPanel(Enums.GameResult gameResult)
     {
+        _gameResult = gameResult;
         switch (gameResult)
         {
             case Enums.GameResult.Win:
@@ -118,22 +119,25 @@ public class PanelManager : MonoBehaviour
                 if (_canvas != null)
                 {
                     var drawEffectPanelObject = GetEffectPanel("Rating Down Effect Panel");
-                    drawEffectPanelObject.GetComponent<RatingDownEffectController>().ShowEffect(OnEffectPanelEnded);
+                    drawEffectPanelObject.GetComponent<RatingDownEffectController>().ShowEffect(null);
                 }
                 break;
             case 1:
                 if (_canvas != null)
                 {
                     var drawEffectPanelObject = GetEffectPanel("Rating Up Effect Panel");
-                    drawEffectPanelObject.GetComponent<RatingUpEffectController>().ShowEffect(OnEffectPanelEnded);
+                    drawEffectPanelObject.GetComponent<RatingUpEffectController>().ShowEffect(null);
                 }
                 break;
         }
     }
-    //TODO: 인자로 RameResult받게 해주시면 될 것 같습니다.
+    
+    // 이 함수는 Win, Lose EffectPanelEnded여서 Rating UP, Down Effect 와는 상관없습니다.
     private void OnEffectPanelEnded()
     {
-        // OpenRatingPanel();
+        if (_gameResult == Enums.GameResult.None)
+            return;
+        OpenRatingPanel(_gameResult);
     }
     #endregion
     
@@ -290,7 +294,7 @@ public class PanelManager : MonoBehaviour
         OpenShopPanel(shopItems);
     }
     
-    //승급 패널 생성
+    //Rating Panel 생성
     public void OpenRatingPanel(Enums.GameResult gameResult)
     {
         if (_canvas != null)
