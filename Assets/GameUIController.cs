@@ -64,7 +64,7 @@ public class GameUIController : MonoBehaviour
 
     public void OnClickRevengeRequestButton()
     {
-            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 신청을 하시겠습니까?", () =>
+            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 신청을\n하시겠습니까?", () =>
             {
                 GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
                 _multiplayManager.RequestRevengeRequest();

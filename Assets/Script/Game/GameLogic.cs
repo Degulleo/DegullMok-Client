@@ -539,7 +539,7 @@ public class GameLogic : IDisposable
                         Debug.Log("상대방의 재대결 요청이 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("재대결 요청을 승낙하시겠습니까?", () =>
+                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("상대방의 재대결 요청을\n승낙하시겠습니까?", () =>
                             {
                                 _multiplayManager.AcceptRevenge();
                             }, () =>
@@ -564,7 +564,7 @@ public class GameLogic : IDisposable
 
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 재대결 요청을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
+                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
                             {
                                 InitBoardForRevenge(isFirstPlayer);
                             });
@@ -586,7 +586,7 @@ public class GameLogic : IDisposable
                         
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
+                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
                             {
                                 InitBoardForRevenge(isFirstPlayer);
                             });
@@ -596,18 +596,24 @@ public class GameLogic : IDisposable
                         Debug.Log("재대결 요청: 거부가 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 재대결 요청을 거부하였습니다.", () => { });
+                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결 요청을\n거부하였습니다.", () =>
+                            {
+                                GameManager.Instance.panelManager.CloseLoadingPanel();
+                            });
                         });
                         break;
                     case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
                         Debug.Log("재대결 요청: 거부 완료");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 거부하였습니다.", () => { });
+                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n거부하였습니다.", () =>
+                            {
+                                GameManager.Instance.panelManager.CloseLoadingPanel();
+                            });
                         });
                         break;
                 }
-                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
+                ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,opponentNickname);
                 
                 });
                 _multiplayManager.RegisterPlayer(UserManager.Instance.Nickname, UserManager.Instance.Rating, UserManager.Instance.imageIndex);
