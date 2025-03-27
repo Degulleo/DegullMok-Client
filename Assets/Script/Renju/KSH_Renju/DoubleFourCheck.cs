@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 // 오목 렌주룰 4-4 금수 판정.
@@ -18,9 +19,16 @@ public class DoubleFourCheck : ForbiddenDetectorBase
         }
     }
     
+    // 4-4 금수를 체크합니다.
+    public bool IsDoubleFour(Enums.PlayerType[,] board, int row, int col)
+    {
+        return FindDoubleLineFour(board, row, col) ||       // 각각 두개의 라인에서 쌍사를 형성하는 경우
+               FindSingleLineDoubleFour(board, row, col);  // 일직선으로 쌍사가 만들어지는 특수 패턴
+    }
+    
     // 쌍사(4-4) 여부를 검사합니다.
     // <returns>쌍사이면 true, 아니면 false</returns>
-    public bool IsDoubleFour(Enums.PlayerType[,] board, int row, int col)
+    public bool FindDoubleLineFour(Enums.PlayerType[,] board, int row, int col)
     {
         // 임시로 돌 배치
         board[row, col] = Black;
@@ -45,7 +53,44 @@ public class DoubleFourCheck : ForbiddenDetectorBase
 
         // 원래 상태로 되돌림
         board[row, col] = Space;
-        return openFourDirections.Count >= 2;
+        
+        return openFourDirections.Count >= 2; 
+    }
+    
+    private bool FindSingleLineDoubleFour(Enums.PlayerType[,] board, int row, int col)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            int dir1 = DirectionPairs[i, 0];
+            int dir2 = DirectionPairs[i, 1];
+
+            // 각 방향 라인 패턴
+            Enums.PlayerType[] linePattern = ExtractLinePattern(board, row, col, dir1, dir2);
+
+            // 패턴을 문자열로 변환
+            StringBuilder temp = new StringBuilder();
+            foreach (var cell in linePattern)
+            {
+                temp.Append(cell switch
+                {
+                    Enums.PlayerType.None => "□",
+                    Enums.PlayerType.PlayerA => "●",
+                    Enums.PlayerType.PlayerB => "○",
+                    _ => "?"
+                });
+            }
+
+            string patternStr = temp.ToString();
+
+            // 한줄로 발생하는 쌍사 패턴 검사
+            if (patternStr.Contains("●●□●●□●●") || patternStr.Contains("●□●●●□●"))
+            {
+                Debug.Log("patternStr: " + patternStr);
+                return true;
+            }
+        }
+
+        return false;
     }
     
     // 특정 방향에 대해 열린 4 검사
@@ -173,7 +218,20 @@ public class DoubleFourCheck : ForbiddenDetectorBase
         // 현재 위치 설정
         linePattern[centerIndex] = Black;
 
-        // dir1 방향으로 패턴 채우기
+        for (int i = 1; i <= 5; i++)
+        {
+            for (int j = 0; j < 2; j++) // dir1과 dir2를 한 번에 처리
+            {
+                int direction = (j == 0) ? dir1 : dir2;
+                int newRow = row + Directions[direction, 0] * i;
+                int newCol = col + Directions[direction, 1] * i;
+                int index = (j == 0) ? centerIndex + i : centerIndex - i;
+
+                linePattern[index] = IsInBounds(newRow, newCol) ? board[newRow, newCol] : White;
+            }
+        }
+        
+        /*// dir1 방향으로 패턴 채우기
         for (int i = 1; i <= 5; i++)
         {
             int newRow = row + Directions[dir1, 0] * i;
@@ -203,7 +261,7 @@ public class DoubleFourCheck : ForbiddenDetectorBase
             {
                 linePattern[centerIndex - i] = White; // 범위 밖은 벽으로 처리하여 일관성 유지
             }
-        }
+        }*/
 
         return linePattern;
     }

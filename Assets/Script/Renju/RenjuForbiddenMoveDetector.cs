@@ -6,9 +6,9 @@ using UnityEngine;
 public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
 {
     // 렌주 룰 금수 감지기 생성
-    private RenjuOverlineDetector _overlineDetactor = new();
     /*private RenjuDoubleFourDetector _doubleFourDetactor = new();
     private RenjuDoubleThreeDetector _doubleThreeDetector = new();*/
+    private RenjuOverlineDetector _overlineDetactor = new();
     private DoubleFourCheck _doubleFourDetactor = new(); // DoubleFourCheck
     private DoubleThreeCheck _doubleThreeDetector = new(); // DoubleThreeCheck
 
@@ -33,7 +33,6 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 if (_overlineDetactor.IsOverline(board, row, col))
                 {
                     forbiddenCount++;
-                    // Debug.Log("장목 금수 좌표 X축 : " + row + ", Y축 : " + col);
                     forbiddenMoves.Add(new Vector2Int(row, col));
                     continue;
                 }
@@ -42,7 +41,6 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 if (_doubleFourDetactor.IsDoubleFour(board, row, col))
                 {
                     forbiddenCount++;
-                    // Debug.Log("사사 금수 좌표 X축 : " + row + ", Y축 : " + col);
                     forbiddenMoves.Add(new Vector2Int(row, col));
                     continue;
                 }
@@ -53,12 +51,6 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
                 if (_doubleThreeDetector.IsDoubleThree(board, row, col))
                 {
                     tempForbiddenMoves.Add(new Vector2Int(row, col));
-                    
-                    // if (!SimulateDoubleFour(tempBoard))
-                    // {
-                    //     Debug.Log("삼삼 금수 좌표 X축 : " + row + ", Y축 : " + col);
-                    //     forbiddenMoves.Add(new Vector2Int(row, col));
-                    // }
                 }
             }
         }
@@ -68,10 +60,30 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
             board[pos.x, pos.y] = Black;
             if (!SimulateDoubleFour(board) && !SimulateOverline(board))
             {
-                // Debug.Log("X: "+pos.x + "Y: "+ pos.y); 
                 forbiddenMoves.Add(new Vector2Int(pos.x, pos.y));
             }
             board[pos.x, pos.y] = Space;
+        }
+        
+        List<Vector2Int> resultMoves = CheckHasFiveStones(board, forbiddenMoves);
+        
+        return resultMoves;
+    }
+
+    // 금수 위치에서 5목이 가능할 경우 해당 위치는 금수 표기 X
+    private List<Vector2Int> CheckHasFiveStones(Enums.PlayerType[,] board, List<Vector2Int> forbiddenMoves)
+    {
+        // 리스트를 수정하는 동안 오류를 방지하기 위해 뒤에서부터 반복
+        for (int i = forbiddenMoves.Count - 1; i >= 0; i--)
+        {
+            int row = forbiddenMoves[i].x;
+            int col = forbiddenMoves[i].y;
+        
+            // 해당 위치에서 승리(5목)이 가능하면 금수 표기 X
+            if (OmokAI.Instance.CheckGameWin(Enums.PlayerType.PlayerA, board, row, col))
+            {
+                forbiddenMoves.RemoveAt(i);
+            }
         }
         
         return forbiddenMoves;
