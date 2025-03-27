@@ -169,7 +169,6 @@ public class MultiplayManager : IDisposable
     private void DoOpponent(SocketIOResponse response)
     {
         var data = response.GetValue<MoveData>();
-
         if (data != null && data.position != null)
         {
             Vector2Int opponentPosition = new Vector2Int(data.position.x, data.position.y);
@@ -221,7 +220,7 @@ public class MultiplayManager : IDisposable
     {
         if (string.IsNullOrEmpty(_roomId))
         {
-            Debug.LogError("LeaveRoom 호출 실패: _roomId가 설정되지 않음");
+            Debug.LogError("RequestSurrender 호출 실패: _roomId가 설정되지 않음");
             return;
         }
         _socket.Emit("requestSurrender",new { roomId = _roomId });
@@ -248,7 +247,7 @@ public class MultiplayManager : IDisposable
     {
         if (string.IsNullOrEmpty(_roomId))
         {
-            Debug.LogError("LeaveRoom 호출 실패: _roomId가 설정되지 않음");
+            Debug.LogError("SendTimeout 호출 실패: _roomId가 설정되지 않음");
             return;
         }
         _socket.Emit("sendTimeout",new { roomId = _roomId });
@@ -345,7 +344,6 @@ public class MultiplayManager : IDisposable
 
     public void RequestRevengeRequest()
     {
-        Debug.Log("RequestRevengeRequest: " + _roomId);
         if (string.IsNullOrEmpty(_roomId))
         {
             Debug.LogError("requestDraw 호출 실패: _roomId가 설정되지 않음");
@@ -388,7 +386,7 @@ public class MultiplayManager : IDisposable
     private void RevengeConfirmed(SocketIOResponse response)
     {
         var data = response.GetValue<RevengeData>();
-        Debug.Log("data??: " + data.isBlack + data.message);
+        
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeConfirmed, data);
     }
 
@@ -425,6 +423,7 @@ public class MultiplayManager : IDisposable
             _socket.Disconnect();
             _socket.Dispose();
             _socket = null;
+            _roomId = null;
         }
     }
 }

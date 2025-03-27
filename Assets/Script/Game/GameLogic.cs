@@ -177,7 +177,7 @@ public class MultiPlayerState: BasePlayerState
         gameLogic.UpdateForbiddenMoves();
         #endregion
         
-        gameLogic.currentTurn = _playerType;
+        // gameLogic.currentTurn = _playerType;
         // gameLogic.stoneController.OnStoneClickedDelegate = (row, col) =>
         // {
         //     HandleMove(gameLogic, row, col);
@@ -564,7 +564,6 @@ public class GameLogic : IDisposable
 
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            // TODO: 응답 들어오기 전까지 로딩
                             GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 재대결 요청을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
                             {
                                 InitBoardForRevenge(isFirstPlayer);
@@ -639,7 +638,6 @@ public class GameLogic : IDisposable
         //timer 초기화
         fioTimer.InitTimer();
         
-        Debug.Log("&&&&UserManager.Instance.imageIndex" + UserManager.Instance.imageIndex + "opponentImageIndex?: " + opponentImageIndex);
         if (isFirstPlayer)
         {
             Debug.Log("해당 플레이어가 선공 입니다");
@@ -662,6 +660,9 @@ public class GameLogic : IDisposable
             // 리플레이 데이터 업데이트
             ReplayManager.Instance.InitReplayData(opponentNickname, UserManager.Instance.Nickname, opponentImageIndex, UserManager.Instance.imageIndex);
         }
+        
+        GameManager.Instance.panelManager.CloseLoadingPanel();
+        
         // 첫 번째 플레이어(유저)부터 시작
         SetState(firstPlayerState);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,16 +20,23 @@ public class LoadingPanelController : MonoBehaviour
     [SerializeField] private float interval = 0.4f; // 글자 추가 속도 조정 가능
     [SerializeField] float flipDuration = 0.3f; // 회전 시간
     [SerializeField] float delayBetweenFlips = 1f; // 이미지 변경 주기
+
+    [SerializeField] private GameObject imageBackground;
+    [SerializeField] private GameObject simpleBackground;
     
     private int currentLength = 0;
     private CancellationTokenSource cancellationTokenSource;
     
     // 타 컴포넌트에서 애니메이션 효과 설정을 위해 호출(RotateImages와 FlipImages 혼용은 불가능: DORotate가 서로 충돌함)
-    public void StartLoading(bool animatedImage, bool animatedText, bool animatedFlip)
+    public void StartLoading(bool animatedImage, bool animatedText, bool animatedFlip, bool isBackgroundImage)
     {
         // 패널 활성화
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
+        
+        // 배경 이미지 설정
+        imageBackground.SetActive(isBackgroundImage);
+        simpleBackground.SetActive(!isBackgroundImage);
 
         if (animatedImage) RotateImages(); // 캐릭터들이 좌우로 회전하는 효과
         if (animatedText) StartCoroutine(AnimateLoadingText()); // 한글자씩 나타나는 효과
