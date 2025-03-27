@@ -70,14 +70,11 @@ public class RatingPanelController : PanelController
                     {
                         GameManager.Instance.panelManager.OpenRatingEffectPanel(-1);
                     }
-                    
                 }, () => { });
                 break;
         }
     }
 
-    
-    
     /// <summary>
     /// 텍스트 초기화, 승급포인트 계산
     /// </summary>
@@ -106,9 +103,6 @@ public class RatingPanelController : PanelController
             tenPointsIndicatorGameObject.SetActive(true);
             _ratingPointsController = tenPointsIndicatorGameObject.GetComponent<RatingPointsController>();
         }
-
-        string win = _gameResult == Enums.GameResult.Win ? "승리" : "패배";
-        string get = _gameResult == Enums.GameResult.Win  ? "얻었습니다." : "잃었습니다.";
         
         // 게임 전 스코어로 초기화
         NetworkManager.Instance.GetInfo((userInfo) =>
@@ -155,6 +149,9 @@ public class RatingPanelController : PanelController
             }, () =>
             { });
 
+        string win = _gameResult == Enums.GameResult.Win ? "승리" : "패배";
+        string get = _gameResult == Enums.GameResult.Win  ? "얻었습니다." : "잃었습니다.";
+        
         if(_gameResult == Enums.GameResult.Draw)
         {
             getPointsText.text = "무승부입니다.";

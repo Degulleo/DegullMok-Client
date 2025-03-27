@@ -204,7 +204,6 @@ public class UserManager : Singleton<UserManager>
         Score = scoreInfoResult.score;
         Win = scoreInfoResult.win;
         Lose = scoreInfoResult.lose;
-        //TODO: user매니저에서 바로 프리팹에 업데이트 해도 될까요?
         UpdateUserScoreInfoToPlayerPrefs();
     }
 
