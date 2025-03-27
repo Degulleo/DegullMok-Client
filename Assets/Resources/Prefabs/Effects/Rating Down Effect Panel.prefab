@@ -449,10 +449,10 @@ GameObject:
   - component: {fileID: 8139433458976667477}
   - component: {fileID: 8635639988778983738}
   - component: {fileID: 4545556044007292713}
-  - component: {fileID: 3229800624310508893}
-  - component: {fileID: -8338910938938253639}
+  - component: {fileID: 6984539173991577744}
+  - component: {fileID: 6524855758136634564}
   m_Layer: 5
-  m_Name: Lose Effect Panel
+  m_Name: Rating Down Effect Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.74509805}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -529,25 +529,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3229800624310508893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8383435151006156655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72737ad525374cd18ae35ca10da520e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bannerObj: {fileID: 7291411618834705046}
-  bannerText: {fileID: 5108301403921453943}
-  interval: 0.1
-  characterOpenEyes: {fileID: 1632927645355555415}
-  characterCloseEyes: {fileID: 3881260292094838299}
-  depressedEffect: {fileID: 155037671892554820}
---- !u!61 &-8338910938938253639
+--- !u!61 &6984539173991577744
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -592,3 +574,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6524855758136634564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8383435151006156655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638842a55c624434ab5b3a88ca2bc919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bannerObj: {fileID: 7291411618834705046}
+  bannerText: {fileID: 5108301403921453943}
+  interval: 0.1
+  characterOpenEyes: {fileID: 1632927645355555415}
+  characterCloseEyes: {fileID: 3881260292094838299}
+  depressedEffect: {fileID: 155037671892554820}

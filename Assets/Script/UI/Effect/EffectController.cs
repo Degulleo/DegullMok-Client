@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Threading;
 using DG.Tweening;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,7 +27,7 @@ public abstract class EffectController : MonoBehaviour, IPointerClickHandler
     // }
 
     // 효과를 실행하는 메서드 (자식이 구현해야 함)
-    public abstract void ShowEffect(OnEffectPanelEnded onEffectPanelEnded);
+    public abstract void ShowEffect([CanBeNull] OnEffectPanelEnded onEffectPanelEnded);
 
     // 공통 UI 애니메이션 (패널 표시)
     protected virtual void ShowPanel()
