@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6789969287113785900}
   - component: {fileID: 413977444317235173}
   m_Layer: 5
-  m_Name: Switch
+  m_Name: BGM Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 3464089222698319368}
   - component: {fileID: 8434701791193156984}
   m_Layer: 5
-  m_Name: Switch
+  m_Name: SFX Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

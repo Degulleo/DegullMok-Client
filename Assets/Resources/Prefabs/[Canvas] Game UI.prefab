@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -85}
+  m_AnchoredPosition: {x: 50, y: -20}
   m_SizeDelta: {x: 238, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4747539784995484548
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC7AC\uB300\uACB0"
+  m_text: "\uBB34\uC2B9\uBD80"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85a19688db53c77469fc4406b01045da, type: 2}
   m_sharedMaterial: {fileID: -2477908578676791210, guid: 85a19688db53c77469fc4406b01045da, type: 2}
@@ -789,7 +789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3928015243027423495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -807,7 +807,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -85}
+  m_AnchoredPosition: {x: 50, y: -170}
   m_SizeDelta: {x: 238, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3058652260737614200
@@ -894,7 +894,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3933575647777291622}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
-        m_MethodName: OnClickRetryButton
+        m_MethodName: OnClickDrawRequestButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -788,7 +788,7 @@ GameObject:
   - component: {fileID: 8635639988778983738}
   - component: {fileID: 3127148509640414758}
   - component: {fileID: 4545556044007292713}
-  - component: {fileID: 7229651074095795597}
+  - component: {fileID: -8628578634938139601}
   m_Layer: 5
   m_Name: Win Effect Panel
   m_TagString: Untagged
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.74509805}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -867,7 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b132148519758c42824252ec9a2d3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerObj: {fileID: 0}
+  bannerObj: {fileID: 7291411618834705046}
   bannerText: {fileID: 5108301403921453943}
   interval: 0.1
   haloEffectImg: {fileID: 376994097320605198}
@@ -891,7 +891,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!61 &7229651074095795597
+--- !u!61 &-8628578634938139601
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

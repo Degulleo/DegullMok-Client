@@ -53,7 +53,7 @@ public class CoinsPanelController : MonoBehaviour
         _coinsRect.sizeDelta = new Vector2(100 + textLength * 30f, 100f);
     }
 
-    private void ChangeTextAnimation(bool isAdd, Action action)
+    private void ChangeTextAnimation(int coinAdd, bool isAdd, Action action)
     {
         float duration = 0.2f;
         float yPos = 40f;
@@ -64,8 +64,8 @@ public class CoinsPanelController : MonoBehaviour
             if (isAdd)
             {
                 var currentHeartCount = coinsCountText.text;
-                coinsCountText.text = (int.Parse(currentHeartCount) + 500).ToString();
-                // 코인 텍스트 100씩 증가
+                coinsCountText.text = (int.Parse(currentHeartCount) + coinAdd).ToString();
+                // 코인 텍스트 증가
             }
             else
             {
@@ -98,22 +98,19 @@ public class CoinsPanelController : MonoBehaviour
         _canvasGroup.blocksRaycasts = false;   //코인 중복 추가 방지 코드
         
         Sequence sequence = DOTween.Sequence();
-        // i += a  반복 횟수 조절, 100개 단위로 상승 차감 시 100으로 설정
-        for (int i = 0; i < coinsCount; i+=500)
+        sequence.AppendCallback(() =>
         {
-            sequence.AppendCallback(() =>
+            ChangeTextAnimation(coinsCount,true, ()=>
             {
-                ChangeTextAnimation(true, ()=>
-                {
-                    _coinsCount += 500;
-                    action?.Invoke();
-                });
-                
-                // 효과음 재생
-                AudioManager.Instance.PlayCoinsAddSound();
+                _coinsCount += coinsCount;
+                action?.Invoke();
             });
-            sequence.AppendInterval(0.5f);
-        }
+            
+            // 효과음 재생
+            AudioManager.Instance.PlayCoinsAddSound();
+        });
+        sequence.AppendInterval(0.5f);
+        
         sequence.OnComplete(() =>
         {
             _canvasGroup.blocksRaycasts = true;    //구매 후 클릭 활성화
@@ -152,7 +149,7 @@ public class CoinsPanelController : MonoBehaviour
         
         coinsRemoveImageObject.transform.DOScale(3f, 1f);
         coinsRemoveImageObject.GetComponent<Image>().DOFade(0f, 1f)
-            .OnComplete( ()=>ChangeTextAnimation(false, ()=>
+            .OnComplete( ()=>ChangeTextAnimation(0,false, ()=>
             {
                 //감소된 코인 적용
                 _coinsCount -= 100;

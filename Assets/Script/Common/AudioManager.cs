@@ -1,21 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [Header("BGM")]
-    [SerializeField] private AudioClip mainBgm;
-    [SerializeField] private AudioClip gameBgm;
-    [Header("SFX")]
-    [SerializeField] private AudioClip clickSound;
-    [SerializeField] private AudioClip closeSound;
-    [SerializeField] private AudioClip coinsAddSound;
-    [SerializeField] private AudioClip coinsEmptySound;
-    [SerializeField] private AudioClip coinsRemoveSound;
-    [SerializeField] private AudioClip winSound;
-    [SerializeField] private AudioClip loseSound;
-    [SerializeField] private AudioClip stoneSound;
+    private AudioClip mainBgm;
+    private AudioClip gameBgm;
 
     [HideInInspector] public AudioSource bgmAudioSource;  // BGM을 위한 AudioSource
     private AudioSource sfxAudioSource;  // SFX를 위한 AudioSource
@@ -25,13 +16,40 @@ public class AudioManager : Singleton<AudioManager>
     [HideInInspector]public bool isPlayBGM;
     [HideInInspector]public bool isPlaySFX;
 
-    private void Awake()
+    private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+
+    
+    protected override void Awake()
     {
         base.Awake();  // 부모 클래스의 Awake 호출
 
         // BGM과 SFX를 위한 별도의 AudioSource 생성
         bgmAudioSource = gameObject.AddComponent<AudioSource>();
         sfxAudioSource = gameObject.AddComponent<AudioSource>();
+        
+        //Sounds폴더 내의 모든 오디오클립 로드
+        AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");
+        
+        foreach (AudioClip clip in clips)
+        {
+            audioClips[clip.name] = clip;
+        }
+        
+        Debug.Log($"총 {audioClips.Count}개의 오디오클립이 로드됨.");
+        
+    }
+    
+    public AudioClip GetAudioClip(string clipName)
+    {
+        if (audioClips.TryGetValue(clipName, out AudioClip clip))
+        {
+            return clip;
+        }
+        else
+        {
+            Debug.LogError($"패널 '{clipName}'을 찾을 수 없습니다.");
+        }
+        return null;
     }
 
     // 시작 시 BGM을 자동으로 재생
@@ -39,12 +57,15 @@ public class AudioManager : Singleton<AudioManager>
     {
         isPlayBGM = UserManager.IsPlayBGM;
         isPlaySFX = UserManager.IsPlaySFX;
+        
         PlayBGM();
     }
 
     // 메인 BGM을 재생하는 함수
     public void PlayMainBGM()
     {
+        mainBgm = GetAudioClip("main bgm");
+        
         if (bgmAudioSource != null && mainBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = mainBgm;
@@ -56,6 +77,8 @@ public class AudioManager : Singleton<AudioManager>
     
     public void PlayGameBGM()
     {
+        gameBgm = GetAudioClip("Game bgm2");
+        
         if (bgmAudioSource != null && gameBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = gameBgm;
@@ -101,10 +124,9 @@ public class AudioManager : Singleton<AudioManager>
     // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
     {
-
         if (isPlaySFX && sfxAudioSource != null)
         {
-            sfxAudioSource.PlayOneShot(clickSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("Click Sound"), sfxVolume);
         }
     }
 
@@ -113,7 +135,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource != null)
         {
-            sfxAudioSource.PlayOneShot(closeSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("Close Sound"), sfxVolume);
         }
     }
 
@@ -121,7 +143,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(coinsAddSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("Coins ADD Sound"), sfxVolume);
         }
     }
 
@@ -129,7 +151,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(coinsEmptySound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("Coins Empty Sound"), sfxVolume);
         }
     }
 
@@ -137,7 +159,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(coinsRemoveSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("Coins Remove Sound"), sfxVolume);
         }
     }
 
@@ -145,7 +167,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(loseSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("lose sound"), sfxVolume);
         }
     }
 
@@ -153,7 +175,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(winSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("win sound"), sfxVolume);
         }
     }
 
@@ -161,7 +183,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(stoneSound, sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("stone sound3"), sfxVolume);
         }
     }
 }
