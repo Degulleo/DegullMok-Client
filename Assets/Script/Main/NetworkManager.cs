@@ -227,8 +227,13 @@ public class NetworkManager : Singleton<NetworkManager>
             }
         }
     }
-
-    public IEnumerator GetLeaderboard(Action<Scores> success, Action failure)
+    
+    public void GetLeaderboard(Action<List<ScoreInfo>> success, Action failure)
+    {
+        StartCoroutine(GetLeaderboardCoroutine(success, failure));
+    }
+    
+    public IEnumerator GetLeaderboardCoroutine(Action<List<ScoreInfo>> success, Action failure)
     {
         using (UnityWebRequest www =
                new UnityWebRequest(Constants.ServerURL + "/leaderboard", UnityWebRequest.kHttpVerbGET))
@@ -256,10 +261,15 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                var result = www.downloadHandler.text;
-                var scores = JsonUtility.FromJson<Scores>(result);
-                
-                success?.Invoke(scores);
+                // 성공적으로 데이터를 받아온 경우
+                string jsonResponse = www.downloadHandler.text;  // 응답으로 받은 JSON 데이터
+
+                // JSON을 ScoreInfo 리스트로 파싱
+                ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
+                List<ScoreInfo> leaderboardItems = wrapper.leaderboardDatas;
+
+                // Show 메서드를 통해 데이터를 표시
+                success?.Invoke(leaderboardItems);
             }
         }
     }
@@ -509,38 +519,6 @@ public class NetworkManager : Singleton<NetworkManager>
                     failure?.Invoke(deductResult.result);
                 }
             }
-        }
-    }
-    
-    public void GetLeaderboardData(Action<List<ScoreInfo>> success, Action failure)
-    {
-        StartCoroutine(GetLeaderboardDataCoroutine(success, failure));
-    }
-    
-    private IEnumerator GetLeaderboardDataCoroutine(Action<List<ScoreInfo>> success, Action failure)
-    {
-        string url = Constants.ServerURL + "/leaderboard/";  // 서버의 리더보드 데이터 URL
-
-        UnityWebRequest www = UnityWebRequest.Get(url);  // GET 요청으로 데이터 받기
-        yield return www.SendWebRequest();  // 요청 전송 대기
-
-        // 요청이 실패했을 때
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.LogError("Error: " + www.error);
-            failure?.Invoke();
-        }
-        else
-        {
-            // 성공적으로 데이터를 받아온 경우
-            string jsonResponse = www.downloadHandler.text;  // 응답으로 받은 JSON 데이터
-
-            // JSON을 ScoreInfo 리스트로 파싱
-            ScoreListWrapper wrapper = JsonUtility.FromJson<ScoreListWrapper>(jsonResponse);
-            List<ScoreInfo> leaderboardItems = wrapper.leaderboardDatas;
-
-            // Show 메서드를 통해 데이터를 표시
-            success?.Invoke(leaderboardItems);
         }
     }
 }

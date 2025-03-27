@@ -27,7 +27,7 @@ public class LeaderBoardController : MonoBehaviour
         if (isLeaderboardLoaded) return;  // 이미 리더보드가 로드되었으면 중복 호출 방지
 
         leaderboardPanel.SetActive(true);
-        NetworkManager.Instance.GetLeaderboardData((leaderboardItems) =>
+        NetworkManager.Instance.GetLeaderboard((leaderboardItems) =>
         {
             Show(leaderboardItems);
         }, () => { });
