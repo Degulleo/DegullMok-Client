@@ -61,6 +61,14 @@ public class MessageData
     public string message { get; set; }
 }
 
+public class RevengeData
+{
+    [JsonProperty("message")]
+    public string message { get; set; }
+    [JsonProperty("isBlack")]
+    public Boolean isBlack { get; set; }
+}
+
 public class MultiplayManager : IDisposable
 {
     private SocketIOUnity _socket;
@@ -100,7 +108,7 @@ public class MultiplayManager : IDisposable
             _socket.On("drawRejectionConfirmed", DrawRejectionConfirmed);
             // 재대결 관련
             _socket.On("receiveRevengeRequest", ReceiveRevengeRequest);
-            _socket.On("revengeRequestSent", DrawRequestSent);
+            _socket.On("revengeRequestSent", RevengeRequestSent);
             _socket.On("revengeAccepted", RevengeAccepted);
             _socket.On("revengeConfirmed", RevengeConfirmed);
             _socket.On("revengeRejected", RevengeRejected);
@@ -337,6 +345,7 @@ public class MultiplayManager : IDisposable
 
     public void RequestRevengeRequest()
     {
+        Debug.Log("RequestRevengeRequest: " + _roomId);
         if (string.IsNullOrEmpty(_roomId))
         {
             Debug.LogError("requestDraw 호출 실패: _roomId가 설정되지 않음");
@@ -371,16 +380,16 @@ public class MultiplayManager : IDisposable
     
     private void RevengeAccepted(SocketIOResponse response)
     {
-        var data = response.GetValue<MessageData>();
+        var data = response.GetValue<RevengeData>();
         
-        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeAccepted, data.message);
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeAccepted, data);
     }
 
     private void RevengeConfirmed(SocketIOResponse response)
     {
-        var data = response.GetValue<MessageData>();
-        
-        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeConfirmed, data.message);
+        var data = response.GetValue<RevengeData>();
+        Debug.Log("data??: " + data.isBlack + data.message);
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeConfirmed, data);
     }
 
     public void RejectRevenge()

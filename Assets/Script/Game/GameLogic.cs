@@ -247,8 +247,11 @@ public class GameLogic : IDisposable
     private int _lastRow;
     private int _lastCol;
     
+    // 멀티 플레이 관련
     public MultiplayManager _multiplayManager;
     private string _roomId;
+    private string opponentNickname;
+    private int opponentImageIndex;
     
     
 #region Renju Members
@@ -331,6 +334,7 @@ public class GameLogic : IDisposable
             //     break;
             case Enums.GameType.MultiPlay:
                 // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
+                bool isFirstPlayer;
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
                     GameManager.Instance.panelManager.OpenLoadingPanel(true, true);
@@ -355,13 +359,15 @@ public class GameLogic : IDisposable
                         }
 
                         // 선공, 후공 처리
-                        bool isFirstPlayer = joinRoomData.isBlack;
+                        isFirstPlayer = joinRoomData.isBlack;
 
+                        opponentNickname = joinRoomData.opponentNickname;
+                        opponentImageIndex = joinRoomData.opponentImageIndex;
                         if (isFirstPlayer)
                         {
                             Debug.Log("해당 플레이어가 선공 입니다");
                             firstPlayerState = new PlayerState(true, _multiplayManager, joinRoomData.roomId);
-                            secondPlayerState = new MultiPlayerState(false, _multiplayManager);   
+                            secondPlayerState = new MultiPlayerState(false, _multiplayManager);
                             UnityMainThreadDispatcher.Instance().Enqueue(() =>
                             {
                                 GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, joinRoomData.opponentNickname);
@@ -413,7 +419,8 @@ public class GameLogic : IDisposable
                         }
                         // 선공, 후공 처리
                         isFirstPlayer = startGameData.isBlack;
-
+                        opponentNickname = startGameData.opponentNickname;
+                        opponentImageIndex = startGameData.opponentImageIndex;
                         if (isFirstPlayer)
                         {
                             Debug.Log("해당 플레이어가 선공 입니다");
@@ -481,7 +488,7 @@ public class GameLogic : IDisposable
                         Debug.Log("상대방의 무승부 요청 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승락하시겠습니까?", () =>
+                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승낙하시겠습니까?", () =>
                             {
                                 GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
                                 EndGame(Enums.GameResult.Draw);
@@ -528,23 +535,69 @@ public class GameLogic : IDisposable
                     case Constants.MultiplayManagerState.RevengeRequestSent:
                         Debug.Log("재대결 요청: 전송 완료");
                         break;
-                    case Constants.MultiplayManagerState.RevengeAccepted:
-                        Debug.Log("재대결 요청: 승낙이 들어옴");
-                        InitBoardForRevenge();
+                    case Constants.MultiplayManagerState.ReceiveRevengeRequest:
+                        Debug.Log("상대방의 재대결 요청이 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            
+                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("재대결 요청을 승낙하시겠습니까?", () =>
+                            {
+                                _multiplayManager.AcceptRevenge();
+                            }, () =>
+                            {
+                                _multiplayManager.RejectRevenge();
+                            });
+                        });
+                        break;
+                    case Constants.MultiplayManagerState.RevengeAccepted:
+                        Debug.Log("재대결 요청: 승낙이 들어옴");
+                        var revengeAcceptedData = data as RevengeData;
+                        
+                        // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                        if (revengeAcceptedData == null)
+                        {
+                            Debug.Log("RevengeAccepted 응답값이 null 입니다");
+                            return;
+                        }
+                        
+                        // 선공, 후공 처리
+                        isFirstPlayer = revengeAcceptedData.isBlack;
+
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            // TODO: 응답 들어오기 전까지 로딩
+                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 재대결 요청을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
+                            {
+                                InitBoardForRevenge(isFirstPlayer);
+                            });
                         });
                         break;
                     case Constants.MultiplayManagerState.RevengeConfirmed:
                         Debug.Log("재대결 요청: 승낙 완료");
-                        InitBoardForRevenge();
+                        var revengConfirmedData = data as RevengeData;
+                        
+                        // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                        if (revengConfirmedData == null)
+                        {
+                            Debug.Log("RevengeConfirmed 응답값이 null 입니다");
+                            return;
+                        }
+                        
+                        // 선공, 후공 처리
+                        isFirstPlayer = revengConfirmedData.isBlack;
+                        
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
+                            {
+                                InitBoardForRevenge(isFirstPlayer);
+                            });
+                        });
                         break;
                     case Constants.MultiplayManagerState.RevengeRejected:
                         Debug.Log("재대결 요청: 거부가 들어옴");
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을 거부하였습니다.", () => { });
+                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 재대결 요청을 거부하였습니다.", () => { });
                         });
                         break;
                     case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
@@ -566,12 +619,13 @@ public class GameLogic : IDisposable
         }
     }
 
-    private void InitBoardForRevenge()
+    private void InitBoardForRevenge(bool isFirstPlayer)
     {
         //보드 초기화
         _board = new Enums.PlayerType[15, 15];
         _totalStoneCounter = 0;
-        RequestDrawChance = true;
+        stoneController.InitStones();
+        RequestDrawChance = false;
 
         selectedRow = -1;
         selectedCol = -1;
@@ -584,6 +638,32 @@ public class GameLogic : IDisposable
         
         //timer 초기화
         fioTimer.InitTimer();
+        
+        Debug.Log("&&&&UserManager.Instance.imageIndex" + UserManager.Instance.imageIndex + "opponentImageIndex?: " + opponentImageIndex);
+        if (isFirstPlayer)
+        {
+            Debug.Log("해당 플레이어가 선공 입니다");
+            firstPlayerState = new PlayerState(true, _multiplayManager, _roomId);
+            secondPlayerState = new MultiPlayerState(false, _multiplayManager);
+            GameManager.Instance.InitPlayersName(UserManager.Instance.Nickname, opponentNickname);
+            GameManager.Instance.InitProfileImages(UserManager.Instance.imageIndex, opponentImageIndex);
+            
+            // 리플레이 데이터 업데이트
+            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname, opponentNickname, UserManager.Instance.imageIndex, opponentImageIndex);
+        }
+        else
+        {
+            Debug.Log("해당 플레이어가 후공 입니다");
+            firstPlayerState = new MultiPlayerState(true, _multiplayManager);
+            secondPlayerState = new PlayerState(false, _multiplayManager, _roomId);
+            GameManager.Instance.InitPlayersName(opponentNickname, UserManager.Instance.Nickname);
+            GameManager.Instance.InitProfileImages(opponentImageIndex, UserManager.Instance.imageIndex);
+            
+            // 리플레이 데이터 업데이트
+            ReplayManager.Instance.InitReplayData(opponentNickname, UserManager.Instance.Nickname, opponentImageIndex, UserManager.Instance.imageIndex);
+        }
+        // 첫 번째 플레이어(유저)부터 시작
+        SetState(firstPlayerState);
     }
 
     //AI닉네임 랜덤 생성
