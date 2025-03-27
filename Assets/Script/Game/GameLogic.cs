@@ -278,39 +278,24 @@ public class GameLogic : MonoBehaviour
             //timer 시간초과시 진행 함수
             this.fioTimer.OnTimeout = () =>
             {
-                if (gameType == Enums.GameType.MultiPlay)
-                {
-                    // 현재 턴의 플레이어가 로컬(유저)인지 확인
-                    bool isCurrentPlayerLocal = (currentTurn == Enums.PlayerType.PlayerA && firstPlayerState is PlayerState) ||
-                                                (currentTurn == Enums.PlayerType.PlayerB && secondPlayerState is PlayerState);
+                // 현재 턴의 플레이어가 로컬(유저)인지 확인
+                bool isCurrentPlayerLocal = (currentTurn == Enums.PlayerType.PlayerA && firstPlayerState is PlayerState) ||
+                                            (currentTurn == Enums.PlayerType.PlayerB && secondPlayerState is PlayerState);
 
-                    if (isCurrentPlayerLocal) // 내가 타임 오버일 때
+                if (isCurrentPlayerLocal) // 내가 타임 오버일 때
+                {
+                    if (this.gameType == Enums.GameType.MultiPlay) // 멀티플레이인 경우
                     {
                         _multiplayManager?.SendTimeout();
-                        GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Lose);
-                        EndGame(Enums.GameResult.Lose);
                     }
-                    else // 로컬에서 자신의 타이머 기준으로 상대방이 타임 오버일 때
-                    {
-                        // TODO: 컨펌 패널 OK 버튼 삭제?
-                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 응답을 기다리는 중입니다",
-                            () => { } );
-                    }
+                    GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Lose);
+                    EndGame(Enums.GameResult.Lose);
                 }
-                else
+                else // 로컬에서 자신의 타이머 기준으로 상대방이 타임 오버일 때
                 {
-                    if (currentTurn == Enums.PlayerType.PlayerA)
-                    {
-                        GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerB} Win",
-                            () => { });
-                        EndGame(Enums.GameResult.Lose);
-                    }
-                    else if (currentTurn == Enums.PlayerType.PlayerB)
-                    {
-                        GameManager.Instance.panelManager.OpenConfirmPanel($"Game Over: {Enums.PlayerType.PlayerA} Win",
-                            () => { });
-                        EndGame(Enums.GameResult.Win);
-                    }
+                    // TODO: 컨펌 패널 OK 버튼 삭제?
+                    GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 응답을 기다리는 중입니다",
+                        () => { } );
                 }
             };
         }
@@ -522,7 +507,7 @@ public class GameLogic : MonoBehaviour
         // 기존 멀티플레이 상태 초기화
         _multiplayManager = null;
         _roomId = null;
-        gameType = Enums.GameType.SinglePlay;
+        this.gameType = Enums.GameType.SinglePlay;
 
         // 싱글 플레이 상태로 변경
         firstPlayerState = new PlayerState(true);
