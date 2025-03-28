@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+  m_Color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+  m_Color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -224,27 +224,27 @@ MonoBehaviour:
   colorSettings:
   - targetObject: {fileID: 8836467620212376791}
     componentType: Image
-    color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
+    color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
     applyToChildren: 0
     colorableComponent: {fileID: 4727671169278371324}
   - targetObject: {fileID: 3197710723148271819}
     componentType: Image
-    color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+    color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
     applyToChildren: 0
     colorableComponent: {fileID: 337344169386659086}
   - targetObject: {fileID: 6184671321993608803}
     componentType: TMP_Text
-    color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+    color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
     applyToChildren: 0
     colorableComponent: {fileID: 1414465240440161498}
   - targetObject: {fileID: 880875562942959157}
     componentType: Image
-    color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+    color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
     applyToChildren: 0
     colorableComponent: {fileID: 3995031286537022070}
   - targetObject: {fileID: 8065228685685210519}
     componentType: Image
-    color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+    color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
     applyToChildren: 0
     colorableComponent: {fileID: 3282082939413405386}
   autoDetectChildren: 1
@@ -322,8 +322,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284115535
-  m_fontColor: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+    rgba: 4291751167
+  m_fontColor: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -340,8 +340,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 55
+  m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
+  m_Color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.92549026, b: 0.8078432, a: 1}
+  m_Color: {r: 0.30980393, g: 0.4156863, b: 0.3529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
