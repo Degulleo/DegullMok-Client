@@ -156,6 +156,11 @@ public class GameManager : Singleton<GameManager>
     private void OnApplicationQuit()
     {
         Debug.Log("앱 종료 감지: 소켓 연결 정리 중...");
-        _gameLogic?.Dispose();
+        
+        if(_gameLogic.GameInProgress)
+            _gameLogic?.ForceQuit();
+        else 
+            _gameLogic?.Dispose();
+        
     }
 }
