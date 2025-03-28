@@ -26,7 +26,7 @@ public class RatingPointsController : MonoBehaviour
     /// </summary>
     /// <param name="imageOBject"></param>
     /// <param name="color"></param>
-    private void ChangeImageColor(GameObject imageOBject, Color32 color, Action callback = null)
+    private void ChangeImageColor(GameObject imageOBject, Color32 color)
     {
         Sequence sequence = DOTween.Sequence();
         
@@ -39,14 +39,14 @@ public class RatingPointsController : MonoBehaviour
         
         sequence.OnComplete(()=>
         {
-            callback?.Invoke();
+            SetScoreCountText();
         });
     }
     public void InitRatingPoints(int oldScore,Enums.GameResult gameResult, int defaultRequiredScore)
     {
         // TODO: [인덱스계산 ㅇㅖ외처리 ] 계산한 값 절대값이 defaultRequiredScore보다 큰 경우 return. 근데 이런 값이 나온다는게 이미 계산 오류가 어디서 생긴 것이겠죠..?
         _oldScore = oldScore;
-        Sequence sequence = DOTween.Sequence();
+        _oldRequiredScore = defaultRequiredScore;
         if (_oldScore == 0)
         {
             if (gameResult == Enums.GameResult.Win)
@@ -110,32 +110,33 @@ public class RatingPointsController : MonoBehaviour
             _newRequiredScore = defaultRequiredScore-oldScore;
         }
 
-        SetScoreCountText(_newRequiredScore,defaultRequiredScore);
+        SetScoreCountText();
     }
 
     /// <summary>
     /// 승급까지 남은 승수 계산
     /// </summary>
-    /// <param name="scoreCount">새로 업데이트 된 승급까지 필요한 승 수</param>
-    /// <param name="defaultRequiredScore">해당 급수에서 0에서 승급까지 필요한 승수</param>
-    private void SetScoreCountText(int scoreCount,int defaultRequiredScore)
+    /// <param name="_newRequiredScore">새로 업데이트 된 승급까지 필요한 승 수</param>
+    /// <param name="_oldRequiredScore">해당 급수에서 0에서 승급까지 필요한 승수</param>
+    private void SetScoreCountText()
     {
         // 남은 승리수가 0인 경우 승급점수 도달 혹은 강등점수 도달
-        if (scoreCount == 0 || scoreCount == defaultRequiredScore * 2)
+        if (_newRequiredScore == 0 || _newRequiredScore == _oldRequiredScore * 2)
         {
+            //새로운 급수에 맞춰서 패널 초기화하기
             scoreCountText.text = "";
         }
-        else if (scoreCount < 0)
+        else if (_newRequiredScore < 0)
         {
             scoreCountText.text = "더 이상 승급 할 수 없습니다.";
         }
-        else if (scoreCount > defaultRequiredScore * 2)
+        else if (_newRequiredScore > _oldRequiredScore * 2)
         {
             scoreCountText.text = "더이상 강등 될 수 없습니다.";
         }
         else
         {
-            scoreCountText.text = $"{scoreCount} 게임을 승리하면 승급하게 됩니다.";
+            scoreCountText.text = $"{_newRequiredScore} 게임을 승리하면 승급하게 됩니다.";
         }
     }
 
