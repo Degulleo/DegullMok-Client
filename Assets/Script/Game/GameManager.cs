@@ -119,6 +119,12 @@ public class GameManager : Singleton<GameManager>
         if (_gameUIController == null) return;
         _gameUIController.SetTurnIndicator(isFirstPlayer);
     }
+    
+    public void SetButtonsIndicator(bool gameInProgress)
+    {
+        if (_gameUIController == null) return;
+        _gameUIController.SetButtonsIndicator(gameInProgress);
+    }
 
     public bool GetRequestDrawChance()
     {
