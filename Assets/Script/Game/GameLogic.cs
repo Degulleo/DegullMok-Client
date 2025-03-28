@@ -14,6 +14,9 @@ public partial class GameLogic : IDisposable
     private RenjuForbiddenMoveDetector _forbiddenDetector;  // 렌주룰 금수 검사기
     private List<Vector2Int> _forbiddenMoves = new ();      // 현재 금수 위치 목록
     private string _roomId;
+    private string _opponentNickname;
+    private int _opponentImageIndex;
+    private bool isFirstPlayer;
 
     #endregion
 
@@ -73,7 +76,6 @@ public partial class GameLogic : IDisposable
         MultiPlayManager = new MultiplayManager((state, data) =>
         {
             Debug.Log($"## {state}");
-
             switch (state)
             {
                 case Constants.MultiplayManagerState.CreateRoom:
@@ -83,12 +85,12 @@ public partial class GameLogic : IDisposable
                 case Constants.MultiplayManagerState.JoinRoom:
                     Debug.Log("## Join Room");
                     var joinRoomData = data as JoinRoomData;
-
+                    _roomId = joinRoomData.roomId;
                     // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
                     if (!ValidateRoomData(joinRoomData, "Join Room")) return;
 
                     // 플레이어 셋업
-                    SetupPlayer(joinRoomData.isBlack, joinRoomData.roomId, joinRoomData.opponentNickname, joinRoomData.opponentImageIndex);
+                    SetupPlayer(joinRoomData.isBlack, _roomId, joinRoomData.opponentNickname, joinRoomData.opponentImageIndex);
 
                     // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
                     StartGameOnMainThread();
@@ -138,7 +140,7 @@ public partial class GameLogic : IDisposable
                     Debug.Log("상대방의 무승부 요청 들어옴");
                     ExecuteOnMainThread(() =>
                     {
-                        GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승락하시겠습니까?", () =>
+                        GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승낙하시겠습니까?", () =>
                         {
                             GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
                             EndGame(Enums.GameResult.Draw);
@@ -153,7 +155,7 @@ public partial class GameLogic : IDisposable
                     Debug.Log("무승부 요청 전송 완료");
                     break;
                 case Constants.MultiplayManagerState.DrawAccepted:
-                    Debug.Log("무승부 요청이 승락이 들어옴");
+                    Debug.Log("무승부 요청이 승낙이 들어옴");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
@@ -161,7 +163,7 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.DrawConfirmed:
-                    Debug.Log("무승부 요청 승락 완료");
+                    Debug.Log("무승부 요청 승낙 완료");
                     break;
                 case Constants.MultiplayManagerState.DrawRejected:
                     Debug.Log("무승부 요청이 거부가 들어옴");
@@ -182,7 +184,87 @@ public partial class GameLogic : IDisposable
                         EndGame(Enums.GameResult.Win);
                     });
                     break;
-            }
+                case Constants.MultiplayManagerState.RevengeRequestSent:
+                        Debug.Log("재대결 요청: 전송 완료");
+                        break;
+                case Constants.MultiplayManagerState.ReceiveRevengeRequest:
+                    Debug.Log("상대방의 재대결 요청이 들어옴");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenDrawConfirmPanel("상대방의 재대결 요청을\n승낙하시겠습니까?", () =>
+                        {
+                            MultiPlayManager.AcceptRevenge();
+                        }, () =>
+                        {
+                            MultiPlayManager.RejectRevenge();
+                        });
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeAccepted:
+                    Debug.Log("재대결 요청: 승낙이 들어옴");
+                    var revengeAcceptedData = data as RevengeData;
+
+                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                    if (revengeAcceptedData == null)
+                    {
+                        Debug.Log("RevengeAccepted 응답값이 null 입니다");
+                        return;
+                    }
+
+                    // 선공, 후공 처리
+                    isFirstPlayer = revengeAcceptedData.isBlack;
+
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
+                        {
+                            InitBoardForRevenge(isFirstPlayer);
+                        });
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeConfirmed:
+                    Debug.Log("재대결 요청: 승낙 완료");
+                    var revengConfirmedData = data as RevengeData;
+
+                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                    if (revengConfirmedData == null)
+                    {
+                        Debug.Log("RevengeConfirmed 응답값이 null 입니다");
+                        return;
+                    }
+
+                    // 선공, 후공 처리
+                    isFirstPlayer = revengConfirmedData.isBlack;
+
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
+                        {
+                            InitBoardForRevenge(isFirstPlayer);
+                        });
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeRejected:
+                    Debug.Log("재대결 요청: 거부가 들어옴");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결 요청을\n거부하였습니다.", () =>
+                        {
+                            GameManager.Instance.panelManager.CloseLoadingPanel();
+                        });
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
+                    Debug.Log("재대결 요청: 거부 완료");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n거부하였습니다.", () =>
+                        {
+                            GameManager.Instance.panelManager.CloseLoadingPanel();
+                        });
+                    });
+                    break;
+                }
             ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
         });
 
@@ -192,15 +274,18 @@ public partial class GameLogic : IDisposable
     private void SetupPlayer(bool isBlack, string roomId, string opponentNickname, int opponentImageIndex)
     {
         // 선공, 후공 처리
-        var isFirstPlayer = isBlack;
+        isFirstPlayer = isBlack;
 
+        _opponentNickname = opponentNickname;
+        _opponentImageIndex = opponentImageIndex;
+        
         if (isFirstPlayer)
         {
             Debug.Log("해당 플레이어가 선공 입니다");
             FirstPlayerState = new PlayerState(true, MultiPlayManager, roomId);
             SecondPlayerState = new MultiPlayerState(false, MultiPlayManager);
 
-            UpdateUIForFirstPlayer(opponentNickname, opponentImageIndex);
+            UpdateUIForFirstPlayer(_opponentNickname, _opponentImageIndex);
         }
         else
         {
@@ -208,7 +293,7 @@ public partial class GameLogic : IDisposable
             FirstPlayerState = new MultiPlayerState(true, MultiPlayManager);
             SecondPlayerState = new PlayerState(false, MultiPlayManager, roomId);
 
-            UpdateUIForSecondPlayer(opponentNickname, opponentImageIndex);
+            UpdateUIForSecondPlayer(_opponentNickname, _opponentImageIndex);
         }
     }
 
@@ -342,6 +427,35 @@ public partial class GameLogic : IDisposable
                 }
             };
         }
+    }
+    
+    private void InitBoardForRevenge(bool isFirstPlayer)
+    {
+        //보드 초기화
+        _board = new Enums.PlayerType[15, 15];
+        _totalStoneCounter = 0;
+        StoneController.InitStones();
+        RequestDrawChance = false;
+
+        SelectedRow = -1;
+        SelectedCol = -1;
+        _lastRow = -1;
+        _lastCol = -1;
+        
+        // 금수 감지기 초기화
+        _forbiddenDetector.RenjuForbiddenMove(_board);
+        
+        //timer 초기화
+        FioTimer.InitTimer();
+
+        // 플레이어 셋업
+        SetupPlayer(isFirstPlayer, _roomId, _opponentNickname, _opponentImageIndex);
+
+        // 로딩 패널 열려 있으면 닫기
+        GameManager.Instance.panelManager.CloseLoadingPanel();
+
+        // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
+        StartGameOnMainThread();
     }
 
     #endregion
