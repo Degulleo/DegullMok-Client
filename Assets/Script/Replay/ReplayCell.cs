@@ -17,23 +17,7 @@ public class ReplayCell : MonoBehaviour
     private ReplayRecord _storedReplayRecord;
     private Enums.PlayerType _myPlayerType;
     private string _opponentNickname;
-    
-    
-    //TODO:승, 패 외에 무승부 반영하기. bool => int
-    public void SetWinImage(bool isWin)
-    {
-        if (isWin == true)
-        {
-            winImage.gameObject.SetActive(true);
-            loseImage.gameObject.SetActive(false);
-        }
-        else
-        {
-            loseImage.gameObject.SetActive(true);
-            winImage.gameObject.SetActive(false);
-        }
-    }
-//TODO: 무승부 이미지 제작해서 에디터에 추가해주세요
+
     public void SetWinImage(Enums.GameResult gameResult)
     {
         switch(gameResult)
