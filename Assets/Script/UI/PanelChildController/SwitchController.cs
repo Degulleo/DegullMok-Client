@@ -30,7 +30,6 @@ public class SwitchController : MonoBehaviour
 
     private void Start()
     {
-        //초기 상태는 false
         _handleRectTransform.anchoredPosition = new Vector2(-14, 0);
         _backgroundImage.color = OffColor;
         
@@ -47,7 +46,6 @@ public class SwitchController : MonoBehaviour
     //스위치 상태 변경 함수
     private void SetOn(bool isOn)
     {
-        
         if (isOn)
         {
             _handleRectTransform.DOAnchorPosX(14, 0.2f);
