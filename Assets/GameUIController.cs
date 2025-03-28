@@ -40,35 +40,59 @@ public class GameUIController : MonoBehaviour
 
     public void OnClickSurrenderButton()
     {
-        GameManager.Instance.panelManager.OpenConfirmPanel("항복 하시겠습니까?", () =>
+        if (GameManager.Instance.CheckIsSinglePlay())
         {
-            _multiplayManager.RequestSurrender();
-        });
+            GameManager.Instance.SurrenderSinglePlay();
+        }
+        else
+        {
+            GameManager.Instance.panelManager.OpenConfirmPanel("항복 하시겠습니까?", () =>
+            {
+                _multiplayManager.RequestSurrender();
+            });
+        }
     }
 
     public void OnClickDrawRequestButton()
     {
-        if (GameManager.Instance.GetRequestDrawChance())
+        if (GameManager.Instance.CheckIsSinglePlay())
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
-            {
-                _multiplayManager.RequestDraw();
-            });
-            GameManager.Instance.SetRequestDrawChanceFalse();
+            GameManager.Instance.DrawSinglePlay();
         }
         else
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청이 제한돼있습니다.",()=>{});
+            if (GameManager.Instance.GetRequestDrawChance())
+            {
+                GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
+                {
+                    _multiplayManager.RequestDraw();
+                });
+                GameManager.Instance.SetRequestDrawChanceFalse();
+            }
+            else
+            {
+                GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청이 제한돼있습니다.",()=>{});
+            }
         }
     }
 
     public void OnClickRevengeRequestButton()
     {
+        if (GameManager.Instance.CheckIsSinglePlay())
+        {
+            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.",() =>
+            {
+                
+            });
+        }
+        else
+        {
             GameManager.Instance.panelManager.OpenConfirmPanel("재대결 신청을\n하시겠습니까?", () =>
             {
                 GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
                 _multiplayManager.RequestRevengeRequest();
             });
+        }
     }
 
     public void OnClickSettingsButton()
