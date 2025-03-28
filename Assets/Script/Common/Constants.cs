@@ -31,6 +31,7 @@
         RevengeConfirmed,   // 재대결 수락 전송 확인
         RevengeRejected,    // 재대결 거절 수신
         RevengeRejectionConfirmed,  // 재대결 거절 전송 확인
-        ReceiveTimeout  // 상대방이 타임 아웃일 때
+        ReceiveTimeout,  // 상대방이 타임 아웃일 때
+        OpponentDisconnected 
     };
 }

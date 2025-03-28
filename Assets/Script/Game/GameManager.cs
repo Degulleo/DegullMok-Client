@@ -152,4 +152,15 @@ public class GameManager : Singleton<GameManager>
         _gameLogic.EndGame(Enums.GameResult.Draw);
     }
 
+    
+    private void OnApplicationQuit()
+    {
+        Debug.Log("앱 종료 감지: 소켓 연결 정리 중...");
+        
+        if(_gameLogic.GameInProgress)
+            _gameLogic?.ForceQuit();
+        else 
+            _gameLogic?.Dispose();
+        
+    }
 }
