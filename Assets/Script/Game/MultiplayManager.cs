@@ -113,7 +113,9 @@ public class MultiplayManager : IDisposable
             _socket.On("revengeConfirmed", RevengeConfirmed);
             _socket.On("revengeRejected", RevengeRejected);
             _socket.On("revengeRejectionConfirmed", RevengeRejectionConfirmed);
-
+            // 강제 종료 처리
+            _socket.On("opponentDisconnected", OpponentDisconnected);
+            
             _socket.Connect();
         }
         catch (Exception e)
@@ -213,6 +215,18 @@ public class MultiplayManager : IDisposable
         }
 
         _socket.Emit("leaveRoom", new { roomId = _roomId });
+        _roomId = null; // 방 나가면 roomId 초기화
+    }
+    
+    public void ForceQuit(string roomId)
+    {
+        if (string.IsNullOrEmpty(_roomId))
+        {
+            Debug.LogError("Disconnect 호출 실패: _roomId가 설정되지 않음");
+            return;
+        }
+
+        _socket.Emit("disconnect", new { roomId = _roomId });
         _roomId = null; // 방 나가면 roomId 초기화
     }
     
@@ -337,6 +351,13 @@ public class MultiplayManager : IDisposable
         
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawRejectionConfirmed, data.message);
     }
+    
+    private void DerawRejectionConfirmed(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.DrawRejectionConfirmed, data.message);
+    }
 
     #endregion
 
@@ -412,6 +433,13 @@ public class MultiplayManager : IDisposable
         var data = response.GetValue<MessageData>();
         
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.RevengeRejectionConfirmed, data.message);
+    }
+
+    private void OpponentDisconnected(SocketIOResponse response)
+    {
+        var data = response.GetValue<MessageData>();
+        
+        _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.OpponentDisconnected, data.message);
     }
 
     #endregion

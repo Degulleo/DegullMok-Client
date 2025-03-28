@@ -34,6 +34,7 @@ public partial class GameLogic : IDisposable
     public int SelectedRow { get; private set; }
     public int SelectedCol { get; private set; }
     public FioTimer FioTimer { get; private set; }
+    public bool GameInProgress { get; private set; } // 게임 진행 중인지 확인
 
     #endregion
 
@@ -113,12 +114,18 @@ public partial class GameLogic : IDisposable
                     StartGameOnMainThread();
                     break;
                 case Constants.MultiplayManagerState.ExitRoom:
-                    Debug.Log("## Exit Room");
+                    Debug.Log("## Exit Room"); 
                     // TODO: Exit Room 처리
                     break;
                 case Constants.MultiplayManagerState.EndGame:
                     Debug.Log("## End Game");
-                    // TODO: End Room 처리
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.", () => 
+                        {
+                            // TODO: 무승부/항복 등 버튼 동작 안하도록 처리
+                        });
+                    });
                     break;
                 case Constants.MultiplayManagerState.DoSurrender:
                     Debug.Log("상대방의 항복 요청 들어옴");
@@ -213,6 +220,7 @@ public partial class GameLogic : IDisposable
                         break;
                 case Constants.MultiplayManagerState.ReceiveRevengeRequest:
                     Debug.Log("상대방의 재대결 요청이 들어옴");
+                    ChangeGameInProgress(true);
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenDrawConfirmPanel("상대방의 재대결 요청을\n승낙하시겠습니까?", () =>
@@ -288,7 +296,18 @@ public partial class GameLogic : IDisposable
                         });
                     });
                     break;
-                }
+                case Constants.MultiplayManagerState.OpponentDisconnected:
+                    Debug.Log("상대방 강제 종료");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("연결이 끊어졌습니다.", () => 
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
+                            EndGame(Enums.GameResult.Win);
+                        });
+                    });
+                    break;
+            }
             ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
         });
 
@@ -349,6 +368,9 @@ public partial class GameLogic : IDisposable
     // 메인스레드에서 게임 시작
     private void StartGameOnMainThread()
     {
+        ChangeGameInProgress(true);
+        Debug.Log("GameInProgress 변경 true");
+        
         ExecuteOnMainThread(() =>
         {
             // 로딩 패널 열려있으면 닫기
@@ -497,6 +519,8 @@ public partial class GameLogic : IDisposable
         // 기존 멀티플레이 상태 초기화
         MultiPlayManager = null;
         _roomId = null;
+        
+        GameType = Enums.GameType.SinglePlay;
 
         // 싱글 플레이 상태로 변경
         InitializeSinglePlayMode();
@@ -560,10 +584,24 @@ public partial class GameLogic : IDisposable
     }
 
     #endregion
+
+    public void ChangeGameInProgress(bool inProgress)
+    {
+        if (GameInProgress == inProgress)
+            return;
+        
+        GameInProgress = inProgress;
+    }
     
     public void Dispose()
     {
         MultiPlayManager?.LeaveRoom(_roomId);
+        MultiPlayManager?.Dispose();
+    }
+    
+    public void ForceQuit()
+    {
+        MultiPlayManager?.ForceQuit(_roomId);
         MultiPlayManager?.Dispose();
     }
 }
