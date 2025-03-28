@@ -40,6 +40,8 @@ public class RatingPanelController : PanelController
 
     private IEnumerator UpdateScore(Enums.GameResult gameResult)
     {
+        AudioManager.Instance.PlayRatingSound(); //사운드 추가
+
         //기존 점수로 애니메이션 보여줄 때까지 기다림
         yield return InitRatingPanel(gameResult);
         

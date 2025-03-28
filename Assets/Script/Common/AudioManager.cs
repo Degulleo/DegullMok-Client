@@ -121,7 +121,6 @@ public class AudioManager : Singleton<AudioManager>
         PlayBGM();
     }
 
-    // 클릭 사운드(SFX) 재생
     public void PlayClickSound()
     {
         if (isPlaySFX && sfxAudioSource != null)
@@ -130,7 +129,6 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    // 닫기 사운드(SFX) 재생
     public void PlayCloseSound()
     {
         if (isPlaySFX && sfxAudioSource != null)
@@ -191,7 +189,40 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("StoneSound"), sfxVolume);
+            int randomIndex = UnityEngine.Random.Range(1, 8);
+            sfxAudioSource.PlayOneShot(GetAudioClip("StoneSound"+randomIndex), sfxVolume);
+        }
+    }
+    
+    public void PlayRatingSound()
+    {
+        if (isPlaySFX && sfxAudioSource!=null)
+        {
+            sfxAudioSource.PlayOneShot(GetAudioClip("RatingSound"), sfxVolume);
+        }
+    }
+    
+    public void PlayRatingUpSound()
+    {
+        if (isPlaySFX && sfxAudioSource!=null)
+        {
+            sfxAudioSource.PlayOneShot(GetAudioClip("RatingUpSound"), sfxVolume);
+        }
+    }
+    
+    public void PlayRatingDownSound()
+    {
+        if (isPlaySFX && sfxAudioSource!=null)
+        {
+            sfxAudioSource.PlayOneShot(GetAudioClip("RatingDownSound"), sfxVolume);
+        }
+    }
+    
+    public void PlayErrorSound()
+    {
+        if (isPlaySFX && sfxAudioSource!=null)
+        {
+            sfxAudioSource.PlayOneShot(GetAudioClip("ErrorSound"), sfxVolume);
         }
     }
 }

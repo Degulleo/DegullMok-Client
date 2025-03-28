@@ -33,6 +33,8 @@
     public void SetNewBoardValue(Enums.PlayerType playerType, int row, int col)
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
+        
+        AudioManager.Instance.PlayStoneSound(); //사운드 추가
 
         switch (playerType)
         {

@@ -14,6 +14,8 @@ public class DrawEffectController : EffectController
 
     public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
+        AudioManager.Instance.PlayDrawSound(); //사운드 추가
+
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
         onEffectPanelEnded = onEffectPanelEnd;
