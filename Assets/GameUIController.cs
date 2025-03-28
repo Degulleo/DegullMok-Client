@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class GameUIController : MonoBehaviour
 {
     [SerializeField] private Button exitButton;
+    [SerializeField] private GameObject retryButton;
     [SerializeField] private TMP_Text playerANameText;
     [SerializeField] private TMP_Text playerBNameText;
     [SerializeField] private Image indicatorA;
