@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     
     public MultiplayManager GetMultiplayManager()
     {
-        _multiplayManager = _gameLogic._multiplayManager;
+        _multiplayManager = _gameLogic.MultiPlayManager;
         if (_multiplayManager == null) Debug.Log("MultiplayManager가 null입니다");
         return _multiplayManager;
     }
@@ -49,7 +49,7 @@ public class GameManager : Singleton<GameManager>
     
     public void OnClickConfirmButton()
     {
-        if (_gameLogic.selectedRow != -1 && _gameLogic.selectedCol != -1)
+        if (_gameLogic.SelectedRow != -1 && _gameLogic.SelectedCol != -1)
         {
             _gameLogic.OnConfirm();
         }
@@ -99,7 +99,7 @@ public class GameManager : Singleton<GameManager>
         if (_gameLogic == null) return;
         _gameLogic.ResetBoard();
         _stoneController.InitStones();
-        _gameLogic.SetState(_gameLogic.firstPlayerState);
+        _gameLogic.SetState(_gameLogic.FirstPlayerState);
     }
     //유저 이름 Game UI에 초기화
     public void InitPlayersName(string playerNameA, string playerNameB)
