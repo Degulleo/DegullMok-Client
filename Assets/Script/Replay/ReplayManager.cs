@@ -280,7 +280,6 @@ public class ReplayManager : Singleton<ReplayManager>
         {
             InitReplayBoard(_selectedReplayRecord);
 
-            //게임 매니저에서 가져온 코드입니다.
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
