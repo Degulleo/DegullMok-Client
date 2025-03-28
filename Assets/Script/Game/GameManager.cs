@@ -131,4 +131,25 @@ public class GameManager : Singleton<GameManager>
         if (_gameLogic == null) return;
         _gameLogic.RequestDrawChance = false;
     }
+
+    public bool CheckIsSinglePlay()
+    {
+        if (_gameLogic == null) return false;
+        return _gameLogic.GameType == Enums.GameType.SinglePlay;
+    }
+
+    public void SurrenderSinglePlay()
+    {
+        if(_gameLogic == null) return;
+        panelManager.OpenEffectPanel(Enums.GameResult.Lose);
+        _gameLogic.EndGame(Enums.GameResult.Lose);
+    }
+
+    public void DrawSinglePlay()
+    {
+        if(_gameLogic == null) return;
+        panelManager.OpenEffectPanel(Enums.GameResult.Draw);
+        _gameLogic.EndGame(Enums.GameResult.Draw);
+    }
+
 }

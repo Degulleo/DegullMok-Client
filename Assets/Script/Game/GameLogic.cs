@@ -476,6 +476,7 @@ public partial class GameLogic : IDisposable
         // 기존 멀티플레이 상태 초기화
         MultiPlayManager = null;
         _roomId = null;
+        GameType = Enums.GameType.SinglePlay;
 
         // 싱글 플레이 상태로 변경
         InitializeSinglePlayMode();
