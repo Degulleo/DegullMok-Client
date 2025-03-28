@@ -93,14 +93,7 @@ public class GameManager : Singleton<GameManager>
         }
         InitPanels();
     }
-    //임시 재시작 재대결
-    public void RetryGame()
-    {
-        if (_gameLogic == null) return;
-        _gameLogic.ResetBoard();
-        _stoneController.InitStones();
-        _gameLogic.SetState(_gameLogic.FirstPlayerState);
-    }
+    
     //유저 이름 Game UI에 초기화
     public void InitPlayersName(string playerNameA, string playerNameB)
     {

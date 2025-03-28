@@ -517,9 +517,6 @@ public partial class GameLogic : IDisposable
 
     public Enums.PlayerType[,] GetBoard() => _board;
 
-    // 보드 초기화
-    public void ResetBoard() => Array.Clear(_board, 0, _board.Length);
-
     // 상대가 매칭되지 않을 경우 AI로 전환하는 함수
     private void SwitchToSinglePlayer()
     {

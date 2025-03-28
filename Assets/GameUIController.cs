@@ -38,11 +38,6 @@ public class GameUIController : MonoBehaviour
         GameManager.Instance.OnClickConfirmButton();
     }
 
-    public void OnClickRetryButton()
-    {
-        GameManager.Instance.RetryGame();
-    }
-
     public void OnClickSurrenderButton()
     {
         if (GameManager.Instance.CheckIsSinglePlay())
