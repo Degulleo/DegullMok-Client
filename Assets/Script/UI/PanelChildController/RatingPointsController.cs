@@ -32,6 +32,12 @@ public class RatingPointsController : MonoBehaviour
         
         sequence.Append(
             imageOBject.GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
+        
+        sequence.AppendCallback(() =>
+        {
+            AudioManager.Instance.PlayRatingSound();    //사운드 추가
+        });
+        
         sequence.Append(
             imageOBject.GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
         sequence.Join(

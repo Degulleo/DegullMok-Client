@@ -608,7 +608,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3933575647777291622}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2497,7 +2497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a536dce57360441898a57e5d5a1335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  retryButton: {fileID: 0}
+  exitButton: {fileID: 2183639868091494604}
   playerANameText: {fileID: 4888719462249568075}
   playerBNameText: {fileID: 5649645114775233136}
   indicatorA: {fileID: 822440635660578859}

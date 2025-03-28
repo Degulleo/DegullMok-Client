@@ -57,6 +57,8 @@ public class GameManager : Singleton<GameManager>
         {
             if (_camera != null)
             {
+                AudioManager.Instance.PlayErrorSound(); //사운드 추가
+                
                 _camera.transform.DOShakePosition(0.5f, 0.5f).OnComplete(() =>
                 {
                     _camera.transform.position = new Vector3(0,0,-10);
