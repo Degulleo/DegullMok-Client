@@ -17,6 +17,11 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Image profileImageB;
     [SerializeField] private Sprite[] profileImageSprites;  //0. 기본 드래곤 1. 기본 호랑이 2.아이보리 드래곤 3. 아이보리 호랑이
     [SerializeField] private Sprite[] indicatorSprites; //0. active 1. inactive
+    [SerializeField] private GameObject timerObject;
+    [SerializeField] private GameObject inGameMenuButtonsObject;
+    [SerializeField] private GameObject exitButtonObject;
+    [SerializeField] private GameObject revengeRetryButtonObject;
+    [SerializeField] private GameObject confirmButtonObject;
     
     private Sprite _originalSpriteA;
     private Sprite _originalSpriteB;
@@ -156,4 +161,17 @@ public class GameUIController : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// 게임 종료 시 인게임 장면 변경
+    /// </summary>
+    /// <param name="gameInProgress">게임 진행이면 true</param>
+    public void SetButtonsIndicator(bool gameInProgress)
+    {
+        Debug.Log("gameInProgress" + gameInProgress);
+        inGameMenuButtonsObject.SetActive(gameInProgress);
+        confirmButtonObject.SetActive(gameInProgress);
+        timerObject.SetActive(!gameInProgress);
+        exitButtonObject.SetActive(!gameInProgress);
+        revengeRetryButtonObject.SetActive(!gameInProgress);
+    }
 }

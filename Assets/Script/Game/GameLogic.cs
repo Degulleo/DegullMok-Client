@@ -370,7 +370,8 @@ public partial class GameLogic : IDisposable
     {
         ChangeGameInProgress(true);
         Debug.Log("GameInProgress 변경 true");
-        
+        GameButtonSetter(GameInProgress); // 버튼 상태 교체
+
         ExecuteOnMainThread(() =>
         {
             // 로딩 패널 열려있으면 닫기
@@ -378,6 +379,14 @@ public partial class GameLogic : IDisposable
 
             // 게임 시작
             SetState(FirstPlayerState);
+        });
+    }
+    // 버튼 상태 교체 함수
+    private void GameButtonSetter(bool gameInProgress)
+    {
+        ExecuteOnMainThread(() =>
+        {
+            GameManager.Instance.SetButtonsIndicator(gameInProgress);
         });
     }
 
