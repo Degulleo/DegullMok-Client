@@ -62,6 +62,15 @@ public class GameUIController : MonoBehaviour
         }
     }
 
+    public void OnClickRevengeRequestButton()
+    {
+            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 신청을\n하시겠습니까?", () =>
+            {
+                GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
+                _multiplayManager.RequestRevengeRequest();
+            });
+    }
+
     public void OnClickSettingsButton()
     {
         GameManager.Instance.panelManager.OpenSettingsPanel();
@@ -111,11 +120,11 @@ public class GameUIController : MonoBehaviour
         {
             profileImage.sprite = profileImageSprites[3];
         }
-        
+
         profileImage.transform.DOScale(1.5f, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
         {
             profileImage.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
         });
     }
-    
+
 }
