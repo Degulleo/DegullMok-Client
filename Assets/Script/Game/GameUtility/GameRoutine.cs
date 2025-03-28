@@ -1,4 +1,6 @@
-﻿public partial class GameLogic
+﻿using UnityEngine;
+
+public partial class GameLogic
 {
     // 돌 카운터 증가 함수
     public void CountStoneCounter() => _totalStoneCounter++;
@@ -85,6 +87,8 @@
         SetState(null);
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
+        ChangeGameInProgress(false);
+        Debug.Log("GameInProgress 변경 false");
     }
 
     public void SetLastPositioned(int row, int col)
