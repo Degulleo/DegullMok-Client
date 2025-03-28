@@ -138,6 +138,7 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.ReceiveDrawRequest:
                     Debug.Log("상대방의 무승부 요청 들어옴");
+                    TimerPause();
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
@@ -159,6 +160,7 @@ public partial class GameLogic : IDisposable
                     {
                         GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
                     });
+                    TimerPause();
                     break;
                 }
                 case Constants.MultiplayManagerState.DrawAccepted:
@@ -181,6 +183,7 @@ public partial class GameLogic : IDisposable
                 }
                 case Constants.MultiplayManagerState.DrawRejected:
                     Debug.Log("무승부 요청이 거부가 들어옴");
+                    TimerUnpause();
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -192,8 +195,9 @@ public partial class GameLogic : IDisposable
                     Debug.Log("무승부 요청 거부 완료");
                     ExecuteOnMainThread(() =>
                     {
-                        GameManager.Instance.panelManager.CloseLoadingPanel();
+                        GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
                     });
+                    TimerUnpause();
                     break;
                 }
                 case Constants.MultiplayManagerState.ReceiveTimeout:
