@@ -207,13 +207,13 @@ public class PanelManager : MonoBehaviour
             var signupPanelObject = GetPanel("Signup Panel");
         }
     }
-    public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick)
+    public void OpenConfirmPanel(string message, ConfirmPanelController.OnConfirmButtonClick onConfirmButtonClick, bool isClose = false, bool isConfirm = true)
     {
         if (_canvas != null)
         {
             var confirmPanelObject = GetPanel("Confirm Panel");
             confirmPanelObject.GetComponent<ConfirmPanelController>()
-                .Show(message, onConfirmButtonClick);
+                .Show(message, onConfirmButtonClick, isClose, isConfirm);
         }
     }
     
@@ -289,8 +289,8 @@ public class PanelManager : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    name = "광고) 코인500개 ",
-                    price = 0
+                    name = "500개",
+                    price = "광고 보기"
                 };
                 shopItems.Add(shopItem);
             }
@@ -299,7 +299,7 @@ public class PanelManager : MonoBehaviour
                 ShopItem shopItem = new ShopItem
                 {
                     name = i*1000+"개 ",
-                    price = i * 1000
+                    price = $"{i * 1000}"
                 };
                 shopItems.Add(shopItem);
             }
@@ -350,5 +350,12 @@ public class PanelManager : MonoBehaviour
         }));
     }
 
-   
+    public void OpenInGameMenuPanel()
+    {
+        if (_canvas != null)
+        {
+            var replayPanelObject = GetPanel("InGameMenu Panel");
+            replayPanelObject.GetComponent<InGameMenuPanelController>().Show();
+        }
+    }
 }

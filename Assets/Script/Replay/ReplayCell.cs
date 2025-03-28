@@ -88,9 +88,9 @@ public class ReplayCell : MonoBehaviour
     
     public void OnClickReplayButton()
     {
-        GameManager.Instance.panelManager.OpenConfirmPanel($"{_opponentNickname}님 과의 대결을 다시 보시겠습니까?", 
+        GameManager.Instance.panelManager.OpenConfirmPanel($"{_opponentNickname}님 과의\n대결을 다시 보시겠습니까?", 
             () => {
                 ReplayManager.Instance.SetReplayData(_storedReplayRecord);
-                SceneManager.LoadScene("Replay"); });
+                SceneManager.LoadScene("Replay"); }, true);
     }
 }

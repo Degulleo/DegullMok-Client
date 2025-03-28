@@ -102,8 +102,8 @@ public class MainPanelController : MonoBehaviour
             {
                 ShopItem shopItem = new ShopItem
                 {
-                    name = "광고) 코인500개 ",
-                    price = 0
+                    name = "500개 ",
+                    price = "광고 보기"
                 };
                 shopItems.Add(shopItem);
             }
@@ -112,7 +112,7 @@ public class MainPanelController : MonoBehaviour
                 ShopItem shopItem = new ShopItem
                 {
                     name = i*1000+"개 ",
-                    price = i * 1000
+                    price = $"{i * 1000}"
                 };
                 shopItems.Add(shopItem);
             }

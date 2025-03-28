@@ -14,7 +14,7 @@ public class SwitchController : MonoBehaviour
     public delegate void OnSwitchChangedDelegate(bool isOn);
     public OnSwitchChangedDelegate OnSwitchChanged;
     
-    private static readonly Color32 OnColor = new Color32(242, 68, 149, 255);
+    private static readonly Color32 OnColor = new Color32(164, 220, 223, 255);
     private static readonly Color32 OffColor = new Color32(70, 93, 117, 255);
     
     private RectTransform _handleRectTransform;
@@ -30,34 +30,18 @@ public class SwitchController : MonoBehaviour
 
     private void Start()
     {
-        _handleRectTransform.anchoredPosition = new Vector2(-14, 0);
-        _backgroundImage.color = OffColor;
-        
-        if (gameObject.name == "SFX Switch")
-        {
-            _isOn = UserManager.IsPlaySFX;
-        }
-        else if (gameObject.name == "BGM Switch")
-        {
-            _isOn = UserManager.IsPlayBGM;
-        }
+        _isOn = gameObject.name == "SFX Switch" ? UserManager.IsPlaySFX :
+            gameObject.name == "BGM Switch" ? UserManager.IsPlayBGM : false;
+
+        _handleRectTransform.anchoredPosition = _isOn ? new Vector2(14, 0) : new Vector2(-14, 0);
+        _backgroundImage.color = _isOn ? OnColor : OffColor;
     }
 
     //스위치 상태 변경 함수
     private void SetOn(bool isOn)
     {
-        if (isOn)
-        {
-            _handleRectTransform.DOAnchorPosX(14, 0.2f);
-            _backgroundImage.DOBlendableColor(OnColor, 0.2f);
-        }
-        else
-        {
-            _handleRectTransform.DOAnchorPosX(-14, 0.2f);
-            _backgroundImage.DOBlendableColor(OffColor, 0.2f);
-        }
-        
-        // 효과음 재생
+        _handleRectTransform.DOAnchorPosX(isOn ? 14 : -14, 0.2f);
+        _backgroundImage.DOColor(isOn ? OnColor : OffColor, 0.2f);
         AudioManager.Instance.PlayClickSound();
         
         //이벤트 호출
