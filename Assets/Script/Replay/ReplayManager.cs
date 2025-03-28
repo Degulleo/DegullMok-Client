@@ -215,6 +215,16 @@ public class ReplayManager : Singleton<ReplayManager>
     {
         ReplayManager.Instance.PushUndoMove(targetMove);
         _gameLogic.RemoveStone(targetMove.columnIndex, targetMove.rowIndex);
+        if (_placedStoneStack.Count > 0)
+        {
+            var undoLastMove = _placedStoneStack.Peek();
+            _gameLogic.StoneController.SetStoneState(Enums.StoneState.LastPositioned, undoLastMove.columnIndex, undoLastMove.rowIndex);
+            _gameLogic.SetLastPositioned(undoLastMove.columnIndex, undoLastMove.rowIndex);
+        }
+        else
+        {
+            _gameLogic.SetLastPositioned(-1, -1);
+        }
     }
 
     public void ReplayFirst()

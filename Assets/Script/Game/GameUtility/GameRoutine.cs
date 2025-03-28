@@ -86,4 +86,10 @@
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
     }
+
+    public void SetLastPositioned(int row, int col)
+    {
+        _lastRow = row;
+        _lastCol = col;
+    }
 }
