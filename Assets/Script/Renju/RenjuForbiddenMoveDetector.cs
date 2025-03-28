@@ -73,16 +73,21 @@ public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
     // 금수 위치에서 5목이 가능할 경우 해당 위치는 금수 표기 X
     private List<Vector2Int> CheckHasFiveStones(Enums.PlayerType[,] board, List<Vector2Int> forbiddenMoves)
     {
+        int[][] directions = AIConstants.Directions;
+        
         // 리스트를 수정하는 동안 오류를 방지하기 위해 뒤에서부터 반복
         for (int i = forbiddenMoves.Count - 1; i >= 0; i--)
         {
             int row = forbiddenMoves[i].x;
             int col = forbiddenMoves[i].y;
         
-            // 해당 위치에서 승리(5목)이 가능하면 금수 표기 X
-            if (OmokAI.Instance.CheckGameWin(Enums.PlayerType.PlayerA, board, row, col))
+            foreach (var dir in directions)
             {
-                forbiddenMoves.RemoveAt(i);
+                var (count, _) = GameLogic.CountStones(board, row, col, dir, Enums.PlayerType.PlayerA);
+
+                // 해당 위치에서 승리(5목)이 가능하면 금수 표기 X
+                if (count + 1 == 5)
+                    forbiddenMoves.RemoveAt(i);
             }
         }
         
