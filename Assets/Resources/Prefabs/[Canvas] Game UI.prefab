@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 4247753812167816150}
   - component: {fileID: 1548693011522092544}
   m_Layer: 5
-  m_Name: Retry Button
+  m_Name: Draw Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

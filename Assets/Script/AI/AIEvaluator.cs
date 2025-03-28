@@ -11,9 +11,9 @@ public static class AIEvaluator
         // AI 패턴 점수
         public const float FIVE_IN_A_ROW = 100000f;
         public const float OPEN_FOUR = 15000f;
-        public const float HALF_OPEN_FOUR = 5000f;
+        public const float HALF_OPEN_FOUR = 6000f;
         public const float CLOSED_FOUR = 500f;
-        public const float OPEN_THREE = 3000f;
+        public const float OPEN_THREE = 3500f;
         public const float HALF_OPEN_THREE = 500f;
         public const float CLOSED_THREE = 50f;
         public const float OPEN_TWO = 100f;
@@ -23,13 +23,13 @@ public static class AIEvaluator
         public const float CLOSED_ONE = 1f;
         
         // 복합 패턴 점수
-        public const float DOUBLE_THREE = 8000f;
+        public const float DOUBLE_THREE = 9000f;
         public const float DOUBLE_FOUR = 12000f;
-        public const float FOUR_THREE = 10000f;
+        public const float FOUR_THREE = 11000f;
         
         // 위치 가중치 기본값
-        public const float CENTER_WEIGHT = 1.2f;
-        public const float EDGE_WEIGHT = 0.8f;
+        public const float CENTER_WEIGHT = 1.3f;
+        public const float EDGE_WEIGHT = 0.85f;
     }
 
     private static readonly int[][] Directions = AIConstants.Directions;
@@ -51,7 +51,7 @@ public static class AIEvaluator
                                       ai4Positions, player4Positions);
         
         // 2. 복합 패턴 평가
-        score += EvaluateComplexPatterns(aiOpen3Positions, playerOpen3Positions, ai4Positions, player4Positions, aiPlayer);
+        score += EvaluateComplexPatterns(aiOpen3Positions, playerOpen3Positions, ai4Positions, player4Positions);
         
         return score;
     }
@@ -153,8 +153,7 @@ public static class AIEvaluator
         List<(int row, int col, int[] dir)> aiOpen3Positions,
         List<(int row, int col, int[] dir)> playerOpen3Positions,
         List<(int row, int col, int[] dir)> ai4Positions,
-        List<(int row, int col, int[] dir)> player4Positions,
-        Enums.PlayerType aiPlayer)
+        List<(int row, int col, int[] dir)> player4Positions)
     {
         float score = 0;
         
@@ -494,12 +493,12 @@ public static class AIEvaluator
 
             if (count >= 4)
             {
-                normalScore = PatternScore.FIVE_IN_A_ROW / 8.5f;
+                normalScore = PatternScore.FIVE_IN_A_ROW / 7.5f;
             }
             else if (count == 3)
             {
                 // 일관된 분모 사용 (방어 가중치는 유지)
-                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 1.3f : 
+                normalScore = (openEnds == 2) ? PatternScore.OPEN_THREE / 1.25f : 
                     (openEnds == 1) ? PatternScore.HALF_OPEN_THREE / 3.2f : 
                     PatternScore.CLOSED_THREE / 4.2f;
             }
@@ -562,7 +561,7 @@ public static class AIEvaluator
                     if (!AreParallelDirections(openThrees[i].dir, openThrees[j].dir))
                     {
                         float threeThreeScore = PatternScore.DOUBLE_THREE / 4; // 복합 패턴 가중치
-                        score += isAI ? threeThreeScore * 1.1f : threeThreeScore * 1.3f;
+                        score += isAI ? threeThreeScore * 1.2f : threeThreeScore * 1.3f;
                         break;
                     }
                 }
@@ -579,7 +578,7 @@ public static class AIEvaluator
                     if (!AreParallelDirections(fours[i].dir, fours[j].dir))
                     {
                         float fourFourScore = PatternScore.DOUBLE_FOUR / 4;
-                        score += isAI ? fourFourScore * 1.2f : fourFourScore * 1.5f;
+                        score += isAI ? fourFourScore * 1.3f : fourFourScore * 1.7f;
                         break;
                     }
                 }
@@ -590,7 +589,7 @@ public static class AIEvaluator
         if (fours.Count > 0 && openThrees.Count > 0)
         {
             float fourThreeScore = PatternScore.FOUR_THREE / 4;
-            score += isAI ? fourThreeScore * 1.1f : fourThreeScore * 1.4f;
+            score += isAI ? fourThreeScore * 1.1f : fourThreeScore * 1.6f;
         }
     
         return score;
