@@ -90,4 +90,10 @@ public partial class GameLogic
         ChangeGameInProgress(false);
         Debug.Log("GameInProgress 변경 false");
     }
+
+    public void SetLastPositioned(int row, int col)
+    {
+        _lastRow = row;
+        _lastCol = col;
+    }
 }
