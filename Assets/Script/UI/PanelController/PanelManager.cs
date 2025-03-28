@@ -157,7 +157,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false)
+    public void OpenLoadingPanel(bool rotateImage = false, bool animatedText = false, bool flipImage = false, bool isBackgroundImage = true)
     {
         SetCanvas();
         if (_canvas != null)
@@ -166,6 +166,7 @@ public class PanelManager : MonoBehaviour
             {
                 // 기존 로딩 패널이 활성화되어 있으면 먼저 닫기
                 CloseLoadingPanel();
+                Destroy(loadingPanelObject);
             }
             
             loadingPanelObject = GetPanel("Loading Panel");
@@ -174,7 +175,7 @@ public class PanelManager : MonoBehaviour
             loadingPanelController = loadingPanelObject.GetComponent<LoadingPanelController>();
             if (loadingPanelController != null)
             {
-                loadingPanelController.StartLoading(rotateImage, animatedText, flipImage);
+                loadingPanelController.StartLoading(rotateImage, animatedText, flipImage, isBackgroundImage);
             }
         }
     }

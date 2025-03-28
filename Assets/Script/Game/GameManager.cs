@@ -122,7 +122,7 @@ public class GameManager : Singleton<GameManager>
 
     public bool GetRequestDrawChance()
     {
-        if (_gameLogic == null){ return false;}
+        if (_gameLogic == null) return false;
         return _gameLogic.RequestDrawChance;
     }
 
