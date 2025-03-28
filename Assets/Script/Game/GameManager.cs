@@ -125,6 +125,18 @@ public class GameManager : Singleton<GameManager>
         if (_gameUIController == null) return;
         _gameUIController.SetButtonsIndicator(gameInProgress);
     }
+    
+    public void OnClickDrawRegisterButton()
+    {
+        if (_gameUIController == null) return;
+        _gameUIController.OnClickDrawRequestButton();
+    }
+    
+    public void OpenSettingsPanel()
+    {
+        if (_gameUIController == null) return;
+        panelManager.OpenSettingsPanel();
+    }
 
     public bool GetRequestDrawChance()
     {

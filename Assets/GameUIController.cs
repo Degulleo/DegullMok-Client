@@ -47,7 +47,10 @@ public class GameUIController : MonoBehaviour
     {
         if (GameManager.Instance.CheckIsSinglePlay())
         {
-            GameManager.Instance.SurrenderSinglePlay();
+            GameManager.Instance.panelManager.OpenConfirmPanel("항복 하시겠습니까?", () =>
+            {
+                GameManager.Instance.SurrenderSinglePlay();
+            }, true);
         }
         else
         {

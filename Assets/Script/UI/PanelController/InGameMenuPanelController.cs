@@ -20,7 +20,12 @@ public class InGameMenuPanelController : PanelController
 
     public void OnClickDrawRegisterButton()
     {
-        // GameManager.Instance.lManager.
+        GameManager.Instance.OnClickDrawRegisterButton();
+    }
+    
+    public void OpenSettingsPanel()
+    {
+        GameManager.Instance.OpenSettingsPanel();
     }
     
     /// <summary>
