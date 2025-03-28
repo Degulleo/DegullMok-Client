@@ -121,10 +121,13 @@ public class RatingPointsController : MonoBehaviour
     private void SetScoreCountText()
     {
         // 남은 승리수가 0인 경우 승급점수 도달 혹은 강등점수 도달
-        if (_newRequiredScore == 0 || _newRequiredScore == _oldRequiredScore * 2)
+        if (_newRequiredScore == 0)
         {
-            //새로운 급수에 맞춰서 패널 초기화하기
-            scoreCountText.text = "";
+            scoreCountText.text = "승급 포인트에 달성했습니다 !";
+        }
+        else if (_newRequiredScore == _oldRequiredScore * 2)
+        {
+            scoreCountText.text = "점수가 낮아 강등됩니다..";
         }
         else if (_newRequiredScore < 0)
         {
@@ -145,8 +148,8 @@ public class RatingPointsController : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             plusImage[i].GetComponent<Image>().color = _plusColor;
-            scoreCountText.text = $"더 이상 승급 할 수 없습니다.\n누적 {winCount} 승 하셨습니다.";
         }
+        scoreCountText.text = $"더 이상 승급 할 수 없습니다.\n누적 {winCount} 승 하셨습니다.";
     }
 
     public void SetRatingDownLimit(int loseCount)
@@ -154,9 +157,35 @@ public class RatingPointsController : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             minusImages[i].GetComponent<Image>().color = _minusColor;
-            scoreCountText.text = $"더 이상 강등 될 수 없습니다.\n누적 {loseCount*-1} 패 하셨습니다.";
         }
+        scoreCountText.text = $"더 이상 강등 될 수 없습니다.\n누적 {loseCount*-1} 패 하셨습니다.";
     }
     
     //승급, 강등시 패널을 초기화해서 띄워주는 함수 추가
+    public void InitRatingUpPoints()
+    {
+        StartCoroutine(RatingUpPoints());
+    }
+
+    private IEnumerator RatingUpPoints()
+    {
+        foreach (var plusPoint in plusImage)
+        {
+            ChangeImageColor(plusPoint, _defaultColor);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    public void InitRatingDownPoints()
+    {
+        StartCoroutine(RatingDownPoints());
+    }
+
+    private IEnumerator RatingDownPoints()
+    {
+        for (int i = minusImages.Length; i >0; i--)
+        {
+            ChangeImageColor(minusImages[i-1], _defaultColor);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
 }
