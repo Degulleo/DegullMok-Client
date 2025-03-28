@@ -64,7 +64,7 @@ public class AudioManager : Singleton<AudioManager>
     // 메인 BGM을 재생하는 함수
     public void PlayMainBGM()
     {
-        mainBgm = GetAudioClip("Main Bgm");
+        mainBgm = GetAudioClip("MainBGM");
         
         if (bgmAudioSource != null && mainBgm != null && !bgmAudioSource.isPlaying)
         {
@@ -77,7 +77,7 @@ public class AudioManager : Singleton<AudioManager>
     
     public void PlayGameBGM()
     {
-        gameBgm = GetAudioClip("Game Bgm");
+        gameBgm = GetAudioClip("GameBGM");
         
         if (bgmAudioSource != null && gameBgm != null && !bgmAudioSource.isPlaying)
         {
@@ -126,7 +126,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource != null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Click Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("ClickSound"), sfxVolume);
         }
     }
 
@@ -135,7 +135,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource != null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Close Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("CloseSound"), sfxVolume);
         }
     }
 
@@ -143,7 +143,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Coins ADD Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("CoinsAddSound"), sfxVolume);
         }
     }
 
@@ -151,7 +151,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Coins Empty Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("CoinsEmptySound"), sfxVolume);
         }
     }
 
@@ -159,7 +159,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Coins Remove Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("CoinsRemoveSound"), sfxVolume);
         }
     }
 
@@ -167,7 +167,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Lose Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("LoseSound"), sfxVolume);
         }
     }
 
@@ -175,7 +175,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Win Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("WinSound"), sfxVolume);
         }
     }
     
@@ -183,7 +183,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Draw Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("DrawSound"), sfxVolume);
         }
     }
 
@@ -191,7 +191,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (isPlaySFX && sfxAudioSource!=null)
         {
-            sfxAudioSource.PlayOneShot(GetAudioClip("Stone Sound"), sfxVolume);
+            sfxAudioSource.PlayOneShot(GetAudioClip("StoneSound"), sfxVolume);
         }
     }
 }
