@@ -113,12 +113,19 @@ public partial class GameLogic : IDisposable
                     StartGameOnMainThread();
                     break;
                 case Constants.MultiplayManagerState.ExitRoom:
-                    Debug.Log("## Exit Room");
+                    Debug.Log("## Exit Room"); 
                     // TODO: Exit Room 처리
                     break;
                 case Constants.MultiplayManagerState.EndGame:
                     Debug.Log("## End Game");
-                    // TODO: End Room 처리
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 연결이 끊어졌습니다.", () => 
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
+                            EndGame(Enums.GameResult.Win);
+                        });
+                    });
                     break;
                 case Constants.MultiplayManagerState.DoSurrender:
                     Debug.Log("상대방의 항복 요청 들어옴");
@@ -264,7 +271,11 @@ public partial class GameLogic : IDisposable
                         });
                     });
                     break;
-                }
+                case Constants.MultiplayManagerState.OpponentDisconnected:
+                    Debug.Log("상대방 강제 종료");
+                    // 실제로 실행되지 않음. 상대방 강제 종료 시에는 EndGame으로 처리됨
+                    break;
+            }
             ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
         });
 

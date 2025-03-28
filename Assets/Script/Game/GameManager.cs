@@ -131,4 +131,10 @@ public class GameManager : Singleton<GameManager>
         if (_gameLogic == null) return;
         _gameLogic.RequestDrawChance = false;
     }
+    
+    private void OnApplicationQuit()
+    {
+        Debug.Log("앱 종료 감지: 소켓 연결 정리 중...");
+        _gameLogic?.Dispose();
+    }
 }
