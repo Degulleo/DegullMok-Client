@@ -397,7 +397,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3933575647777291622}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnClickRevengeRequestButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

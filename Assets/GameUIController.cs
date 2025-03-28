@@ -44,23 +44,21 @@ public class GameUIController : MonoBehaviour
     {
         GameManager.Instance.OnClickConfirmButton();
     }
-
-    public void OnClickRetryButton()
-    {
-        GameManager.Instance.RetryGame();
-    }
-
+    
     public void OnClickExitButton()
     {
         // "Main" 씬으로 이동
         SceneManager.LoadScene("Main");
     }
-    
+
     public void OnClickSurrenderButton()
     {
         if (GameManager.Instance.CheckIsSinglePlay())
         {
-            GameManager.Instance.SurrenderSinglePlay();
+            GameManager.Instance.panelManager.OpenConfirmPanel("항복 하시겠습니까?", () =>
+            {
+                GameManager.Instance.SurrenderSinglePlay();
+            }, true);
         }
         else
         {

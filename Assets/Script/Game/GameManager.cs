@@ -95,14 +95,7 @@ public class GameManager : Singleton<GameManager>
         }
         InitPanels();
     }
-    //임시 재시작 재대결
-    public void RetryGame()
-    {
-        if (_gameLogic == null) return;
-        _gameLogic.ResetBoard();
-        _stoneController.InitStones();
-        _gameLogic.SetState(_gameLogic.FirstPlayerState);
-    }
+    
     //유저 이름 Game UI에 초기화
     public void InitPlayersName(string playerNameA, string playerNameB)
     {
@@ -126,6 +119,18 @@ public class GameManager : Singleton<GameManager>
     {
         if (_gameUIController == null) return;
         _gameUIController.SetButtonsIndicator(gameInProgress);
+    }
+    
+    public void OnClickDrawRegisterButton()
+    {
+        if (_gameUIController == null) return;
+        _gameUIController.OnClickDrawRequestButton();
+    }
+    
+    public void OpenSettingsPanel()
+    {
+        if (_gameUIController == null) return;
+        panelManager.OpenSettingsPanel();
     }
 
     public bool GetRequestDrawChance()
