@@ -138,6 +138,7 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.ReceiveDrawRequest:
                     Debug.Log("상대방의 무승부 요청 들어옴");
+                    TimerPause();
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승낙하시겠습니까?", () =>
@@ -153,6 +154,7 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.DrawRequestSent:
                     Debug.Log("무승부 요청 전송 완료");
+                    TimerPause();
                     break;
                 case Constants.MultiplayManagerState.DrawAccepted:
                     Debug.Log("무승부 요청이 승낙이 들어옴");
@@ -167,6 +169,7 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.DrawRejected:
                     Debug.Log("무승부 요청이 거부가 들어옴");
+                    TimerUnpause();
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청을 거부하였습니다.", () => { });
@@ -174,7 +177,7 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.DrawRejectionConfirmed:
                     Debug.Log("무승부 요청 거부 완료");
-
+                    TimerUnpause();
                     break;
                 case Constants.MultiplayManagerState.ReceiveTimeout:
                     Debug.Log("상대방이 타임 아웃 됨");
@@ -528,6 +531,12 @@ public partial class GameLogic : IDisposable
 
         return AI_NAMIES[index];
     }
+
+    // 타이머 일시정지
+    private void TimerPause() => FioTimer.PauseTimer();
+
+    // 타이머 일시정지 해제
+    private void TimerUnpause() => FioTimer.StartTimer();
 
     #endregion
     
