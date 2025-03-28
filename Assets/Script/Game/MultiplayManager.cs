@@ -214,7 +214,6 @@ public class MultiplayManager : IDisposable
             return;
         }
 
-        Debug.Log("방 나감");
         _socket.Emit("leaveRoom", new { roomId = _roomId });
         _roomId = null; // 방 나가면 roomId 초기화
     }
