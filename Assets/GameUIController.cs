@@ -5,9 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameUIController : MonoBehaviour
 {
+    [SerializeField] private Button exitButton;
     [SerializeField] private GameObject retryButton;
     [SerializeField] private TMP_Text playerANameText;
     [SerializeField] private TMP_Text playerBNameText;
@@ -31,6 +33,11 @@ public class GameUIController : MonoBehaviour
     private void Start()
     {
         _multiplayManager = GameManager.Instance.GetMultiplayManager();
+        
+        if (exitButton != null)
+        {
+            exitButton.onClick.AddListener(OnClickExitButton);
+        }
     }
     
     public void OnClickConfirmButton()
@@ -43,6 +50,12 @@ public class GameUIController : MonoBehaviour
         GameManager.Instance.RetryGame();
     }
 
+    public void OnClickExitButton()
+    {
+        // "Main" 씬으로 이동
+        SceneManager.LoadScene("Main");
+    }
+    
     public void OnClickSurrenderButton()
     {
         if (GameManager.Instance.CheckIsSinglePlay())
