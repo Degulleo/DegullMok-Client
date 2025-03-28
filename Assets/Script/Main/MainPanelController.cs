@@ -12,6 +12,7 @@ public class MainPanelController : MonoBehaviour
     [SerializeField] private Button signOutButton;
     [SerializeField] private GameObject[] profileImages;
     [SerializeField] private Button rankingButton;
+    [SerializeField] private Button gameStartButton;
     
     private int _selectedImageIndex;
     
@@ -22,6 +23,8 @@ public class MainPanelController : MonoBehaviour
         {
             signOutButton.onClick.AddListener(OnSignOutClick);
         }
+        
+        gameStartButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
     }
     
     public void UpdateUserInfo()

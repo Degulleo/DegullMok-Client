@@ -22,7 +22,6 @@ public class ShopItemController : MonoBehaviour
     
     public void OnClickShopItem()
     {
-
         if (_shopItem.price == "광고 보기")
         {
             //보상형 전면 광고 로드

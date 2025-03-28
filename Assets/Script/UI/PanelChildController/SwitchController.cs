@@ -36,12 +36,15 @@ public class SwitchController : MonoBehaviour
         _handleRectTransform.anchoredPosition = _isOn ? new Vector2(14, 0) : new Vector2(-14, 0);
         _backgroundImage.color = _isOn ? OnColor : OffColor;
     }
-    
+
+    //스위치 상태 변경 함수
     private void SetOn(bool isOn)
     {
         _handleRectTransform.DOAnchorPosX(isOn ? 14 : -14, 0.2f);
-        _backgroundImage.DOColor(isOn ? OnColor : OffColor, 0.2f); // ✅ 수정된 부분
+        _backgroundImage.DOColor(isOn ? OnColor : OffColor, 0.2f);
         AudioManager.Instance.PlayClickSound();
+        
+        //이벤트 호출
         OnSwitchChanged?.Invoke(isOn);
         _isOn = isOn;
     }

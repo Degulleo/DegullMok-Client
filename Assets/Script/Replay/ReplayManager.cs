@@ -109,6 +109,7 @@ public class ReplayManager : Singleton<ReplayManager>
     public void RecordStonePlaced(Enums.StoneType stoneType,int row, int col)
     {
         string stoneColor = stoneType.ToString();
+        if (_recordingReplayData == null) return;
         _recordingReplayData.moves.Add(new Move(stoneColor, row, col));
     }
     
@@ -214,6 +215,16 @@ public class ReplayManager : Singleton<ReplayManager>
     {
         ReplayManager.Instance.PushUndoMove(targetMove);
         _gameLogic.RemoveStone(targetMove.columnIndex, targetMove.rowIndex);
+        if (_placedStoneStack.Count > 0)
+        {
+            var undoLastMove = _placedStoneStack.Peek();
+            _gameLogic.StoneController.SetStoneState(Enums.StoneState.LastPositioned, undoLastMove.columnIndex, undoLastMove.rowIndex);
+            _gameLogic.SetLastPositioned(undoLastMove.columnIndex, undoLastMove.rowIndex);
+        }
+        else
+        {
+            _gameLogic.SetLastPositioned(-1, -1);
+        }
     }
 
     public void ReplayFirst()
@@ -279,7 +290,6 @@ public class ReplayManager : Singleton<ReplayManager>
         {
             InitReplayBoard(_selectedReplayRecord);
 
-            //게임 매니저에서 가져온 코드입니다.
             _stoneController = GameObject.FindObjectOfType<StoneController>();
             _stoneController.InitStones();
             _gameLogic = new GameLogic(_stoneController, Enums.GameType.Replay);
