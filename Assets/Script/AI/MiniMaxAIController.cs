@@ -360,7 +360,7 @@ public static class MiniMaxAIController
             var (count, _) = CountStones(board, row, col, dir, player, isSavedCache);
 
             // 자기 자신 포함하여 5개 이상일 시 true 반환
-            if (count + 1 == WIN_COUNT) 
+            if (count + 1 >= WIN_COUNT) 
                 return true;
         }
         

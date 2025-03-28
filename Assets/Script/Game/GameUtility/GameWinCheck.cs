@@ -7,7 +7,7 @@
     }
 
     // 특정 방향으로 같은 돌 개수와 열린 끝 개수를 계산하는 함수
-    private (int count, int openEnds) CountStones(
+    public static (int count, int openEnds) CountStones(
         Enums.PlayerType[,] board, int row, int col, int[] direction, Enums.PlayerType player)
     {
         int size = board.GetLength(0);
