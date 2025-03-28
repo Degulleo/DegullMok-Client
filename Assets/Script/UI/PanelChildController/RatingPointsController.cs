@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,28 @@ public class RatingPointsController : MonoBehaviour
     private int _oldRequiredScore;
     private int _newRequiredScore;
     private int _oldScore;
+
+    /// <summary>
+    /// 포인트 오르고 내려가는 애니메이션 재생
+    /// </summary>
+    /// <param name="imageOBject"></param>
+    /// <param name="color"></param>
+    private void ChangeImageColor(GameObject imageOBject, Color32 color, Action callback = null)
+    {
+        Sequence sequence = DOTween.Sequence();
+        
+        sequence.Append(
+            imageOBject.GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
+        sequence.Append(
+            imageOBject.GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
+        sequence.Join(
+            imageOBject.GetComponent<Image>().DOColor(color, flipDuration/2).SetEase(Ease.OutExpo));
+        
+        sequence.OnComplete(()=>
+        {
+            callback?.Invoke();
+        });
+    }
     public void InitRatingPoints(int oldScore,Enums.GameResult gameResult, int defaultRequiredScore)
     {
         // TODO: [인덱스계산 ㅇㅖ외처리 ] 계산한 값 절대값이 defaultRequiredScore보다 큰 경우 return. 근데 이런 값이 나온다는게 이미 계산 오류가 어디서 생긴 것이겠죠..?
@@ -28,26 +51,14 @@ public class RatingPointsController : MonoBehaviour
         {
             if (gameResult == Enums.GameResult.Win)
             {
-                sequence.Append(
-                    plusImage[0].GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
-                sequence.Append(
-                    plusImage[0].GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
-                sequence.Join(
-                    plusImage[0].GetComponent<Image>().DOColor(_plusColor, flipDuration/2).SetEase(Ease.OutExpo));
-                
+                ChangeImageColor(plusImage[0], _plusColor);
                 //승급까지 남은 판수 계산
                 _newRequiredScore = defaultRequiredScore-1;
             }
             else if(gameResult == Enums.GameResult.Lose)
             {
-                sequence.Append(
-                    minusImages[defaultRequiredScore-1].GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
-                sequence.Append(
-                    minusImages[defaultRequiredScore-1].GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
-                sequence.Join(
-                    minusImages[defaultRequiredScore-1].GetComponent<Image>().DOColor(_minusColor, flipDuration/2).SetEase(Ease.OutExpo));
+                ChangeImageColor(minusImages[defaultRequiredScore-1],_minusColor);
                 
-                //승급까지 남은 판수 계산
                 _newRequiredScore = defaultRequiredScore+1;
             }
         }
@@ -60,24 +71,13 @@ public class RatingPointsController : MonoBehaviour
             }
             if (gameResult == Enums.GameResult.Win)
             {
-                sequence.Append(
-                plusImage[_oldScore].GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
-                sequence.Append(
-                    plusImage[_oldScore].GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
-                sequence.Join(
-                    plusImage[_oldScore].GetComponent<Image>().DOColor(_plusColor, flipDuration/2).SetEase(Ease.OutExpo));
+                ChangeImageColor(plusImage[_oldScore], _plusColor);
                 
-                //승급까지 남은 판수 계산
                 _newRequiredScore = defaultRequiredScore-oldScore-1;
             }
             else if(gameResult == Enums.GameResult.Lose)
             {
-                sequence.Append(
-                    plusImage[_oldScore-1].GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
-                sequence.Append(
-                    plusImage[_oldScore-1].GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
-                sequence.Join(
-                    plusImage[_oldScore-1].GetComponent<Image>().DOColor(_defaultColor, flipDuration/2).SetEase(Ease.OutExpo));
+                ChangeImageColor(plusImage[_oldScore-1], _defaultColor);
                 
                 //승급까지 남은 판수 계산
                 _newRequiredScore = defaultRequiredScore-oldScore+1;
@@ -93,26 +93,14 @@ public class RatingPointsController : MonoBehaviour
             }
             if (gameResult == Enums.GameResult.Win)
             {
-                sequence.Append(
-                    minusImages[minusImages.Length+_oldScore].GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
-                sequence.Append(
-                    minusImages[minusImages.Length+_oldScore].GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
-                sequence.Join(
-                    minusImages[minusImages.Length+_oldScore].GetComponent<Image>().DOColor(_defaultColor, flipDuration/2).SetEase(Ease.OutExpo));
+                ChangeImageColor(minusImages[minusImages.Length+_oldScore], _defaultColor);
                 
-                //승급까지 남은 판수 계산
                 _newRequiredScore = defaultRequiredScore-oldScore-1;
             }
             else if(gameResult == Enums.GameResult.Lose)
             {
-                sequence.Append(
-                    minusImages[minusImages.Length+_oldScore-1].GetComponent<Transform>().DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration).SetEase(Ease.InExpo));
-                sequence.Append(
-                    minusImages[minusImages.Length+_oldScore-1].GetComponent<Transform>().DOLocalRotate(Vector3.zero, flipDuration).SetEase(Ease.OutExpo));
-                sequence.Join(
-                    minusImages[minusImages.Length+_oldScore-1].GetComponent<Image>().DOColor(_minusColor, flipDuration/2).SetEase(Ease.OutExpo));
+                ChangeImageColor(minusImages[minusImages.Length+_oldScore-1], _minusColor);
                 
-                //승급까지 남은 판수 계산
                 _newRequiredScore = defaultRequiredScore-oldScore+1;
             }
         }
