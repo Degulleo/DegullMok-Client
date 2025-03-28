@@ -530,6 +530,12 @@ public partial class GameLogic : IDisposable
         }
     }
 
+    // 타이머 일시정지
+    private void TimerPause() => FioTimer.PauseTimer();
+ 
+    // 타이머 일시정지 해제
+    private void TimerUnpause() => FioTimer.StartTimer();
+    
     // 이전에 표시된 금수 마크 제거
     private void ClearForbiddenMarks()
     {
