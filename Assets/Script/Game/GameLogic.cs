@@ -153,8 +153,14 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.DrawRequestSent:
+                {
                     Debug.Log("무승부 요청 전송 완료");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
+                    });
                     break;
+                }
                 case Constants.MultiplayManagerState.DrawAccepted:
                     Debug.Log("무승부 요청이 승낙이 들어옴");
                     ExecuteOnMainThread(() =>
