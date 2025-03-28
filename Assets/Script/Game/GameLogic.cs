@@ -140,6 +140,7 @@ public partial class GameLogic : IDisposable
                     Debug.Log("상대방의 무승부 요청 들어옴");
                     ExecuteOnMainThread(() =>
                     {
+                        GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
                         GameManager.Instance.panelManager.OpenDrawConfirmPanel("무승부 요청을 승낙하시겠습니까?", () =>
                         {
                             GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
@@ -158,24 +159,37 @@ public partial class GameLogic : IDisposable
                     Debug.Log("무승부 요청이 승낙이 들어옴");
                     ExecuteOnMainThread(() =>
                     {
+                        GameManager.Instance.panelManager.CloseLoadingPanel();
                         GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Draw);
                         EndGame(Enums.GameResult.Draw);
                     });
                     break;
                 case Constants.MultiplayManagerState.DrawConfirmed:
+                {
                     Debug.Log("무승부 요청 승낙 완료");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.CloseLoadingPanel();
+                    });
                     break;
+                }
                 case Constants.MultiplayManagerState.DrawRejected:
                     Debug.Log("무승부 요청이 거부가 들어옴");
                     ExecuteOnMainThread(() =>
                     {
+                        GameManager.Instance.panelManager.CloseLoadingPanel();
                         GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청을 거부하였습니다.", () => { });
                     });
                     break;
                 case Constants.MultiplayManagerState.DrawRejectionConfirmed:
+                {
                     Debug.Log("무승부 요청 거부 완료");
-
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.CloseLoadingPanel();
+                    });
                     break;
+                }
                 case Constants.MultiplayManagerState.ReceiveTimeout:
                     Debug.Log("상대방이 타임 아웃 됨");
                     ExecuteOnMainThread(() =>
