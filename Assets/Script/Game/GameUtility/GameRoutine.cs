@@ -36,6 +36,8 @@ public partial class GameLogic
     {
         if (_board[row, col] != Enums.PlayerType.None) return;
 
+        AudioManager.Instance.PlayStoneSound(); //사운드 추가
+        
         switch (playerType)
         {
             case Enums.PlayerType.PlayerA:
