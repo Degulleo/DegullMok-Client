@@ -58,6 +58,10 @@ public class RatingPanelController : PanelController
                     if (scoreResultInfo.isAdvancement == 1)
                     {
                         GameManager.Instance.panelManager.OpenRatingEffectPanel(1);
+                        
+                        //패널의 포인트들 초기화
+                        _ratingPointsController.InitRatingUpPoints();
+                        //TODO: 승급이 10->9 그리고 5->4일 때 패널 바꿔주기
                     }
                 },() => { });
                 break;
@@ -69,6 +73,9 @@ public class RatingPanelController : PanelController
                     if (scoreResultInfo.isAdvancement == -1)
                     {
                         GameManager.Instance.panelManager.OpenRatingEffectPanel(-1);
+                        
+                        _ratingPointsController.InitRatingDownPoints();
+                        //TODO: 강등이 4->5 그리고 9->10일 때 패널 바꿔주기
                     }
                 }, () => { });
                 break;
@@ -161,6 +168,6 @@ public class RatingPanelController : PanelController
             getPointsText.text = $"게임에서 {win}했습니다.\n{Constants.RAING_POINTS} 승급 포인트를 {get}";
         }
         // 애니메이션 실행 완료를 위한 wait
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1.8f);
     }
 }
