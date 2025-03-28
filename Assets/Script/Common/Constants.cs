@@ -25,6 +25,12 @@
         DrawConfirmed,
         DrawRejected,
         DrawRejectionConfirmed,
+        ReceiveRevengeRequest,  // 재대결 요청 수신
+        RevengeRequestSent, // 재대결 요청 전송 확인
+        RevengeAccepted,    // 재대결 수락 수신
+        RevengeConfirmed,   // 재대결 수락 전송 확인
+        RevengeRejected,    // 재대결 거절 수신
+        RevengeRejectionConfirmed,  // 재대결 거절 전송 확인
         ReceiveTimeout  // 상대방이 타임 아웃일 때
     };
 }
