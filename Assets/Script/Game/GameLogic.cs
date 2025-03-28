@@ -187,83 +187,83 @@ public partial class GameLogic : IDisposable
                 case Constants.MultiplayManagerState.RevengeRequestSent:
                         Debug.Log("재대결 요청: 전송 완료");
                         break;
-                    case Constants.MultiplayManagerState.ReceiveRevengeRequest:
-                        Debug.Log("상대방의 재대결 요청이 들어옴");
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                case Constants.MultiplayManagerState.ReceiveRevengeRequest:
+                    Debug.Log("상대방의 재대결 요청이 들어옴");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenDrawConfirmPanel("상대방의 재대결 요청을\n승낙하시겠습니까?", () =>
                         {
-                            GameManager.Instance.panelManager.OpenDrawConfirmPanel("상대방의 재대결 요청을\n승낙하시겠습니까?", () =>
-                            {
-                                MultiPlayManager.AcceptRevenge();
-                            }, () =>
-                            {
-                                MultiPlayManager.RejectRevenge();
-                            });
+                            MultiPlayManager.AcceptRevenge();
+                        }, () =>
+                        {
+                            MultiPlayManager.RejectRevenge();
                         });
-                        break;
-                    case Constants.MultiplayManagerState.RevengeAccepted:
-                        Debug.Log("재대결 요청: 승낙이 들어옴");
-                        var revengeAcceptedData = data as RevengeData;
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeAccepted:
+                    Debug.Log("재대결 요청: 승낙이 들어옴");
+                    var revengeAcceptedData = data as RevengeData;
 
-                        // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
-                        if (revengeAcceptedData == null)
+                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                    if (revengeAcceptedData == null)
+                    {
+                        Debug.Log("RevengeAccepted 응답값이 null 입니다");
+                        return;
+                    }
+
+                    // 선공, 후공 처리
+                    isFirstPlayer = revengeAcceptedData.isBlack;
+
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
                         {
-                            Debug.Log("RevengeAccepted 응답값이 null 입니다");
-                            return;
-                        }
-
-                        // 선공, 후공 처리
-                        isFirstPlayer = revengeAcceptedData.isBlack;
-
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-                        {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결을 승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
-                            {
-                                InitBoardForRevenge(isFirstPlayer);
-                            });
+                            InitBoardForRevenge(isFirstPlayer);
                         });
-                        break;
-                    case Constants.MultiplayManagerState.RevengeConfirmed:
-                        Debug.Log("재대결 요청: 승낙 완료");
-                        var revengConfirmedData = data as RevengeData;
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeConfirmed:
+                    Debug.Log("재대결 요청: 승낙 완료");
+                    var revengConfirmedData = data as RevengeData;
 
-                        // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
-                        if (revengConfirmedData == null)
-                        {
-                            Debug.Log("RevengeConfirmed 응답값이 null 입니다");
-                            return;
-                        }
+                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                    if (revengConfirmedData == null)
+                    {
+                        Debug.Log("RevengeConfirmed 응답값이 null 입니다");
+                        return;
+                    }
 
-                        // 선공, 후공 처리
-                        isFirstPlayer = revengConfirmedData.isBlack;
+                    // 선공, 후공 처리
+                    isFirstPlayer = revengConfirmedData.isBlack;
 
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n승낙하였습니다.\n게임이 다시 시작됩니다.", () =>
-                            {
-                                InitBoardForRevenge(isFirstPlayer);
-                            });
+                            InitBoardForRevenge(isFirstPlayer);
                         });
-                        break;
-                    case Constants.MultiplayManagerState.RevengeRejected:
-                        Debug.Log("재대결 요청: 거부가 들어옴");
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeRejected:
+                    Debug.Log("재대결 요청: 거부가 들어옴");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결 요청을\n거부하였습니다.", () =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결 요청을\n거부하였습니다.", () =>
-                            {
-                                GameManager.Instance.panelManager.CloseLoadingPanel();
-                            });
+                            GameManager.Instance.panelManager.CloseLoadingPanel();
                         });
-                        break;
-                    case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
-                        Debug.Log("재대결 요청: 거부 완료");
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                    });
+                    break;
+                case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
+                    Debug.Log("재대결 요청: 거부 완료");
+                    ExecuteOnMainThread(() =>
+                    {
+                        GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n거부하였습니다.", () =>
                         {
-                            GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n거부하였습니다.", () =>
-                            {
-                                GameManager.Instance.panelManager.CloseLoadingPanel();
-                            });
+                            GameManager.Instance.panelManager.CloseLoadingPanel();
                         });
-                        break;
+                    });
+                    break;
                 }
             ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
         });
