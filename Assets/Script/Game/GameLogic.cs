@@ -120,7 +120,7 @@ public partial class GameLogic : IDisposable
                     Debug.Log("## End Game");
                     ExecuteOnMainThread(() =>
                     {
-                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 연결이 끊어졌습니다.", () => 
+                        GameManager.Instance.panelManager.OpenConfirmPanel("연결이 끊어졌습니다.", () => 
                         {
                             GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
                             EndGame(Enums.GameResult.Win);
