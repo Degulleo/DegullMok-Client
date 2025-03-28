@@ -16,6 +16,8 @@ public class WinEffectController : EffectController
 
     public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
+        AudioManager.Instance.PlayWinSound(); //사운드 추가
+        
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
         onEffectPanelEnded = onEffectPanelEnd;
