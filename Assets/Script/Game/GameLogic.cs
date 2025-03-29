@@ -35,6 +35,7 @@ public partial class GameLogic : IDisposable
     public int SelectedCol { get; private set; }
     public FioTimer FioTimer { get; private set; }
     public bool GameInProgress { get; private set; } // 게임 진행 중인지 확인
+    public bool OpponentExist { get; private set; } // 상대방 존재 여부
 
     #endregion
 
@@ -46,6 +47,7 @@ public partial class GameLogic : IDisposable
         InitializeBoard(stoneController, gameType);             // 보드 초기화
         InitializeFioTimer(fioTimer);                           // timer 초기화
         GameModeSetter(gameType);                               // 게임 모드 설정
+        OpponentExist = false;
     }
 
     // 게임 모드 분기 처리
@@ -114,17 +116,16 @@ public partial class GameLogic : IDisposable
                     StartGameOnMainThread();
                     break;
                 case Constants.MultiplayManagerState.ExitRoom:
-                    Debug.Log("## Exit Room"); 
+                    Debug.Log("## Exit Room"); // 방을 나갔으니 room id == null
+                    OpponentExist = false;
                     // TODO: Exit Room 처리
                     break;
                 case Constants.MultiplayManagerState.EndGame:
                     Debug.Log("## End Game");
+                    OpponentExist = false;
                     ExecuteOnMainThread(() =>
                     {
-                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.", () => 
-                        {
-                            // TODO: 무승부/항복 등 버튼 동작 안하도록 처리
-                        });
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.", () => { });
                     });
                     break;
                 case Constants.MultiplayManagerState.DoSurrender:
@@ -298,6 +299,7 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.OpponentDisconnected:
                     Debug.Log("상대방 강제 종료");
+                    OpponentExist = false;
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenConfirmPanel("연결이 끊어졌습니다.", () => 
@@ -338,6 +340,8 @@ public partial class GameLogic : IDisposable
 
             UpdateUIForSecondPlayer(_opponentNickname, _opponentImageIndex);
         }
+
+        OpponentExist = true;
     }
 
     private void UpdateUIForFirstPlayer(string opponentNickname, int opponentImageIndex)
@@ -369,9 +373,8 @@ public partial class GameLogic : IDisposable
     private void StartGameOnMainThread()
     {
         ChangeGameInProgress(true);
-        Debug.Log("GameInProgress 변경 true");
         GameButtonSetter(GameInProgress); // 버튼 상태 교체
-
+        
         ExecuteOnMainThread(() =>
         {
             // 로딩 패널 열려있으면 닫기
@@ -601,13 +604,15 @@ public partial class GameLogic : IDisposable
     
     public void Dispose()
     {
-        MultiPlayManager?.LeaveRoom(_roomId);
+        MultiPlayManager?.LeaveRoom();
+        _roomId = null; // room id 초기화
         MultiPlayManager?.Dispose();
     }
     
     public void ForceQuit()
     {
-        MultiPlayManager?.ForceQuit(_roomId);
+        MultiPlayManager?.ForceQuit();
+        _roomId = null;
         MultiPlayManager?.Dispose();
     }
 }

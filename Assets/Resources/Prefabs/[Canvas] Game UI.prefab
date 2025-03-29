@@ -2497,7 +2497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a536dce57360441898a57e5d5a1335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitButton: {fileID: 2183639868091494604}
+  exitButton: {fileID: 403017146611159122}
+  retryButton: {fileID: 0}
   playerANameText: {fileID: 4888719462249568075}
   playerBNameText: {fileID: 5649645114775233136}
   indicatorA: {fileID: 822440635660578859}

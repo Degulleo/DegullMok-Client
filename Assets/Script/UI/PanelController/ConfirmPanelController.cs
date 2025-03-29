@@ -15,6 +15,9 @@ public class ConfirmPanelController : PanelController
     
     public void Show(string message, OnConfirmButtonClick onConfirmButtonClick, bool isClose, bool isConfirm)
     {
+        confirmButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
+        closeButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
+        
         messageText.text = message;
         this.onConfirmButtonClick = onConfirmButtonClick;
         closeButton.SetActive(isClose);
