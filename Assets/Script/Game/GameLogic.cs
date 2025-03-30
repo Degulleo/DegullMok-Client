@@ -190,19 +190,19 @@ public partial class GameLogic : IDisposable
                 }
                 case Constants.MultiplayManagerState.DrawRejected:
                     Debug.Log("무승부 요청이 거부가 들어옴");
-                    TimerUnpause();
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.CloseLoadingPanel();
                         GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청을 거부하였습니다.", () => { });
                     });
+                    TimerUnpause();
                     break;
                 case Constants.MultiplayManagerState.DrawRejectionConfirmed:
                 {
                     Debug.Log("무승부 요청 거부 완료");
                     ExecuteOnMainThread(() =>
                     {
-                        GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
+                        GameManager.Instance.panelManager.CloseLoadingPanel();
                     });
                     TimerUnpause();
                     break;
