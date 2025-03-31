@@ -17,10 +17,6 @@ public class CoinsPanelController : MonoBehaviour
     private RectTransform _coinsRect;
     private CanvasGroup _canvasGroup;   //부모 캔버스 그룹
     
-    // 1. 코인 추가 연출
-    // 2. 코인 감소 연출
-    // 3. 코인 부족 연출
-
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();

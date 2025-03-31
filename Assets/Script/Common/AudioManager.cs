@@ -34,9 +34,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             audioClips[clip.name] = clip;
         }
-        
-        Debug.Log($"총 {audioClips.Count}개의 오디오클립이 로드됨.");
-        
     }
     
     public AudioClip GetAudioClip(string clipName)
