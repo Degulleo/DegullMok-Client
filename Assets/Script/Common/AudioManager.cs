@@ -34,7 +34,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             audioClips[clip.name] = clip;
         }
-        
     }
     
     public AudioClip GetAudioClip(string clipName)
@@ -108,7 +107,6 @@ public class AudioManager : Singleton<AudioManager>
             bgmAudioSource.Stop();  
         }
     }
-    
     
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
