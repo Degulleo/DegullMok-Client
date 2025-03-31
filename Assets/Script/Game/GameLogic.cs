@@ -59,12 +59,7 @@ public partial class GameLogic : IDisposable
                 InitializeMultiplayerMode();
                 break;
             case Enums.GameType.Replay:
-                //TODO: 리플레이 구현
                 break;
-            // 현재 싱글 플레이로 바로 넘어가지 않기 때문에 미사용
-            // case Enums.GameType.SinglePlay:
-            //     InitializeSinglePlayMode();
-            //     break;
         }
     }
 
@@ -82,14 +77,12 @@ public partial class GameLogic : IDisposable
             switch (state)
             {
                 case Constants.MultiplayManagerState.CreateRoom:
-                    Debug.Log("## Create Room");
                     _roomId = data as string;
                     break;
                 case Constants.MultiplayManagerState.JoinRoom:
-                    Debug.Log("## Join Room");
                     var joinRoomData = data as JoinRoomData;
                     _roomId = joinRoomData.roomId;
-                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
+                    
                     if (!ValidateRoomData(joinRoomData, "Join Room")) return;
 
                     // 플레이어 셋업
@@ -99,14 +92,11 @@ public partial class GameLogic : IDisposable
                     StartGameOnMainThread();
                     break;
                 case Constants.MultiplayManagerState.SwitchAI:
-                    Debug.Log("## Switching to AI Mode");
                     SwitchToSinglePlayer();
                     break;
                 case Constants.MultiplayManagerState.StartGame:
-                    Debug.Log("## Start Game");
                     var startGameData = data as StartGameData;
 
-                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
                     if (!ValidateRoomData(startGameData, "Start Game")) return;
 
                     // 플레이어 셋업
@@ -116,12 +106,9 @@ public partial class GameLogic : IDisposable
                     StartGameOnMainThread();
                     break;
                 case Constants.MultiplayManagerState.ExitRoom:
-                    Debug.Log("## Exit Room"); // 방을 나갔으니 room id == null
                     OpponentExist = false;
-                    // TODO: Exit Room 처리
                     break;
                 case Constants.MultiplayManagerState.EndGame:
-                    Debug.Log("## End Game");
                     OpponentExist = false;
                     ExecuteOnMainThread(() =>
                     {
@@ -129,7 +116,6 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.DoSurrender:
-                    Debug.Log("상대방의 항복 요청 들어옴");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
@@ -137,7 +123,6 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.SurrenderConfirmed:
-                    Debug.Log("항복 요청 전송 완료");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Lose);
@@ -145,7 +130,6 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.ReceiveDrawRequest:
-                    Debug.Log("상대방의 무승부 요청 들어옴");
                     TimerPause();
                     ExecuteOnMainThread(() =>
                     {
@@ -163,7 +147,6 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.DrawRequestSent:
                 {
-                    Debug.Log("무승부 요청 전송 완료");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenLoadingPanel(true, true, false, false);
@@ -172,7 +155,6 @@ public partial class GameLogic : IDisposable
                     break;
                 }
                 case Constants.MultiplayManagerState.DrawAccepted:
-                    Debug.Log("무승부 요청이 승낙이 들어옴");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -182,7 +164,6 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.DrawConfirmed:
                 {
-                    Debug.Log("무승부 요청 승낙 완료");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -190,7 +171,6 @@ public partial class GameLogic : IDisposable
                     break;
                 }
                 case Constants.MultiplayManagerState.DrawRejected:
-                    Debug.Log("무승부 요청이 거부가 들어옴");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -200,7 +180,6 @@ public partial class GameLogic : IDisposable
                     break;
                 case Constants.MultiplayManagerState.DrawRejectionConfirmed:
                 {
-                    Debug.Log("무승부 요청 거부 완료");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.CloseLoadingPanel();
@@ -209,7 +188,6 @@ public partial class GameLogic : IDisposable
                     break;
                 }
                 case Constants.MultiplayManagerState.ReceiveTimeout:
-                    Debug.Log("상대방이 타임 아웃 됨");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
@@ -217,10 +195,8 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.RevengeRequestSent:
-                        Debug.Log("재대결 요청: 전송 완료");
                         break;
                 case Constants.MultiplayManagerState.ReceiveRevengeRequest:
-                    Debug.Log("상대방의 재대결 요청이 들어옴");
                     ChangeGameInProgress(true);
                     ExecuteOnMainThread(() =>
                     {
@@ -234,15 +210,9 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.RevengeAccepted:
-                    Debug.Log("재대결 요청: 승낙이 들어옴");
                     var revengeAcceptedData = data as RevengeData;
 
-                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
-                    if (revengeAcceptedData == null)
-                    {
-                        Debug.Log("RevengeAccepted 응답값이 null 입니다");
-                        return;
-                    }
+                    if (revengeAcceptedData == null) return;
 
                     // 선공, 후공 처리
                     isFirstPlayer = revengeAcceptedData.isBlack;
@@ -256,15 +226,9 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.RevengeConfirmed:
-                    Debug.Log("재대결 요청: 승낙 완료");
                     var revengConfirmedData = data as RevengeData;
 
-                    // TODO: 응답값 없을 때 서버에서 다시 받아오기 or AI 플레이로 넘기는 처리 필요
-                    if (revengConfirmedData == null)
-                    {
-                        Debug.Log("RevengeConfirmed 응답값이 null 입니다");
-                        return;
-                    }
+                    if (revengConfirmedData == null) return;
 
                     // 선공, 후공 처리
                     isFirstPlayer = revengConfirmedData.isBlack;
@@ -278,7 +242,6 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.RevengeRejected:
-                    Debug.Log("재대결 요청: 거부가 들어옴");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenConfirmPanel("상대방이\n재대결 요청을\n거부하였습니다.", () =>
@@ -288,7 +251,6 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.RevengeRejectionConfirmed:
-                    Debug.Log("재대결 요청: 거부 완료");
                     ExecuteOnMainThread(() =>
                     {
                         GameManager.Instance.panelManager.OpenConfirmPanel("재대결 요청을\n거부하였습니다.", () =>
@@ -298,7 +260,6 @@ public partial class GameLogic : IDisposable
                     });
                     break;
                 case Constants.MultiplayManagerState.OpponentDisconnected:
-                    Debug.Log("상대방 강제 종료");
                     OpponentExist = false;
                     ExecuteOnMainThread(() =>
                     {
@@ -310,7 +271,7 @@ public partial class GameLogic : IDisposable
                     });
                     break;
             }
-            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,"nicknameB");
+            ReplayManager.Instance.InitReplayData(UserManager.Instance.Nickname,_opponentNickname);
         });
 
         MultiPlayManager.RegisterPlayer(UserManager.Instance.Nickname, UserManager.Instance.Rating, UserManager.Instance.imageIndex);
@@ -326,7 +287,6 @@ public partial class GameLogic : IDisposable
         
         if (isFirstPlayer)
         {
-            Debug.Log("해당 플레이어가 선공 입니다");
             FirstPlayerState = new PlayerState(true, MultiPlayManager, roomId);
             SecondPlayerState = new MultiPlayerState(false, MultiPlayManager);
 
@@ -334,7 +294,6 @@ public partial class GameLogic : IDisposable
         }
         else
         {
-            Debug.Log("해당 플레이어가 후공 입니다");
             FirstPlayerState = new MultiPlayerState(true, MultiPlayManager);
             SecondPlayerState = new PlayerState(false, MultiPlayManager, roomId);
 
@@ -396,11 +355,7 @@ public partial class GameLogic : IDisposable
     // 방 데이터 유효성 검사 헬퍼 함수
     private bool ValidateRoomData(object roomData, string operationName)
     {
-        if (roomData == null)
-        {
-            Debug.Log($"{operationName} 응답값이 null 입니다");
-            return false;
-        }
+        if (roomData == null) return false;
         return true;
     }
 
@@ -420,9 +375,6 @@ public partial class GameLogic : IDisposable
         // 메인 스레드에서 실행 - UI 업데이트는 메인 스레드에서 실행 필요
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            // 스레드 확인 로그: 추후 디버깅 시 필요할 수 있을 것 같아 남겨둡니다
-            // Debug.Log($"[UnityMainThreadDispatcher] 실행 스레드: {System.Threading.Thread.CurrentThread.ManagedThreadId}");
-
             //AI닉네임 랜덤생성
             var aiName = RandomAINickname();
             var imageIndex = Random.Range(0, 2);

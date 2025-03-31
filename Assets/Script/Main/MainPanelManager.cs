@@ -11,15 +11,8 @@ public class MainPanelManager : MonoBehaviour
     
     private UserManager _userManager;  // UserManager 인스턴스 관리
 
-    // private void Awake()
-    // {
-    //     loadingPanelController = GameObject.Find("LoadingPanel").GetComponent<LoadingPanelController>();
-    //     mainPanelController = GameObject.Find("MainPanel").GetComponent<MainPanelController>();
-    // }
-    //
     private void Start()
     {
-        // UserManager가 없으면 생성
         if (UserManager.Instance == null)
         {
             GameObject userManagerObj = new GameObject("UserManager");
@@ -41,9 +34,7 @@ public class MainPanelManager : MonoBehaviour
             UserManager.Instance.SetUserInfo(userInfo);
             
             UpdateMainPanelUI(GameManager.Instance.panelManager.OpenMainPanel);
-            // ScoreData.SetScore(userInfo.score);
-            // GameManager.Instance.panelManager.OpenConfirmPanel(userInfo.nickname + "님" + "\n" + "자동 로그인 되었습니다", () => { });
-            
+
             loadingPanelController.StopLoading();
         }, () =>
         {
@@ -54,7 +45,6 @@ public class MainPanelManager : MonoBehaviour
             GameManager.Instance.panelManager.OpenSigninPanel();
         });
     }
-
     
     /// <summary>
     /// 유저 별명, 급수를 서버에서 가져온 정보로 업데이트하여 메인화면에 표시
@@ -62,8 +52,6 @@ public class MainPanelManager : MonoBehaviour
     public void UpdateMainPanelUI(Action success = null)
     {
         mainPanelController.UpdateUserInfo();
-
         success?.Invoke();
     }
-
 }
