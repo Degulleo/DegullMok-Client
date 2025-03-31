@@ -36,8 +36,6 @@ public class PanelManager : MonoBehaviour
         {
             effectPanelPrefabs[effect.name] = effect;
         }
-
-        Debug.Log($"총 {panelPrefabs.Count}개의 패널이 로드됨.");
     }
     
     void SetCanvas()
@@ -343,10 +341,7 @@ public class PanelManager : MonoBehaviour
     public void RemoveCoinsPanelUI(Action onComplete)
     {
         NetworkManager.Instance.DeductCoins((i) =>
-        {
-            //Todo: 감소된 코인 값으로 확장할 기능 추가
-            
-        }, (failMessage) =>
+        { }, (failMessage) =>
         {
             Debug.Log(failMessage);
         });

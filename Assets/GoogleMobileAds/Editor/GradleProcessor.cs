@@ -68,7 +68,6 @@ public class GradleProcessor : IPostGenerateGradleAndroidProject
             File.WriteAllText(gradlepath, contents);
         }
 
-        // TODO (b/311555203) Use delete then write approach above to update this Gradle script too.
         var unityLibraryGradle = Directory.GetFiles(rootPath, "unityLibrary/build.gradle",
                     SearchOption.TopDirectoryOnly);
 

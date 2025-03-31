@@ -73,7 +73,6 @@ public partial class GameLogic : IDisposable
 
         MultiPlayManager = new MultiplayManager((state, data) =>
         {
-            Debug.Log($"## {state}");
             switch (state)
             {
                 case Constants.MultiplayManagerState.CreateRoom:
@@ -431,7 +430,6 @@ public partial class GameLogic : IDisposable
                 }
                 else // 로컬에서 자신의 타이머 기준으로 상대방이 타임 오버일 때
                 {
-                    // TODO: 컨펌 패널 OK 버튼 삭제?
                     GameManager.Instance.panelManager.OpenConfirmPanel("상대방의 응답을 기다리는 중입니다",
                         () => { }, false, false );
                 }

@@ -82,7 +82,6 @@ public class DoubleFourCheck : ForbiddenDetectorBase
             // 한줄로 발생하는 쌍사 패턴 검사
             if (patternStr.Contains("●●□●●□●●") || patternStr.Contains("●□●●●□●"))
             {
-                Debug.Log("patternStr: " + patternStr);
                 return true;
             }
         }
