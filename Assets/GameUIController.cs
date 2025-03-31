@@ -182,7 +182,7 @@ public class GameUIController : MonoBehaviour
     {
         inGameMenuButtonsObject.SetActive(gameInProgress);
         confirmButtonObject.SetActive(gameInProgress);
-        timerObject.SetActive(!gameInProgress);
+        timerObject.SetActive(gameInProgress);
         exitButtonObject.SetActive(!gameInProgress);
         revengeRetryButtonObject.SetActive(!gameInProgress);
     }
