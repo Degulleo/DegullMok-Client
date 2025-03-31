@@ -386,6 +386,7 @@ MonoBehaviour:
   panelRectTransform: {fileID: 3566405136616423668}
   sfxSwitch: {fileID: 3464089222698319368}
   bgmSwitch: {fileID: 6789969287113785900}
+  closeButton: {fileID: 3415738084506217009}
 --- !u!1 &3415738084506217009
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +399,7 @@ GameObject:
   - component: {fileID: 1293506759801131046}
   - component: {fileID: 4620135508563498056}
   - component: {fileID: 3480686221752108514}
+  - component: {fileID: 2236322977238445129}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -518,6 +520,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2236322977238445129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415738084506217009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4330206548604932b038a7007dacf94b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableOneTimeClick: 1
 --- !u!1 &3857536818415472779
 GameObject:
   m_ObjectHideFlags: 0

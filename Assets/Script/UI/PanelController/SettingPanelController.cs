@@ -7,7 +7,8 @@ public class SettingsPanelController : PanelController
 {
     [SerializeField] private Button sfxSwitch;
     [SerializeField] private Button bgmSwitch;
-
+    [SerializeField] private GameObject closeButton;
+    
     void Start()
     {
         // 스위치 컨트롤러 상태 변경 이벤트 연결
@@ -17,6 +18,12 @@ public class SettingsPanelController : PanelController
         // 현재 저장된 설정 값을 UI에 반영
         sfxSwitch.GetComponent<SwitchController>().SetSwitch(UserManager.IsPlaySFX);
         bgmSwitch.GetComponent<SwitchController>().SetSwitch(UserManager.IsPlayBGM);
+    }
+
+    public void Show()
+    {
+        closeButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
+        base.Show();
     }
 
     // SFX On/Off 시 호출되는 함수

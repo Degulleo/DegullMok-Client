@@ -8,12 +8,14 @@ public class InGameMenuPanelController : PanelController
 {
     [SerializeField] private GameObject drawRegisterButton; // 무승부 요청
     [SerializeField] private GameObject settingsButton; // 설정 버튼
+    [SerializeField] private GameObject closeButton;
     
     public delegate void OnInGameMenuButtonClick();
     private OnInGameMenuButtonClick onInGameMenuButtonClick;
     
     public void Show(OnInGameMenuButtonClick onInGameMenuButtonClick)
     {
+        closeButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
         this.onInGameMenuButtonClick = onInGameMenuButtonClick;
         base.Show();
     }
