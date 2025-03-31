@@ -70,36 +70,30 @@ public class GameUIController : MonoBehaviour
 
     public void OnClickDrawRequestButton()
     {
-        if (GameManager.Instance.CheckIsSinglePlay())
+        if (GameManager.Instance.GetRequestDrawChance())
         {
-            GameManager.Instance.DrawSinglePlay();
+            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
+            {
+                if (GameManager.Instance.CheckIsSinglePlay())
+                {
+                    GameManager.Instance.DrawSinglePlay();
+                }
+                else
+                {
+                    _multiplayManager.RequestDraw();
+                }
+            }, true);
+            GameManager.Instance.SetRequestDrawChanceFalse();
         }
         else
         {
-            if (GameManager.Instance.GetRequestDrawChance())
-            {
-                GameManager.Instance.panelManager.OpenConfirmPanel("무승부 신청을 하시겠습니까?", () =>
-                {
-                    _multiplayManager.RequestDraw();
-                }, true);
-                GameManager.Instance.SetRequestDrawChanceFalse();
-            }
-            else
-            {
-                GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청이 제한돼있습니다.",()=>{});
-            }
+            GameManager.Instance.panelManager.OpenConfirmPanel("무승부 요청이 제한돼있습니다.",()=>{});
         }
     }
 
     public void OnClickRevengeRequestButton()
     {
-        if (!GameManager.Instance.GetGameLogic().OpponentExist)
-        {
-            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.",() => { });
-            return;
-        }
-        
-        if (GameManager.Instance.CheckIsSinglePlay())
+        if (!GameManager.Instance.GetGameLogic().OpponentExist || GameManager.Instance.CheckIsSinglePlay())
         {
             GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.",() => { });
         }
