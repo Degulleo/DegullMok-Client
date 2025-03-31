@@ -228,38 +228,6 @@ public class DoubleFourCheck : ForbiddenDetectorBase
             }
         }
         
-        /*// dir1 방향으로 패턴 채우기
-        for (int i = 1; i <= 5; i++)
-        {
-            int newRow = row + Directions[dir1, 0] * i;
-            int newCol = col + Directions[dir1, 1] * i;
-
-            if (IsInBounds(newRow, newCol))
-            {
-                linePattern[centerIndex + i] = board[newRow, newCol];
-            }
-            else
-            {
-                linePattern[centerIndex + i] = White; // 범위 밖은 벽으로 처리하여 일관성 유지
-            }
-        }
-
-        // dir2 방향으로 패턴 채우기
-        for (int i = 1; i <= 5; i++)
-        {
-            int newRow = row + Directions[dir2, 0] * i;
-            int newCol = col + Directions[dir2, 1] * i;
-
-            if (IsInBounds(newRow, newCol))
-            {
-                linePattern[centerIndex - i] = board[newRow, newCol];
-            }
-            else
-            {
-                linePattern[centerIndex - i] = White; // 범위 밖은 벽으로 처리하여 일관성 유지
-            }
-        }*/
-
         return linePattern;
     }
 }

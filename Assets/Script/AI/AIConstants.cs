@@ -1,7 +1,5 @@
-﻿// AI에서만 사용하는 상수 모음
-public class AIConstants
+﻿public class AIConstants
 {
-    // 방향 상수
     public static readonly int[][] Directions = new int[][]
     {
         new int[] {1, 0}, // 수직
