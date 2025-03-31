@@ -21,7 +21,7 @@ public class AudioManager : Singleton<AudioManager>
     
     protected override void Awake()
     {
-        base.Awake();  // 부모 클래스의 Awake 호출
+        base.Awake();  
 
         // BGM과 SFX를 위한 별도의 AudioSource 생성
         bgmAudioSource = gameObject.AddComponent<AudioSource>();
@@ -69,9 +69,9 @@ public class AudioManager : Singleton<AudioManager>
         if (bgmAudioSource != null && mainBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = mainBgm;
-            bgmAudioSource.loop = true;  // BGM을 반복 재생
-            bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
-            bgmAudioSource.Play();  // BGM 재생
+            bgmAudioSource.loop = true;  
+            bgmAudioSource.volume = 0.1f;  
+            bgmAudioSource.Play();  
         }
     }
     
@@ -82,9 +82,9 @@ public class AudioManager : Singleton<AudioManager>
         if (bgmAudioSource != null && gameBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = gameBgm;
-            bgmAudioSource.loop = true;  // BGM을 반복 재생
-            bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
-            bgmAudioSource.Play();  // 게임 BGM 재생
+            bgmAudioSource.loop = true;  
+            bgmAudioSource.volume = 0.1f; 
+            bgmAudioSource.Play();  
         }
     }
 
@@ -111,11 +111,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
-            bgmAudioSource.Stop();  // 게임용 BGM을 멈춤
+            bgmAudioSource.Stop();  
         }
     }
     
-    // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayBGM();
