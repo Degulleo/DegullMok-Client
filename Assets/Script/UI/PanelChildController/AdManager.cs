@@ -13,10 +13,11 @@ public class AdManager : Singleton<AdManager>
         base.Awake();  
         
         // Google Mobile Ads 초기화
-        MobileAds.Initialize(initStatus => {  });
-
-        // 광고 로드
-        LoadRewardedInterstitialAd();
+        MobileAds.Initialize(initStatus =>
+        {
+            LoadRewardedInterstitialAd();   // 광고 로드
+        });
+        
     }
     
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
