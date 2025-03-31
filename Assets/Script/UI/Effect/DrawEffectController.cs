@@ -11,12 +11,12 @@ public class DrawEffectController : EffectController
     [SerializeField] private GameObject tigerCloseEyes;
     [SerializeField] private float flipDuration = 0.3f;
     protected override string fullText => "무승부 입니다";
-
+    
     public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
-        AudioManager.Instance.PlayDrawSound(); //사운드 추가
-        
+        AudioManager.Instance.PlayDrawSound(); // 사운드 추가
         gameObject.SetActive(true);
+        
         cancellationTokenSource = new CancellationTokenSource();
         onEffectPanelEnded = onEffectPanelEnd;
         
@@ -27,6 +27,8 @@ public class DrawEffectController : EffectController
     
     private IEnumerator AnimateCharacterEyes()
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         while (!cancellationTokenSource.IsCancellationRequested)
         {
             yield return PlayBlinkAnimation(dragonOpenEyes, dragonCloseEyes);
@@ -62,6 +64,8 @@ public class DrawEffectController : EffectController
     // 눈 깜빡이는 애니메이션을 메서드로 분리
     private IEnumerator PlayBlinkAnimation(GameObject openEye, GameObject closeEye)
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+        
         for (int i = 0; i < 2; i++)
         {
             openEye.SetActive(false);
@@ -78,6 +82,8 @@ public class DrawEffectController : EffectController
     
     private void PopupBanner()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+        
         tigerCloseEyes.SetActive(false);
         tigerOpenEyes.SetActive(false);
         dragonCloseEyes.SetActive(true);
@@ -108,8 +114,8 @@ public class DrawEffectController : EffectController
             .SetDelay(0.2f) // 살짝 더 길게 흔들도록 설정
             .OnComplete(() =>
             {
-                // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
-                StartCoroutine(AnimateCharacterEyes());
+                if (gameObject.activeInHierarchy) // 실행 전에 다시 확인
+                    StartCoroutine(AnimateCharacterEyes()); // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
             });
     }
 }

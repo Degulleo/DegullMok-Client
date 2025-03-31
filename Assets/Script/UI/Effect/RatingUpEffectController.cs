@@ -50,6 +50,8 @@ public class RatingUpEffectController : EffectController
 
     private void PopupObject()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         characterImg.SetActive(true);
 
         // 초기 크기 및 위치 설정
@@ -79,12 +81,16 @@ public class RatingUpEffectController : EffectController
 
     private void ScaleUpSparkles()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         // 스파클 효과 실행
         StartCoroutine(ScaleUpSparklesCoroutine());
     }
 
     private IEnumerator ScaleUpSparklesCoroutine()
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         while (!cancellationTokenSource.IsCancellationRequested)
         {
             // 각 스파클 효과 실행
@@ -97,6 +103,8 @@ public class RatingUpEffectController : EffectController
 
     private IEnumerator ScaleUpEffectCoroutine(GameObject[] effectArray)
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         foreach (GameObject effect in effectArray)
         {
             effect.transform.localScale = Vector3.zero;

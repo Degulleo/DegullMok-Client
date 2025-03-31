@@ -13,11 +13,9 @@ public class WinEffectController : EffectController
 
     protected override string fullText => "승리했습니다!";
 
-
     public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
-        AudioManager.Instance.PlayWinSound(); //사운드 추가
-        
+        AudioManager.Instance.PlayWinSound(); // 사운드 추가
         gameObject.SetActive(true);
         cancellationTokenSource = new CancellationTokenSource();
         onEffectPanelEnded = onEffectPanelEnd;
@@ -50,6 +48,8 @@ public class WinEffectController : EffectController
 
     private void PopupObject()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+        
         characterImg.SetActive(true);
 
         // 초기 크기 및 위치 설정
@@ -79,12 +79,16 @@ public class WinEffectController : EffectController
 
     private void ScaleUpSparkles()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+        
         // 스파클 효과 실행
         StartCoroutine(ScaleUpSparklesCoroutine());
     }
 
     private IEnumerator ScaleUpSparklesCoroutine()
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+        
         while (!cancellationTokenSource.IsCancellationRequested)
         {
             // 각 스파클 효과 실행

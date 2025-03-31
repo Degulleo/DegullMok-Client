@@ -38,6 +38,8 @@ public class RatingDownEffectController : EffectController
 
     private IEnumerator AnimateCharacterEyes()
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         while (!cancellationTokenSource.IsCancellationRequested)
         {
             characterOpenEyes.SetActive(false);
@@ -57,6 +59,8 @@ public class RatingDownEffectController : EffectController
     
     private void PopupBanner()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         characterCloseEyes.SetActive(true);
         characterOpenEyes.SetActive(false);
         // 초기 크기 및 위치 설정
@@ -84,13 +88,15 @@ public class RatingDownEffectController : EffectController
             .SetDelay(0.2f) // 살짝 더 길게 흔들도록 설정
             .OnComplete(() =>
         {
-            // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
-            StartCoroutine(AnimateCharacterEyes());
+            if (gameObject.activeInHierarchy) 
+                StartCoroutine(AnimateCharacterEyes()); // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
         });
     }
 
     private void PopupDepressedEffect()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         depressedEffect.SetActive(true);
         RectTransform rectTransform = depressedEffect.GetComponent<RectTransform>();
         if (rectTransform != null)

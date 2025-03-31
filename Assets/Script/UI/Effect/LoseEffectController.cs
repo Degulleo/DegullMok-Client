@@ -14,16 +14,16 @@ public class LoseEffectController : EffectController
 
     public override void ShowEffect(OnEffectPanelEnded onEffectPanelEnd)
     {
-        AudioManager.Instance.PlayLoseSound(); //사운드 추가
-        
+        AudioManager.Instance.PlayLoseSound(); // 사운드 추가
         gameObject.SetActive(true);
+        
         cancellationTokenSource = new CancellationTokenSource();
         onEffectPanelEnded = onEffectPanelEnd;
 
         ShowPanel();
         StartCoroutine(AnimateLoadingText());
         PopupDepressedEffect();
-        Invoke(nameof(PopupBanner), 0.3f); // 0.3초 후에 배너 효과 실행
+        Invoke(nameof(PopupBanner), 0.3f);
     }
 
     protected override void ShowPanel()
@@ -38,6 +38,8 @@ public class LoseEffectController : EffectController
 
     private IEnumerator AnimateCharacterEyes()
     {
+        if (!gameObject.activeInHierarchy) yield return null; // 게임 오브젝트가 비활성화 상태면 실행 안 함
+
         while (!cancellationTokenSource.IsCancellationRequested)
         {
             characterOpenEyes.SetActive(false);
@@ -57,6 +59,7 @@ public class LoseEffectController : EffectController
     
     private void PopupBanner()
     {
+        if (!gameObject.activeInHierarchy) return; // 게임 오브젝트가 비활성화 상태면 실행 안 함
         characterCloseEyes.SetActive(true);
         characterOpenEyes.SetActive(false);
         // 초기 크기 및 위치 설정
@@ -84,8 +87,8 @@ public class LoseEffectController : EffectController
             .SetDelay(0.2f) // 살짝 더 길게 흔들도록 설정
             .OnComplete(() =>
         {
-            // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
-            StartCoroutine(AnimateCharacterEyes());
+            if (gameObject.activeInHierarchy) // 실행 전에 다시 확인
+                StartCoroutine(AnimateCharacterEyes()); // 애니메이션이 끝난 후 눈 깜빡이는 효과 실행
         });
     }
 
