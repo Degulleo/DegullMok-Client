@@ -15,17 +15,13 @@
     public override void OnEnter(GameLogic gameLogic)
     {
         gameLogic.FioTimer.StartTimer();
-        //TODO: 첫번째 플레이어면 렌주 룰 확인
         #region Renju Turn Set
         // 턴이 변경될 때마다 금수 위치 업데이트
         gameLogic.UpdateForbiddenMoves();
         #endregion
 
         gameLogic.CurrentTurn = _playerType;
-        // gameLogic.stoneController.OnStoneClickedDelegate = (row, col) =>
-        // {
-        //     HandleMove(gameLogic, row, col);
-        // };
+
         _multiplayManager.OnOpponentMove = moveData =>
         {
             var row = moveData.position.x;
