@@ -5,6 +5,8 @@ using UnityEngine;
 // 오목 렌주룰 3-3 금수 판정. 3-3 둘다 열린 상황만 금수로 판정합니다.
 public class DoubleThreeCheck : ForbiddenDetectorBase
 {
+    private RenjuDoubleThreeDetector _renjuDoubleThreeDetector = new();
+    
     // 열린 3 패턴 정보를 저장하는 구조체
     private struct OpenThreeInfo
     {
@@ -25,7 +27,7 @@ public class DoubleThreeCheck : ForbiddenDetectorBase
         // 임시로 돌 배치
         board[row, col] = Black;
         
-        List<int> openThreeDirections = new List<int>(); // 열린 3 저장용
+        List<RenjuDoubleThreeDetector.OpenThreeInfo> openThreeDirections = new List<RenjuDoubleThreeDetector.OpenThreeInfo>(); // 열린 3 저장용
         
         // 4개의 방향 검사
         for (int i = 0; i < 4; i++)
@@ -33,22 +35,31 @@ public class DoubleThreeCheck : ForbiddenDetectorBase
             int dir1 = DirectionPairs[i, 0];
             int dir2 = DirectionPairs[i, 1];
             
+            RenjuDoubleThreeDetector.OpenThreeInfo threeInfo = new RenjuDoubleThreeDetector.OpenThreeInfo(i);
             // 이 방향에서 실제 열린 3이 있는지 확인
-            if (HasRealOpenThree(board, row, col, dir1, dir2))
+            if (HasRealOpenThree(board, row, col, dir1, dir2, ref threeInfo))
             {
-                openThreeDirections.Add(i);
+                openThreeDirections.Add(threeInfo);
             }
         }
 
         // 원래 상태로 되돌림
         board[row, col] = Space;
         
-        return openThreeDirections.Count >= 2; 
+        // 열린 3이 2개 미만이면 쌍삼이 아님
+        if (openThreeDirections.Count < 2)
+            return false;
+    
+        // 연쇄 쌍삼 예외 확인 (RenjuDoubleThreeDetector의 CheckExceptionB 호출)
+        if (_renjuDoubleThreeDetector.CheckDoubleThreeChain(board, row, col, openThreeDirections))
+            return false;
+        
+        return true;
     }
     
     // 특정 방향에 대해 열린 3 검사
     private bool HasRealOpenThree(Enums.PlayerType[,] board, int row, int col, 
-        int dir1, int dir2)
+        int dir1, int dir2, ref RenjuDoubleThreeDetector.OpenThreeInfo threeInfo)
     {
         // 패턴 추출
         Enums.PlayerType[] linePattern = ExtractLinePattern(board, row, col, dir1, dir2);
@@ -79,7 +90,27 @@ public class DoubleThreeCheck : ForbiddenDetectorBase
                 // 양쪽이 모두 열려있고 5개 돌을 만들 수 있는지 확인
                 if (isLeftOpen && isRightOpen && CanFormFive(linePattern, start))
                 {
-                    return true; // 실제 열린 3 발견
+                    // 빈 위치 수집 추가
+                    if (isLeftOpen)
+                    {
+                        int leftRow = row + Directions[dir2, 0] * (centerIndex - (start - 1));
+                        int leftCol = col + Directions[dir2, 1] * (centerIndex - (start - 1));
+                        if (IsInBounds(leftRow, leftCol))
+                        {
+                            threeInfo.emptyPositions.Add(new Vector2Int(leftCol, leftRow));
+                        }
+                    }
+                    if (isRightOpen)
+                    {
+                        int rightRow = row + Directions[dir1, 0] * ((start + 3) - centerIndex);
+                        int rightCol = col + Directions[dir1, 1] * ((start + 3) - centerIndex);
+                        if (IsInBounds(rightRow, rightCol))
+                        {
+                            threeInfo.emptyPositions.Add(new Vector2Int(rightCol, rightRow));
+                        }
+                    }
+                
+                    return true;
                 }
             }
         }

@@ -8,7 +8,7 @@ using UnityEngine;
 public class RenjuDoubleThreeDetector : ForbiddenDetectorBase
 {
     // 열린 3 패턴 정보를 저장하는 구조체
-    private struct OpenThreeInfo
+    public struct OpenThreeInfo
     {
         public int direction;       // 방향 인덱스
         public List<Vector2Int> emptyPositions; // 빈 좌표들 (4를 만들 수 있는 위치)
@@ -435,6 +435,11 @@ public class RenjuDoubleThreeDetector : ForbiddenDetectorBase
 
         // 하나의 삼만 쌍사 없이 4로 만들 수 있는 경우
         return canFormFourCount == 1;
+    }
+
+    public bool CheckDoubleThreeChain(Enums.PlayerType[,] board, int row, int col, List<OpenThreeInfo> openThrees)
+    {
+        return CheckExceptionB(board, row, col, openThrees);
     }
 
     /// <summary>
