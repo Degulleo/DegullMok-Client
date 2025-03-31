@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ShopItemController : MonoBehaviour
 {
     ShopItem _shopItem;
-    AdManager _adManager;
 
     public void Init(ShopItem shopItem)
     {
@@ -25,8 +24,7 @@ public class ShopItemController : MonoBehaviour
         if (_shopItem.price == "광고 보기")
         {
             //보상형 전면 광고 로드
-            _adManager = GetComponent<AdManager>();
-            _adManager.ShowRewardedInterstitialAd();
+            AdManager.Instance.ShowRewardedInterstitialAd();
         }
         else
         {

@@ -355,8 +355,7 @@ GameObject:
   - component: {fileID: 4515818582551300206}
   - component: {fileID: 5750108967662755581}
   - component: {fileID: 6941609111617388457}
-  - component: {fileID: -8178793116256795857}
-  - component: {fileID: 1941271810694746857}
+  - component: {fileID: -1212100496265264787}
   m_Layer: 5
   m_Name: ShopScrollItem
   m_TagString: Untagged
@@ -468,7 +467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8178793116256795857}
+      - m_Target: {fileID: -1212100496265264787}
         m_TargetAssemblyTypeName: ShopItemController, Assembly-CSharp
         m_MethodName: OnClickShopItem
         m_Mode: 1
@@ -480,7 +479,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-8178793116256795857
+--- !u!114 &-1212100496265264787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,17 +489,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d28917ad20c19e428cbf98ba5609e69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1941271810694746857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7605012172595602668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 644acbaf5d5791242b26c1b1b0a0ceeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

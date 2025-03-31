@@ -1,19 +1,27 @@
 using UnityEngine;
 using GoogleMobileAds.Api;
 using System;
+using UnityEngine.SceneManagement;
 
-public class AdManager : MonoBehaviour
+public class AdManager : Singleton<AdManager>
 {
     private RewardedInterstitialAd rewardedInterstitialAd;
     private string adUnitId = "ca-app-pub-3940256099942544/5354046379"; // 테스트 광고 ID
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();  
+        
         // Google Mobile Ads 초기화
         MobileAds.Initialize(initStatus => {  });
 
         // 광고 로드
         LoadRewardedInterstitialAd();
+    }
+    
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
     }
 
     // 보상형 전면 광고 로드
