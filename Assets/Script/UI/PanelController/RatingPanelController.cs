@@ -22,11 +22,7 @@ public class RatingPanelController : PanelController
     {
         Hide();
     }
-//TODO: 미사용시 삭제
-    public void OnClickRetryButton()
-    {
-        Hide(() => { });
-    }  
+
     public void Show(Enums.GameResult gameResult)
     {
         base.Show(RatingPanelStart(gameResult));
@@ -43,9 +39,6 @@ public class RatingPanelController : PanelController
         //기존 점수로 애니메이션 보여줄 때까지 기다림
         yield return InitRatingPanel(gameResult);
         
-        //유저 인포 업데이트와 승급 이펙트 띄우기
-        // TODO: 서버 업데이트를 승급패널보다 더 큰 로직에서 처리하는 것이 좋을 것 같습니다.
-        // 리팩토링 시 반영 부탁드립니다.
         switch (gameResult)
         {
             case (Enums.GameResult.Win):
@@ -61,7 +54,6 @@ public class RatingPanelController : PanelController
                         
                         //패널의 포인트들 초기화
                         _ratingPointsController.InitRatingUpPoints();
-                        //TODO: 승급이 10->9 그리고 5->4일 때 패널 바꿔주기
                     }
                 },() => { });
                 break;
@@ -75,7 +67,6 @@ public class RatingPanelController : PanelController
                         GameManager.Instance.panelManager.OpenRatingEffectPanel(-1);
                         
                         _ratingPointsController.InitRatingDownPoints();
-                        //TODO: 강등이 4->5 그리고 9->10일 때 패널 바꿔주기
                     }
                 }, () => { });
                 break;

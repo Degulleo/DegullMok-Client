@@ -78,7 +78,6 @@ public class ReplayController : MonoBehaviour
         //유저 닉네임 설정
         playerANicknameText.text = ReplayManager.Instance.GetPlayerANickname();
         playerBNicknameText.text = ReplayManager.Instance.GetPlayerBNickname();
-        
         //프로필 이미지 설정
         int playerAProgileIndex = ReplayManager.Instance.GetPlayerAProfileIndex();
         int playerBProgileIndex = ReplayManager.Instance.GetPlayerBProfileIndex();
@@ -92,7 +91,6 @@ public class ReplayController : MonoBehaviour
         {
             return;
         }
-
         // 모든 프로필 이미지 비활성화 후, 선택한 이미지만 활성화
         foreach (var img in profileImages)
         {
