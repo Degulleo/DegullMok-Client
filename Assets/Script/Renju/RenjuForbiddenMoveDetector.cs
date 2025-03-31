@@ -6,8 +6,6 @@ using UnityEngine;
 public class RenjuForbiddenMoveDetector : ForbiddenDetectorBase
 {
     // 렌주 룰 금수 감지기 생성
-    /*private RenjuDoubleFourDetector _doubleFourDetactor = new();
-    private RenjuDoubleThreeDetector _doubleThreeDetector = new();*/
     private RenjuOverlineDetector _overlineDetactor = new();
     private DoubleFourCheck _doubleFourDetactor = new(); // DoubleFourCheck
     private DoubleThreeCheck _doubleThreeDetector = new(); // DoubleThreeCheck

@@ -24,12 +24,6 @@ public static class MiniMaxAIController
     // 중복 계산을 방지하기 위한 캐싱 데이터. 위치 기반 (그리드 기반 해시맵)
     private static Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>> 
         _spatialStoneCache = new Dictionary<(int row, int col), Dictionary<(int dirX, int dirY), (int count, int openEnds)>>();
-
-    // AI Player Type 변경 (AI가 선수로 둘 수 있을지도 모르니..)
-    public static void SetAIPlayerType(Enums.PlayerType AIPlayerType)
-    {
-        _AIPlayerType = AIPlayerType;
-    }
     
     // 급수 설정 -> 실수 넣을 때 계산
     public static void SetRating(int level)
@@ -72,7 +66,6 @@ public static class MiniMaxAIController
         }
         
         // 즉시 패배 가능한 자리를 먼저 찾아서 우선적으로 설정
-        // var oppositePlayer = _AIPlayerType == Enums.PlayerType.PlayerB ? Enums.PlayerType.PlayerA : Enums.PlayerType.PlayerB;
         fiveInARowMoves = GetFiveInARowCandidateMoves(board, Enums.PlayerType.PlayerA);
         if (fiveInARowMoves != null & fiveInARowMoves.Count > 0)
         {

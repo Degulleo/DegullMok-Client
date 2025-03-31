@@ -10,12 +10,6 @@ public class OmokAI : Singleton<OmokAI>
     {
         Instance = this;
     }
-    
-    // AI가 Player B가 아닌 경우 해당 메서드로 설정. 기본값은 PlayerB
-    public void SetAIPlayerType(Enums.PlayerType AIPlayerType)
-    {
-        MiniMaxAIController.SetAIPlayerType(AIPlayerType);
-    }
 
     public void SetRating(int level)
     {
@@ -27,8 +21,7 @@ public class OmokAI : Singleton<OmokAI>
         (int row, int col)? bestMove = await Task.Run(() => MiniMaxAIController.GetBestMove(board));
         callback?.Invoke(bestMove);
     }
-
-    // true: Win, false: Lose
+    
     public bool CheckGameWin(Enums.PlayerType player, Enums.PlayerType[,] board, int row, int col)
     {
         bool isWin = MiniMaxAIController.CheckGameWin(player, board, row, col, false);
