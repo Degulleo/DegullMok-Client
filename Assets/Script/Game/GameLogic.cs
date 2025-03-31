@@ -117,8 +117,11 @@ public partial class GameLogic : IDisposable
                 case Constants.MultiplayManagerState.DoSurrender:
                     ExecuteOnMainThread(() =>
                     {
-                        GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
-                        EndGame(Enums.GameResult.Win);
+                        GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 항복했습니다.", () =>
+                        {
+                            GameManager.Instance.panelManager.OpenEffectPanel(Enums.GameResult.Win);
+                            EndGame(Enums.GameResult.Win);
+                        });
                     });
                     break;
                 case Constants.MultiplayManagerState.SurrenderConfirmed:
