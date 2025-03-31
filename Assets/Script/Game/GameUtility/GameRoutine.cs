@@ -90,7 +90,6 @@ public partial class GameLogic
         ReplayManager.Instance.SaveReplayDataResult(result);
         //TODO: 게임 종료 후 행동 구현
         ChangeGameInProgress(false);
-        Debug.Log("GameInProgress 변경 false");
         // 인게임 버튼 표시
         GameManager.Instance.SetButtonsIndicator(false);
     }

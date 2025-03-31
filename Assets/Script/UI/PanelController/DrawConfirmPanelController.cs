@@ -6,6 +6,8 @@ using UnityEngine;
 public class DrawConfirmPanelController : PanelController
 {
     [SerializeField] private TMP_Text messageText;  //자식 텍스트 변수
+    [SerializeField] private GameObject yesButton;
+    [SerializeField] private GameObject noButton;
 
     public delegate void OnConfirmButtonClick();
     private OnConfirmButtonClick onConfirmButtonClick;
@@ -15,6 +17,9 @@ public class DrawConfirmPanelController : PanelController
 
     public void Show(string message, OnConfirmButtonClick onConfirmButtonClick, OnContradictButtonClick onContradictButtonClick)
     {
+        yesButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
+        noButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
+        
         messageText.text = message;
         this.onConfirmButtonClick = onConfirmButtonClick;
         this.onContradictButtonClick = onContradictButtonClick;

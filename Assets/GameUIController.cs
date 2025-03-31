@@ -47,8 +47,7 @@ public class GameUIController : MonoBehaviour
     
     public void OnClickExitButton()
     {
-        // "Main" 씬으로 이동
-        SceneManager.LoadScene("Main");
+        GameManager.Instance.ChangeToMainScene();
     }
 
     public void OnClickSurrenderButton()
@@ -94,12 +93,15 @@ public class GameUIController : MonoBehaviour
 
     public void OnClickRevengeRequestButton()
     {
+        if (!GameManager.Instance.GetGameLogic().OpponentExist)
+        {
+            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.",() => { });
+            return;
+        }
+        
         if (GameManager.Instance.CheckIsSinglePlay())
         {
-            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.",() =>
-            {
-                
-            });
+            GameManager.Instance.panelManager.OpenConfirmPanel("상대방이 방을 나갔습니다.",() => { });
         }
         else
         {
@@ -178,7 +180,6 @@ public class GameUIController : MonoBehaviour
     /// <param name="gameInProgress">게임 진행이면 true</param>
     public void SetButtonsIndicator(bool gameInProgress)
     {
-        Debug.Log("gameInProgress" + gameInProgress);
         inGameMenuButtonsObject.SetActive(gameInProgress);
         confirmButtonObject.SetActive(gameInProgress);
         timerObject.SetActive(!gameInProgress);
