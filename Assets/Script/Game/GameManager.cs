@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         InitPanels();
+        Screen.SetResolution(540, 960, false);
     }
 
     public GameLogic GetGameLogic()
