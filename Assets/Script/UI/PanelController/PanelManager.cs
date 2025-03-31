@@ -66,6 +66,13 @@ public class PanelManager : MonoBehaviour
 
     public GameObject GetEffectPanel(string panelName)
     {
+        // 게임 결과 이펙트 전에 로딩 패널이 있으면 닫기
+        if (loadingPanelObject != null && loadingPanelObject.activeSelf)
+        {
+            CloseLoadingPanel();
+            Destroy(loadingPanelObject);
+        }
+        
         if (effectPanelPrefabs.TryGetValue(panelName, out GameObject prefab))
         {
             return Instantiate(prefab, _canvas.transform);

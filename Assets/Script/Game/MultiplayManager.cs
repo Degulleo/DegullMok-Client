@@ -206,7 +206,7 @@ public class MultiplayManager : IDisposable
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.EndGame, null);
     }
 
-    public void LeaveRoom(string roomId)
+    public void LeaveRoom() // MultiplayManager에 있는 _roomId 사용, 매개변수 필요 X
     {
         if (string.IsNullOrEmpty(_roomId))
         {
@@ -218,7 +218,7 @@ public class MultiplayManager : IDisposable
         _roomId = null; // 방 나가면 roomId 초기화
     }
     
-    public void ForceQuit(string roomId)
+    public void ForceQuit()
     {
         if (string.IsNullOrEmpty(_roomId))
         {
@@ -453,5 +453,10 @@ public class MultiplayManager : IDisposable
             _socket = null;
             _roomId = null;
         }
+    }
+
+    public string GetRoomId()
+    {
+        return _roomId;
     }
 }
