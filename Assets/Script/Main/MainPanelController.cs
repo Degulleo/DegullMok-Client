@@ -89,6 +89,7 @@ public class MainPanelController : MonoBehaviour
         GameManager.Instance.panelManager.RemoveCoinsPanelUI((() => 
         {
             GameManager.Instance.ChangeToGameScene(Enums.GameType.MultiPlay);
+            gameStartButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
         }));
     }
     
