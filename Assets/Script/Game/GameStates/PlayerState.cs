@@ -23,7 +23,6 @@
     {
         gameLogic.FioTimer.StartTimer();
 
-        //TODO: 첫번째 플레이어면 렌주 룰 확인
         #region Renju Turn Set
         // 턴이 변경될 때마다 금수 위치 업데이트
         gameLogic.UpdateForbiddenMoves();
@@ -38,8 +37,6 @@
 
     public override void OnExit(GameLogic gameLogic)
     {
-        //TODO: 렌주 룰 금수자리 초기화
-
         gameLogic.FioTimer.InitTimer();
         gameLogic.StoneController.OnStoneClickedDelegate = null;
     }

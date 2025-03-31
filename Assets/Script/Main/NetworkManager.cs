@@ -9,9 +9,8 @@ public class NetworkManager : Singleton<NetworkManager>
 {
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
     }
-    
+
     public void Signup(SignupData signupData, Action success, Action failure)
     {
         StartCoroutine(SignupCoroutine(signupData, success, failure));
@@ -33,16 +32,17 @@ public class NetworkManager : Singleton<NetworkManager>
             if (www.result == UnityWebRequest.Result.ConnectionError ||
                 www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.Log("Error: " + www.error);
-
                 if (www.responseCode == 409)
                 {
-                    Debug.Log("중복사용자");
                     // 중복 사용자 생성 팝업 표시
                     GameManager.Instance.panelManager.OpenConfirmPanel("이미 존재하는 사용자입니다.", () =>
                     {
                         failure?.Invoke();
                     });
+                }
+                else
+                {
+                    failure?.Invoke();
                 }
             }
             else
@@ -80,7 +80,7 @@ public class NetworkManager : Singleton<NetworkManager>
             if (www.result == UnityWebRequest.Result.ConnectionError ||
                 www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.Log("Error: " + www.error);
+                failure?.Invoke(2);
             }
             else
             {
@@ -97,8 +97,6 @@ public class NetworkManager : Singleton<NetworkManager>
 
                 if (signinResult.result == 0)
                 {
-                    Debug.Log("유저 이메일이 유효하지 않습니다.");
-                    failure?.Invoke(0);
                     // 유저 이메일 유효하지 않음 팝업 표시
                     GameManager.Instance.panelManager.OpenConfirmPanel("이메일이 유효하지 않습니다.", () =>
                     {
@@ -107,8 +105,6 @@ public class NetworkManager : Singleton<NetworkManager>
                 }
                 else if (signinResult.result == 1)
                 {
-                    Debug.Log("패스워드가 유효하지 않습니다.");
-                    failure?.Invoke(1);
                     // 패스워드가 유효하지 않음 팝업 표시
                     GameManager.Instance.panelManager.OpenConfirmPanel("패스워드가 유효하지 않습니다.", () =>
                     {
@@ -117,14 +113,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 }
                 else if (signinResult.result == 2)
                 {
-                    Debug.Log("로그인에 성공하였습니다.");
                     success?.Invoke(signinResult);
-                    
-                    // 성공 팝업 표시
-                    // GameManager.Instance.panelManager.OpenConfirmPanel("로그인에 성공하였습니다.", () =>
-                    // {
-                    //     success?.Invoke();
-                    // });
                 }
             }
         }
@@ -148,10 +137,6 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
-                // GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
-                // {
-                // });
                 failure?.Invoke();
                 yield break; // 더 이상 진행하지 않고 종료
             }
@@ -163,10 +148,6 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 if (www.responseCode == 403)
                 {
-                    Debug.Log("로그인이 필요합니다.");
-                    // GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () =>
-                    // {
-                    // });
                     failure?.Invoke();
                 }
             }
@@ -190,7 +171,6 @@ public class NetworkManager : Singleton<NetworkManager>
         string sid = PlayerPrefs.GetString("sid", "");
         if (string.IsNullOrEmpty(sid))
         {
-            Debug.Log("로그인 정보가 없습니다.");
             GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () =>
             {
                 failure?.Invoke();
@@ -209,7 +189,6 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 if (www.responseCode == 403)
                 {
-                    Debug.Log("로그인이 필요합니다.");
                     GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () => { });
                 }
                 failure?.Invoke();
@@ -254,7 +233,6 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 if (www.responseCode == 403)
                 {
-                    Debug.Log("로그인이 필요합니다.");
                     GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () => { });
                 }
                 
@@ -294,7 +272,6 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
                 GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
                 {
                     failure?.Invoke();
@@ -309,7 +286,6 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 if (www.responseCode == 403)
                 {
-                    Debug.Log("로그인이 필요합니다.");
                     GameManager.Instance.panelManager.OpenConfirmPanel("로그인이 필요합니다.", () => { });
                 }
                 
@@ -354,7 +330,6 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
                 failure?.Invoke();
                 yield break;
             }
@@ -364,7 +339,6 @@ public class NetworkManager : Singleton<NetworkManager>
             if (www.result == UnityWebRequest.Result.ConnectionError ||
                 www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.Log("광고 시청 후 코인 충전 실패: " + www.error);
                 failure?.Invoke();
             }
             else
@@ -374,13 +348,11 @@ public class NetworkManager : Singleton<NetworkManager>
 
                 if (rechargeResult.result == "SUCCESS")
                 {
-                    Debug.Log("광고 시청으로 코인 충전 완료: " + rechargeResult.recharged);
                     UserManager.Instance.SetCoinsInfo();
                     success?.Invoke(rechargeResult.recharged);
                 }
                 else
                 {
-                    Debug.Log("광고 시청 후 충전 실패: " + rechargeResult.result);
                     failure?.Invoke();
                 }
             }
@@ -392,7 +364,7 @@ public class NetworkManager : Singleton<NetworkManager>
     /// 코인 구매 함수
     /// </summary>
     /// <param name="amount">충전양</param>
-    /// <param name="paymentId">결제ID(??)</param>
+    /// <param name="paymentId">결제ID</param>
     /// <param name="paymentType">결제타입(카드,구글페이)</param>
     /// <param name="success"></param>
     /// <param name="failure"></param>
@@ -421,7 +393,6 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
                 failure?.Invoke();
                 yield break;
             }
@@ -430,7 +401,6 @@ public class NetworkManager : Singleton<NetworkManager>
 
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("결제 요청 실패: " + www.error);
                 failure?.Invoke();
             }
             else
@@ -440,8 +410,6 @@ public class NetworkManager : Singleton<NetworkManager>
 
                 if (purchaseResult.result == "SUCCESS")
                 {
-                    Debug.Log($"결제 완료 {purchaseResult.purchased} 코인 충전됨, 현재 코인: {purchaseResult.currentCoins}");
-
                     // 유저 데이터 갱신
                     UserManager.Instance.SetCoinsInfo();
 
@@ -450,7 +418,6 @@ public class NetworkManager : Singleton<NetworkManager>
                 }
                 else
                 {
-                    Debug.LogError("결제 후 코인 충전 실패: " + purchaseResult.result);
                     failure?.Invoke();
                 }
             }
@@ -482,7 +449,6 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
                 failure?.Invoke("LOGIN_REQUIRED");
                 yield break;
             }
@@ -492,8 +458,6 @@ public class NetworkManager : Singleton<NetworkManager>
             if (www.result == UnityWebRequest.Result.ConnectionError || 
                 www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("코인 차감 실패: " + www.error);
-
                 if (www.responseCode == 400)
                 {
                     failure?.Invoke("INSUFFICIENT_COINS");
@@ -510,13 +474,11 @@ public class NetworkManager : Singleton<NetworkManager>
 
                 if (deductResult.result == "SUCCESS")
                 {
-                    Debug.Log("코인 차감 완료: " + deductResult.deducted);
                     UserManager.Instance.SetCoinsInfo();
                     success?.Invoke(deductResult.deducted);
                 }
                 else
                 {
-                    Debug.LogError("코인 차감 실패: " + deductResult.result);
                     failure?.Invoke(deductResult.result);
                 }
             }
@@ -527,6 +489,7 @@ public class NetworkManager : Singleton<NetworkManager>
     {
         StartCoroutine(UpdateScoreCoroutine(isWin, success, failure));
     }
+    
     public IEnumerator UpdateScoreCoroutine(int isWin, Action<ScoreInfoResult> success, Action failure)
     {
         string jsonString = "{\"isWin\": "+isWin.ToString() + "}";
@@ -546,7 +509,6 @@ public class NetworkManager : Singleton<NetworkManager>
             }
             else
             {
-                Debug.LogError("SID 값이 없습니다. 로그인 정보가 없습니다.");
                 GameManager.Instance.panelManager.OpenConfirmPanel("SID 값이 없습니다. 로그인 정보가 없습니다.", () =>
                 {
                     failure?.Invoke();
@@ -559,7 +521,6 @@ public class NetworkManager : Singleton<NetworkManager>
             if (www.result == UnityWebRequest.Result.ConnectionError ||
                 www.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("Error: " + www.error);
                 failure?.Invoke();
             }
             else
@@ -571,5 +532,4 @@ public class NetworkManager : Singleton<NetworkManager>
             }
         }
     }
-    
 }

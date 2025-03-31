@@ -82,7 +82,6 @@ public class GameManager : Singleton<GameManager>
     public void ChangeToMainScene()
     {
         _gameType = Enums.GameType.None;
-        // TODO: 추후 혹시 모를 존재하는 socket 통신 종료 필요 - _gameLogic?.Dispose에서 LeaveRoom 호출하긴 하는데 서버에서 이미 해당 방을 삭제했을 경우 동작 확인 필요
         if (_multiplayManager.GetRoomId() != null) // null 에러 방지
         {
             _gameLogic?.Dispose();

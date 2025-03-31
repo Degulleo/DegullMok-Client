@@ -20,12 +20,7 @@ public abstract class EffectController : MonoBehaviour, IPointerClickHandler
     
     public delegate void OnEffectPanelEnded();
     protected OnEffectPanelEnded onEffectPanelEnded;
-
-    // protected virtual void Start()
-    // {
-    //     ShowEffect();
-    // }
-
+    
     // 효과를 실행하는 메서드 (자식이 구현해야 함)
     public abstract void ShowEffect([CanBeNull] OnEffectPanelEnded onEffectPanelEnded);
 
