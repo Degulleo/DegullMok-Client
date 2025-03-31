@@ -195,6 +195,7 @@ MonoBehaviour:
   panelRectTransform: {fileID: 1819504122199746525}
   scrollItemPrefab: {fileID: 7605012172595602668, guid: bef1de10a3cc5834a95a8689a2de2bb7, type: 3}
   content: {fileID: 7514948643227889924}
+  closeButton: {fileID: 3668037476601755215}
 --- !u!1 &3668037476601755215
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +208,7 @@ GameObject:
   - component: {fileID: 8575946642649479721}
   - component: {fileID: 8444724274473405378}
   - component: {fileID: 2765407718264440700}
+  - component: {fileID: 8125070878863374859}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -327,6 +329,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8125070878863374859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3668037476601755215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4330206548604932b038a7007dacf94b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableOneTimeClick: 1
 --- !u!1 &6627411411516242057
 GameObject:
   m_ObjectHideFlags: 0

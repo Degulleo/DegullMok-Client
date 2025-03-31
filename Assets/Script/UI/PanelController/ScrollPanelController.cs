@@ -11,6 +11,13 @@ public class ScrollPanelController : PanelController
         
     [SerializeField]protected GameObject scrollItemPrefab;
     [SerializeField]protected GameObject content;
+    [SerializeField] private GameObject closeButton;
+
+    public void Show()
+    {
+        closeButton.GetComponent<SingleInteractableButtonHandler>().ResetButton();
+        base.Show();
+    }
     
     public void OnClickCloseButton()
     {

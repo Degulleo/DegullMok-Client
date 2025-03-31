@@ -105,6 +105,7 @@ MonoBehaviour:
   panelRectTransform: {fileID: 3566405136616423668}
   drawRegisterButton: {fileID: 4952176830370869590}
   settingsButton: {fileID: 2502852987797543892}
+  closeButton: {fileID: 3579054745597920021}
 --- !u!1 &3579054745597920021
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +118,7 @@ GameObject:
   - component: {fileID: 7430679982596743438}
   - component: {fileID: 7365647355793938106}
   - component: {fileID: 6468503842976786270}
+  - component: {fileID: 5024916025478984467}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -237,6 +239,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5024916025478984467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579054745597920021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4330206548604932b038a7007dacf94b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableOneTimeClick: 1
 --- !u!1 &5179388986428920634
 GameObject:
   m_ObjectHideFlags: 0
