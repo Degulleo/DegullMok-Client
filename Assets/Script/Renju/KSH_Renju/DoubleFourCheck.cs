@@ -44,10 +44,7 @@ public class DoubleFourCheck : ForbiddenDetectorBase
             // 이 방향에서 실제 열린 4가 있는지 확인
             if (HasRealOpenFour(board, row, col, dir1, dir2))
             {
-                if (HasRealOpenFour(board, row, col, dir1, dir2))
-                {
-                    openFourDirections.Add(i);
-                }
+                openFourDirections.Add(i);
             }
         }
 
