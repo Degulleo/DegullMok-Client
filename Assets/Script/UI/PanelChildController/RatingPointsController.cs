@@ -167,7 +167,6 @@ public class RatingPointsController : MonoBehaviour
         scoreCountText.text = $"더 이상 강등 될 수 없습니다.\n누적 {loseCount*-1} 패 하셨습니다.";
     }
     
-    //승급, 강등시 패널을 초기화해서 띄워주는 함수 추가
     public void InitRatingUpPoints()
     {
         StartCoroutine(RatingUpPoints());
