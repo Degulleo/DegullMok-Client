@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ReplayPanelItemsController : ScrollPanelController
 {
-        
     private string _myNickname;
     private UserManager _userManager;
     private void Awake()
