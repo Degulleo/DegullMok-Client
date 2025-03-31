@@ -208,12 +208,12 @@ public class ReplayManager : Singleton<ReplayManager>
             _gameLogic.SetNewBoardValue(Enums.PlayerType.PlayerB, nextMove.columnIndex, nextMove.rowIndex);
         }
         // 돌이 놓인 내역을 ReplayManager에도 반영
-        ReplayManager.Instance.PushMove(nextMove);
+        PushMove(nextMove);
     }
 
     public void ReplayUndo(Move targetMove)
     {
-        ReplayManager.Instance.PushUndoMove(targetMove);
+        PushUndoMove(targetMove);
         _gameLogic.RemoveStone(targetMove.columnIndex, targetMove.rowIndex);
         if (_placedStoneStack.Count > 0)
         {

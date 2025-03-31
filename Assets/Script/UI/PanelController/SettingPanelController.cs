@@ -11,11 +11,11 @@ public class SettingsPanelController : PanelController
     
     void Start()
     {
-        // 스위치 컨트롤러 상태 변경 이벤트 연결
+        
         sfxSwitch.GetComponent<SwitchController>().OnSwitchChanged += OnSFXToggleValueChanged;
         bgmSwitch.GetComponent<SwitchController>().OnSwitchChanged += OnBGMToggleValueChanged;
         
-        // 현재 저장된 설정 값을 UI에 반영
+        
         sfxSwitch.GetComponent<SwitchController>().SetSwitch(UserManager.IsPlaySFX);
         bgmSwitch.GetComponent<SwitchController>().SetSwitch(UserManager.IsPlayBGM);
     }
@@ -26,34 +26,32 @@ public class SettingsPanelController : PanelController
         base.Show();
     }
 
-    // SFX On/Off 시 호출되는 함수
+    
     public void OnSFXToggleValueChanged(bool value)
     {
-        UserManager.IsPlaySFX = value; // UserManager에 값 저장
+        UserManager.IsPlaySFX = value; 
     }
 
-    // BGM On/Off 시 호출되는 함수
+   
     public void OnBGMToggleValueChanged(bool value)
     {
-        UserManager.IsPlayBGM = value; // UserManager에 값 저장
+        UserManager.IsPlayBGM = value;
 
-        // BGM을 끄는 경우
+        
         if (!value)
         {
-           AudioManager.Instance.StopBGM();  // BGM을 끄기
+           AudioManager.Instance.StopBGM(); 
         }
-        // BGM을 켜는 경우
         else
         {
-            // 이미 BGM이 재생 중인 경우 새로 시작하지 않도록 체크
             if (!AudioManager.Instance.bgmAudioSource.isPlaying)
             {
-                AudioManager.Instance.PlayBGM();  // BGM을 켜기
+                AudioManager.Instance.PlayBGM(); 
             }
         }
     }
 
-    // X 버튼 클릭시 호출되는 함수
+    
     public void OnClickCloseButton()
     {
         Hide();
