@@ -108,10 +108,13 @@ public class SignupPanelController : MonoBehaviour
                 Destroy(gameObject);
             }, () =>
             {
-                emailInputField.text = "";
-                nicknameInputField.text = "";
-                passwordInputField.text = "";
-                confirmPasswordInputField.text = "";
+                GameManager.Instance.panelManager.OpenConfirmPanel("회원가입에 실패했습니다.", () =>
+                {
+                    emailInputField.text = "";
+                    nicknameInputField.text = "";
+                    passwordInputField.text = "";
+                    confirmPasswordInputField.text = "";
+                });
             });
         }
         else
