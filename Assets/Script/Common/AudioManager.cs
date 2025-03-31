@@ -8,10 +8,10 @@ public class AudioManager : Singleton<AudioManager>
     private AudioClip mainBgm;
     private AudioClip gameBgm;
 
-    [HideInInspector] public AudioSource bgmAudioSource;  // BGM을 위한 AudioSource
-    private AudioSource sfxAudioSource;  // SFX를 위한 AudioSource
+    [HideInInspector] public AudioSource bgmAudioSource;  
+    private AudioSource sfxAudioSource;  
 
-    public float sfxVolume = 1.0f;  // SFX 볼륨 (기본값 1)
+    public float sfxVolume = 1.0f;  
 
     [HideInInspector]public bool isPlayBGM;
     [HideInInspector]public bool isPlaySFX;
@@ -21,21 +21,19 @@ public class AudioManager : Singleton<AudioManager>
     
     protected override void Awake()
     {
-        base.Awake();  // 부모 클래스의 Awake 호출
+        base.Awake();  
 
-        // BGM과 SFX를 위한 별도의 AudioSource 생성
+        
         bgmAudioSource = gameObject.AddComponent<AudioSource>();
         sfxAudioSource = gameObject.AddComponent<AudioSource>();
         
-        //Sounds폴더 내의 모든 오디오클립 로드
+        
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");
         
         foreach (AudioClip clip in clips)
         {
             audioClips[clip.name] = clip;
         }
-        
-        Debug.Log($"총 {audioClips.Count}개의 오디오클립이 로드됨.");
         
     }
     
@@ -45,14 +43,10 @@ public class AudioManager : Singleton<AudioManager>
         {
             return clip;
         }
-        else
-        {
-            Debug.LogError($"패널 '{clipName}'을 찾을 수 없습니다.");
-        }
         return null;
     }
 
-    // 시작 시 BGM을 자동으로 재생
+    
     private void Start()
     {
         isPlayBGM = UserManager.IsPlayBGM;
@@ -61,7 +55,7 @@ public class AudioManager : Singleton<AudioManager>
         PlayBGM();
     }
 
-    // 메인 BGM을 재생하는 함수
+    
     public void PlayMainBGM()
     {
         mainBgm = GetAudioClip("MainBGM");
@@ -69,9 +63,9 @@ public class AudioManager : Singleton<AudioManager>
         if (bgmAudioSource != null && mainBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = mainBgm;
-            bgmAudioSource.loop = true;  // BGM을 반복 재생
-            bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
-            bgmAudioSource.Play();  // BGM 재생
+            bgmAudioSource.loop = true;  
+            bgmAudioSource.volume = 0.1f;  
+            bgmAudioSource.Play();  
         }
     }
     
@@ -82,9 +76,9 @@ public class AudioManager : Singleton<AudioManager>
         if (bgmAudioSource != null && gameBgm != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.clip = gameBgm;
-            bgmAudioSource.loop = true;  // BGM을 반복 재생
-            bgmAudioSource.volume = 0.1f;  // BGM 볼륨 설정
-            bgmAudioSource.Play();  // 게임 BGM 재생
+            bgmAudioSource.loop = true;  
+            bgmAudioSource.volume = 0.1f;  
+            bgmAudioSource.Play();  
         }
     }
 
@@ -111,11 +105,11 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
-            bgmAudioSource.Stop();  // 게임용 BGM을 멈춤
+            bgmAudioSource.Stop();  
         }
     }
     
-    // 씬이 로드될 때마다 호출되는 OnSceneLoaded 메서드
+    
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayBGM();

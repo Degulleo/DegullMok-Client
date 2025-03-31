@@ -25,7 +25,7 @@ public class ScoreCellController : MonoBehaviour
       
         if (profileImage != null)
         {
-            profileImage.sprite = profileSprites[item.imageIndex];  // 프로필 이미지 (Sprite 할당)
+            profileImage.sprite = profileSprites[item.imageIndex]; 
         }
     }
 }

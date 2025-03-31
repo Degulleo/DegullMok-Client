@@ -7,5 +7,5 @@ using UnityEngine.Serialization;
 [Serializable]
 public class ScoreListWrapper
 {
-    public List<ScoreInfo> leaderboardDatas;  // 여러 개의 ScoreInfo를 담을 리스트
+    public List<ScoreInfo> leaderboardDatas;
 }
