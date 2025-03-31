@@ -17,10 +17,6 @@ public class CoinsPanelController : MonoBehaviour
     private RectTransform _coinsRect;
     private CanvasGroup _canvasGroup;   //부모 캔버스 그룹
     
-    // 1. 코인 추가 연출
-    // 2. 코인 감소 연출
-    // 3. 코인 부족 연출
-
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -130,8 +126,6 @@ public class CoinsPanelController : MonoBehaviour
     /// <param name="action"></param>
     public void RemoveCoins(Action action)
     {
-        // --------------------------------------------------------------------
-        // TODO : 임시 게임 매니저 혹은 별도 관리자가 관리해야함.
         if (_coinsCount < 100)
         {
             EmptyCoins();

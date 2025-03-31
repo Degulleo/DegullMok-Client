@@ -427,8 +427,6 @@ public class RenjuDoubleThreeDetector : ForbiddenDetectorBase
                 if (!formsDoubleFour)
                 {
                     canFormFourCount++;
-                    // 디버깅
-                    // Debug.Log($"Can form four at ({emptyPos.x}, {emptyPos.y}) without double four");
                 }
             }
         }

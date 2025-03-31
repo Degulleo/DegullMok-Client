@@ -78,7 +78,6 @@ namespace GoogleMobileAds.Editor
             }
         }
 
-        // TODO(@vkini): read from default Unity baseProjectTemplate.gradle file
         private static string DefaultAndroidGradlePlugin()
         {
 #if UNITY_2022_3_OR_NEWER

@@ -129,7 +129,6 @@ public class MultiplayManager : IDisposable
         // 연결될 때까지 대기
         while (!_socket.Connected)
         {
-            Debug.Log("소켓 연결 대기 중...");
             await Task.Delay(100); // 0.1초 대기 후 다시 확인
         }
         _socket.Emit("registerPlayer", new { nickname, rating, imageIndex });
@@ -145,7 +144,6 @@ public class MultiplayManager : IDisposable
     private void JoinRoom(SocketIOResponse response)
     {
         var data = response.GetValue<JoinRoomData>();
-        Debug.Log($"룸에 참여: 룸 ID - {data.roomId}, 상대방 등급 - {data.opponentRating}, 상대방 이름 - {data.opponentNickname}, 흑/백 여부 - {data.isBlack}, 상대방 이미지 인덱스 - {data.opponentImageIndex}");
         _roomId = data.roomId;
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.JoinRoom, data);
     }
@@ -153,14 +151,12 @@ public class MultiplayManager : IDisposable
     private void SwitchAI(SocketIOResponse response)
     {
         var data = response.GetValue<MessageData>();
-        Debug.Log("switchAI: " + data.message);
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.SwitchAI, data.message);
     }
     
     private void StartGame(SocketIOResponse response)
     {
         var data = response.GetValue<StartGameData>();
-        Debug.Log($"게임 시작: 상대방 ID - {data.opponentId}, 상대방 등급 - {data.opponentRating}, 상대방 이름 - {data.opponentNickname}, 흑/백 여부 - {data.isBlack}, 상대방 이미지 인덱스 - {data.opponentImageIndex}");
     
         // 필요한 데이터 사용
         _onMultiplayStateChanged?.Invoke(Constants.MultiplayManagerState.StartGame, data);
@@ -174,7 +170,6 @@ public class MultiplayManager : IDisposable
         if (data != null && data.position != null)
         {
             Vector2Int opponentPosition = new Vector2Int(data.position.x, data.position.y);
-            Debug.Log($"상대방의 위치: {opponentPosition}");
             OnOpponentMove?.Invoke(new MoveData { position = data.position });
         }
         else
@@ -187,7 +182,6 @@ public class MultiplayManager : IDisposable
     // 플레이어의 마커 위치를 서버로 전달하기 위한 메서드
     public void SendPlayerMove(string roomId, Vector2Int position)
     {
-        Debug.Log($"내 위치: {position}");
         _socket.Emit("doPlayer", new
         {
             roomId,
@@ -367,7 +361,7 @@ public class MultiplayManager : IDisposable
     {
         if (string.IsNullOrEmpty(_roomId))
         {
-            Debug.LogError("requestDraw 호출 실패: _roomId가 설정되지 않음");
+            Debug.LogError("RequestRevengeRequest 호출 실패: _roomId가 설정되지 않음");
             return;
         }
         _socket.Emit("requestRevenge",new { roomId = _roomId });

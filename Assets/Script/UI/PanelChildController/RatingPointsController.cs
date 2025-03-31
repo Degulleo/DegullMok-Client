@@ -50,7 +50,6 @@ public class RatingPointsController : MonoBehaviour
     }
     public void InitRatingPoints(int oldScore,Enums.GameResult gameResult, int defaultRequiredScore)
     {
-        // TODO: [인덱스계산 ㅇㅖ외처리 ] 계산한 값 절대값이 defaultRequiredScore보다 큰 경우 return. 근데 이런 값이 나온다는게 이미 계산 오류가 어디서 생긴 것이겠죠..?
         _oldScore = oldScore;
         _oldRequiredScore = defaultRequiredScore;
         if (_oldScore == 0)

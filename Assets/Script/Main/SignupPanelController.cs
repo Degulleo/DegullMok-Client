@@ -147,7 +147,6 @@ public class SignupPanelController : MonoBehaviour
 
             // 이메일 유효하지 않음
             GameManager.Instance.panelManager.OpenConfirmPanel("올바른 이메일 주소를 입력하세요.", () => {});
-            Debug.Log("이메일 유효성 X");
         }
 
     }
@@ -186,7 +185,6 @@ public class SignupPanelController : MonoBehaviour
         {
             // 비밀번호 글자 수 제한
             GameManager.Instance.panelManager.OpenConfirmPanel("비밀번호는 6자 이상 18자 이하로 입력해주세요.", () => {});
-            Debug.Log("비밀번호 글자 수 제한");
         }
     }
 }

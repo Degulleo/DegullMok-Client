@@ -1,7 +1,7 @@
 ﻿public class Constants
 {
-    public const string ServerURL = "http://localhost:3000";
-    public const string GameServerURL = "ws://localhost:3000";
+    public const string ServerURL = "https://superb-hally-fiore-3b22d78a.koyeb.app";
+    public const string GameServerURL = "ws://superb-hally-fiore-3b22d78a.koyeb.app";
     public const int BoardSize = 15;
     public const int ReplayMaxRecordSize = 10;
     public const int WIN_COUNT = 5;
